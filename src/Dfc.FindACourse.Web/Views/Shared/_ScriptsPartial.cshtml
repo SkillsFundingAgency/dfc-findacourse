@@ -93,7 +93,7 @@
 
     }
 
-    $("#course").keyup(function (e) {
+    $("#Course").keyup(function (e) {
         //remove old items
         $("#course-list li").each(function (e) {
             $(this).remove();
@@ -109,24 +109,30 @@
         }
     });
 
-    $("#course-list").click(function (e) {
-        $("#course").val($("li:hover").attr("data-value"));
+    $("#course-list").mouseleave(function (e) {
+        console.log(e);
         $(this).hide();
-        $("#course").focus();
+        $("#Course").focus();
+    });
+
+    $("#course-list").click(function (e) {
+        $("#Course").val($("li:hover").attr("data-value"));
+        $(this).hide();
+        $("#Course").focus();
     });
 
     $(document).ready(function (e) {
 
         $("#header-search").submit(function (e) {
             e.preventDefault();
-            $(location).attr("href", "/sprint4/course-search?course=" + $("#course").val() + "&postcode=" + $("#FindSchoolByTown").val());
+            $(location).attr("href", "/sprint4/course-search?course=" + $("#Course").val() + "&postcode=" + $("#FindSchoolByTown").val());
         });
 
         $(window).on("load resize", function (e) {
-            $("#course-list").width($("#course").width() + 50);
+            $("#course-list").width($("#Course").width() + 50);
         });
 
-        $("#course").click(function (e) {
+        $("#Course").click(function (e) {
             $("#course-list").hide();
         });
 

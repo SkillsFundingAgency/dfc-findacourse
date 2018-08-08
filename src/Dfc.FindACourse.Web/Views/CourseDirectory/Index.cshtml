@@ -388,7 +388,7 @@
                     </div>
 
                 </div>
-                <form action="/sprint4/course-search" class="site-search ui-front" id="header-search" method="post" name="frm">
+                <form action="/sprint4/course-search" class="site-search ui-front" id="header-search" method="get" name="frm">
                     <div class="header-search-content">
 
                         <div class="search-input-wrapper">
@@ -412,7 +412,7 @@
 
                                     <div class="select-editable">
                                         <ul id="course-list"></ul>
-                                        <input class="govuk-input" type="text" name="course" id="course" value="" placeholder="Enter a course name" />
+                                        <input class="govuk-input" type="text" name="Course" id="Course" value="" placeholder="Enter a course name" />
                                     </div>
 
                                 </div>
@@ -424,7 +424,7 @@
                     <p class="lede">Qualification level (Optional)</p>
                     <a target="_blank" style="position: relative; top:-16px; color: #fff;font-size: 16px;" href="https://www.gov.uk/what-different-qualification-levels-mean/list-of-qualification-levels"> What qualification levels mean</a>
                     <div class="govuk-form-group govuk-grid-column-one-half" style="padding-left: 0; float: none">
-                        <select class="govuk-select" id="radius" name="radius">
+                        <select class="govuk-select" id="QualificationLevel" name="QualificationLevel">
 
 
                             <option value="0" selected="">Select level</option>
@@ -446,10 +446,10 @@
                     <p style="color: white; font-weight: normal; font-size: 16px;padding: 0!important;margin-bottom:0;position: relative; top:-16px;">Enter a postcode or town. For example, S1 1WB or Sheffield</p>
                     <div class="search-container">
                         <div class="search-text">
-                            <input id="FindSchoolByTown" class="form-control mbl num town" name="keywords" placeholder="Postcode or town" autocomplete="off" data-suggestion-url="/suggest-town/" type="text">
+                            <input id="FindSchoolByTown" name="FindSchoolByTown" class="form-control mbl num town" placeholder="Postcode or town" autocomplete="off" data-suggestion-url="/suggest-town/" type="text">
                             <div class="search-divider" style="float:left;"></div>
                             <div class="radius-container" style="float:left;">
-                                <select id="radius" class="govuk-select radius" name="radius" style="background: white;color: black;">
+                                <select id="LocationRadius" name="LocationRadius" class="govuk-select radius" style="background: white;color: black;">
                                     <option value="1">1 mile</option>
                                     <option value="3">3 miles</option>
                                     <option value="5">5 miles</option>
