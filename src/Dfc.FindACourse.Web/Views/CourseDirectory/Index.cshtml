@@ -388,7 +388,7 @@
                     </div>
 
                 </div>
-                <form action="/sprint4/course-search" class="site-search ui-front" id="header-search" method="get" name="frm">
+                <form asp-controller="CourseDirectory" asp-action="CourseSearchResult" class="site-search ui-front" id="header-search" method="get" name="frm">
                     <div class="header-search-content">
 
                         <div class="search-input-wrapper">
@@ -446,7 +446,7 @@
                     <p style="color: white; font-weight: normal; font-size: 16px;padding: 0!important;margin-bottom:0;position: relative; top:-16px;">Enter a postcode or town. For example, S1 1WB or Sheffield</p>
                     <div class="search-container">
                         <div class="search-text">
-                            <input id="FindSchoolByTown" name="FindSchoolByTown" class="form-control mbl num town" placeholder="Postcode or town" autocomplete="off" data-suggestion-url="/suggest-town/" type="text">
+                            <input id="FindSchoolByTown" name="LocationPostCodeTown" class="form-control mbl num town" placeholder="Postcode or town" autocomplete="off" data-suggestion-url="/suggest-town/" type="text">
                             <div class="search-divider" style="float:left;"></div>
                             <div class="radius-container" style="float:left;">
                                 <select id="LocationRadius" name="LocationRadius" class="govuk-select radius" style="background: white;color: black;">

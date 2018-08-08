@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Dfc.FindACourse.Web.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -11,6 +12,12 @@ namespace Dfc.FindACourse.Web.Controllers
     {
         // GET: CourseDirectory
         public ActionResult Index()
+        {
+            return View();
+        }
+
+        // GET: CourseDirectory
+        public ActionResult CourseSearchResult([FromQuery] CourseSearchResultRequestModel requestModel)
         {
             return View();
         }
