@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Xml;
+using System.Xml.Serialization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -89,5 +91,57 @@ namespace Dfc.FindACourse.Web.Controllers
                 return View();
             }
         }
+
+        public JsonResult AutoAuggest(string parm)
+        {
+            var result = AutoSuggestCourseName(parm.ToUpper()).GroupBy(x => x.StartsWith(parm.ToUpper()))
+                 .OrderByDescending(x => x.Key) //order groups
+                 .SelectMany(g => g.OrderBy(x => x)) //order items in each group
+                 .ToList();
+            JsonResult autoData = new JsonResult(result);
+
+            return autoData;
+        }
+        /// <summary>
+        /// Load the XML Document from a relative path and cache the serialized model for searching
+        /// </summary>
+        /// <param name="search"></param>
+        /// <returns></returns>
+        public IEnumerable<string> AutoSuggestCourseName(string search)
+        {
+            XmlDocument searchTerms = new XmlDocument();
+            searchTerms.Load("Data\\tsenu.xml");
+
+            bool found = false;
+
+            foreach(XmlNode nData in searchTerms.GetElementsByTagName("expansion"))
+            {
+
+                XmlNodeList oNode = nData.SelectNodes(".//sub"); 
+
+                found = false;
+                foreach (XmlNode nChilddata in oNode)
+                    //if the child node has the search text then break out and add all elements of the expansion to the results
+                    if (nChilddata.InnerText.Contains(search))
+                        found = true;
+
+                if (found)
+                    foreach (XmlNode nChilddata in oNode)
+                        yield return nChilddata.InnerText;
+            }
+        }
+
     }
+    [Serializable, XmlRoot("thesaurus")]
+    public class Thesaurus
+    {
+        [XmlArray("Expansion")]
+        public List<string> Expansion { get; set; }
+    }
+    public class Expansion
+    {
+        [XmlArray("Sub")]
+        public List<string> Sub { get; set; }
+    }
+
 }
