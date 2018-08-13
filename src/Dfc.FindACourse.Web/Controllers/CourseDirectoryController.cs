@@ -7,11 +7,19 @@ using System.Xml;
 using System.Xml.Serialization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Dfc.FindACourse.Services.CourseDirectory;
 
 namespace Dfc.FindACourse.Web.Controllers
 {
     public class CourseDirectoryController : Controller
     {
+        private readonly ICourseDirectoryService _courseDirectoryService;
+
+        public CourseDirectoryController(ICourseDirectoryService courseDirectoryService)
+        {
+            _courseDirectoryService = courseDirectoryService;
+        }
+
         // GET: CourseDirectory
         public ActionResult Index()
         {
@@ -19,8 +27,11 @@ namespace Dfc.FindACourse.Web.Controllers
         }
 
         // GET: CourseDirectory
-        public ActionResult CourseSearchResult([FromQuery] CourseSearchResultRequestModel requestModel)
+        public ActionResult CourseSearchResult([FromQuery] CourseSearchRequestModel requestModel)
         {
+            var criteria = new CourseSearchCriteria(requestModel.Course);
+            var result = _courseDirectoryService.CourseSearch(criteria, new PagingOptions(SortBy.Relevance, 1, 10));
+
             return View();
         }
 

@@ -13,4 +13,8 @@
     <Folder Include="Data\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\Dfc.FindACourse.Services\Dfc.FindACourse.Services.csproj" />
+  </ItemGroup>
+
 </Project>

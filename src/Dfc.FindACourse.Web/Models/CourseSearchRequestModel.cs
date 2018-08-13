@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace Dfc.FindACourse.Web.Models
 {
-    public class CourseSearchResultRequestModel
+    public class CourseSearchRequestModel
     {
-        public string CourseName { get; set; }
+        public string Course { get; set; }
         public string QualificationLevel { get; set; }
         public string LocationPostCodeTown { get; set; }
         public int LocationRadius { get; set; }
