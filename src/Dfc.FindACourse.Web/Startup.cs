@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Dfc.FindACourse.Services.CourseDirectory;
-using Dfc.FindACourse.Services.CourseDirectory.Interfaces;
+using Dfc.FindACourse.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;

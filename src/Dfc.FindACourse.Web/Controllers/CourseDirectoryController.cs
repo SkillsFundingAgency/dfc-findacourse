@@ -8,7 +8,10 @@ using System.Xml.Serialization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Dfc.FindACourse.Services.CourseDirectory;
-using Dfc.FindACourse.Services.CourseDirectory.Interfaces;
+using Dfc.FindACourse.Services.Interfaces;
+using Dfc.FindACourse.Common.Models;
+using Dfc.FindACourse.Common;
+using Dfc.FindACourse.Web.RequestModels;
 
 namespace Dfc.FindACourse.Web.Controllers
 {
@@ -28,10 +31,18 @@ namespace Dfc.FindACourse.Web.Controllers
         }
 
         // GET: CourseDirectory
-        public ActionResult CourseSearchResult([FromQuery] CourseSearchRequestModel requestModel)
+        public ActionResult CourseSearch([FromQuery] CourseSearchRequestModel requestModel)
         {
-            var criteria = new CourseSearchCriteria(requestModel.Course);
-            var result = _courseDirectoryService.CourseSearch(criteria, new PagingOptions(SortBy.Relevance, 1));
+            if (ModelState.IsValid)
+            {
+                var criteria = new CourseSearchCriteria(requestModel.SubjectKeyword)
+                {
+                    
+                };
+
+                var result = _courseDirectoryService.CourseSearch(criteria, new PagingOptions(SortBy.Relevance, 1));
+            }
+
 
             return View();
         }

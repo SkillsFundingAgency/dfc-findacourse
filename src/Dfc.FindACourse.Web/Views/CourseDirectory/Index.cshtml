@@ -1,4 +1,6 @@
-﻿
+﻿@using Dfc.FindACourse.Common;
+@model Dfc.FindACourse.Web.ViewModels.CourseDirectory.IndexViewModel;
+
 @{
     ViewData["Title"] = "Index";
 }
@@ -388,7 +390,7 @@
                     </div>
 
                 </div>
-                <form asp-controller="CourseDirectory" asp-action="CourseSearchResult" class="site-search ui-front" id="header-search" method="get" name="frm">
+                <form asp-controller="CourseDirectory" asp-action="CourseSearch" class="site-search ui-front" id="header-search" method="get" name="frm">
                     <div class="header-search-content">
 
                         <div class="search-input-wrapper">
@@ -412,7 +414,7 @@
 
                                     <div class="select-editable">
                                         <ul id="course-list"></ul>
-                                        <input class="govuk-input" type="text" name="Course" id="Course" value="" placeholder="Enter a course name" />
+                                        <input class="govuk-input" type="text" name="SubjectKeyword" id="Course" value="" placeholder="Enter a course name" />
                                     </div>
 
                                 </div>
@@ -424,11 +426,13 @@
                     <p class="lede">Qualification level (Optional)</p>
                     <a target="_blank" style="position: relative; top:-16px; color: #fff;font-size: 16px;" href="https://www.gov.uk/what-different-qualification-levels-mean/list-of-qualification-levels"> What qualification levels mean</a>
                     <div class="govuk-form-group govuk-grid-column-one-half" style="padding-left: 0; float: none">
+                        <select asp-items="Html.GetEnumSelectList<QualificationLevel>()"></select>
+                        
                         <select class="govuk-select" id="QualificationLevel" name="QualificationLevel">
 
 
                             <option value="0" selected="">Select level</option>
-                            <!-- <option value="" >The level you want to study at.</option>-->
+                             <option value="" >The level you want to study at.</option>
                             <option value="LV1">Entry level - Skills for Life</option>
                             <option value="LV1">Level 1 - First certificate </option>
                             <option value="LV2">Level 2 - GCSE/O level</option>
@@ -449,6 +453,8 @@
                             <input id="FindSchoolByTown" name="LocationPostCodeTown" class="form-control mbl num town" placeholder="Postcode or town" autocomplete="off" data-suggestion-url="/suggest-town/" type="text">
                             <div class="search-divider" style="float:left;"></div>
                             <div class="radius-container" style="float:left;">
+                                <select asp-items="Html.GetEnumSelectList<RadiusDistance>()"></select>
+
                                 <select id="LocationRadius" name="LocationRadius" class="govuk-select radius" style="background: white;color: black;">
                                     <option value="1">1 mile</option>
                                     <option value="3">3 miles</option>

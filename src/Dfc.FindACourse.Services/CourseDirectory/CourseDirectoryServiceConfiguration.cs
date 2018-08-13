@@ -1,4 +1,4 @@
-﻿using Dfc.FindACourse.Services.CourseDirectory.Interfaces;
+﻿using Dfc.FindACourse.Services.Interfaces;
 using System;
 
 namespace Dfc.FindACourse.Services.CourseDirectory

@@ -1,4 +1,7 @@
-﻿using Dfc.FindACourse.Services.CourseDirectory.Interfaces;
+﻿using Dfc.FindACourse.Common;
+using Dfc.FindACourse.Common.Interfaces;
+using Dfc.FindACourse.Common.Models;
+using Dfc.FindACourse.Services.Interfaces;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
