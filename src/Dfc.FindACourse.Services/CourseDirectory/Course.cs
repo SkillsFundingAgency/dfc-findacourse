@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dfc.FindACourse.Services.CourseDirectory.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -15,7 +16,7 @@ namespace Dfc.FindACourse.Services.CourseDirectory
             string title,
             QualificationLevel qualificationLevel)
         {
-            if (id < 1)
+            if (id <= 0)
                 throw new ArgumentOutOfRangeException(nameof(id));
             if (string.IsNullOrWhiteSpace(title))
                 throw new ArgumentException($"{nameof(title)} cannot be null, empty or only whitespace.");

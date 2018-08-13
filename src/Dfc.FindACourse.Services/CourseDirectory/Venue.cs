@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dfc.FindACourse.Services.CourseDirectory.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Text;
 

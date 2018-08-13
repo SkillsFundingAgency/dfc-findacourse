@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Dfc.FindACourse.Services.CourseDirectory
+﻿namespace Dfc.FindACourse.Services.CourseDirectory.Interfaces
 {
     public interface ICourse
     {

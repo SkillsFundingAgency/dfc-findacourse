@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
-namespace Dfc.FindACourse.Services.CourseDirectory
+namespace Dfc.FindACourse.Services.CourseDirectory.Interfaces
 {
     public interface ICourseSearchResult
     {

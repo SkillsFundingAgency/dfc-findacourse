@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Dfc.FindACourse.Services.CourseDirectory
+﻿namespace Dfc.FindACourse.Services.CourseDirectory.Interfaces
 {
     public interface ICourseSearchCriteria
     {
@@ -10,7 +6,7 @@ namespace Dfc.FindACourse.Services.CourseDirectory
         string TownOrPostcode { get; set; }
         int? Distance { get; set; }
         QualificationLevel[] QualificationLevels { get; set; }
-        StudyMode[] StudyModes { get; set; } 
+        StudyMode[] StudyModes { get; set; }
         AttendanceMode[] AttendanceModes { get; set; }
         AttendancePattern[] AttendancePatterns { get; set; }
         bool? IsDfe1619Funded { get; set; }

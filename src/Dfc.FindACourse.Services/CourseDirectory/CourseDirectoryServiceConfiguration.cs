@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dfc.FindACourse.Services.CourseDirectory.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -7,13 +8,17 @@ namespace Dfc.FindACourse.Services.CourseDirectory
     public class CourseDirectoryServiceConfiguration : ICourseDirectoryServiceConfiguration
     {
         public string ApiKey { get; }
+        public int PerPage { get; }
 
-        public CourseDirectoryServiceConfiguration(string apiKey)
+        public CourseDirectoryServiceConfiguration(string apiKey, int perPage)
         {
             if (string.IsNullOrWhiteSpace(apiKey))
                 throw new ArgumentException($"{nameof(apiKey)} cannot be null, empty or only whitespace.");
+            if (perPage <= 0)
+                throw new ArgumentOutOfRangeException(nameof(perPage));
 
             ApiKey = apiKey;
+            PerPage = perPage;
         }
     }
 }

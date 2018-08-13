@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Dfc.FindACourse.Services.CourseDirectory;
+using Dfc.FindACourse.Services.CourseDirectory.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -32,7 +33,13 @@ namespace Dfc.FindACourse.Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddSingleton(typeof(ICourseDirectoryServiceConfiguration), new CourseDirectoryServiceConfiguration(Configuration["ApiKey"]));
+            int tribalPerPage = int.TryParse(Configuration["Tribal:PerPage"], out tribalPerPage) ? tribalPerPage : 0;
+
+            services.AddSingleton(typeof(ICourseDirectoryServiceConfiguration), 
+                new CourseDirectoryServiceConfiguration(
+                    Configuration["Tribal:ApiKey"],
+                    tribalPerPage));
+
             services.AddScoped<ICourseDirectoryService, CourseDirectoryService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dfc.FindACourse.Services.CourseDirectory.Interfaces;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -25,7 +26,7 @@ namespace Dfc.FindACourse.Services.CourseDirectory
             IVenue venue,
             IDuration duration)
         {
-            if (id < 1)
+            if (id <= 0)
                 throw new ArgumentOutOfRangeException(nameof(id));
             if (!Enum.IsDefined(typeof(StudyMode), studyMode))
                 throw new ArgumentOutOfRangeException(nameof(studyMode));

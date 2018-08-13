@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Dfc.FindACourse.Services.CourseDirectory
+namespace Dfc.FindACourse.Services.CourseDirectory.Interfaces
 {
     public interface IOpportunity
     {

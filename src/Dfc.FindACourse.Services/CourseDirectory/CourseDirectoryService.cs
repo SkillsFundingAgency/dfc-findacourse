@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Dfc.FindACourse.Services.CourseDirectory.Interfaces;
+using System;
 using System.Linq;
 using System.Threading.Tasks;
 using Tribal;
@@ -37,7 +38,7 @@ namespace Dfc.FindACourse.Services.CourseDirectory
                     SortBy = options.SortBy.ToSortType(),
                     SortBySpecified = true,
                     PageNo = options.PageNo.ToString(),
-                    RecordsPerPage = options.PerPage.ToString()
+                    RecordsPerPage = _configuration.PerPage.ToString()
                 };
 
                 var task = client.CourseListAsync(request);
