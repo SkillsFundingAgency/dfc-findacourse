@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Dfc.FindACourse.Services.CourseDirectory
+﻿namespace Dfc.FindACourse.Services.CourseDirectory
 {
     public enum AttendancePattern
     {
         NotKnown = 0,
         DaytimeWorkHours = 1,
-        DayBlockRelease  = 2,
+        DayBlockRelease = 2,
         Evening = 3,
         Twilight = 4,
         Weekend = 5,

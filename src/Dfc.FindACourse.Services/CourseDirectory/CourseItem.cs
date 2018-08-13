@@ -1,7 +1,5 @@
 ﻿using Dfc.FindACourse.Services.CourseDirectory.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Dfc.FindACourse.Services.CourseDirectory
 {

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Dfc.FindACourse.Services.CourseDirectory
+﻿namespace Dfc.FindACourse.Services.CourseDirectory
 {
     public enum AttendanceMode
     {
@@ -12,7 +8,7 @@ namespace Dfc.FindACourse.Services.CourseDirectory
         WorkBased = 3,
         MixedMode = 4,
         DistanceWithAttendance = 5,
-        DistanceWithoutAttendence  = 6,
+        DistanceWithoutAttendence = 6,
         OnlineWithAttendance = 7,
         OnlineWithoutAttendence = 8
     }
