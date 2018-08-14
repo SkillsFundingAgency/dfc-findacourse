@@ -12,6 +12,7 @@ using Dfc.FindACourse.Services.Interfaces;
 using Dfc.FindACourse.Common.Models;
 using Dfc.FindACourse.Common;
 using Dfc.FindACourse.Web.RequestModels;
+using Dfc.FindACourse.Web.ViewModels.CourseDirectory;
 
 namespace Dfc.FindACourse.Web.Controllers
 {
@@ -27,7 +28,7 @@ namespace Dfc.FindACourse.Web.Controllers
         // GET: CourseDirectory
         public ActionResult Index()
         {
-            return View();
+            return View(new IndexViewModel());
         }
 
         // GET: CourseDirectory
