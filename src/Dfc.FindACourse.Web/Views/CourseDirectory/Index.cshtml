@@ -427,8 +427,7 @@
                     <p class="lede">Qualification level (Optional)</p>
                     <a target="_blank" style="position: relative; top:-16px; color: #fff;font-size: 16px;" href="https://www.gov.uk/what-different-qualification-levels-mean/list-of-qualification-levels"> What qualification levels mean</a>
                     <div class="govuk-form-group govuk-grid-column-one-half" style="padding-left: 0; float: none">
-                        <select asp-items="Html.GetEnumSelectList<QualificationLevel>()"></select>
-                        
+                       
                         <dfc-select class="govuk-select" id="QualificationLevel" name="QualificationLevel"
                                     dfc-items="Html.GetEnumSelectList<QualificationLevel>()"
                                     dfc-ignored-item-values="@(new Enum[] { QualificationLevel.Level9, QualificationLevel.LevelNa })">
