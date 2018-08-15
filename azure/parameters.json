@@ -1,0 +1,48 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "environmentName": {
+      "type": "string",
+      "metadata": {
+          "description": "Short name of the environment. Used for the name of resources created"
+      }
+    }
+  },
+  "variables": {
+    "storageAccountName": "[concat('dfc',toLower(parameters('environmentName')),'facostr')]",
+    "deploymentUrlBase": "https://raw.githubusercontent.com/SkillsFundingAgency/das-platform-building-blocks/master/templates/"
+  },
+  "resources": [
+    {
+      "apiVersion": "2017-05-10",
+      "name": "primaryStorageAccount",
+      "type": "Microsoft.Resources/deployments",
+      "properties": {
+          "mode": "Incremental",
+          "templateLink": {
+              "uri": "[concat(variables('deploymentUrlBase'),'storage-account-arm.json')]",
+              "contentVersion": "1.0.0.0"
+          },
+          "parameters": {
+              "storageAccountName": {
+                  "value": "[variables('storageAccountName')]"
+              },
+              "accountType": {
+                  "value": "Standard_GRS"
+              }
+          }
+      }
+    }
+  ],
+  "outputs": {
+    "storageAccountName": {
+      "type":"string",
+      "value": "[variables('storageAccountName')]"
+    },
+    "storageConnectionString": {
+      "type":"string",
+      "value": "[reference('primaryStorageAccount').outputs.storageConnectionString.value]"
+    }
+  }
+}
