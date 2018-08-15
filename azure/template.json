@@ -7,11 +7,24 @@
       "metadata": {
           "description": "Short name of the environment. Used for the name of resources created"
       }
+    },
+    "appServicePlanName": {
+      "type": "string",
+      "metadata": {
+          "description": "App service plan to run the app under"
+      }
+    },
+    "appServicePlanResourceGroup": {
+      "type": "string",
+      "metadata": {
+          "description": "Resource group the app service plan is in"
+      }
     }
   },
   "variables": {
+    "deploymentUrlBase": "https://raw.githubusercontent.com/SkillsFundingAgency/das-platform-building-blocks/master/templates/",
     "storageAccountName": "[concat('dfc',toLower(parameters('environmentName')),'facostr')]",
-    "deploymentUrlBase": "https://raw.githubusercontent.com/SkillsFundingAgency/das-platform-building-blocks/master/templates/"
+    "appServiceName": "[concat('dfc-',toLower(parameters('environmentName')),'-findacourse-web')]"
   },
   "resources": [
     {
@@ -19,19 +32,45 @@
       "name": "primaryStorageAccount",
       "type": "Microsoft.Resources/deployments",
       "properties": {
-          "mode": "Incremental",
-          "templateLink": {
-              "uri": "[concat(variables('deploymentUrlBase'),'storage-account-arm.json')]",
-              "contentVersion": "1.0.0.0"
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(variables('deploymentUrlBase'),'storage-account-arm.json')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "storageAccountName": {
+            "value": "[variables('storageAccountName')]"
           },
-          "parameters": {
-              "storageAccountName": {
-                  "value": "[variables('storageAccountName')]"
-              },
-              "accountType": {
-                  "value": "Standard_GRS"
-              }
+          "accountType": {
+            "value": "Standard_GRS"
           }
+        }
+      }
+    },
+    {
+      "apiVersion": "2017-05-10",
+      "name": "primaryAppService",
+      "type": "Microsoft.Resources/deployments",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "[concat(variables('deploymentUrlBase'),'app-service.json')]",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "appServiceName": {
+            "value": "[variables('appServiceName')]"
+          },
+          "appServicePlanName": {
+            "value": "[parameters('appServicePlanName')]"
+          },
+          "appServicePlanResourceGroup": {
+            "value": "[parameters('appServicePlanResourceGroup')]"
+          },
+          "deployStagingSlot": {
+            "value": true
+          }
+        }
       }
     }
   ],
@@ -43,6 +82,10 @@
     "storageConnectionString": {
       "type":"string",
       "value": "[reference('primaryStorageAccount').outputs.storageConnectionString.value]"
+    },
+    "appServiceName": {
+      "type":"string",
+      "value": "[variables('appServiceName')]"
     }
-  }
+}
 }
