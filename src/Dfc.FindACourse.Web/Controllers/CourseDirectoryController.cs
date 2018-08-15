@@ -122,16 +122,25 @@ namespace Dfc.FindACourse.Web.Controllers
                 return View();
             }
         }
-
-        public JsonResult AutoAuggest(string parm)
+        /// <summary>
+        /// Autocomplete for loading of the synnonyms file
+        /// </summary>
+        /// <param name="parm"></param>
+        /// <returns></returns>
+        public JsonResult Autocomplete(string parm)
         {
-            var result = AutoSuggestCourseName(parm.ToUpper()).GroupBy(x => x.StartsWith(parm.ToUpper()))
-                 .OrderByDescending(x => x.Key) //order groups
-                 .SelectMany(g => g.OrderBy(x => x)) //order items in each group
-                 .ToList();
-            JsonResult autoData = new JsonResult(result);
+            if (null != parm)
+            {
+                var result = AutoSuggestCourseName(parm.ToUpper()).GroupBy(x => x.StartsWith(parm.ToUpper()))
+                     .OrderByDescending(x => x.Key) //order groups
+                     .SelectMany(g => g.OrderBy(x => x)) //order items in each group
+                     .ToList();
+                //Debug
+                JsonResult autoData = new JsonResult(result);
+                return Json(result);
+            }
+            return Json(null);
 
-            return autoData;
         }
         /// <summary>
         /// Load the XML Document from a relative path and cache the serialized model for searching
@@ -159,7 +168,30 @@ namespace Dfc.FindACourse.Web.Controllers
                 if (found)
                     foreach (XmlNode nChilddata in oNode)
                         yield return nChilddata.InnerText;
+
             }
+
+            //now check for common misspellings
+            foreach (XmlNode nData in searchTerms.GetElementsByTagName("replacement"))
+            {
+                XmlNodeList oNode = nData.SelectNodes(".//pat");
+
+                found = false;
+                foreach (XmlNode nChilddata in oNode)
+                {
+                    //if the pat node has the search text return all sub nodes
+                    if (nChilddata.InnerText.ToUpper().Contains(search))
+                    {
+                        foreach (XmlNode nSubdata in nData.SelectNodes(".//sub"))
+                        {
+                            yield return nSubdata.InnerText;
+                        }
+                    }
+
+                }
+            }
+           
+          
         }
 
     }
