@@ -1,9 +1,10 @@
 ﻿using Dfc.FindACourse.Common.Interfaces;
 using System;
+using System.Collections.Generic;
 
 namespace Dfc.FindACourse.Common.Models
 {
-    public class Duration : IDuration
+    public class Duration : ValueObject<Duration>, IDuration
     {
         public static Duration NotKnown = new Duration(0, "NotKnown");
 
@@ -24,6 +25,12 @@ namespace Dfc.FindACourse.Common.Models
         public override string ToString()
         {
             return $"{Value} {Unit}";
+        }
+
+        protected override IEnumerable<object> GetEqualityComponents()
+        {
+            yield return Value;
+            yield return Unit;
         }
     }
 }
