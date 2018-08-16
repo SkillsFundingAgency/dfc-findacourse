@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <Content Remove=".eslintrc.json" />
+    <Content Remove="wwwroot\tsenu.html" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,6 +23,7 @@
 
   <ItemGroup>
     <None Include=".eslintrc.json" />
+    <None Include="wwwroot\tsenu.html" />
   </ItemGroup>
 
   <ItemGroup>

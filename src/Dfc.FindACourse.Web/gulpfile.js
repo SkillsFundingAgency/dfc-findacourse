@@ -1,4 +1,4 @@
-﻿/// <binding Clean='clean' />
+﻿/// <binding />
 "use strict";
 
 // requires
@@ -10,7 +10,8 @@ var gulp = require("gulp"),
     uglify = require("gulp-uglify"),
     sass = require("gulp-sass"),
     eslint = require("gulp-eslint"),
-    merge = require('merge-stream');
+    merge = require("merge-stream"),
+    runSequence = require("run-sequence");
 
 // paths
 
@@ -21,6 +22,7 @@ var paths = {
 paths.js = paths.webroot + "js/**/*.js";
 paths.minJs = paths.webroot + "js/**/*.min.js";
 paths.scss = paths.webroot + "scss/**/*.scss";
+paths.vendorScssDest = paths.webroot + "vendor/scss/";
 paths.css = paths.webroot + "css/**/*.css";
 paths.cssDest = paths.webroot + "css/";
 paths.minCss = paths.webroot + "css/**/*.min.css";
@@ -30,7 +32,7 @@ paths.vendorJsDest = paths.webroot + "vendor/js/";
 
 // dependencies
 
-var deps = {
+var jsVendorDeps = {
     "jquery": {
         "dist/**/*.min.js": ""
     },
@@ -39,6 +41,21 @@ var deps = {
     },
     "jquery-validation-unobtrusive": {
         "dist/**/*.min.js": ""
+    },
+    "corejs-typeahead": {
+        "dist/typeahead.bundle.min.js": ""
+    },
+    "govuk_frontend_toolkit": {
+        "javascripts/**/*.js": ""
+    }
+};
+
+var sassVendorDeps = {
+    "govuk_frontend_toolkit": {
+        "stylesheets/**/*.scss": ""
+    },
+    "govuk-elements-sass": {
+        "public/sass/**/*.scss": ""
     }
 };
 
@@ -50,6 +67,10 @@ gulp.task("clean:js:vendor", function (cb) {
 
 gulp.task("clean:js", function (cb) {
     rimraf(paths.concatJsDest, cb);
+});
+
+gulp.task("clean:sass:vendor", function (cb) {
+    rimraf(paths.vendorScssDest + "**/*", cb);
 });
 
 gulp.task("clean:css", function (cb) {
@@ -70,6 +91,20 @@ gulp.task("min:css", function () {
         .pipe(gulp.dest("."));
 });
 
+gulp.task('sass:vendor', function () {
+    var streams = [];
+
+    for (var prop in sassVendorDeps) {
+        console.log("Getting vendor sass for: " + prop);
+        for (var itemProp in sassVendorDeps[prop]) {
+            streams.push(gulp.src("node_modules/" + prop + "/" + itemProp)
+                .pipe(gulp.dest(paths.vendorScssDest + prop + "/" + sassVendorDeps[prop][itemProp])));
+        }
+    }
+
+    return merge(streams);
+})
+
 gulp.task("sass", function () {
     return gulp.src(paths.scss)
         .pipe(sass({ outputStyle: "expanded" }))
@@ -86,11 +121,11 @@ gulp.task("eslint", function () {
 gulp.task("js:vendor", function () {
     var streams = [];
 
-    for (var prop in deps) {
+    for (var prop in jsVendorDeps) {
         console.log("Getting vendor js for: " + prop);
-        for (var itemProp in deps[prop]) {
+        for (var itemProp in jsVendorDeps[prop]) {
             streams.push(gulp.src("node_modules/" + prop + "/" + itemProp)
-                .pipe(gulp.dest(paths.vendorJsDest + prop + "/" + deps[prop][itemProp])));
+                .pipe(gulp.dest(paths.vendorJsDest + prop + "/" + jsVendorDeps[prop][itemProp])));
         }
     }
 
@@ -115,7 +150,17 @@ gulp.task("js:watch", function () {
 
 // commands
 
-gulp.task("clean", ["clean:js", "clean:js:vendor", "clean:css"]);
+gulp.task("clean", ["clean:js", "clean:js:vendor", "clean:css", "clean:sass:vendor"]);
 gulp.task("min", ["min:js", "min:css"]);
-gulp.task("dev", ["clean",  "css:watch", "sass:watch", "js:vendor", "js:watch", "eslint:watch"]);
-gulp.task("prod", ["clean", "sass", "js:vendor", "eslint", "min"]);
+
+//gulp.task("dev", ["clean", "sass:vendor", "css:watch", "sass:watch", "js:vendor", "js:watch", "eslint:watch", "min"]);
+
+gulp.task("dev", function (cb) {
+    runSequence("clean", "sass:vendor", "css:watch", "sass:watch", "js:vendor", "js:watch", "eslint:watch", "min", cb);
+});
+
+//gulp.task("prod", ["clean", "sass:vendor", "sass", "js:vendor", "eslint", "min"]);
+
+gulp.task("prod", function (cb) {
+    runSequence("clean", "sass:vendor", "sass", "js:vendor", "eslint", "min", cb);
+});
