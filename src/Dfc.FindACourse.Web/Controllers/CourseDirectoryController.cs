@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+
 using System.Linq;
 using System.Threading.Tasks;
 using Dfc.FindACourse.Web.Models;
@@ -13,16 +15,19 @@ using Dfc.FindACourse.Common.Models;
 using Dfc.FindACourse.Common;
 using Dfc.FindACourse.Web.RequestModels;
 using Dfc.FindACourse.Web.ViewModels.CourseDirectory;
+using Microsoft.Extensions.Caching.Memory;
 
 namespace Dfc.FindACourse.Web.Controllers
 {
     public class CourseDirectoryController : Controller
     {
         private readonly ICourseDirectoryService _courseDirectoryService;
+        private IMemoryCache _cache;
 
-        public CourseDirectoryController(ICourseDirectoryService courseDirectoryService)
+        public CourseDirectoryController(ICourseDirectoryService courseDirectoryService, IMemoryCache memoryCache)
         {
             _courseDirectoryService = courseDirectoryService;
+            _cache = memoryCache;
         }
 
         // GET: CourseDirectory
@@ -149,8 +154,7 @@ namespace Dfc.FindACourse.Web.Controllers
         /// <returns></returns>
         public IEnumerable<string> AutoSuggestCourseName(string search)
         {
-            XmlDocument searchTerms = new XmlDocument();
-            searchTerms.Load("Data\\tsenu.xml");
+            XmlDocument searchTerms = FileHelper.LoadSynonyms(_cache);
 
             bool found = false;
 
@@ -174,10 +178,7 @@ namespace Dfc.FindACourse.Web.Controllers
             //now check for common misspellings
             foreach (XmlNode nData in searchTerms.GetElementsByTagName("replacement"))
             {
-                XmlNodeList oNode = nData.SelectNodes(".//pat");
-
-                found = false;
-                foreach (XmlNode nChilddata in oNode)
+                foreach (XmlNode nChilddata in nData.SelectNodes(".//pat"))
                 {
                     //if the pat node has the search text return all sub nodes
                     if (nChilddata.InnerText.ToUpper().Contains(search))
