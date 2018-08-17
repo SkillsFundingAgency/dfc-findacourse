@@ -1,9 +1,10 @@
 ﻿using Dfc.FindACourse.Common.Interfaces;
 using System;
+using System.Collections.Generic;
 
 namespace Dfc.FindACourse.Common.Models
 {
-    public class PagingOptions : IPagingOptions
+    public class PagingOptions : ValueObject<PagingOptions>, IPagingOptions
     {
         public SortBy SortBy { get; }
         public int PageNo { get; }
@@ -17,6 +18,12 @@ namespace Dfc.FindACourse.Common.Models
 
             SortBy = SortBy;
             PageNo = pageNo;
+        }
+
+        protected override IEnumerable<object> GetEqualityComponents()
+        {
+            yield return SortBy;
+            yield return PageNo;
         }
     }
 }

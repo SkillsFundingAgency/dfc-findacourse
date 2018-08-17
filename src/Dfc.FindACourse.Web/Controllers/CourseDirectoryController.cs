@@ -1,10 +1,15 @@
-﻿using System;
+﻿using Dfc.FindACourse.Common;
+using Dfc.FindACourse.Common.Models;
+using Dfc.FindACourse.Services.Interfaces;
+using Dfc.FindACourse.Web.RequestModels;
+using Dfc.FindACourse.Web.ViewModels.CourseDirectory;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Collections.Generic;
 using System.IO;
 
 using System.Linq;
-using System.Threading.Tasks;
-using Dfc.FindACourse.Web.Models;
 using System.Xml;
 using System.Xml.Serialization;
 using Microsoft.AspNetCore.Http;
@@ -15,7 +20,6 @@ using Dfc.FindACourse.Common.Models;
 using Dfc.FindACourse.Common;
 using Dfc.FindACourse.Web.RequestModels;
 using Dfc.FindACourse.Web.ViewModels.CourseDirectory;
-using Microsoft.Extensions.Caching.Memory;
 
 namespace Dfc.FindACourse.Web.Controllers
 {

@@ -1,0 +1,24 @@
+﻿// govuk_frontend_toolkit
+// ======================
+
+// Settings (variables)
+@import "../vendor/scss/govuk_frontend_toolkit/_colours.scss"; // Colour variables
+@import "../vendor/scss/govuk_frontend_toolkit/_font_stack.scss"; // Font family variables
+@import "../vendor/scss/govuk_frontend_toolkit/_measurements.scss"; // Widths and gutter variables
+
+// Mixins
+@import "../vendor/scss/govuk_frontend_toolkit/_conditionals.scss"; // Media query mixin
+@import "../vendor/scss/govuk_frontend_toolkit/_device-pixels.scss"; // Retina image mixin
+@import "../vendor/scss/govuk_frontend_toolkit/_grid_layout.scss"; // Basic grid layout mixin
+@import "../vendor/scss/govuk_frontend_toolkit/_typography.scss"; // Core bold and heading mixins
+@import "../vendor/scss/govuk_frontend_toolkit/_shims.scss"; // Inline block mixin, clearfix placeholder
+
+// Mixins to generate components (chunks of UI)
+@import "../vendor/scss/govuk_frontend_toolkit/design-patterns/_alpha-beta.scss"; // Only required if using _phase-banner.scss
+@import "../vendor/scss/govuk_frontend_toolkit/design-patterns/_buttons.scss"; // Only required if using _buttons.scss
+@import "../vendor/scss/govuk_frontend_toolkit/design-patterns/_breadcrumbs.scss";
+
+// Functions
+//@import "../vendor/scss/govuk_frontend_toolkit/_url-helpers.scss"; // Function to output image-url, or prefixed path (Rails and Compass only)
+
+
