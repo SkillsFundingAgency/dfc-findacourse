@@ -1,0 +1,8 @@
+﻿.form-control-1-1 {
+    width: 100%;
+
+    @include media(tablet) {
+        width: 100;
+    }
+}
+
