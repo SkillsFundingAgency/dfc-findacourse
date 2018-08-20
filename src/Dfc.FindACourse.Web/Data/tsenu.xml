@@ -24,8 +24,14 @@
 			<sub>ANIMAL MANAGEMENT</sub>
 		</expansion> -->
     <!--ACCOUNTING 1-1 -->
+    <replacement>
+      <pat>fernch</pat>
+      <sub>FRENCH</sub>
+    </replacement>
+    
     <expansion>
       <sub>AAT</sub>
+      <sub>SHABBA</sub>
       <sub>ACCA</sub>
       <sub>ACCOUNTANCY</sub>
       <sub>ACCOUNTANT</sub>

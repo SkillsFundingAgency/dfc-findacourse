@@ -43,6 +43,8 @@ namespace Dfc.FindACourse.Web
             services.AddScoped<ICourseDirectoryService, CourseDirectoryService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddMemoryCache();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -68,6 +70,8 @@ namespace Dfc.FindACourse.Web
                     name: "default",
                     template: "{controller=CourseDirectory}/{action=Index}/{id?}");
             });
+            //TO DO COnfig File
+            FileHelper.DownloadSynonymFile("tsenu2.xml", "tsenu2.xml", "tsenu.xml").Wait();
         }
     }
 }

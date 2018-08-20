@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfc.FindACourse.Services", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfc.FindACourse.Common", "src\Dfc.FindACourse.Common\Dfc.FindACourse.Common.csproj", "{10D1E861-595E-4C40-B750-FAE547DDFE3D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dfc.FindACourse.Common.UnitTests", "tests\Dfc.FindACourse.Common.UnitTests\Dfc.FindACourse.Common.UnitTests.csproj", "{4D06FB61-B9C2-4EC8-BD50-E6C4A7B08B3C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfc.FindACourse.Common.UnitTests", "tests\Dfc.FindACourse.Common.UnitTests\Dfc.FindACourse.Common.UnitTests.csproj", "{4D06FB61-B9C2-4EC8-BD50-E6C4A7B08B3C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

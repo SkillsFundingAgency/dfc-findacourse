@@ -2,12 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
+    <Configurations>Debug;Release;Development</Configurations>
+    <StartupObject></StartupObject>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Content Remove=".eslintrc.json" />
-    <Content Remove="wwwroot\tsenu.html" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.App" />
@@ -16,14 +13,6 @@
 
   <ItemGroup>
     <Folder Include="Data\" />
-    <Folder Include="wwwroot\css\" />
-    <Folder Include="wwwroot\dist\js\" />
-    <Folder Include="wwwroot\vendor\js\" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Include=".eslintrc.json" />
-    <None Include="wwwroot\tsenu.html" />
   </ItemGroup>
 
   <ItemGroup>

@@ -43,108 +43,70 @@
 <script src="https://www.compare-school-performance.service.gov.uk/public/termi/element.details.js"></script>
 <script src="https://www.compare-school-performance.service.gov.uk/public/assets/scripts/application.js?v=1.1.18116.1"></script>
 
-<script src="~/js/all.js"></script>
-<script src="~/js/application.js"></script>
-<script src="~/js/auto-store-data.js"></script>
--->
+    <script src="~/js/all.js"></script>
+    <script src="~/js/application.js"></script>
+    <script src="~/js/auto-store-data.js"></script>
+    -->
 
 <script>
 
-    //parse XML
-    var xml = "";
-    $.ajax({
-        url: "tsenu.html",
-        async: false,
-        success: function (data) {
-            xml = data;
-        }
-    });
-    parser = new DOMParser();
-    xmlDoc = parser.parseFromString(xml, "text/xml");
-    var items = [];
-    var els = xmlDoc.getElementsByTagName('sub')
-    for (var i = 0, len = els.length; i < len; i++) {
-        items.push(els[i].childNodes[0].nodeValue);
-    }
+ 
+    
+  
+    function doSearch(text) {
 
-    //create an array from XML
-    var allItems = [];
-    var els = xmlDoc.getElementsByTagName('expansion')
-    for (var i = 0, len = els.length; i < len; i++) {
-        var children = [];
-        for (var k = 0; k < els[i].childNodes.length; k++) {
-            if (els[i].childNodes[k].nodeName === "sub") {
-                children.push(els[i].childNodes[k].firstChild.nodeValue);
-            }
-        }//end for
-        allItems.push(children);
-    } //end for i
+        $.ajax({
+            type: "GET",
+            url: "/coursedirectory/autocomplete",
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            data: {
+                parm: text
+            },
+            success: function (results) {
+                $.each(results, function (i, value) {
+                    var valueLow = value.toLowerCase();
+                    var valueHigh = value.toUpperCase();
+                    var textReplace = '<strong>' + text.toUpperCase() + '</strong>';
+                    if (valueLow.indexOf(text) > -1) {
+                        formated = valueHigh.replace(text.toUpperCase(), textReplace);
+                    } else {
+                        formated = valueHigh;
+                    }
 
-    //search array
-    function doSearch(text, items) {
-
-        //to lower case
-        text = text.toLowerCase();
-        var textHigh = text.toUpperCase();
-
-        var listItems = [];
-        $.each(items, function (i, val) {
-            //search each subarray
-            var found = false;
-            $.each(val, function (i, value) {
-                value = value.toLowerCase();
-                if (value.indexOf(text) > -1) {
-                    found = true;
+                    $('#course-list').append($('<li>', {
+                        "data-value": value,
+                        html: formated
+                    }));
+                    
+                })
+                
+                var length = $("#course-list").children('li').length;
+                if (length > 0) {
+                    $("#course-list").show();
+                } else {
+                    $("#course-list").hide();
                 }
-            });
-            //if found add entire subarray to the list
-            if (found) {
-                listItems.push.apply(listItems, val);
-            }
-        });
+            },  
 
-        listItems.sort();
+            failure: function (results) {
+                alert(data.responseText);
+            }, 
+            error: function (results) {
+                alert(results.responseText);
+            } 
 
-        //add exat match to first;
-        var pos;
-        if (listItems.indexOf(textHigh) > -1) {
-            pos = listItems.indexOf(textHigh);
-            listItems.splice(pos, 1);
-            listItems.unshift(textHigh);
-        }
-
-        $.each(listItems, function (i, value) {
-            var valueLow = value.toLowerCase();
-            var valueHigh = value.toUpperCase();
-            var textReplace = '<strong>' + textHigh + '</strong>';
-            if (valueLow.indexOf(text) > -1) {
-                formated = valueHigh.replace(textHigh, textReplace);
-            } else {
-                formated = valueHigh;
-            }
-
-            $('#course-list').append($('<li>', {
-                "data-value": value,
-                html: formated
-            }));
-        });
+        });      
 
     }
-
     $("#Course").keyup(function (e) {
         //remove old items
         $("#course-list li").each(function (e) {
             $(this).remove();
         });
         //search
-        doSearch($(this).val(), allItems);
-        //expand
-        var length = $("#course-list").children('li').length;
-        if (length > 0) {
-            $("#course-list").show();
-        } else {
-            $("#course-list").hide();
-        }
+        doSearch($(this).val());
+        
     });
 
     $("#course-list").mouseleave(function (e) {
@@ -172,7 +134,7 @@
         $("#Course").click(function (e) {
             $("#course-list").hide();
         });
-
+      
     });
 
 </script>
