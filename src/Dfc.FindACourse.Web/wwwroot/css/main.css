@@ -2036,11 +2036,11 @@ input[type=number] {
   }
 }
 
-.form-control-error {
+.form-control-error, .input-validation-error {
   border: 4px solid #b10e1e;
 }
 
-.error-message {
+.error-message, .field-validation-error {
   font-family: "nta", Arial, sans-serif;
   font-weight: 700;
   text-transform: none;
@@ -2054,14 +2054,15 @@ input[type=number] {
 }
 
 @media (min-width: 641px) {
-  .error-message {
+  .error-message, .field-validation-error {
     font-size: 19px;
     line-height: 1.31579;
   }
 }
 
-.form-label .error-message,
-.form-label-bold .error-message {
+.form-label .error-message, .form-label .field-validation-error,
+.form-label-bold .error-message,
+.form-label-bold .field-validation-error {
   padding-top: 4px;
   padding-bottom: 0;
 }
@@ -2480,6 +2481,27 @@ input[type="search"]::-webkit-search-decoration {
 @media (min-width: 641px) {
   .form-control-1-1 {
     width: 100;
+  }
+}
+
+.input-validation-error {
+  background-color: #fef7f7;
+}
+
+.form-label .field-validation-error,
+.form-label-bold .field-validation-error {
+  padding-top: 4px;
+  padding-bottom: 0;
+}
+
+.error {
+  margin-right: 15px;
+}
+
+@media (min-width: 641px) {
+  .error {
+    border-left: 5px solid #b10e1e;
+    padding-left: 15px;
   }
 }
 

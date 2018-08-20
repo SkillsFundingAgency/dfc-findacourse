@@ -4,6 +4,33 @@
 // import govuk frontend toolkit
 @import "_govuk_frontend_toolkit.scss";
 
-// import govuk elements sass
-@import "../vendor/scss/govuk-elements-sass/_elements.scss";
+// GOV.UK elements
 
+@import "../vendor/scss/govuk-elements-sass/elements/_helpers.scss"; // Helper functions and classes
+
+// Generic (normalize/reset.css)
+@import "../vendor/scss/govuk-elements-sass/elements/_reset.scss";
+
+// Base (unclassed HTML elements)
+// These are predefined by govuk_template
+// If you're not using govuk_template, uncomment the line below.
+// @import "elements/govuk-template-base";        // Base styles set by GOV.UK template
+
+// Objects (unstyled design patterns)
+@import "../vendor/scss/govuk-elements-sass/elements/_layout.scss"; // Main content container. Grid layout - rows and column widths
+
+// Components (chunks of UI)
+@import "../vendor/scss/govuk-elements-sass/elements/_elements-typography.scss"; // Typography
+@import "../vendor/scss/govuk-elements-sass/elements/_buttons.scss"; // Buttons
+@import "../vendor/scss/govuk-elements-sass/elements/_icons.scss"; // Icons - numbered steps, calendar, search
+@import "../vendor/scss/govuk-elements-sass/elements/_lists.scss"; // Lists - numbered, bulleted
+@import "../vendor/scss/govuk-elements-sass/elements/_tables.scss"; // Tables - regular, numeric
+@import "../vendor/scss/govuk-elements-sass/elements/_details.scss"; // Details summary
+@import "../vendor/scss/govuk-elements-sass/elements/_panels.scss"; // Panels with a left grey border
+@import "../vendor/scss/govuk-elements-sass/elements/_forms.scss"; // Form - wrappers, inputs, labels
+@import "../vendor/scss/govuk-elements-sass/elements/forms/_form-multiple-choice.scss"; // Custom radio buttons and checkboxes
+@import "../vendor/scss/govuk-elements-sass/elements/forms/_form-date.scss"; // Date of birth pattern
+@import "../vendor/scss/govuk-elements-sass/elements/forms/_form-validation.scss"; // Errors and validation
+@import "../vendor/scss/govuk-elements-sass/elements/_breadcrumbs.scss"; // Breadcrumbs
+@import "../vendor/scss/govuk-elements-sass/elements/_phase-banner.scss"; // Alpha and beta banners and tags
+@import "../vendor/scss/govuk-elements-sass/elements/_components.scss"; // GOV.UK prefixed styles - blue highlighted box

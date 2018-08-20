@@ -6,3 +6,26 @@
     }
 }
 
+.input-validation-error {
+    @extend .form-control-error;
+    background-color: $error-background;
+}
+
+.field-validation-error {
+    @extend .error-message;
+}
+
+.form-label .field-validation-error,
+.form-label-bold .field-validation-error {
+    padding-top: 4px;
+    padding-bottom: 0;
+}
+
+.error {
+    margin-right: $gutter-half;
+
+    @include media(tablet) {
+        border-left: 5px solid $error-colour;
+        padding-left: $gutter-half;
+    }
+}

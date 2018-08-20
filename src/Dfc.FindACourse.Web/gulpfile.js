@@ -38,6 +38,9 @@ var jsVendorDeps = {
     "jquery": {
         "dist/**/*.min.js": ""
     },
+    "jquery-migrate": {
+        "dist/**/*.min.js": ""
+    },
     "jquery-validation": {
         "dist/**/*.min.js": ""
     },
