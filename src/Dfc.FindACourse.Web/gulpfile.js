@@ -29,6 +29,8 @@ paths.minCss = paths.webroot + "css/**/*.min.css";
 paths.concatJsDest = paths.webroot + "dist/js/site.min.js";
 paths.concatCssDest = paths.webroot + "dist/css/site.min.css";
 paths.vendorJsDest = paths.webroot + "vendor/js/";
+paths.vendorJsGovukToolkit = paths.vendorJsDest + "govuk_frontend_toolkit/";
+paths.concatJsGovukToolkitDest = paths.vendorJsGovukToolkit + "govuk_toolkit.js";
 
 // dependencies
 
@@ -132,6 +134,13 @@ gulp.task("js:vendor", function () {
     return merge(streams);
 });
 
+gulp.task("js:vendor:govuk_toolkit", function () {
+    return gulp.src(paths.vendorJsGovukToolkit + "govuk/**/*.js")
+        .pipe(concat(paths.concatJsGovukToolkitDest))
+        .pipe(uglify())
+        .pipe(gulp.dest("."));
+});
+
 gulp.task("sass:watch", function () {
     gulp.watch(paths.scss, ["sass"]);
 });
@@ -156,11 +165,11 @@ gulp.task("min", ["min:js", "min:css"]);
 //gulp.task("dev", ["clean", "sass:vendor", "css:watch", "sass:watch", "js:vendor", "js:watch", "eslint:watch", "min"]);
 
 gulp.task("dev", function (cb) {
-    runSequence("clean", "sass:vendor", "css:watch", "sass:watch", "js:vendor", "js:watch", "eslint:watch", "min", cb);
+    runSequence("clean", "sass:vendor", "css:watch", "sass:watch", "js:vendor", "js:vendor:govuk_toolkit", "js:watch", "eslint:watch", "min", cb);
 });
 
 //gulp.task("prod", ["clean", "sass:vendor", "sass", "js:vendor", "eslint", "min"]);
 
 gulp.task("prod", function (cb) {
-    runSequence("clean", "sass:vendor", "sass", "js:vendor", "eslint", "min", cb);
+    runSequence("clean", "sass:vendor", "sass", "js:vendor", "js:vendor:govuk_toolkit", "eslint", "min", cb);
 });

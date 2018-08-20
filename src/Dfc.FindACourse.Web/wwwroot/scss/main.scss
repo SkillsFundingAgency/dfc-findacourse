@@ -6,4 +6,9 @@
 @import "_govuk-elements-sass.scss";
 
 // import partials
+@import "partials/_colours.scss";
+@import "partials/_basics.scss";
+@import "partials/_forms.scss";
 @import "partials/_header.scss";
+@import "partials/_footer.scss";
+

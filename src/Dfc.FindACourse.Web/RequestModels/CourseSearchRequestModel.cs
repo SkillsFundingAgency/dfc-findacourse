@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Dfc.FindACourse.Web.RequestModels
 {
     public class CourseSearchRequestModel
     {
+        [Display(Name = "Course name")]
         [Required]
         public string SubjectKeyword { get; set; }
         public string TownOrPostcode { get; set; }
