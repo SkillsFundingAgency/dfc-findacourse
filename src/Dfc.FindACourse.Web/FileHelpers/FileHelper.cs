@@ -2,6 +2,8 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,6 +15,7 @@ namespace Dfc.FindACourse.Web
 {
     public static class FileHelper
     {
+
         /// <summary>
         /// Download and persist the file to the web server
         /// Then we can validate that it is properly formed XML, has expansion and sub entries
@@ -25,7 +28,7 @@ namespace Dfc.FindACourse.Web
         {
             CloudStorageAccount storageAccount = new CloudStorageAccount(
                                     new Microsoft.WindowsAzure.Storage.Auth.StorageCredentials(
-                                        "ncsfindacourse",
+                                        "ncsfindacourse",  //"dfcdevfacostr",
                                             "84+Q/HYoPpcFc+Anq52GjmXP62DskRm8adL4p9wEEv0TJOwrupIdAP7Z5gD4VdrOhQwuzmqAhNcFzFvcmGoN2w=="), true);
             CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
             CloudBlockBlob blockBlob;
@@ -39,7 +42,7 @@ namespace Dfc.FindACourse.Web
                 {
                     await blockBlob.DownloadToStreamAsync(fileStream);
                 }
-                CopyOverFile(string.Format(@"Data\\{0}", tempFilename), string.Format(@"Data\\{0}", synonymFileName));
+                CopyOverSynFile(string.Format(@"Data\\{0}", tempFilename), string.Format(@"Data\\{0}", synonymFileName));
             }
             catch (StorageException)
             {
@@ -47,14 +50,76 @@ namespace Dfc.FindACourse.Web
             }
           
         }
-        public static void CopyOverFile(string tempFile, string destFile)
+
+        public static async Task DownloadConfigFiles(string blobname, string tempFilename, string replaceFileName)
         {
-            if(ValidateFile(tempFile))
+            CloudStorageAccount storageAccount = new CloudStorageAccount(
+                                    new Microsoft.WindowsAzure.Storage.Auth.StorageCredentials(
+                                          "ncsfindacourse",  //"dfcdevfacostr",
+                                            "84+Q/HYoPpcFc+Anq52GjmXP62DskRm8adL4p9wEEv0TJOwrupIdAP7Z5gD4VdrOhQwuzmqAhNcFzFvcmGoN2w=="), true);
+            CloudBlobClient blobClient = storageAccount.CreateCloudBlobClient();
+            CloudBlockBlob blockBlob;
+            MemoryStream ms = new MemoryStream();
+            try
+            {
+                CloudBlobContainer container = blobClient.GetContainerReference("ncsdropdownconfig");
+                blockBlob = container.GetBlockBlobReference(blobname);
+
+                using (var fileStream = System.IO.File.OpenWrite(string.Format(@"Data\\{0}", tempFilename)))
+                {
+                    await blockBlob.DownloadToStreamAsync(fileStream);
+                }
+                CopyOverConfigFile(string.Format(@"Data\\{0}", tempFilename), string.Format(@"Data\\{0}", replaceFileName));
+            }
+            catch (StorageException)
+            {
+                //TODO Add logging
+            }
+
+        }
+
+        public static void CopyOverSynFile(string tempFile, string destFile)
+        {
+            if(ValidateSynonymsFile(tempFile))
                 File.Copy(tempFile, destFile, true);
             
         }
+        public static void CopyOverConfigFile(string tempFile, string destFile)
+        {
+            if (ValidateConfigFile(tempFile))
+                File.Copy(tempFile, destFile, true);
 
-        public static bool ValidateFile(string tempfilename)
+        }
+        public static bool ValidateConfigFile(string strInput)
+        {
+            strInput = strInput.Trim();
+            if ((strInput.StartsWith("{") && strInput.EndsWith("}")) || //For object
+                (strInput.StartsWith("[") && strInput.EndsWith("]"))) //For array
+            {
+                try
+                {
+                    var obj = JToken.Parse(strInput);
+                    return true;
+                }
+                catch (JsonReaderException jex)
+                {
+                    //Exception in parsing json
+                    Console.WriteLine(jex.Message);
+                    return false;
+                }
+                catch (Exception ex) //some other exception
+                {
+                    Console.WriteLine(ex.ToString());
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public static bool ValidateSynonymsFile(string tempfilename)
         {
             try
             {

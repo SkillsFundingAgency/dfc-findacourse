@@ -1,0 +1,42 @@
+[
+  {
+    "text": "Select level",
+    "key": ""
+  },
+  {
+    "text": "Entry level - Skills for Life",
+    "key": "0"
+  },
+  {
+    "text": "Level 1 - First certificate",
+    "key": "1"
+  },
+  {
+    "text": "Level 2 - GCSE/O level",
+    "key": "2"
+  },
+  {
+    "text": "Level 3 - A level/Access to higher education diploma",
+    "key": "3"
+  },
+  {
+    "text": "Level 4 - Certificate of higher education/HNC",
+    "key": "4"
+  },
+  {
+    "text": "Level 5 - Foundation degree/HND",
+    "key": "5"
+  },
+  {
+    "text": "Level 6 - Degree/Graduate diploma",
+    "key": "6"
+  },
+  {
+    "text": "Level 7 - Masters Degree/Postgraduate diploma",
+    "key": "7"
+  },
+  {
+    "text": "Level 8 - Doctorate/PhD",
+    "key": "8"
+  }
+]
