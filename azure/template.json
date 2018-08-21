@@ -81,7 +81,7 @@
               },
               {
                 "name": "Storage_AccountKey",
-                "value": "tbc"
+                "value": "[reference('primaryStorageAccount').outputs.storageKey.value]"
               },
               {
                 "name": "Storage_ContainerReference",
@@ -109,11 +109,11 @@
               },
               {
                 "name": "App_TempSynonymFilePath",
-                "value": "Data\\Temp"
+                "value": "Data\\\\Temp"
               },
               {
                 "name": "App_TempSettingsFilePath",
-                "value": "Data\\Temp"
+                "value": "Data\\\\Temp"
               }
             ]
           }
