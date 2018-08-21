@@ -51,6 +51,9 @@
       "apiVersion": "2017-05-10",
       "name": "primaryAppService",
       "type": "Microsoft.Resources/deployments",
+      "dependsOn": [
+        "primaryStorageAccount"
+      ],
       "properties": {
         "mode": "Incremental",
         "templateLink": {
@@ -69,7 +72,49 @@
           },
           "deployStagingSlot": {
             "value": true
-          }
+          },
+          "appServiceAppSettings": [
+            {
+              "name": "Storage_AccountName",
+              "value": "[variables('storageAccountName')]"
+            },
+            {
+              "name": "Storage_AccountKey",
+              "value": "tbc"
+            },
+            {
+              "name": "Storage_ContainerReference",
+              "value": "ncs_findacourse_config"
+            },
+            {
+              "name": "Storage_SynonymsFilename",
+              "value": "tsenu.xml"
+            },
+            {
+              "name": "Storage_QualSettingsFilename",
+              "value": "qualsettings.json"
+            },
+            {
+              "name": "App_SynonymFileName",
+              "value": "tsenu.xml"
+            },
+            {
+              "name": "App_SynonymFilePath",
+              "value": "Data"
+            },
+            {
+              "name": "App_SettingsFilePath",
+              "value": "Data"
+            },
+            {
+              "name": "App_TempSynonymFilePath",
+              "value": "Data\\Temp"
+            },
+            {
+              "name": "App_TempSettingsFilePath",
+              "value": "Data\\Temp"
+            }
+          ]
         }
       }
     }
