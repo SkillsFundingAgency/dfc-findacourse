@@ -11,7 +11,12 @@
     <div class="column-two-thirds">
         <h1 class="heading-xlarge">Find a course</h1>
         <p>Search for training and learning opportunities at all levels. We’ll show you courses from colleges, training providers and local education authorities. <a href="https://nationalcareersservice.direct.gov.uk/contact-us/home">Contact an adviser</a> if you need help finding the right course for you.</p>
-        <form id="FindACourseForm" name="FindACourseForm" action="/some-place" method="post">
+        <form 
+              id="FindACourseForm" 
+              name="FindACourseForm" 
+              method="get" 
+              asp-controller="CourseDirectory" 
+              asp-action="CourseSearch">
             <div class="form-group">
                 <label class="form-label" for="SubjectKeyword">
                     Course name

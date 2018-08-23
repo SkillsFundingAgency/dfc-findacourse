@@ -137,6 +137,7 @@ namespace Dfc.FindACourse.Services.CourseDirectory
                 opportunityInfo.DFE1619Funded,
                 startDate,
                 ((VenueInfo)opportunityInfo.Item).ToVenue(),
+                string.Empty,
                 opportunityInfo.Duration.ToDuration());
         }
 

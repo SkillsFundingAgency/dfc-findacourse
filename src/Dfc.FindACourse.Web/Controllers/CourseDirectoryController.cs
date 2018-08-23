@@ -43,6 +43,10 @@ namespace Dfc.FindACourse.Web.Controllers
 
                 var result = _courseDirectoryService.CourseSearch(criteria, new PagingOptions(SortBy.Relevance, 1));
             }
+            else
+            {
+                
+            }
 
 
             return View();
