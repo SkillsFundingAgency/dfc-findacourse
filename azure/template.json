@@ -5,19 +5,19 @@
     "environmentName": {
       "type": "string",
       "metadata": {
-          "description": "Short name of the environment. Used for the name of resources created"
+        "description": "Short name of the environment. Used for the name of resources created"
       }
     },
     "appServicePlanName": {
       "type": "string",
       "metadata": {
-          "description": "App service plan to run the app under"
+        "description": "App service plan to run the app under"
       }
     },
     "appServicePlanResourceGroup": {
       "type": "string",
       "metadata": {
-          "description": "Resource group the app service plan is in"
+        "description": "Resource group the app service plan is in"
       }
     }
   },
@@ -43,6 +43,29 @@
           },
           "accountType": {
             "value": "Standard_GRS"
+          },
+          "storageKind": {
+            "value": "StorageV2"
+          }
+        }
+      }
+    },
+    {
+      "apiVersion": "2017-05-10",
+      "name": "primaryUIAppInsights",
+      "type": "Microsoft.Resources/deployments",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "https://raw.githubusercontent.com/SkillsFundingAgency/das-platform-building-blocks/master/templates/application-insights.json",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "appInsightsName": {
+            "value": "[variables('appServiceName')]"
+          },
+          "attachedService": {
+            "value": "[variables('appServiceName')]"
           }
         }
       }
@@ -51,6 +74,10 @@
       "apiVersion": "2017-05-10",
       "name": "primaryAppService",
       "type": "Microsoft.Resources/deployments",
+      "dependsOn": [
+        "primaryUIAppInsights",
+        "primaryStorageAccount"
+      ],
       "properties": {
         "mode": "Incremental",
         "templateLink": {
@@ -69,6 +96,50 @@
           },
           "deployStagingSlot": {
             "value": true
+          },
+          "appServiceAppSettings": {
+            "value": [
+              {
+                "name": "Storage_AccountName",
+                "value": "[variables('storageAccountName')]"
+              },
+              {
+                "name": "Storage_AccountKey",
+                "value": "[reference('primaryStorageAccount').outputs.storageKey.value]"
+              },
+              {
+                "name": "Storage_ContainerReference",
+                "value": "ncs_findacourse_config"
+              },
+              {
+                "name": "Storage_SynonymsFilename",
+                "value": "tsenu.xml"
+              },
+              {
+                "name": "Storage_QualSettingsFilename",
+                "value": "qualsettings.json"
+              },
+              {
+                "name": "App_SynonymFileName",
+                "value": "tsenu.xml"
+              },
+              {
+                "name": "App_SynonymFilePath",
+                "value": "Data"
+              },
+              {
+                "name": "App_SettingsFilePath",
+                "value": "Data"
+              },
+              {
+                "name": "App_TempSynonymFilePath",
+                "value": "Data\\\\Temp"
+              },
+              {
+                "name": "App_TempSettingsFilePath",
+                "value": "Data\\\\Temp"
+              }
+            ]
           }
         }
       }
@@ -76,16 +147,16 @@
   ],
   "outputs": {
     "storageAccountName": {
-      "type":"string",
+      "type": "string",
       "value": "[variables('storageAccountName')]"
     },
     "storageConnectionString": {
-      "type":"string",
+      "type": "string",
       "value": "[reference('primaryStorageAccount').outputs.storageConnectionString.value]"
     },
     "appServiceName": {
-      "type":"string",
+      "type": "string",
       "value": "[variables('appServiceName')]"
     }
-}
+  }
 }
