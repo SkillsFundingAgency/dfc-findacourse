@@ -42,6 +42,8 @@ namespace Dfc.FindACourse.Web.Controllers
                 };
 
                 var result = _courseDirectoryService.CourseSearch(criteria, new PagingOptions(SortBy.Relevance, 1));
+
+                var regionsOnly = result.Value.Items.Where(x => x.Opportunity.HasRegion);
             }
             else
             {
