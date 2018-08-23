@@ -43,6 +43,9 @@
           },
           "accountType": {
             "value": "Standard_GRS"
+          },
+          "storageKind": {
+            "value": "StorageV2"
           }
         }
       }
