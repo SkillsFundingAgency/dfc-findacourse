@@ -11,6 +11,9 @@ namespace Dfc.FindACourse.Common.Interfaces
         bool IsDfe1619Funded { get; }
         DateTime? StartDate { get; }
         IVenue Venue { get; }
+        bool HasVenue { get; }
+        string Region { get; }
+        bool HasRegion { get; }
         IDuration Duration { get; }
     }
 }

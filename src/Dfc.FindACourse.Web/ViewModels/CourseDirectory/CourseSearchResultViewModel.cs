@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Dfc.FindACourse.Web.Models
+namespace Dfc.FindACourse.Web.Models.CourseDirectory
 {
     public class CourseSearchResultViewModel
     {

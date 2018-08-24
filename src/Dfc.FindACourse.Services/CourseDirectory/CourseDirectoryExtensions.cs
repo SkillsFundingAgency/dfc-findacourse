@@ -129,6 +129,25 @@ namespace Dfc.FindACourse.Services.CourseDirectory
             int id = int.TryParse(opportunityInfo.OpportunityId, out id) ? id : 0;
             DateTime? startDate = DateTime.TryParse(opportunityInfo.StartDate.Item, out DateTime dt) ? dt : default(DateTime?);
 
+            Venue venue = null;
+            string region = null;
+            
+            try
+            {
+                venue = ((VenueInfo)opportunityInfo.Item).ToVenue();
+            }
+            catch (InvalidCastException)
+            {
+                try
+                {
+                    region = opportunityInfo.Item.ToString();
+                }
+                catch (InvalidCastException)
+                {
+                    // Unbale to cast to a Venue or a Region
+                }
+            }
+
             return new Opportunity(
                 id,
                 opportunityInfo.StudyMode.ToStudyMode(),
@@ -136,7 +155,8 @@ namespace Dfc.FindACourse.Services.CourseDirectory
                 opportunityInfo.AttendancePattern.ToAttendancePattern(),
                 opportunityInfo.DFE1619Funded,
                 startDate,
-                ((VenueInfo)opportunityInfo.Item).ToVenue(),
+                venue,
+                region,
                 opportunityInfo.Duration.ToDuration());
         }
 
