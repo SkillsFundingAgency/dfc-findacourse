@@ -260,3 +260,6 @@ paket-files/
 __pycache__/
 *.pyc
 /src/Dfc.FindACourse.Web/gulpfile.js
+/src/Dfc.FindACourse.Web/Data/Temp
+/src/Dfc.FindACourse.Web/package-lock.json
+/src/Dfc.FindACourse.Web/parameters.xml

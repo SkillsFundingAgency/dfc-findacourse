@@ -12,11 +12,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\" />
+    <ProjectReference Include="..\Dfc.FindACourse.Common\Dfc.FindACourse.Common.csproj" />
+    <ProjectReference Include="..\Dfc.FindACourse.Services\Dfc.FindACourse.Services.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Dfc.FindACourse.Services\Dfc.FindACourse.Services.csproj" />
+    <Folder Include="Data\Temp\" />
   </ItemGroup>
 
 </Project>

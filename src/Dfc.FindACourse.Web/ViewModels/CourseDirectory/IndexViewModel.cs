@@ -1,4 +1,5 @@
 ﻿using Dfc.FindACourse.Common;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -14,5 +15,7 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
         [Display(Name = "Course name")]
         [Required]
         public string SubjectKeyword { get; set; }
+        public IEnumerable<SelectListItem> QualificationLevels { get; set; }
+
     }
 }

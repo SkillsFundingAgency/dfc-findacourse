@@ -5,7 +5,9 @@ using Dfc.FindACourse.Web.RequestModels;
 using Dfc.FindACourse.Web.ViewModels.CourseDirectory;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Caching.Memory;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,19 +18,29 @@ namespace Dfc.FindACourse.Web.Controllers
 {
     public class CourseDirectoryController : Controller
     {
+        public IConfiguration _configuration;
         private readonly ICourseDirectoryService _courseDirectoryService;
         private IMemoryCache _cache;
+        private FileHelper _fileHelper;
 
-        public CourseDirectoryController(ICourseDirectoryService courseDirectoryService, IMemoryCache memoryCache)
+
+        public CourseDirectoryController(IConfiguration configuration, ICourseDirectoryService courseDirectoryService, IMemoryCache memoryCache)
         {
+            _configuration = configuration;
             _courseDirectoryService = courseDirectoryService;
             _cache = memoryCache;
+            _fileHelper = new FileHelper(configuration, memoryCache);
+
         }
 
         // GET: CourseDirectory
         public ActionResult Index()
         {
-            return View(new IndexViewModel());
+            var indVM = new IndexViewModel
+            {
+                QualificationLevels = GetQualificationLevels()
+            };
+            return View(indVM);
         }
 
         // GET: CourseDirectory
@@ -122,6 +134,21 @@ namespace Dfc.FindACourse.Web.Controllers
                 return View();
             }
         }
+        private IEnumerable<SelectListItem> GetQualificationLevels()
+        {
+            var searchTerms = _fileHelper.LoadQualificationLevels();
+            var roles = searchTerms
+                        .Where(y => y.Display)
+                        .Select(x =>
+                                new SelectListItem
+                                {
+                                    Value = x.Key,
+                                    Text = x.Text
+                                }
+                                );
+
+            return new SelectList(roles, "Value", "Text");
+        }
         /// <summary>
         /// Autocomplete for loading of the synnonyms file
         /// </summary>
@@ -149,7 +176,7 @@ namespace Dfc.FindACourse.Web.Controllers
         /// <returns></returns>
         public IEnumerable<string> AutoSuggestCourseName(string search)
         {
-            XmlDocument searchTerms = FileHelper.LoadSynonyms(_cache);
+            var searchTerms = _fileHelper.LoadSynonyms();
 
             bool found = false;
 
