@@ -81,11 +81,19 @@ namespace Dfc.FindACourse.Web
 
         private async Task DownloadConfig(IMemoryCache cache)
         {
-            //TO DO COnfig File
-            //FileHelper.DownloadSynonymFile("tsenu2.xml", "tsenu2.xml", "tsenu.xml").Wait();
-            _filehelper = new FileHelper(Configuration, cache);
-            await _filehelper.DownloadSynonymFile();
-            await _filehelper.DownloadConfigFiles();
+            try
+            {
+                //FileHelper.DownloadSynonymFile("tsenu2.xml", "tsenu2.xml", "tsenu.xml").Wait();
+                _filehelper = new FileHelper(Configuration, cache);
+                await _filehelper.DownloadSynonymFile();
+                await _filehelper.DownloadConfigFiles();
+            }
+            catch
+            {
+                //added try catch for now, will add logging too. To ensure application starts up without the config files
+                //from BLOB since already incorporated into project
+            }
+            
         }
     }
 }
