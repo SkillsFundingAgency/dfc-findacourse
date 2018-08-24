@@ -263,3 +263,4 @@ __pycache__/
 /src/Dfc.FindACourse.Web/Data/Temp
 /src/Dfc.FindACourse.Web/package-lock.json
 /src/Dfc.FindACourse.Web/parameters.xml
+/src/Dfc.FindACourse.Web/Properties/PublishProfiles/DfcFindACourseWeb - Web Deploy.pubxml
