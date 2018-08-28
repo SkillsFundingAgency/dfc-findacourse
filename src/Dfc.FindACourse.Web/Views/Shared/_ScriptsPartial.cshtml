@@ -112,27 +112,27 @@
 
     $("#course-list").mouseleave(function (e) {
         $(this).hide();
-        $("#Course").focus();
+        $("#SubjectKeyword").focus();
     });
 
     $("#course-list").click(function (e) {
-        $("#Course").val($("li:hover").attr("data-value"));
+        $("#SubjectKeyword").val($("li:hover").attr("data-value"));
         $(this).hide();
-        $("#Course").focus();
+        $("#SubjectKeyword").focus();
     });
 
     $(document).ready(function (e) {
 
         $("#header-search").submit(function (e) {
             e.preventDefault();
-            $(location).attr("href", "/sprint4/course-search?course=" + $("#Course").val() + "&postcode=" + $("#FindSchoolByTown").val());
+            $(location).attr("href", "/sprint4/course-search?course=" + $("#SubjectKeyword").val() + "&postcode=" + $("#FindSchoolByTown").val());
         });
 
         $(window).on("load resize", function (e) {
-            $("#course-list").width($("#Course").width() + 50);
+            $("#course-list").width($("#SubjectKeyword").width() + 50);
         });
 
-        $("#Course").click(function (e) {
+        $("#SubjectKeyword").click(function (e) {
             $("#course-list").hide();
         });
       

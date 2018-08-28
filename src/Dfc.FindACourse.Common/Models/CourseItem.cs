@@ -1,9 +1,10 @@
 ﻿using Dfc.FindACourse.Common.Interfaces;
 using System;
+using System.Collections.Generic;
 
 namespace Dfc.FindACourse.Common.Models
 {
-    public class CourseItem : ICourseItem
+    public class CourseItem : ValueObject<CourseItem>, ICourseItem
     {
         public ICourse Course { get; }
         public IOpportunity Opportunity { get; }
@@ -24,6 +25,13 @@ namespace Dfc.FindACourse.Common.Models
             Course = course;
             Opportunity = opportunity;
             Provider = provider;
+        }
+
+        protected override IEnumerable<object> GetEqualityComponents()
+        {
+            yield return Course;
+            yield return Opportunity;
+            yield return Provider;
         }
     }
 }
