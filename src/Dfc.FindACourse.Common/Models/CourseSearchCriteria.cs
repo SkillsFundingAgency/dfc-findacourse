@@ -1,17 +1,19 @@
 ﻿using Dfc.FindACourse.Common.Interfaces;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Dfc.FindACourse.Common.Models
 {
-    public class CourseSearchCriteria : ICourseSearchCriteria
+    public class CourseSearchCriteria : ValueObject<CourseSearchCriteria>, ICourseSearchCriteria
     {
         public string SubjectKeyword { get; set; }
         public string TownOrPostcode { get; set; }
         public int? Distance { get; set; }
-        public QualificationLevel[] QualificationLevels { get; set; }
-        public StudyMode[] StudyModes { get; set; }
-        public AttendanceMode[] AttendanceModes { get; set; }
-        public AttendancePattern[] AttendancePatterns { get; set; }
+        public IEnumerable<QualificationLevel> QualificationLevels { get; set; }
+        public IEnumerable<StudyMode> StudyModes { get; set; }
+        public IEnumerable<AttendanceMode> AttendanceModes { get; set; }
+        public IEnumerable<AttendancePattern> AttendancePatterns { get; set; }
         public bool? IsDfe1619Funded { get; set; }
 
         public CourseSearchCriteria(string subjectKeyword)
@@ -21,10 +23,22 @@ namespace Dfc.FindACourse.Common.Models
 
             SubjectKeyword = subjectKeyword;
 
-            QualificationLevels = new QualificationLevel[] { };
-            StudyModes = new StudyMode[] { };
-            AttendanceModes = new AttendanceMode[] { };
-            AttendancePatterns = new AttendancePattern[] { };
+            QualificationLevels = (new List<QualificationLevel>()).AsEnumerable();
+            StudyModes = (new List<StudyMode>()).AsEnumerable();
+            AttendanceModes = (new List<AttendanceMode>()).AsEnumerable();
+            AttendancePatterns = (new List<AttendancePattern>()).AsEnumerable();
+        }
+
+        protected override IEnumerable<object> GetEqualityComponents()
+        {
+            yield return SubjectKeyword;
+            yield return TownOrPostcode;
+            yield return Distance;
+            yield return QualificationLevels;
+            yield return StudyModes;
+            yield return AttendanceModes;
+            yield return AttendancePatterns;
+            yield return IsDfe1619Funded;
         }
     }
 }
