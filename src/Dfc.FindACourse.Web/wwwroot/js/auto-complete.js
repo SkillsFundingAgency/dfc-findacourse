@@ -53,17 +53,23 @@
             }); 
         };
 
-        $('#SubjectKeyword').on('keydown', function (e) {
-            $('#course-list li').each(function () {
-                $(this).remove();
-            });
+        $('#SubjectKeyword').on('keyup', function (e) {
+            var keyCode = e.keyCode || e.which;
 
+            if (keyCode !== 38 && keyCode !== 40) {
+                $('#course-list li').each(function () {
+                    $(this).remove();
+                });
+
+                autoCompleteSuggestions($(this).val());
+            }
+        });
+
+        $('#SubjectKeyword').on('keydown', function (e) {
             var keyCode = e.keyCode || e.which;
 
             if (keyCode === 9) {
                 $('#course-list').hide();
-            } else {
-                autoCompleteSuggestions($(this).val());
             }
         });
 
