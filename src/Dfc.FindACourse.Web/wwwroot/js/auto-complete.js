@@ -53,7 +53,7 @@
             }); 
         };
 
-        $('#SubjectKeyword').keyup(function () {
+        $('#SubjectKeyword').on('keyup', function () {
             $('#course-list li').each(function () {
                 $(this).remove();
             });
@@ -61,16 +61,20 @@
             autoCompleteSuggestions($(this).val());
         });
 
-        $('#SubjectKeyword').click(function () {
+        $('#SubjectKeyword').on('click', function () {
             $('#course-list').hide();
         });
 
-        $('#course-list').mouseleave(function () {
+        $('#SubjectKeyword').on('focusout', function () {
+            $('#course-list').hide();
+        });
+
+        $('#course-list').on('mouseleave', function () {
             $(this).hide();
             $('#SubjectKeyword').focus();
         });
 
-        $('#course-list').click(function () {
+        $('#course-list').on('click', function () {
             $('#SubjectKeyword').val($('li:hover').attr('data-value'));
             $(this).hide();
             $('#SubjectKeyword').focus();
