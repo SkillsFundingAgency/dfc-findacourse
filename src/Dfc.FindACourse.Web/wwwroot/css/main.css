@@ -3058,7 +3058,7 @@ input[type="search"]::-webkit-search-decoration {
 
 .select-editable ul {
   position: absolute;
-  top: 36px;
+  top: 38px;
   left: 0;
   margin: 0;
   padding: 0;
@@ -3070,6 +3070,7 @@ input[type="search"]::-webkit-search-decoration {
   overflow-y: scroll;
   overflow-x: hidden;
   cursor: pointer;
+  border: 1px solid dodgerblue;
 }
 
 .select-editable ul li {

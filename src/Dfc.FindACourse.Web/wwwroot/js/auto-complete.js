@@ -54,7 +54,6 @@
         };
 
         var arrowNagivation = function (keyCode) {
-            console.log(keyCode);
             var currentItem = $('#course-list li.item-hover');
 
             if (keyCode === 38) {
@@ -87,6 +86,9 @@
         };
 
         var scrollSuggestions = function (direction) {
+            var tmpValue = $('#SubjectKeyword').val();
+            $('#SubjectKeyword').focus().val('').val(tmpValue);
+
             var scrollableList = $('#course-list');
             var currentItem = scrollableList.find('li.item-hover');
             var height = scrollableList.innerHeight();
@@ -123,7 +125,9 @@
                     $(this).remove();
                 });
 
-                autoCompleteSuggestions($(this).val());
+                if (keyCode !== 13) {
+                    autoCompleteSuggestions($(this).val());
+                }
             }
 
             if (keyCode === 38 || keyCode === 40) {
@@ -135,9 +139,10 @@
             var keyCode = e.keyCode || e.which;
 
             if (keyCode === 13) {
-                e.preventDefault();
-                $('#SubjectKeyword').text($('#course-list li.item-hover').text());
-                $('#course-list').hide();
+                if ($('#course-list').is(':visible')) {
+                    e.preventDefault();
+                    $('#course-list').trigger('click');
+                }
             }
 
             if (keyCode === 9) {
@@ -149,18 +154,20 @@
             $('#course-list').hide();
         });
 
-        var timer;
-
-        $('.select-editable').on('mouseover', function () {
-            clearTimeout(timer);
-        }).on('mouseleave', function () {
-            timer = setTimeout(function () {
-                $('#course-list').hide();
-            }, 1500);
+        $(document).on('click', function () {
+            $('#course-list').hide();
         });
 
         $('#course-list').on('click', function () {
-            $('#SubjectKeyword').val($('li:hover').attr('data-value'));
+            var hoverValue = $('#course-list li:hover').attr('data-value');
+            var selectedValue = $('#course-list li.item-hover').attr('data-value');
+
+            if (selectedValue) {
+                $('#SubjectKeyword').val(selectedValue);
+            } else {
+                $('#SubjectKeyword').val(hoverValue);
+            }
+
             $(this).hide();
             $('#SubjectKeyword').focus();
         });
