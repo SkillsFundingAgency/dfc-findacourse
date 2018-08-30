@@ -35,9 +35,14 @@ namespace Dfc.FindACourse.Services.CourseDirectory
                 {
                     APIKey = _configuration.ApiKey,
                     SubjectKeyword = criteria.SubjectKeyword
-                };
 
-                var request = new CourseListRequestStructure()
+
+                };
+                if (criteria.QualificationLevels.Count > 0) searchCriteria.QualificationLevels = criteria.QualificationLevels.Select(x => x.Level).ToArray();
+                if (!string.IsNullOrEmpty(criteria.TownOrPostcode)) searchCriteria.Location = criteria.TownOrPostcode;
+                if (criteria.Distance.HasValue) searchCriteria.Distance = criteria.Distance.Value;
+
+                 var request = new CourseListRequestStructure()
                 {
                     CourseSearchCriteria = searchCriteria,
                     SortBy = options.SortBy.ToSortType(),

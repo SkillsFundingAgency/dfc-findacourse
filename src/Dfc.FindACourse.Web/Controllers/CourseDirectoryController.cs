@@ -49,9 +49,22 @@ namespace Dfc.FindACourse.Web.Controllers
         // GET: CourseDirectory
         public ActionResult CourseSearchResult([FromQuery] CourseSearchRequestModel requestModel)
         {
+            //DEBUG
+            int distance = -1;
+            int quallevel = -1;
+            int.TryParse(this.Request.Query["LocationRadius"], out distance);
+            if(!string.IsNullOrEmpty(this.Request.Query["QualificationLevel"])) int.TryParse(this.Request.Query["QualificationLevel"], out quallevel);
+            string param3 = this.Request.Query["Location"];
+
+            if(!string.IsNullOrEmpty(param3)) requestModel.TownOrPostcode = param3;
+            if(distance > -1) requestModel.Distance = distance;
+            if (quallevel > -1) requestModel.QualificationLevels = new int[] { quallevel };
+            //END DEBUG
+
             if (ModelState.IsValid)
             {
-                var criteria = new CourseSearchCriteria(requestModel.SubjectKeyword)
+                var criteria = new CourseSearchCriteria(requestModel.SubjectKeyword,
+                   _fileHelper.LoadQualificationLevels().Where( x => x.Key == quallevel.ToString()).ToList(), param3, distance )
                 {
                     
                 };
@@ -59,14 +72,16 @@ namespace Dfc.FindACourse.Web.Controllers
                 var result = _courseDirectoryService.CourseSearch(criteria, new PagingOptions(SortBy.Relevance, 1));
 
                 var regionsOnly = result.Value.Items.Where(x => x.Opportunity.HasRegion);
+                return View(new CourseSearchResultViewModel(result));
             }
             else
             {
                 _telemetry.TrackEvent($"CourseSearch: State Invalid.");
+                return View();
             }
 
 
-            return View();
+            
         }
 
         // GET: CourseDirectory/Details/5
