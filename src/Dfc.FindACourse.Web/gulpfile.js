@@ -47,9 +47,6 @@ var jsVendorDeps = {
     "jquery-validation-unobtrusive": {
         "dist/**/*.min.js": ""
     },
-    "corejs-typeahead": {
-        "dist/typeahead.bundle.min.js": ""
-    },
     "govuk_frontend_toolkit": {
         "javascripts/**/*.js": ""
     }
@@ -165,13 +162,9 @@ gulp.task("js:watch", function () {
 gulp.task("clean", ["clean:js", "clean:js:vendor", "clean:css", "clean:sass:vendor"]);
 gulp.task("min", ["min:js", "min:css"]);
 
-//gulp.task("dev", ["clean", "sass:vendor", "css:watch", "sass:watch", "js:vendor", "js:watch", "eslint:watch", "min"]);
-
 gulp.task("dev", function (cb) {
     runSequence("clean", "sass:vendor", "css:watch", "sass:watch", "js:vendor", "js:vendor:govuk_toolkit", "js:watch", "eslint:watch", "min", cb);
 });
-
-//gulp.task("prod", ["clean", "sass:vendor", "sass", "js:vendor", "eslint", "min"]);
 
 gulp.task("prod", function (cb) {
     runSequence("clean", "sass:vendor", "sass", "js:vendor", "js:vendor:govuk_toolkit", "eslint", "min", cb);
