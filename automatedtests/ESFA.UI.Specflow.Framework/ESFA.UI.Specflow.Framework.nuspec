@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2012/06/nuspec.xsd">
+    <metadata>
+        <id>ESFA.UI.Specflow.Framework</id>
+        <version>1.0.0</version>
+        <authors>ESFA</authors>
+        <owners>ESFA</owners>
+        <licenseUrl>https://github.com/SkillsFundingAgency/DFE-Standardised-Test-Automation-Framework/blob/master/LICENSE</licenseUrl>
+        <projectUrl>https://github.com/SkillsFundingAgency/DFE-Standardised-Test-Automation-Framework</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <description>Skeleton Specflow Automation Framework</description>
+        <summary>Skeleton Specflow Automation Framework</summary>
+        <releaseNotes />
+        <dependencies />
+    </metadata>
+    <files>
+        <file src="bin\Release\ESFA.UI.Specflow.Framework.dll" target="lib\net45\ESFA.UI.Specflow.Framework.dll" />
+    </files>
+</package>
