@@ -1,9 +1,10 @@
-﻿using System;
+﻿using Dfc.FindACourse.Common;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations;
 
-namespace Dfc.FindACourse.Web.Models.CourseDirectory
+namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
 {
     public class CourseSearchResultViewModel
     {
