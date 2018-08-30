@@ -43,6 +43,29 @@
           },
           "accountType": {
             "value": "Standard_GRS"
+          },
+          "storageKind": {
+            "value": "StorageV2"
+          }
+        }
+      }
+    },
+    {
+      "apiVersion": "2017-05-10",
+      "name": "primaryUIAppInsights",
+      "type": "Microsoft.Resources/deployments",
+      "properties": {
+        "mode": "Incremental",
+        "templateLink": {
+          "uri": "https://raw.githubusercontent.com/SkillsFundingAgency/das-platform-building-blocks/master/templates/application-insights.json",
+          "contentVersion": "1.0.0.0"
+        },
+        "parameters": {
+          "appInsightsName": {
+            "value": "[variables('appServiceName')]"
+          },
+          "attachedService": {
+            "value": "[variables('appServiceName')]"
           }
         }
       }
@@ -52,6 +75,7 @@
       "name": "primaryAppService",
       "type": "Microsoft.Resources/deployments",
       "dependsOn": [
+        "primaryUIAppInsights",
         "primaryStorageAccount"
       ],
       "properties": {
@@ -76,12 +100,16 @@
           "appServiceAppSettings": {
             "value": [
               {
+                "name": "APPINSIGHTS_INSTRUMENTATIONKEY",
+                "value": "[reference('primaryUIAppInsights').outputs.InstrumentationKey.value]"
+              },
+              {
                 "name": "Storage_AccountName",
                 "value": "[variables('storageAccountName')]"
               },
               {
                 "name": "Storage_AccountKey",
-                "value": "tbc"
+                "value": "[reference('primaryStorageAccount').outputs.storageKey.value]"
               },
               {
                 "name": "Storage_ContainerReference",
@@ -109,11 +137,11 @@
               },
               {
                 "name": "App_TempSynonymFilePath",
-                "value": "Data\\Temp"
+                "value": "Data\\\\Temp"
               },
               {
                 "name": "App_TempSettingsFilePath",
-                "value": "Data\\Temp"
+                "value": "Data\\\\Temp"
               }
             ]
           }
@@ -133,6 +161,10 @@
     "appServiceName": {
       "type": "string",
       "value": "[variables('appServiceName')]"
+    },
+    "appInsightInstrumentationKey": {
+      "type": "string",
+      "value": "[reference('primaryUIAppInsights').outputs.InstrumentationKey.value]"
     }
   }
 }

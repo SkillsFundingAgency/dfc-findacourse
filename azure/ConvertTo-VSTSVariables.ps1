@@ -9,8 +9,10 @@ $jsonvars = $ARMOutput | convertfrom-json
 $storageAccountName = $jsonvars.storageAccountName.value
 $storageConnectionString = $json.storageConnectionString.value
 $appName = $jsonvars.appServiceName.value
+$appInsights = $jsonvars.appInsightInstrumentationKey.value
 
 # Write these out as VSTS variables
 Write-Host "##vso[task.setvariable variable=storageAccountName]$storageAccountName"
 Write-Host "##vso[task.setvariable variable=storageConnectionString]$storageConnectionString"
 Write-Host "##vso[task.setvariable variable=appName]$appName"
+Write-Host "##vso[task.setvariable variable=appInsights]$appInsights"

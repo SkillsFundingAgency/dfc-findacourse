@@ -12,10 +12,10 @@
             crossorigin="anonymous"
             asp-fallback-src="~/vendor/js/jquery/jquery.min.js"
             asp-fallback-test="window.jQuery"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.0.1/jquery-migrate.min.js" integrity="sha256-F0O1TmEa4I8N24nY0bya59eP6svWcshqX1uzwaWC4F4= sha384-w5FBDpYZssTSnIDL59XH9TYLpEJ2dDP4RPhSPtJd2iLxUY5L8AATkjOsbM4Ohmax sha512-VqTaIU3VlSHylzoMs3hWCBTMZ9l5fvYayp4yzRb5qV9Ne4Z+n21uFoG672gWMcJiedQYZV2KmXF3VkTTsRGRbg==" 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-migrate/3.0.1/jquery-migrate.min.js" integrity="sha256-F0O1TmEa4I8N24nY0bya59eP6svWcshqX1uzwaWC4F4= sha384-w5FBDpYZssTSnIDL59XH9TYLpEJ2dDP4RPhSPtJd2iLxUY5L8AATkjOsbM4Ohmax sha512-VqTaIU3VlSHylzoMs3hWCBTMZ9l5fvYayp4yzRb5qV9Ne4Z+n21uFoG672gWMcJiedQYZV2KmXF3VkTTsRGRbg=="
             crossorigin="anonymous"
             asp-fallback-src="~/vendor/js/jquery-migrate/jquery-migrate.min.js"
-            asp-fallback-test="window.jQuery && window.jQuery.migrateVersion"></script>    
+            asp-fallback-test="window.jQuery && window.jQuery.migrateVersion"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.17.0/jquery.validate.min.js"
             integrity="sha256-F6h55Qw6sweK+t7SiOJX+2bpSAa3b/fnlrVCJvmEj1A= sha384-rZfj/ogBloos6wzLGpPkkOr/gpkBNLZ6b6yLy4o+ok+t/SAKlL5mvXLr0OXNi1Hp sha512-O/nUTF5mdFkhEoQHFn9N5wmgYyW323JO6v8kr6ltSRKriZyTr/8417taVWeabVS4iONGk2V444QD0P2cwhuTkg=="
             crossorigin="anonymous"
@@ -47,97 +47,97 @@
     <script src="~/js/application.js"></script>
     <script src="~/js/auto-store-data.js"></script>
     -->
+@*<script>
 
-<script>
 
- 
-    
-  
-    function doSearch(text) {
 
-        $.ajax({
-            type: "GET",
-            url: "/coursedirectory/autocomplete",
-            contentType: "application/json; charset=utf-8",
-            dataType: "json",
-            data: {
-                parm: text
-            },
-            success: function (results) {
-                $.each(results, function (i, value) {
-                    var valueLow = value.toLowerCase();
-                    var valueHigh = value.toUpperCase();
-                    var textReplace = '<strong>' + text.toUpperCase() + '</strong>';
-                    if (valueLow.indexOf(text) > -1) {
-                        formated = valueHigh.replace(text.toUpperCase(), textReplace);
-                    } else {
-                        formated = valueHigh;
-                    }
 
-                    $('#course-list').append($('<li>', {
-                        "data-value": value,
-                        html: formated
-                    }));
-                    
-                })
-                
-                var length = $("#course-list").children('li').length;
-                if (length > 0) {
-                    $("#course-list").show();
-                } else {
-                    $("#course-list").hide();
-                }
-            },  
+        //function doSearch(text) {
 
-            failure: function (results) {
-                alert(data.responseText);
-            }, 
-            error: function (results) {
-                alert(results.responseText);
-            } 
+        //    $.ajax({
+        //        type: "GET",
+        //        url: "/coursedirectory/autocomplete",
+        //        contentType: "application/json; charset=utf-8",
+        //        dataType: "json",
+        //        data: {
+        //            parm: text
+        //        },
+        //        success: function (results) {
+        //            $.each(results, function (i, value) {
+        //                var valueLow = value.toLowerCase();
+        //                var valueHigh = value.toUpperCase();
+        //                var textReplace = '<strong>' + text.toUpperCase() + '</strong>';
+        //                if (valueLow.indexOf(text) > -1) {
+        //                    formated = valueHigh.replace(text.toUpperCase(), textReplace);
+        //                } else {
+        //                    formated = valueHigh;
+        //                }
 
-        });      
+        //                $('#course-list').append($('<li>', {
+        //                    "data-value": value,
+        //                    html: formated
+        //                }));
 
-    }
-    $("#Course").keyup(function (e) {
-        //remove old items
-        $("#course-list li").each(function (e) {
-            $(this).remove();
-        });
-        //search
-        doSearch($(this).val());
-        
-    });
+        //            })
 
-    $("#course-list").mouseleave(function (e) {
-        $(this).hide();
-        $("#Course").focus();
-    });
+        //            var length = $("#course-list").children('li').length;
+        //            if (length > 0) {
+        //                $("#course-list").show();
+        //            } else {
+        //                $("#course-list").hide();
+        //            }
+        //        },
 
-    $("#course-list").click(function (e) {
-        $("#Course").val($("li:hover").attr("data-value"));
-        $(this).hide();
-        $("#Course").focus();
-    });
+        //        failure: function (results) {
+        //            alert(data.responseText);
+        //        },
+        //        error: function (results) {
+        //            alert(results.responseText);
+        //        }
 
-    $(document).ready(function (e) {
+        //    });
 
-        $("#header-search").submit(function (e) {
-            e.preventDefault();
-            $(location).attr("href", "/sprint4/course-search?course=" + $("#Course").val() + "&postcode=" + $("#FindSchoolByTown").val());
-        });
+        //}
+        //$("#SubjectKeyword").keyup(function (e) {
+        //    //remove old items
 
-        $(window).on("load resize", function (e) {
-            $("#course-list").width($("#Course").width() + 50);
-        });
+        //    $("#course-list li").each(function (e) {
+        //        $(this).remove();
+        //    });
+        //    //search
+        //    doSearch($(this).val());
 
-        $("#Course").click(function (e) {
-            $("#course-list").hide();
-        });
-      
-    });
+        //});
 
-</script>
+        //$("#course-list").mouseleave(function (e) {
+        //    $(this).hide();
+        //    $("#SubjectKeyword").focus();
+        //});
+
+        //$("#course-list").click(function (e) {
+        //    $("#SubjectKeyword").val($("li:hover").attr("data-value"));
+        //    $(this).hide();
+        //    $("#SubjectKeyword").focus();
+        //});
+
+        //$(document).ready(function (e) {
+
+        //    $("#header-search").submit(function (e) {
+        //        e.preventDefault();
+        //        $(location).attr("href", "/sprint4/course-search?course=" + $("#SubjectKeyword").val() + "&postcode=" + $("#FindSchoolByTown").val());
+        //    });
+
+        //    $(window).on("load resize", function (e) {
+        //        $("#course-list").width($("#SubjectKeyword").width() + 50);
+        //    });
+
+        //    $("#SubjectKeyword").click(function (e) {
+        //        $("#course-list").hide();
+        //    });
+
+        //});
+
+    </script>*@
 
 <script>
 

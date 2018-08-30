@@ -5,6 +5,8 @@ namespace Dfc.FindACourse.Common.Models
 {
     public class Opportunity : IOpportunity
     {
+        private static readonly string _defaultRegion = "UNITED KINGDOM";
+
         public int Id { get; }
         public StudyMode StudyMode { get; }
         public AttendanceMode AttendanceMode { get; }
@@ -12,6 +14,9 @@ namespace Dfc.FindACourse.Common.Models
         public bool IsDfe1619Funded { get; }
         public DateTime? StartDate { get; }
         public IVenue Venue { get; }
+        public bool HasVenue => Venue != null;
+        public string Region { get; }
+        public bool HasRegion => !string.IsNullOrWhiteSpace(Region);
         public IDuration Duration { get; }
 
         public Opportunity(
@@ -22,6 +27,7 @@ namespace Dfc.FindACourse.Common.Models
             bool isDfe1619Funded,
             DateTime? startDate,
             IVenue venue,
+            string region,
             IDuration duration)
         {
             if (id <= 0)
@@ -32,8 +38,6 @@ namespace Dfc.FindACourse.Common.Models
                 throw new ArgumentOutOfRangeException(nameof(attendanceMode));
             if (!Enum.IsDefined(typeof(AttendancePattern), attendancePattern))
                 throw new ArgumentOutOfRangeException(nameof(attendancePattern));
-            if (venue == null)
-                throw new ArgumentNullException(nameof(venue));
             if (duration == null)
                 throw new ArgumentNullException(nameof(duration));
 
@@ -44,6 +48,7 @@ namespace Dfc.FindACourse.Common.Models
             IsDfe1619Funded = isDfe1619Funded;
             StartDate = startDate;
             Venue = venue;
+            Region = (venue == null && string.IsNullOrWhiteSpace(region)) ? _defaultRegion : region;
             Duration = duration;
         }
     }

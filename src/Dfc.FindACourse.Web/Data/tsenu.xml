@@ -1,4 +1,4 @@
-﻿<XML ID="Microsoft Search Thesaurus">
+<XML ID="Microsoft Search Thesaurus">
   <thesaurus>
     <!--
 			This file has to be deployed manually by replacing the appropriate file on the server
@@ -25,13 +25,309 @@
 		</expansion> -->
     <!--ACCOUNTING 1-1 -->
     <replacement>
-      <pat>fernch</pat>
-      <sub>FRENCH</sub>
+      <sub>ELECTRICIAN</sub>
+      <pat>ELECTRITION</pat>
+      <pat>ELECTRIAN</pat>
+      <pat>ELECTRICIEN</pat>
+      <pat>ELECTRICAN</pat>
+      <pat>ELECTITAN</pat>
+      <pat>ELECTRICIONE</pat>
+      <pat>ELECTRIAN</pat>
+      <pat>ELECTRCIAN</pat>
+      <pat>ELECTICAL</pat>
+      <pat>ELECTICIANE</pat>
     </replacement>
-    
+    <replacement>
+        <sub>BUSINESS</sub>
+        <pat>BUSSINESS</pat>
+        <pat>BUSSINES</pat>
+        <pat>BUISNESS</pat>
+        <pat>BUISSNESS</pat>
+        <pat>BUISINESS</pat>
+        <pat>BUSINES</pat>
+      </replacement>
+    <replacement>
+        <sub>PSYCHOLOGY</sub>
+        <pat>PSYCHOLGY</pat>
+        <pat>PHYCHOLOGY</pat>
+        <pat>PSYCOLOGY</pat>
+        <pat>PHYSCHOLOGY</pat>
+        <pat>PHSYCOLOGY</pat>
+        <pat>PHSYCHOLOGY</pat>
+        <pat>PHSOCLOGY</pat>
+        <pat>PSHCOLOGY</pat>
+        <pat>PHSICOLOGY</pat>
+        <pat>PSCHOLOGY</pat>
+        <pat>PSHYCOLOGY</pat>
+        <pat>PYSCOLOGY</pat>
+        <pat>PSYHCOLOGY</pat>
+        <pat>PSICOLOGY</pat>
+        <pat>PYCHOLOGY</pat>
+      </replacement>
+    <replacement>
+      <sub>ENGINEERING</sub>
+      <pat>ENGENEERING</pat>
+      <pat>ENGINNERING</pat>
+      <pat>ENGEENERING</pat>
+      <pat>ENGINERING</pat>
+    </replacement>
+    <replacement>
+      <sub>MATHEMATICS</sub>
+      <pat>MATHAMATICS</pat>
+      <pat>MATHEMATIC</pat>
+      <pat>MATHD</pat>
+      <pat>MATH</pat>
+      <pat>MSTHS</pat>
+      <pat>MATHES</pat>
+      <pat>MATHS ENGLISH</pat>
+      <pat>MATHS AND ENGLISH</pat>
+      <pat>MATHS AND ENGLISH</pat>
+    </replacement>
+    <replacement>
+      <sub>ENGLISH</sub>
+      <pat>ENGLSH</pat>
+      <pat>INGLISH</pat>
+      <pat>ENGISH</pat>
+      <pat>ANGLAIS</pat>
+      <pat>ENGLES</pat>
+      <pat>ENGLIS</pat>
+      <pat>ENGLESE</pat>
+      <pat>INGLES</pat>
+      <pat>ENGLISG</pat>
+      <pat>ENGLEZA</pat>
+      <pat>ENGLUSH</pat>
+      <pat>ANGLISH</pat>
+      <pat>ENGLSIH</pat>
+      <pat>ENGLESH</pat>
+      <pat>EMGLISH</pat>
+      <pat>ENGLISH MATHS</pat>
+      <pat>ENGLISH AND MATHS</pat>
+      <pat>ENGLISH &amp; MATHS</pat>
+    </replacement>
+    <replacement>
+      <sub>PLUMBING</sub>
+      <pat>PLUMMING</pat>
+      <pat>PLUMING</pat>
+      <pat>PLUMMER</pat>
+      <pat>PLUMPING</pat>
+      <pat>PLUMBIMG</pat>
+    </replacement>
+    <replacement>
+      <sub>TILING</sub>
+      <pat>TILLING</pat>
+      <pat>TILEING</pat>
+    </replacement>
+    <replacement>
+      <sub>BRICKLAYING</sub>
+      <pat>BRICK LAYING</pat>
+    </replacement>
+    <replacement>
+      <sub>HAIRDRESSING</sub>
+      <pat>HAIRDRESSERS</pat>
+      <pat>HAIRDRESER</pat>
+      <pat>HAIR DRESSING</pat>
+      <pat>HAIR DRESSER</pat>
+      <pat>HAIRDRESSERS</pat>
+      <pat>HAIRCUT</pat>
+    </replacement>
+    <replacement>
+      <sub>MEDICINE</sub>
+      <pat>MEDECINE</pat>
+      <pat>MEDICIN</pat>
+      <pat>MEDICENE</pat>
+      <pat>MEDICLE</pat>
+    </replacement>
+    <replacement>
+      <sub>COUNSELLING</sub>
+      <pat>COUNCELING</pat>
+      <pat>COUSELLING</pat>
+      <pat>COUNCILING</pat>
+      <pat>COUNCILLING</pat>
+      <pat>COUNCELLING</pat>
+      <pat>COUNCELING</pat>
+      <pat>COUCELING</pat>
+      <pat>COUNCILLER</pat>
+      <pat>COUNCELOR</pat>
+      <pat>COUNCILER</pat>
+      <pat>COUNSELLER</pat>
+      <pat>COUNCLING</pat>
+      <pat>CONSELLING</pat>
+      <pat>COUNCELLOR</pat>
+    </replacement>
+    <replacement>
+      <sub>MECHANIC</sub>
+      <pat>MACHANIC</pat>
+      <pat>MECANIC</pat>
+      <pat>MECANICS</pat>
+    </replacement>
+    <replacement>
+      <sub>CHEMISTRY</sub>
+      <pat>CHEMESTRY</pat>
+      <pat>CHEMISRTY</pat>
+    </replacement>
+    <replacement>
+      <sub>CATERING</sub>
+      <pat>CATARING</pat>
+    </replacement>
+    <replacement>
+      <sub>ECONOMICS</sub>
+      <pat>ECNOMICS</pat>
+    </replacement>
+    <replacement>
+      <sub>SOCIOLOGY</sub>
+      <pat>SOCIALOLOGY</pat>
+      <pat>SOCIALOGY</pat>
+    </replacement>
+    <replacement>
+      <sub>BIOLOGY</sub>
+      <pat>BIOLGY</pat>
+      <pat>BIOLAGY</pat>
+      <pat>BIOALIGY</pat>
+    </replacement>
+    <replacement>
+      <sub>TATTOO</sub>
+      <pat>TATOO</pat>
+    </replacement>
+    <replacement>
+      <sub>WAREHOUSE</sub>
+      <pat>WEARHOUSE</pat>
+    </replacement>
+    <replacement>
+      <sub>POLITICS</sub>
+      <pat>POLOTICS</pat>
+      <pat>POLATICS</pat>
+    </replacement>
+    <replacement>
+      <sub>MIDWIFE</sub>
+      <pat>MIDWIEF</pat>
+      <pat>MIDWIFREY</pat>
+      <pat>MIDWIFRIES</pat>
+    </replacement>
+    <replacement>
+      <sub>CONSTRUCTION</sub>
+      <pat>CONTRUCTION</pat>
+      <pat>CONSTUCTION</pat>
+      <pat>CONSTRUTION</pat>
+    </replacement>
+    <replacement>
+      <sub>ARCHITECTURE</sub>
+      <pat>ARCITECTURE</pat>
+    </replacement>
+    <replacement>
+      <sub>CACHE</sub>
+      <pat>CASHE</pat>
+    </replacement>
+    <replacement>
+      <sub>TEACHING</sub>
+      <pat>TEACING</pat>
+    </replacement>
+    <replacement>
+      <sub>FIREFIGHTER</sub>
+      <pat>FIREFITER</pat>
+    </replacement>
+    <replacement>
+      <sub>BEAUTY</sub>
+      <pat>BEATY</pat>
+      <pat>BEUTY</pat>
+      <pat>BAUTY</pat>
+    </replacement>
+    <replacement>
+      <sub>MANAGEMENT</sub>
+      <pat>MANAGMENT</pat>
+    </replacement>
+    <replacement>
+      <sub>ENVIRONMENT</sub>
+      <pat>ENVIROMENT</pat>
+    </replacement>
+    <replacement>
+      <sub>NURSING</sub>
+      <pat>NURSEING</pat>
+      <pat>NURSERING</pat>
+    </replacement>
+    <replacement>
+      <sub>COMPUTING</sub>
+      <pat>COMPUTERING</pat>
+      <pat>COMPUTORS</pat>
+    </replacement>
+    <replacement>
+      <sub>TOURISM</sub>
+      <pat>TURISM</pat>
+    </replacement>
+    <replacement>
+      <sub>FOREIGN</sub>
+      <pat>FORIEGN</pat>
+    </replacement>
+    <replacement>
+      <pat>GAURD</pat>
+      <sub>GUARD</sub>
+    </replacement>
+    <replacement>
+      <pat>DOG GROMMING</pat>
+      <sub>DOG GROOMING</sub>
+    </replacement>
+    <replacement>
+      <pat>CHEFF</pat>
+      <pat>SHEF</pat>
+      <sub>CHEF</sub>
+    </replacement>
+    <replacement>
+      <pat>SIENCE</pat>
+      <pat>SCIANCE</pat>
+      <sub>SCIENCE</sub>
+    </replacement>
+    <replacement>
+      <pat>ACCOUTING</pat>
+      <pat>ACOUNTING</pat>
+      <pat>ACCOUTANT</pat>
+      <pat>ACCOUNTANTCY</pat>
+      <pat>ACCOUNTACY</pat>
+      <pat>ACOUNTANT</pat>
+      <sub>ACCOUNTING</sub>
+    </replacement>
+    <replacement>
+      <pat>BOOKEEPING</pat>
+      <pat>BOOK KEEPING</pat>
+      <sub>BOOKKEEPING</sub>
+    </replacement>
+    <replacement>
+      <pat>I.T.</pat>
+      <pat>I T</pat>
+      <sub>IT</sub>
+    </replacement>
+    <replacement>
+      <pat>SOLICITER</pat>
+      <sub>SOLICITOR</sub>
+    </replacement>
+    <replacement>
+      <pat>GSCE</pat>
+      <pat>GCSES</pat>
+      <pat>GSCC</pat>
+      <pat>G.C.S.E.</pat>
+      <sub>GCSE</sub>
+    </replacement>
+    <replacement>
+      <pat>PLASTER</pat>
+      <sub>PLASTERER</sub>
+    </replacement>
+    <replacement>
+      <pat>VETINARY NURSE</pat>
+      <pat>VETINARY ASSISTANT</pat>
+      <pat>VETINARY</pat>
+      <sub>VETERINARY NURSE</sub>
+    </replacement>
+    <replacement>
+      <pat>NAIL TECHNITION</pat>
+      <pat>NAIL TECH</pat>
+      <pat>NAIL TECHNICIANS</pat>
+      <sub>NAIL TECHNICIAN</sub>
+    </replacement>
+    <replacement>
+      <pat>ASISTANT</pat>
+      <pat>ASSITANT</pat>
+      <sub>ASSISTANT</sub>
+    </replacement>
     <expansion>
       <sub>AAT</sub>
-      <sub>SHABBA</sub>
       <sub>ACCA</sub>
       <sub>ACCOUNTANCY</sub>
       <sub>ACCOUNTANT</sub>
@@ -44,7 +340,7 @@
       <sub>TAX</sub>
       <!-- SUGGESTED BY MM -->
       <sub>TAXATION</sub>
-      
+
       <!-- END OF SUGGESTION BY MM -->
     </expansion>
     <!--ACTING-->
@@ -870,9 +1166,7 @@
     </expansion>
     <!--EDUCATION  1-1 -->
     <expansion>
-      <sub>EDUCATION</sub>
-      <sub>TEACHING</sub>
-      <sub>TEACHER</sub>
+
     </expansion>
     <!--EFFECTIVE-->
     <expansion>
@@ -896,7 +1190,6 @@
       <sub>ELECTRICIAN</sub>
       <sub>ELECTRICIANS</sub>
       <sub>ELECTRICS</sub>
-      <sub>ELECTRITIAN</sub>
       <sub>ELECTROTECHNICAL</sub>
     </expansion>
     <!--ELECTRONIC  1-1 -->
@@ -942,6 +1235,11 @@
       <sub>ENVIRONMENTAL SCIENCE</sub>
       <sub>ENVIRONMENTAL SCIENCES</sub>
       <sub>ENVIRONMENTAL STUDIES</sub>
+    </expansion>
+    <expansion>
+      <sub>GEOGRAPHY</sub>
+      <sub>HUMAN GEOGRAPHY</sub>
+      <sub>PHYSICAL GEOGRAPHY</sub>
     </expansion>
     <!--EQUALITY AND DIVERSITY 1-1-->
     <expansion>
@@ -2246,6 +2544,10 @@
       <sub>PARAMEDIC</sub>
       <sub>PRISON</sub>
       <sub>PRISON OFFICER</sub>
+    </expansion>
+    <expansion>
+      <sub>POLICE</sub>
+      <sub>POLICE OFFICER</sub>
     </expansion>
     <!--VET 1-1 -->
     <expansion>

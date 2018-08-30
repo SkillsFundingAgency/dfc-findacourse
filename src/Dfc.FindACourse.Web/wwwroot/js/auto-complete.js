@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+﻿/* eslint-disable no-console */
 // Auto-complete
 
 'use strict';
@@ -123,11 +123,7 @@
                     $(this).remove();
                 });
 
-                if (keyCode === 13) {
-                    $('#course-list').hide();
-                } else {
-                    autoCompleteSuggestions($(this).val());
-                }
+                autoCompleteSuggestions($(this).val());
             }
 
             if (keyCode === 38 || keyCode === 40) {
@@ -140,7 +136,8 @@
 
             if (keyCode === 13) {
                 e.preventDefault();
-                $('#course-list').trigger('click');
+                $('#SubjectKeyword').text($('#course-list li.item-hover').text());
+                $('#course-list').hide();
             }
 
             if (keyCode === 9) {
@@ -163,57 +160,9 @@
         });
 
         $('#course-list').on('click', function () {
-            var hoverValue = $('li:hover').attr('data-value');
-            var selectedValue = $('li.item-hover').attr('data-value');
-
-            if (selectedValue) {
-                $('#SubjectKeyword').val(selectedValue);
-            } else {
-                $('#SubjectKeyword').val(hoverValue);
-            }
-
-            $('#SubjectKeyword').focus();
+            $('#SubjectKeyword').val($('li:hover').attr('data-value'));
             $(this).hide();
-        });
-
-    });
-})();
-
-/* eslint-disable no-console */
-// Form validation
-
-'use strict';
-
-(function () {
-    $(function () {
-
-        var toggleFormGroupValidationError = function (formElement, inputElement) {
-            var formGroup = $(inputElement).closest('.form-group');
-
-            if (!$(formElement).valid()) {
-                if (formGroup) {
-                    if (!formGroup.hasClass('error')) {
-                        formGroup.addClass('error');
-                    }
-                }
-            } else {
-                if (formGroup) {
-                    if (formGroup.hasClass('error')) {
-                        formGroup.removeClass('error');
-                    }
-                }
-            }
-        };
-
-        $('#FindACourseForm input:text[data-val=true]').on('focusout keyup', function () {
-            toggleFormGroupValidationError($('#FindACourseForm'), this);
-        });
-
-        $('#FindACourseForm').on('submit', function () {
-            var formElement = this;
-            $('#FindACourseForm .input-validation-error').each(function (index, element) {
-                toggleFormGroupValidationError(formElement, element);
-            });
+            $('#SubjectKeyword').focus();
         });
 
     });

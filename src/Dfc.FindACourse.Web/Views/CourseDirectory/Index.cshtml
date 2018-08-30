@@ -11,18 +11,25 @@
     <div class="column-two-thirds">
         <h1 class="heading-xlarge">Find a course</h1>
         <p>Search for training and learning opportunities at all levels. We’ll show you courses from colleges, training providers and local education authorities. <a href="https://nationalcareersservice.direct.gov.uk/contact-us/home">Contact an adviser</a> if you need help finding the right course for you.</p>
-        <form id="FindACourseForm" name="FindACourseForm" action="/some-place" method="post">
+        <form 
+              id="FindACourseForm" 
+              name="FindACourseForm" 
+              method="get" 
+              asp-controller="CourseDirectory" 
+              asp-action="CourseSearchResult">
             <div class="form-group">
                 <label class="form-label" for="SubjectKeyword">
                     Course name
                     <span class="form-hint">For example, Engineering or Hairdressing</span>
                 </label>
-                <span asp-validation-for="SubjectKeyword"></span>
-                <input 
-                       asp-for="SubjectKeyword"
-                       class="form-control form-control-1-1"
-                       autocomplete="off"
-                       placeholder="Enter a course name or subject" />
+                <div class="select-editable">
+                    <span asp-validation-for="SubjectKeyword"></span>
+                    <input asp-for="SubjectKeyword"
+                           class="form-control form-control-1-1"
+                           autocomplete="off"
+                           placeholder="Enter a course name or subject" />
+                    <ul id="course-list"></ul>
+                </div>
             </div>
             <div class="form-group">
                 <label class="form-label" for="QualificationLevel">
@@ -31,11 +38,20 @@
                         <a target="_blank" href="https://www.gov.uk/what-different-qualification-levels-mean/list-of-qualification-levels">What qualification levels mean</a>
                     </span>
                 </label>
-                <dfc-select class="form-control form-control-1-1" id="QualificationLevel" name="QualificationLevel"
-                            dfc-items="Html.GetEnumSelectList<QualificationLevel>()"
-                            dfc-ignored-item-values="@(new Enum[] { QualificationLevel.Level9, QualificationLevel.LevelNa })">
+                @*<dfc-select class="form-control form-control-1-1" id="QualificationLevel" name="QualificationLevel"
+                    dfc-items="Html.GetEnumSelectList<QualificationLevel>()"
+                    dfc-ignored-item-values="@(new Enum[] { QualificationLevel.Level9, QualificationLevel.LevelNa })">
                     <option value="">Select level</option>
-                </dfc-select>
+                </dfc-select>*@
+                <select class="form-control form-control-1-1" id="QualificationLevel" name="QualificationLevel">
+                    @foreach (var item in Model.QualificationLevels)
+                    {
+
+                        <option value="@item.Value">
+                            @item.Text
+                        </option>
+                    }
+                </select>
             </div>
             <div class="form-group">
                 <label class="form-label" for="Location">
@@ -43,14 +59,14 @@
                     <span class="form-hint">Enter a postcode or town. For example, S1 1WB or Sheffield</span>
                 </label>
                 <input id="Location"
-                       class="form-control"
-                       name="Location"
-                       placeholder="Postcode or town"
-                       autocomplete="off"
-                       data-suggestion-url="/suggest-town/"
-                       type="text"
-                       value="" />
-                <dfc-select id="LocationRadius" 
+                        class="form-control"
+                        name="Location"
+                        placeholder="Postcode or town"
+                        autocomplete="off"
+                        data-suggestion-url="/suggest-town/"
+                        type="text"
+                        value="" />
+                <dfc-select id="LocationRadius"
                             name="LocationRadius"
                             class="form-control form-control-1-4"
                             dfc-items="Html.GetEnumSelectList<RadiusDistance>()"
@@ -58,492 +74,8 @@
                 </dfc-select>
             </div>
             <div class="form-group">
-                <input class="button" type="submit" id="Search" name="Search" value="Search" >
+                <input class="button" type="submit" id="Search" name="Search" value="Search">
             </div>
         </form>
     </div>
 </div>
-
-
-@*<style>
-            .govuk-width-container {
-                max-width: none;
-            }
-
-            .govuk-button {
-                background: #000;
-            }
-
-                .govuk-button:hover {
-                    background: #a9a9a9;
-                }
-
-            .search-container .search-text #radius {
-                width: 100px;
-                height: 38px;
-                border: none;
-            }
-
-            .search-container .search-text .radius-container {
-                width: 98px;
-                height: 38px;
-                border: 1px solid #bfc1c3;
-                border-left: none;
-                float: left;
-            }
-
-            .optional-section, .help-content {
-                border-left: #bfc1c3 solid 4px;
-                padding: 14px 0 14px 14px;
-                margin-bottom: 0.5em !important;
-                clear: both;
-            }
-
-            .search-container .search-text {
-                width: 100%;
-                max-width: 439px;
-                float: left;
-                box-sizing: border-box;
-                padding-right: 40px;
-                margin-right: -40px;
-            }
-
-                .search-container .search-text input.form-control {
-                    -webkit-box-sizing: border-box;
-                    -moz-box-sizing: border-box;
-                    box-sizing: border-box;
-                    font-family: "nta",Arial,sans-serif;
-                    font-weight: 400;
-                    text-transform: none;
-                    font-size: 14px;
-                    line-height: 1.1428571429;
-                    font-size: 16px;
-                    cursor: pointer;
-                    padding: 4px 4px 3px 4px;
-                    background-color: #fff;
-                    border: 1px solid #bfc1c3;
-                }
-
-            .btn, .btn:visited {
-                display: inline;
-                border: none;
-                text-decoration: none;
-                position: relative;
-                font-size: 14px;
-                line-height: 1.25;
-                padding: 8px 16px;
-                cursor: pointer;
-                background-image: none;
-                text-shadow: none;
-                box-shadow: none;
-            }
-
-
-                .btn-secondary, .btn, .btn:visited {
-                    background-color: #2e3191;
-                    color: #fff;
-                    -webkit-border-radius: 0px;
-                    -moz-border-radius: 0px;
-                    border-radius: 0px;
-                    font-weight: 400;
-                    overflow: visible;
-                    -webkit-font-smoothing: antialiased;
-                }
-
-
-            /*
-        textarea, select, input[type="text"], input[type="password"], input[type="datetime"], input[type="datetime-local"], input[type="date"], input[type="month"], input[type="time"], input[type="week"], input[type="number"], input[type="email"], input[type="url"], input[type="search"], input[type="tel"], input[type="color"], .uneditable-input {
-            font-family: "nta", Helvetica, Arial, sans-serif;
-            height: auto;
-            border-radius: 0;
-            padding: 5px;
-            border: 2px solid #0b0c0c;
-            margin-bottom: 10px;
-            -webkit-appearance: none;
-            -webkit-box-sizing: border-box;
-            -moz-box-sizing: border-box;
-            box-sizing: border-box;
-            font-size: 19px;
-            line-height: 1.3157894737;
-            color: #0b0c0c;
-            margin-bottom: 0;
-        }
-
-        */
-
-            .pub-c-lead-paragraph {
-                font-family: "nta", Arial, sans-serif;
-                font-weight: 400;
-                text-transform: none;
-                font-size: 22px;
-                line-height: 1.2;
-                margin-bottom: 35px;
-                max-width: 30em;
-            }
-
-            .form-search {
-                width: 100%;
-                position: relative;
-                max-width: 350px;
-                display: inline-block;
-                margin-bottom: 0;
-            }
-
-                .form-search .search-input-wrapper {
-                    width: 100%;
-                    display: inline-block;
-                    position: relative;
-                }
-
-                .form-search input.search-query {
-                    height: 40px;
-                    float: left;
-                    width: 86%;
-                    z-index: 10;
-                }
-
-                .form-search input[type="submit"] {
-                    width: 40px;
-                    height: 40px;
-                    float: left;
-                    padding: 6px;
-                    background: #0b0c0c url(/public/images/search-button.png) no-repeat 2px 50%;
-                    text-indent: -5000px;
-                    -webkit-box-sizing: border-box;
-                    -moz-box-sizing: border-box;
-                    box-sizing: border-box;
-                }
-
-            .schools-search-page .search-types .optional-section label {
-                font-family: "nta",Arial,sans-serif;
-                font-weight: 700;
-                text-transform: none;
-                font-size: 16px;
-                line-height: 1.25;
-                float: left;
-                width: 100%;
-                margin-bottom: 1em;
-            }
-
-            .optional-section label {
-                font-size: 19px;
-                line-height: 1.3157894737;
-            }
-
-            @@media only screen and (min-width: 641px) {
-                .multiple-choice label {
-                    float: left;
-                    padding-top: 7px;
-                    padding-bottom: 7px;
-                }
-            }
-
-            .multiple-choice label {
-                cursor: pointer;
-                padding: 8px 10px 9px 12px;
-                display: block;
-                -ms-touch-action: manipulation;
-                touch-action: manipulation;
-            }
-
-            .multiple-choice label {
-                font-size: 16px;
-            }
-
-            .multiple-choice {
-                display: block;
-                clear: left;
-                position: relative;
-                padding: 0 0 0 38px;
-                margin-bottom: 10px;
-            }
-
-            .search-types .optional-section label {
-                font-family: "nta",Arial,sans-serif;
-                font-weight: 700;
-                text-transform: none;
-                font-size: 16px;
-                line-height: 1.25;
-                float: left;
-                width: 100%;
-                margin-bottom: 1em;
-            }
-
-            .search-container .search-text input {
-                width: 100%;
-                max-width: 400px;
-                height: 40px;
-                vertical-align: top;
-                margin-bottom: 0px !important;
-            }
-
-            .search-container input.search-input {
-                float: left;
-                box-sizing: border-box;
-                border: solid 2px #005c2a;
-                width: 40px;
-                height: 40px;
-                cursor: pointer;
-                overflow: hidden;
-                text-indent: -500px;
-                border-radius: 0;
-            }
-
-            .search-container .search-text span.twitter-typeahead {
-                width: 100%;
-                max-width: 400px;
-            }
-
-            .schools-search-page .search-container {
-                width: 439px;
-                margin-top: 8px;
-            }
-
-            .search-text .search-divider {
-                border-left: 1px solid #bfc1c3;
-                float: left;
-                height: 26px;
-                margin: 7px 0 7px -2px;
-            }
-
-            .search-text input#FindSchoolByTown {
-                max-width: 299px;
-                border-right: 0px;
-                float: left;
-            }
-
-            .form-control {
-                font-size: 16px;
-                line-height: 1.25;
-            }
-
-
-            .schools-search-page .tt-menu {
-                margin-top: 0px !important;
-                background-color: white;
-                z-index: 99 !important;
-            }
-
-            strong {
-                font-weight: 600
-            }
-
-            .govuk-input, .govuk-select {
-                border-color: #efefef !important;
-            }
-
-            .govuk-main-wrapper {
-                padding-bottom: 0 !important;
-            }
-
-            /*SELECT SEARCH*/
-
-            .select-editable {
-                position: relative;
-                background-color: white;
-                border: solid #eee 2px;
-                width: 120px;
-                height: 40px;
-                overflow: visible;
-            }
-
-                .select-editable ul {
-                    position: absolute;
-                    top: 44px;
-                    left: 0px;
-                    width: 500px;
-                    max-width: 100vw;
-                    margin: 0;
-                    display: none;
-                    height: auto;
-                    max-height: 400px;
-                    z-index: 10001;
-                    font-size: 17px !important;
-                    cursor: pointer;
-                    padding: 0;
-                    border-top: none;
-                    border-right: solid 1px #ccc;
-                    border-left: solid 1px #ccc;
-                    border-bottom: solid 1px #ccc;
-                    list-style-type: none;
-                    background-color: #fff;
-                    overflow-y: scroll;
-                    overflow-x: hidden;
-                }
-
-                .select-editable li:hover {
-                    border-top: solid 1px #ccc;
-                    border-bottom: solid 1px #ccc;
-                }
-
-                .select-editable li {
-                    padding: 5px;
-                    text-overflow: ellipsis;
-                    height: 20px;
-                }
-
-
-                .select-editable input {
-                    position: absolute;
-                    top: 0px;
-                    left: 0px;
-                    width: 100px;
-                    padding: 1px;
-                    padding-left: 8px;
-                    font-size: 17px !important;
-                    border: none;
-                }
-
-                    .select-editable input:focus {
-                        outline: 3px solid #FFBF47;
-                    }
-
-
-                .select-editable .govuk-input {
-                    -webkit-box-sizing: border-box;
-                    -moz-box-sizing: border-box;
-                    box-sizing: border-box;
-                    padding-right: 40px;
-                    margin-right: -40px;
-                    float: left;
-                    width: 100%;
-                }
-
-            .select-editable {
-                width: 100%
-            }
-
-            .govuk-error-message {
-                display: none
-            }
-
-            .radius-container {
-                width: 100px !important;
-                float: left;
-            }
-
-
-            .radius {
-                width: 100% !important;
-            }
-
-            .town {
-                width: calc(100% - 103px) !important;
-                float: left;
-            }
-    </style>*@
-
-
-
-@*<header class="homepage-top govuk-grid-row" style="position: relative;top:-30px;padding-bottom: 40px">
-    <div class="content-container">
-        <div class="grid-row" data-sf-element="Row">
-            <div id="MainContentTop_T945D82B6001_Col00" class="sf_colsIn govuk-grid-column-two-thirds" data-sf-element="Container" data-placeholder-label="Home banner Full Width Container">
-
-                <div>
-                    <div>
-                        <h1 class="heading-xlarge govuk-heading-xl" id="site-header" style="padding-top: 30px">Find a course</h1><p class="lede" style="color: white;font-size:18px; font-weight: normal!important">
-                            Search for training and learning opportunities at all levels. We’ll show you courses from colleges, training providers and local education authorities. <a style="color: white" href="https://nationalcareersservice.direct.gov.uk/contact-us/home">Contact an adviser</a> if you need help finding the right course for you.
-                        </p>
-                    </div>
-
-                </div>
-                <form asp-controller="CourseDirectory" asp-action="CourseSearch" class="site-search ui-front" id="header-search" method="get" name="frm">
-                    <div class="header-search-content">
-
-                        <div class="search-input-wrapper">
-
-                            <div class="govuk-form-group">
-                                <div class="ui-widget">
-
-                                    <p class="lede">Course name</p>
-
-                                    <p style="color: white; font-weight: normal; font-size: 16px;padding: 0!important;margin-bottom:0;position: relative; top:-16px;">For example, Engineering or Hairdressing</p>
-
-
-                                    <span id="dob-error" class="govuk-error-message">
-                                        Enter a course name
-                                    </span>
-
-                                    <label class="govuk-label" for="address-line-2">
-                                    </label>
-
-                                    <!--<input class="govuk-input" id="course" name="course" type="text" placeholder="Enter a course name" />-->
-
-                                    <div class="select-editable">
-                                        <ul id="course-list"></ul>
-                                        <input class="govuk-input" type="text" name="SubjectKeyword" id="Course" value="" placeholder="Enter a course name" />
-                                    </div>
-
-                                </div>
-                            </div>
-
-                        </div>
-
-                    </div>
-                    <p class="lede">Qualification level (Optional)</p>
-                    <a target="_blank" style="position: relative; top:-16px; color: #fff;font-size: 16px;" href="https://www.gov.uk/what-different-qualification-levels-mean/list-of-qualification-levels"> What qualification levels mean</a>
-                    <div class="govuk-form-group govuk-grid-column-one-half" style="padding-left: 0; float: none">
-
-                        <dfc-select class="govuk-select" id="QualificationLevel" name="QualificationLevel"
-                                    dfc-items="Html.GetEnumSelectList<QualificationLevel>()"
-                                    dfc-ignored-item-values="@(new Enum[] { QualificationLevel.Level9, QualificationLevel.LevelNa })">
-                            <option value="">Select level</option>
-                        </dfc-select>*@
-
-@*<select class="govuk-select" id="QualificationLevel" name="QualificationLevel">
-
-
-        <option value="0" selected="">Select level</option>
-         <option value="" >The level you want to study at.</option>
-        <option value="LV1">Entry level - Skills for Life</option>
-        <option value="LV1">Level 1 - First certificate </option>
-        <option value="LV2">Level 2 - GCSE/O level</option>
-        <option value="LV3">Level 3 - A level/Access to higher education diploma</option>
-        <option value="LV4">Level 4 - Certificate of higher education/HNC</option>
-        <option value="LV5">Level 5 - Foundation degree/HND</option>
-        <option value="LV6">Level 6 - Degree/Graduate diploma</option>
-        <option value="LV7">Level 7 - Masters Degree/Postgraduate diploma</option>
-        <option value="LV8">Level 8 - Doctorate/PhD</option>
-
-    </select>*@
-@*</div>
-    <div class="govuk-grid-column" style="width: 100%"></div>
-    <p class="lede">Location (Optional)</p>
-    <p style="color: white; font-weight: normal; font-size: 16px;padding: 0!important;margin-bottom:0;position: relative; top:-16px;">Enter a postcode or town. For example, S1 1WB or Sheffield</p>
-    <div class="search-container">
-        <div class="search-text">
-            <input id="FindSchoolByTown" name="LocationPostCodeTown" class="form-control mbl num town" placeholder="Postcode or town" autocomplete="off" data-suggestion-url="/suggest-town/" type="text">
-            <div class="search-divider" style="float:left;"></div>
-            <div class="radius-container" style="float:left;">
-
-                <dfc-select id="LocationRadius" name="LocationRadius" class="govuk-select radius" style="background: white;color: black;"
-                            dfc-items="Html.GetEnumSelectList<RadiusDistance>()"
-                            dfc-selected-item="Html.GetEnumSelectListItem<IndexViewModel, RadiusDistance>(Model.DefaultRadiusDistance)">
-                </dfc-select>*@
-
-@*<select id="LocationRadius" name="LocationRadius" class="govuk-select radius" style="background: white;color: black;">
-        <option value="1">1 mile</option>
-        <option value="3">3 miles</option>
-        <option value="5">5 miles</option>
-        <option value="10" selected="selected">10 miles</option>
-        <option value="15">15 miles</option>
-        <option value="20">20 miles</option>
-        <option value="20">National</option>
-    </select>*@
-@*</div>
-                            </div>
-                            <input id="LocationCoordinates" name="LocationCoordinates" value="52.40099669999999,-1.5081222000000025" type="hidden">
-                        </div>
-                        <br>
-                        <br>
-                        <br>
-                        <input type="submit" value="Search" class="govuk-button" style="margin-top: 20px" onclick="return IsEmpty();">
-
-                    </form>
-                </div>
-            </div>
-        </div>
-
-    </header>*@
-

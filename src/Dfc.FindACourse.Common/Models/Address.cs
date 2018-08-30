@@ -1,9 +1,10 @@
 ﻿using Dfc.FindACourse.Common.Interfaces;
 using System;
+using System.Collections.Generic;
 
 namespace Dfc.FindACourse.Common.Models
 {
-    public class Address : IAddress
+    public class Address : ValueObject<Address>, IAddress
     {
         public string Line1 { get; }
         public string Line2 { get; }
@@ -28,8 +29,8 @@ namespace Dfc.FindACourse.Common.Models
             //    throw new ArgumentException($"{nameof(line2)} cannot be null, empty or only whitespace.");
             if (string.IsNullOrWhiteSpace(town))
                 throw new ArgumentException($"{nameof(town)} cannot be null, empty or only whitespace.");
-            if (string.IsNullOrWhiteSpace(county))
-                throw new ArgumentException($"{nameof(county)} cannot be null, empty or only whitespace.");
+            //if (string.IsNullOrWhiteSpace(county))
+            //    throw new ArgumentException($"{nameof(county)} cannot be null, empty or only whitespace.");
             if (string.IsNullOrWhiteSpace(postcode))
                 throw new ArgumentException($"{nameof(postcode)} cannot be null, empty or only whitespace.");
             if (latitude < -180 || latitude > 180)
@@ -44,6 +45,17 @@ namespace Dfc.FindACourse.Common.Models
             Postcode = postcode;
             Latitude = latitude;
             Longitude = longitude;
+        }
+
+        protected override IEnumerable<object> GetEqualityComponents()
+        {
+            yield return Line1;
+            yield return Line2;
+            yield return Town;
+            yield return County;
+            yield return Postcode;
+            yield return Latitude;
+            yield return Longitude;
         }
     }
 }

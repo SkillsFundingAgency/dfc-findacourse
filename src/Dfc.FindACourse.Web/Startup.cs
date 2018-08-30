@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -16,6 +17,7 @@ namespace Dfc.FindACourse.Web
 {
     public class Startup
     {
+        FileHelper _filehelper;
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -33,6 +35,8 @@ namespace Dfc.FindACourse.Web
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
+            services.AddSingleton(Configuration);
+            //??
             int tribalPerPage = int.TryParse(Configuration["Tribal:PerPage"], out tribalPerPage) ? tribalPerPage : 0;
 
             services.AddSingleton(typeof(ICourseDirectoryServiceConfiguration), 
@@ -44,11 +48,12 @@ namespace Dfc.FindACourse.Web
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddMemoryCache();
+            
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IMemoryCache cache)
         {
             if (env.IsDevelopment())
             {
@@ -70,8 +75,25 @@ namespace Dfc.FindACourse.Web
                     name: "default",
                     template: "{controller=CourseDirectory}/{action=Index}/{id?}");
             });
-            //TO DO COnfig File
-            FileHelper.DownloadSynonymFile("tsenu2.xml", "tsenu2.xml", "tsenu.xml").Wait();
+            //Now download the configuration from storage and cache
+            DownloadConfig(cache).Wait();
+        }
+
+        private async Task DownloadConfig(IMemoryCache cache)
+        {
+            try
+            {
+                //FileHelper.DownloadSynonymFile("tsenu2.xml", "tsenu2.xml", "tsenu.xml").Wait();
+                _filehelper = new FileHelper(Configuration, cache);
+                await _filehelper.DownloadSynonymFile();
+                await _filehelper.DownloadConfigFiles();
+            }
+            catch
+            {
+                //added try catch for now, will add logging too. To ensure application starts up without the config files
+                //from BLOB since already incorporated into project
+            }
+            
         }
     }
 }

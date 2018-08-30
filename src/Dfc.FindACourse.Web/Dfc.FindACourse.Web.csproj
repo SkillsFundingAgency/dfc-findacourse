@@ -7,16 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.ApplicationInsights" Version="2.7.2" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Data\" />
+    <ProjectReference Include="..\Dfc.FindACourse.Common\Dfc.FindACourse.Common.csproj" />
+    <ProjectReference Include="..\Dfc.FindACourse.Services\Dfc.FindACourse.Services.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Dfc.FindACourse.Services\Dfc.FindACourse.Services.csproj" />
+    <Folder Include="Data\Temp\" />
   </ItemGroup>
 
 </Project>
