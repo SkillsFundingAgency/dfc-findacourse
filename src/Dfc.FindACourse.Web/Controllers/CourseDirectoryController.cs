@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
+using Microsoft.ApplicationInsights;
 
 namespace Dfc.FindACourse.Web.Controllers
 {
@@ -22,7 +23,7 @@ namespace Dfc.FindACourse.Web.Controllers
         private readonly ICourseDirectoryService _courseDirectoryService;
         private IMemoryCache _cache;
         private FileHelper _fileHelper;
-
+        private TelemetryClient _telemetry;
 
         public CourseDirectoryController(IConfiguration configuration, ICourseDirectoryService courseDirectoryService, IMemoryCache memoryCache)
         {
@@ -30,6 +31,7 @@ namespace Dfc.FindACourse.Web.Controllers
             _courseDirectoryService = courseDirectoryService;
             _cache = memoryCache;
             _fileHelper = new FileHelper(configuration, memoryCache);
+            _telemetry = new TelemetryClient();
 
         }
 
@@ -40,11 +42,12 @@ namespace Dfc.FindACourse.Web.Controllers
             {
                 QualificationLevels = GetQualificationLevels()
             };
+            _telemetry.TrackEvent("Index");
             return View(indVM);
         }
 
         // GET: CourseDirectory
-        public ActionResult CourseSearch([FromQuery] CourseSearchRequestModel requestModel)
+        public ActionResult CourseSearchResult([FromQuery] CourseSearchRequestModel requestModel)
         {
             if (ModelState.IsValid)
             {
@@ -52,14 +55,14 @@ namespace Dfc.FindACourse.Web.Controllers
                 {
                     
                 };
-
+                _telemetry.TrackEvent($"CourseSearch: {requestModel.SubjectKeyword}.");
                 var result = _courseDirectoryService.CourseSearch(criteria, new PagingOptions(SortBy.Relevance, 1));
 
                 var regionsOnly = result.Value.Items.Where(x => x.Opportunity.HasRegion);
             }
             else
             {
-                
+                _telemetry.TrackEvent($"CourseSearch: State Invalid.");
             }
 
 
@@ -164,9 +167,10 @@ namespace Dfc.FindACourse.Web.Controllers
         {
             if (null != parm)
             {
-                var result = AutoSuggestCourseName(parm.ToUpper()).GroupBy(x => x.StartsWith(parm.ToUpper()))
+                var result = AutoSuggestCourseName(parm.ToUpper()).GroupBy(x => x.Contains(parm.ToUpper()))
                      .OrderByDescending(x => x.Key) //order groups
                      .SelectMany(g => g.OrderBy(x => x)) //order items in each group
+                     .Distinct()
                      .ToList();
                 //Debug
                 JsonResult autoData = new JsonResult(result);
@@ -177,6 +181,8 @@ namespace Dfc.FindACourse.Web.Controllers
         }
         /// <summary>
         /// Load the XML Document from a relative path and cache the serialized model for searching
+        /// Match the search parm to those in the file
+        /// Correct for common misspellings and re-apply search with those
         /// </summary>
         /// <param name="search"></param>
         /// <returns></returns>
@@ -185,8 +191,9 @@ namespace Dfc.FindACourse.Web.Controllers
             var searchTerms = _fileHelper.LoadSynonyms();
 
             bool found = false;
+            XmlNodeList expnData = searchTerms.GetElementsByTagName("expansion");
 
-            foreach(XmlNode nData in searchTerms.GetElementsByTagName("expansion"))
+            foreach (XmlNode nData in expnData)
             {
 
                 XmlNodeList oNode = nData.SelectNodes(".//sub"); 
@@ -203,20 +210,40 @@ namespace Dfc.FindACourse.Web.Controllers
 
             }
 
-            //now check for common misspellings
-            foreach (XmlNode nData in searchTerms.GetElementsByTagName("replacement"))
+            if (search.Length > 2)
             {
-                foreach (XmlNode nChilddata in nData.SelectNodes(".//pat"))
+                //now check for common misspellings
+                foreach (XmlNode nRepData in searchTerms.GetElementsByTagName("replacement"))
                 {
-                    //if the pat node has the search text return all sub nodes
-                    if (nChilddata.InnerText.ToUpper().Contains(search))
+                    foreach (XmlNode nPatdata in nRepData.SelectNodes(".//pat"))
                     {
-                        foreach (XmlNode nSubdata in nData.SelectNodes(".//sub"))
+                        //if the pat node has the search text return all sub nodes
+                        if (nPatdata.InnerText.ToUpper().Contains(search))
                         {
-                            yield return nSubdata.InnerText;
-                        }
-                    }
+                            foreach (XmlNode nSubRepdata in nRepData.SelectNodes(".//sub"))
+                            {
+                                yield return nSubRepdata.InnerText;
+                                foreach (XmlNode nData in expnData)
+                                {
 
+                                    XmlNodeList oNode = nData.SelectNodes(".//sub");
+
+                                    found = false;
+                                    foreach (XmlNode nChilddata in oNode)
+                                        //if the child node has the search text then break out and add all elements of the expansion to the results
+                                        if (nChilddata.InnerText.Contains(nSubRepdata.InnerText))
+                                            found = true;
+
+                                    if (found)
+                                        foreach (XmlNode nChilddata in oNode)
+                                            yield return nChilddata.InnerText;
+
+                                }
+
+                            }
+                        }
+
+                    }
                 }
             }
            
@@ -224,16 +251,16 @@ namespace Dfc.FindACourse.Web.Controllers
         }
 
     }
-    [Serializable, XmlRoot("thesaurus")]
-    public class Thesaurus
-    {
-        [XmlArray("Expansion")]
-        public List<string> Expansion { get; set; }
-    }
-    public class Expansion
-    {
-        [XmlArray("Sub")]
-        public List<string> Sub { get; set; }
-    }
+    //[Serializable, XmlRoot("thesaurus")]
+    //public class Thesaurus
+    //{
+    //    [XmlArray("Expansion")]
+    //    public List<string> Expansion { get; set; }
+    //}
+    //public class Expansion
+    //{
+    //    [XmlArray("Sub")]
+    //    public List<string> Sub { get; set; }
+    //}
 
 }
