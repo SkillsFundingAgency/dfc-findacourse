@@ -20,7 +20,7 @@
 
         li {
             padding: 5px 4px 4px;
-            &:hover {
+            &:hover, &.item-hover {
                 background-color: $hover-background-color;
                 color: $hover-color;
             }

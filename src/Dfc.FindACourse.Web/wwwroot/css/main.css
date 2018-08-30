@@ -3076,7 +3076,7 @@ input[type="search"]::-webkit-search-decoration {
   padding: 5px 4px 4px;
 }
 
-.select-editable ul li:hover {
+.select-editable ul li:hover, .select-editable ul li.item-hover {
   background-color: dodgerblue;
   color: #fff;
 }
