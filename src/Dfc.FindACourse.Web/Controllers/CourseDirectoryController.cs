@@ -49,6 +49,9 @@ namespace Dfc.FindACourse.Web.Controllers
         // GET: CourseDirectory
         public ActionResult CourseSearchResult([FromQuery] CourseSearchRequestModel requestModel)
         {
+            //Log response time
+            var dtStart = DateTime.Now;
+
             //DEBUG
             int distance = -1;
             int quallevel = -1;
@@ -68,10 +71,18 @@ namespace Dfc.FindACourse.Web.Controllers
                 {
                     
                 };
-                _telemetry.TrackEvent($"CourseSearch: {requestModel.SubjectKeyword}.");
+                
                 var result = _courseDirectoryService.CourseSearch(criteria, new PagingOptions(SortBy.Relevance, 1));
 
                 var regionsOnly = result.Value.Items.Where(x => x.Opportunity.HasRegion);
+
+
+                _telemetry.TrackEvent($"CourseSearch for: {requestModel.SubjectKeyword} took: { (DateTime.Now - dtStart).TotalMilliseconds.ToString()} ms.");
+                _telemetry.Flush();
+
+
+
+
                 return View(new CourseSearchResultViewModel(result));
             }
             else
