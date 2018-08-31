@@ -25,13 +25,13 @@ namespace Dfc.FindACourse.Web.Controllers
         private FileHelper _fileHelper;
         private TelemetryClient _telemetry;
 
-        public CourseDirectoryController(IConfiguration configuration, ICourseDirectoryService courseDirectoryService, IMemoryCache memoryCache)
+        public CourseDirectoryController(IConfiguration configuration, ICourseDirectoryService courseDirectoryService, IMemoryCache memoryCache, TelemetryClient telemetryClient)
         {
             _configuration = configuration;
             _courseDirectoryService = courseDirectoryService;
             _cache = memoryCache;
-            _fileHelper = new FileHelper(configuration, memoryCache);
-            _telemetry = new TelemetryClient();
+            _fileHelper = new FileHelper(configuration, memoryCache, telemetryClient);
+            _telemetry = telemetryClient;
 
         }
 
@@ -42,7 +42,11 @@ namespace Dfc.FindACourse.Web.Controllers
             {
                 QualificationLevels = GetQualificationLevels()
             };
-            _telemetry.TrackEvent("Index");
+
+
+            _telemetry.TrackEvent("Find A Course Start page");
+
+
             return View(indVM);
         }
 
@@ -88,7 +92,7 @@ namespace Dfc.FindACourse.Web.Controllers
             }
             else
             {
-                _telemetry.TrackEvent($"CourseSearch: State Invalid.");
+                _telemetry.TrackEvent($"CourseSearch: ModelState Invalid.");
                 return View();
             }
 
@@ -257,7 +261,7 @@ namespace Dfc.FindACourse.Web.Controllers
 
                                     found = false;
                                     foreach (XmlNode nChilddata in oNode)
-                                        //if the child node has the search text then break out and add all elements of the expansion to the results
+                                        //if the child node has the search text then break out and add all elements of the expansion to the results too
                                         if (nChilddata.InnerText.Contains(nSubRepdata.InnerText))
                                             found = true;
 
@@ -278,16 +282,4 @@ namespace Dfc.FindACourse.Web.Controllers
         }
 
     }
-    //[Serializable, XmlRoot("thesaurus")]
-    //public class Thesaurus
-    //{
-    //    [XmlArray("Expansion")]
-    //    public List<string> Expansion { get; set; }
-    //}
-    //public class Expansion
-    //{
-    //    [XmlArray("Sub")]
-    //    public List<string> Sub { get; set; }
-    //}
-
 }

@@ -1,4 +1,5 @@
 ﻿using Dfc.FindACourse.Common.Models;
+using Microsoft.ApplicationInsights;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.WindowsAzure.Storage;
@@ -26,15 +27,17 @@ namespace Dfc.FindACourse.Web
         private string _storagename;
         private string _storagekey;
         private string _containername;
+        private TelemetryClient _telemetry;
 
 
-        public FileHelper(IConfiguration configuration, IMemoryCache cache)
+        public FileHelper(IConfiguration configuration, IMemoryCache cache, TelemetryClient telemetryClient)
         {
             _configuration = configuration;
             _cache = cache;
             _storagename = _configuration["Storage:Storage_AccountName"];
             _storagekey = _configuration["Storage:Storage_AccountKey"];
             _containername = _configuration["Storage:Storage_ContainerReference"];
+            _telemetry = telemetryClient;
         }
 
         /// <summary>
@@ -61,7 +64,7 @@ namespace Dfc.FindACourse.Web
 
                 var existsAsync = blockBlob.ExistsAsync();
                 existsAsync.Wait();
-               
+
                 if (existsAsync.Result)
                 {
 
@@ -71,17 +74,25 @@ namespace Dfc.FindACourse.Web
                     }
                 }
                 else
+                {
+                    _telemetry.TrackEvent("DownloadFile", new Dictionary<string, string>()
+                                                      {
+                                                         { "BlobFileName", blobFileName },
+                                                         { "Tempfolder", tempfolder }
+                                                     });
+            
                     return false;
+                }
                 
             }
             catch (StorageException stex)
             {
-                //TODO Add logging
+                _telemetry.TrackException(stex);
                 return false;
             }
             catch(Exception ex)
             {
-                //TODO Add logging
+                _telemetry.TrackException(ex);
                 return false;
             }
             return true;
@@ -168,22 +179,32 @@ namespace Dfc.FindACourse.Web
                     catch (JsonReaderException jex)
                     {
                         //Exception in parsing json
-                        Console.WriteLine(jex.Message);
+                        _telemetry.TrackException(jex,
+                                          new Dictionary<string, string>()
+                                          {
+                                             { "TempFile", tempFile }
+                                         });
                         return false;
                     }
                     catch (Exception ex) //some other exception
                     {
-                        Console.WriteLine(ex.ToString());
+                        _telemetry.TrackException(ex,
+                                          new Dictionary<string, string>()
+                                          {
+                                             { "TempFile", tempFile }
+                                         });
                         return false;
                     }
                 }
                 else
                 {
+                    _telemetry.TrackEvent("Config Failed Validation");
                     return false;
                 }
             }
             else
             {
+                _telemetry.TrackEvent("Config was empty");
                 return false;
             }
         }
@@ -208,9 +229,13 @@ namespace Dfc.FindACourse.Web
 
                     return expansion > 0 && sub > 0;
             }
-            catch
+            catch (Exception ex) //some other exception
             {
-
+                _telemetry.TrackException(ex,
+                      new Dictionary<string, string>()
+                      {
+                         { "Tempfilename", tempfilename }
+                     });
                 return false;
 
             }
