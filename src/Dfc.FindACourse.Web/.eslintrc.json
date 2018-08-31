@@ -3,5 +3,8 @@
     "browser": true,
     "jquery": true
   },
+  "globals": {
+    "google":  true
+  },
   "extends": "eslint:recommended"
 }
