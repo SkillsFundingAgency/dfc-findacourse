@@ -264,3 +264,6 @@ __pycache__/
 /src/Dfc.FindACourse.Web/package-lock.json
 /src/Dfc.FindACourse.Web/parameters.xml
 /src/Dfc.FindACourse.Web/Properties/PublishProfiles/DfcFindACourseWeb - Web Deploy.pubxml
+/automatedtests/ESFA.UI.Specflow.Framework/Project/Reports/30-08-2018
+/automatedtests/ESFA.UI.Specflow.Framework/Project/Screenshots/30-08-2018
+/automatedtests/ESFA.UI.Specflow.Framework/Project/Reports/31-08-2018

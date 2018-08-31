@@ -15,8 +15,8 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
 	{
 		private IWebDriver driver;
 		private Local browserStackLocal;
-		private string profile;
-		private string environment;
+		//private string profile;
+		//private string environment;
 		private ScenarioContext context;
 
 		public BrowserStackDriver(ScenarioContext context)

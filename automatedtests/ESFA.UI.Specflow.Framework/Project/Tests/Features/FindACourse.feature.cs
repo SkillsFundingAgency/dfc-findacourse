@@ -71,7 +71,7 @@ namespace ESFA.UI.Specflow.Framework.FindACourse.Project.Tests.Features
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("User search on Find a Course page")]
-        [NUnit.Framework.CategoryAttribute("regression")]
+        [NUnit.Framework.CategoryAttribute("Regression")]
         [NUnit.Framework.TestCaseAttribute("Chemistry", "Entry level - Skills for Life", "Birmingham", "1 Mile", null)]
         [NUnit.Framework.TestCaseAttribute("Bricklaying", "Level 1 - First certificate", "London", "3 Miles", null)]
         [NUnit.Framework.TestCaseAttribute("Maths", "Level 2 - GCSE/O level", "London", "5 Miles", null)]
@@ -84,7 +84,7 @@ namespace ESFA.UI.Specflow.Framework.FindACourse.Project.Tests.Features
         public virtual void UserSearchOnFindACoursePage(string courseName, string qualificationLevel, string location, string distance, string[] exampleTags)
         {
             string[] @__tags = new string[] {
-                    "regression"};
+                    "Regression"};
             if ((exampleTags != null))
             {
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
@@ -111,14 +111,14 @@ namespace ESFA.UI.Specflow.Framework.FindACourse.Project.Tests.Features
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("User search on Find a Course page using Autopopulate")]
-        [NUnit.Framework.CategoryAttribute("regression")]
+        [NUnit.Framework.CategoryAttribute("Regression")]
         [NUnit.Framework.TestCaseAttribute("team", "TEAM,TEAM BUILDING,TEAM WORK,TEAM WORKING,TEAMWORK,TEAMWORKING", null)]
         [NUnit.Framework.TestCaseAttribute("builder", "BUILDER,BUILDING,BUILDING MAINTENANCE,BUILDING SERVICES,BUILDING SERVICES ENGINEE" +
             "RING,BUILDING SURVEYING,CONSTRUCTION", null)]
         public virtual void UserSearchOnFindACoursePageUsingAutopopulate(string courseName, string autopopulateList, string[] exampleTags)
         {
             string[] @__tags = new string[] {
-                    "regression"};
+                    "Regression"};
             if ((exampleTags != null))
             {
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
@@ -134,18 +134,20 @@ namespace ESFA.UI.Specflow.Framework.FindACourse.Project.Tests.Features
 #line 32
   testRunner.Then(string.Format("the Course suggestions {0} displayed", autopopulateList), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 33
-  testRunner.And("I Can select one of the List options", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And(string.Format("I Can select one of the List options {0}", courseName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 34
+  testRunner.When("I click Search", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
             this.ScenarioCleanup();
         }
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("User contacts adviser from Find a Course page")]
-        [NUnit.Framework.CategoryAttribute("regression")]
+        [NUnit.Framework.CategoryAttribute("Regression")]
         public virtual void UserContactsAdviserFromFindACoursePage()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User contacts adviser from Find a Course page", null, new string[] {
-                        "regression"});
+                        "Regression"});
 #line 44
  this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
@@ -161,11 +163,11 @@ namespace ESFA.UI.Specflow.Framework.FindACourse.Project.Tests.Features
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("User wants more information on Qualifications")]
-        [NUnit.Framework.CategoryAttribute("regression")]
+        [NUnit.Framework.CategoryAttribute("Regression")]
         public virtual void UserWantsMoreInformationOnQualifications()
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("User wants more information on Qualifications", null, new string[] {
-                        "regression"});
+                        "Regression"});
 #line 51
  this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
@@ -199,20 +201,20 @@ namespace ESFA.UI.Specflow.Framework.FindACourse.Project.Tests.Features
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("BrowserStack Test Find a Course", null, @__tags);
-#line 59
+#line 58
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 60
+#line 59
   testRunner.Given(string.Format("I am on Find a Course for {0} and {1}", profile, environment), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 61
+#line 60
   testRunner.When(string.Format("I enter course {0}", courseName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 62
+#line 61
   testRunner.And(string.Format("I select qualification {0}", qualificationLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 63
+#line 62
   testRunner.And(string.Format("I enter location {0}", location), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 64
+#line 63
   testRunner.And(string.Format("I select distance {0}", distance), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 65
+#line 64
   testRunner.And("I click Search", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();

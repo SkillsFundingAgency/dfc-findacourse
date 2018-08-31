@@ -1,4 +1,5 @@
-﻿
+﻿@inject Microsoft.ApplicationInsights.AspNetCore.JavaScriptSnippet JavaScriptSnippet
+
 <environment include="Development">
     <script src="~/vendor/js/jquery/jquery.min.js"></script>
     <script src="~/vendor/js/jquery-migrate/jquery-migrate.min.js"></script>
@@ -31,8 +32,10 @@
 <script src="~/dist/js/site.min.js" asp-append-version="true"></script>
 
 <script>
-    function initLocationAutoComplete() { 
+    function initLocationAutoComplete() {
         Dfe.FindACourse.initGoogleMapsLocationAutoComplete();
     }
 </script>
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCn1x_WJWXTzZ9XVSYh7TymeE9LM7_wb8s&libraries=places&callback=initLocationAutoComplete"></script>
+
+@Html.Raw(JavaScriptSnippet.FullScript)

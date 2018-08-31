@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using ESFA.UI.Specflow.Framework.Project.Framework.Helpers;
 using ESFA.UI.Specflow.Framework.Project.Tests.TestSupport;
 using OpenQA.Selenium;
@@ -19,13 +20,13 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.Pages
             return PageInteractionHelper.VerifyPageHeading(this.GetPageHeading(), PAGE_TITLE);
         }
 
-        private By courseName = By.Name("SubjectKeyword");
-        private By courseList = By.CssSelector("#course-list");
-        private By qualificationLevel = By.Name("QualificationLevel");
-		private By location = By.Name("Location");
-		private By distance = By.Name("LocationRadius");
-		private By searchBtn = By.Name("Search");
-		private By advisorLnk = By.LinkText("Contact an adviser");
+        private readonly By courseName = By.Name("SubjectKeyword");
+        private readonly By courseList = By.CssSelector("#course-list");
+        private readonly By qualificationLevel = By.Name("QualificationLevel");
+		private readonly By location = By.Name("Location");
+		private readonly By distance = By.Name("LocationRadius");
+		private readonly By searchBtn = By.Name("Search");
+		private readonly By advisorLnk = By.LinkText("Contact an adviser");
 
 		internal FindACoursePage EnterCourseName(String courseTxt)
 		{
@@ -71,11 +72,18 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.Pages
 			return new FindACoursePage(webDriver);
 		}
 
-        //internal FindACoursePage AutopopulateList (string dropdownList)
-        //{
-        //    //IWebElement element = webDriver.FindElements(courseList);
-        //    //FormCompletionHelper.GetDropDownOptions(courseList, dropdownList);
-        //    //return new FindACoursePage(webDriver);
-        //}
-	}
+        internal FindACoursePage SelectCourse(String courseTxt)
+        {
+            IList<IWebElement> all = webDriver.FindElements(courseList);
+            FormCompletionHelper.SelectFromDropDownList(all, courseTxt,courseList);
+            return new FindACoursePage(webDriver);
+        }
+
+        internal FindACoursePage CheckCourseList(String autopopulateList)
+        {
+            IList<IWebElement> all = webDriver.FindElements(courseList);
+            FormCompletionHelper.CheckDropDownOptions(all, autopopulateList);
+            return new FindACoursePage(webDriver);
+        }
+    }
 }

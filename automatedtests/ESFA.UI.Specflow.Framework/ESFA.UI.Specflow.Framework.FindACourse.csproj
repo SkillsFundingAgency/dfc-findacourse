@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\NUnit3TestAdapter.3.10.0\build\net35\NUnit3TestAdapter.props" Condition="Exists('..\packages\NUnit3TestAdapter.3.10.0\build\net35\NUnit3TestAdapter.props')" />
   <Import Project="..\packages\xunit.runner.console.2.4.0\build\xunit.runner.console.props" Condition="Exists('..\packages\xunit.runner.console.2.4.0\build\xunit.runner.console.props')" />
   <Import Project="..\packages\SpecFlow.xUnitAdapter.1.2.1\build\net45\SpecFlow.xUnitAdapter.props" Condition="Exists('..\packages\SpecFlow.xUnitAdapter.1.2.1\build\net45\SpecFlow.xUnitAdapter.props')" />
   <Import Project="..\packages\xunit.core.2.4.0\build\xunit.core.props" Condition="Exists('..\packages\xunit.core.2.4.0\build\xunit.core.props')" />
@@ -120,30 +121,30 @@
     <Compile Include="Project\Framework\Helpers\RandomDataGenerator.cs" />
     <Compile Include="Project\Framework\Helpers\SqlDatabaseConnectionHelper.cs" />
     <Compile Include="Project\Framework\Helpers\SwitchWindowHelper.cs" />
+    <Compile Include="Project\Tests\Features\FindACourseSearchResults.feature.cs">
+      <DependentUpon>FindACourseSearchResults.feature</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Project\Tests\Features\FindACourse.feature.cs">
       <DependentUpon>FindACourse.feature</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
     <Compile Include="Project\Tests\Pages\WhatQualificationLevelsMeanPage.cs" />
-    <Compile Include="Project\Tests\Pages\DepartmentForEducationHomePage.cs" />
     <Compile Include="Project\Tests\Pages\ContactUsPage.cs" />
     <Compile Include="Project\Tests\Pages\FindACourseSearchResultsPage.cs" />
-    <Compile Include="Project\Tests\Pages\SearchResultsPage.cs" />
     <Compile Include="Project\Tests\Pages\FindACoursePage.cs" />
-    <Compile Include="Project\Tests\Pages\WelcomeToGovUkPage.cs" />
     <Compile Include="Project\Tests\StepDefinitions\WhatQualificationLevelsMeanSteps.cs" />
     <Compile Include="Project\Tests\StepDefinitions\ContactUsSteps.cs" />
     <Compile Include="Project\Tests\StepDefinitions\SearchResultsSteps.cs" />
     <Compile Include="Project\Tests\StepDefinitions\FindACourseSteps.cs" />
-    <Compile Include="Project\Tests\StepDefinitions\SingleSteps.cs" />
     <Compile Include="Project\Tests\TestSupport\BasePage.cs" />
     <Compile Include="Project\Tests\TestSupport\BaseTest.cs" />
     <Compile Include="Project\Tests\TestSupport\BrowserStack.cs" />
     <Compile Include="Project\Tests\TestSupport\BrowserStackDriver.cs" />
     <Compile Include="Project\Tests\TestSupport\Configurator.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Project\Tests\StepDefinitions\ExampleSteps.cs" />
     <Compile Include="SpecFlow.xUnitAdapter.Config.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -151,6 +152,10 @@
       <SubType>Designer</SubType>
     </None>
     <None Include="packages.config" />
+    <None Include="Project\Tests\Features\FindACourseSearchResults.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>FindACourseSearchResults.feature.cs</LastGenOutput>
+    </None>
     <None Include="Project\Tests\Features\FindACourse.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>FindACourse.feature.cs</LastGenOutput>
@@ -180,6 +185,7 @@
     <Error Condition="!Exists('..\packages\SpecFlow.xUnitAdapter.1.2.1\build\net45\SpecFlow.xUnitAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SpecFlow.xUnitAdapter.1.2.1\build\net45\SpecFlow.xUnitAdapter.props'))" />
     <Error Condition="!Exists('..\packages\SpecFlow.xUnitAdapter.1.2.1\build\net45\SpecFlow.xUnitAdapter.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\SpecFlow.xUnitAdapter.1.2.1\build\net45\SpecFlow.xUnitAdapter.targets'))" />
     <Error Condition="!Exists('..\packages\xunit.runner.console.2.4.0\build\xunit.runner.console.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\xunit.runner.console.2.4.0\build\xunit.runner.console.props'))" />
+    <Error Condition="!Exists('..\packages\NUnit3TestAdapter.3.10.0\build\net35\NUnit3TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NUnit3TestAdapter.3.10.0\build\net35\NUnit3TestAdapter.props'))" />
   </Target>
   <Import Project="..\packages\Selenium.WebDriver.PhantomJS.1.0.0.0\build\Selenium.WebDriver.PhantomJS.targets" Condition="Exists('..\packages\Selenium.WebDriver.PhantomJS.1.0.0.0\build\Selenium.WebDriver.PhantomJS.targets')" />
   <Import Project="..\packages\Selenium.Firefox.WebDriver.0.21.0\build\Selenium.Firefox.WebDriver.targets" Condition="Exists('..\packages\Selenium.Firefox.WebDriver.0.21.0\build\Selenium.Firefox.WebDriver.targets')" />
