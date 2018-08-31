@@ -1,0 +1,77 @@
+[
+  {
+    "Text": "Select level",
+    "Key": "",
+    "Level": "",
+    "Display":  true
+  },
+  {
+    "Text": "Entry level - Skills for Life",
+    "Key": "0",
+    "Level": "Entry Level",
+    "Display": true //??
+
+  },
+  {
+    "Text": "Level 1 - First certificate",
+    "Key": "1",
+    "Level": "LV1",
+    "Display": true
+  },
+  {
+    "Text": "Level 2 - GCSE/O level",
+    "Key": "2",
+    "Level": "LV2",
+    "Display": true
+  },
+  {
+    "Text": "Level 3 - A level/Access to higher education diploma",
+    "Key": "3",
+    "Level": "LV3",
+    "Display": true
+  },
+  {
+    "Text": "Level 4 - Certificate of higher education/HNC",
+    "Key": "4",
+    "Level": "LV4",
+    "Display": true
+  },
+  {
+    "Text": "Level 5 - Foundation degree/HND",
+    "Key": "5",
+    "Level": "LV5",
+    "Display": true
+
+  },
+  {
+    "Text": "Level 6 - Degree/Graduate diploma",
+    "Key": "6",
+    "Level": "LV6",
+    "Display": true
+
+  },
+  {
+    "Text": "Level 7 - Masters Degree/Postgraduate diploma",
+    "Key": "7",
+    "Level": "LV7",
+    "Display": true
+  },
+  {
+    "Text": "Level 8 - Doctorate/PhD",
+    "Key": "8",
+    "Level": "LV8",
+    "Display": true
+  },
+  {
+    "Text": "Level 9 - Higher Level",
+    "Key": "9",
+    "Level": "LV9",
+    "Display": false
+  },
+  {
+    "Text": "Level 10 - Unknown/not applicable",
+    "Key": "10",
+    "Level": "LVNa",
+    "Display": false
+  }
+]
