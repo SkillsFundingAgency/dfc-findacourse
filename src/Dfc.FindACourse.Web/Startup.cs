@@ -48,7 +48,7 @@ namespace Dfc.FindACourse.Web
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddMemoryCache();
-            
+            services.AddApplicationInsightsTelemetry();
 
         }
 
