@@ -22,7 +22,7 @@
                     Course name
                     <span class="form-hint">For example, Engineering or Hairdressing</span>
                 </label>
-                <div class="select-editable">
+                <div class="auto-complete-container">
                     <span asp-validation-for="SubjectKeyword"></span>
                     <input asp-for="SubjectKeyword"
                            class="form-control form-control-1-1"
@@ -65,7 +65,8 @@
                         autocomplete="off"
                         data-suggestion-url="/suggest-town/"
                         type="text"
-                        value="" />
+                        value=""
+                       />
                 <dfc-select id="LocationRadius"
                             name="LocationRadius"
                             class="form-control form-control-1-4"

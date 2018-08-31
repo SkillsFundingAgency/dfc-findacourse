@@ -1736,7 +1736,7 @@ textarea {
   padding-bottom: 0;
 }
 
-.form-control, .select-editable ul {
+.form-control, .auto-complete-container ul {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -1751,14 +1751,14 @@ textarea {
 }
 
 @media (min-width: 641px) {
-  .form-control, .select-editable ul {
+  .form-control, .auto-complete-container ul {
     font-size: 19px;
     line-height: 1.31579;
   }
 }
 
 @media (min-width: 641px) {
-  .form-control, .select-editable ul {
+  .form-control, .auto-complete-container ul {
     width: 50%;
   }
 }
@@ -3051,14 +3051,14 @@ input[type="search"]::-webkit-search-decoration {
   }
 }
 
-.select-editable {
+.auto-complete-container {
   position: relative;
   overflow: visible;
 }
 
-.select-editable ul {
+.auto-complete-container ul {
   position: absolute;
-  top: 36px;
+  top: 38px;
   left: 0;
   margin: 0;
   padding: 0;
@@ -3070,13 +3070,14 @@ input[type="search"]::-webkit-search-decoration {
   overflow-y: scroll;
   overflow-x: hidden;
   cursor: pointer;
+  border: 1px solid dodgerblue;
 }
 
-.select-editable ul li {
+.auto-complete-container ul li {
   padding: 5px 4px 4px;
 }
 
-.select-editable ul li:hover, .select-editable ul li.item-hover {
+.auto-complete-container ul li:hover, .auto-complete-container ul li.item-hover {
   background-color: dodgerblue;
   color: #fff;
 }

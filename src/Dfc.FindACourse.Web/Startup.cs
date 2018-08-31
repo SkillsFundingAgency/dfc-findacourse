@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Dfc.FindACourse.Services.CourseDirectory;
 using Dfc.FindACourse.Services.Interfaces;
+using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -48,12 +49,12 @@ namespace Dfc.FindACourse.Web
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddMemoryCache();
-            
+            services.AddApplicationInsightsTelemetry();
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IMemoryCache cache)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IMemoryCache cache, TelemetryClient telemetryClient)
         {
             if (env.IsDevelopment())
             {
@@ -76,22 +77,24 @@ namespace Dfc.FindACourse.Web
                     template: "{controller=CourseDirectory}/{action=Index}/{id?}");
             });
             //Now download the configuration from storage and cache
-            DownloadConfig(cache).Wait();
+            DownloadConfig(cache, telemetryClient).Wait();
         }
 
-        private async Task DownloadConfig(IMemoryCache cache)
+        private async Task DownloadConfig(IMemoryCache cache, TelemetryClient telemetryClient)
         {
             try
             {
-                //FileHelper.DownloadSynonymFile("tsenu2.xml", "tsenu2.xml", "tsenu.xml").Wait();
-                _filehelper = new FileHelper(Configuration, cache);
+                _filehelper = new FileHelper(Configuration, cache, telemetryClient);
                 await _filehelper.DownloadSynonymFile();
                 await _filehelper.DownloadConfigFiles();
             }
-            catch
+            catch(Exception ex)
             {
-                //added try catch for now, will add logging too. To ensure application starts up without the config files
-                //from BLOB since already incorporated into project
+                telemetryClient.TrackException(ex,
+                    new Dictionary<string, string>()
+                      {
+                         { "DownloadConfig", "Exception" }
+                     });
             }
             
         }

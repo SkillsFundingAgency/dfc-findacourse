@@ -9,3 +9,19 @@
 
 <h2>CourseSearchResult</h2>
 
+@if (Model.NoOfPages > 0)
+{
+    <b>pages @Model.NoOfPages</b>
+    <b>Records @Model.NoOfRecords</b>
+}
+
+@foreach(var item in Model.Items )
+{
+    <div class="panel">
+        <div>
+            AttendanceMode: @item.AttendanceMode @item.CourseTitle @item.AttendencePattern @item.Distance, @item.Duration @item.Location @item.ProviderName
+
+            @item.QualificationLevel @item.StartDate @item.StudyMode 
+        </div>
+    </div>
+}

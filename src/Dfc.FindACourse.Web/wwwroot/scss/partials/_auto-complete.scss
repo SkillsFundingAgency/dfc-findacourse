@@ -1,11 +1,11 @@
-﻿.select-editable {
+﻿.auto-complete-container {
     position: relative;
     overflow: visible;
 
     ul {
         @extend .form-control;
         position: absolute;
-        top: 36px;
+        top: 38px;
         left: 0;
         margin: 0;
         padding: 0;
@@ -17,9 +17,11 @@
         overflow-y: scroll;
         overflow-x: hidden;
         cursor: pointer;
+        border: 1px solid $hover-background-color;
 
         li {
             padding: 5px 4px 4px;
+
             &:hover, &.item-hover {
                 background-color: $hover-background-color;
                 color: $hover-color;

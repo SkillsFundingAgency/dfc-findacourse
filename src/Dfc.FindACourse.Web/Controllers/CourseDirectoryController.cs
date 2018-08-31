@@ -25,13 +25,13 @@ namespace Dfc.FindACourse.Web.Controllers
         private FileHelper _fileHelper;
         private TelemetryClient _telemetry;
 
-        public CourseDirectoryController(IConfiguration configuration, ICourseDirectoryService courseDirectoryService, IMemoryCache memoryCache)
+        public CourseDirectoryController(IConfiguration configuration, ICourseDirectoryService courseDirectoryService, IMemoryCache memoryCache, TelemetryClient telemetryClient)
         {
             _configuration = configuration;
             _courseDirectoryService = courseDirectoryService;
             _cache = memoryCache;
-            _fileHelper = new FileHelper(configuration, memoryCache);
-            _telemetry = new TelemetryClient();
+            _fileHelper = new FileHelper(configuration, memoryCache, telemetryClient);
+            _telemetry = telemetryClient;
 
         }
 
@@ -42,31 +42,62 @@ namespace Dfc.FindACourse.Web.Controllers
             {
                 QualificationLevels = GetQualificationLevels()
             };
-            _telemetry.TrackEvent("Index");
+
+
+            _telemetry.TrackEvent("Find A Course Start page");
+
+
             return View(indVM);
         }
 
         // GET: CourseDirectory
         public ActionResult CourseSearchResult([FromQuery] CourseSearchRequestModel requestModel)
         {
+            //Log response time
+            var dtStart = DateTime.Now;
+
+            //DEBUG
+            int distance = -1;
+            int quallevel = -1;
+            int.TryParse(this.Request.Query["LocationRadius"], out distance);
+            if(!string.IsNullOrEmpty(this.Request.Query["QualificationLevel"])) int.TryParse(this.Request.Query["QualificationLevel"], out quallevel);
+            string param3 = this.Request.Query["Location"];
+
+            if(!string.IsNullOrEmpty(param3)) requestModel.TownOrPostcode = param3;
+            if(distance > -1) requestModel.Distance = distance;
+            if (quallevel > -1) requestModel.QualificationLevels = new int[] { quallevel };
+            //END DEBUG
+
             if (ModelState.IsValid)
             {
-                var criteria = new CourseSearchCriteria(requestModel.SubjectKeyword)
+                var criteria = new CourseSearchCriteria(requestModel.SubjectKeyword,
+                   _fileHelper.LoadQualificationLevels().Where( x => x.Key == quallevel.ToString()).ToList(), param3, distance )
                 {
                     
                 };
-                _telemetry.TrackEvent($"CourseSearch: {requestModel.SubjectKeyword}.");
+                
                 var result = _courseDirectoryService.CourseSearch(criteria, new PagingOptions(SortBy.Relevance, 1));
 
                 var regionsOnly = result.Value.Items.Where(x => x.Opportunity.HasRegion);
+
+
+                _telemetry.TrackEvent($"CourseSearch for: {requestModel.SubjectKeyword} took: { (DateTime.Now - dtStart).TotalMilliseconds.ToString()} ms.");
+                //DEBUG_FIX - Add the flush to see if working straightaway
+                _telemetry.Flush();
+
+
+
+
+                return View(new CourseSearchResultViewModel(result));
             }
             else
             {
-                _telemetry.TrackEvent($"CourseSearch: State Invalid.");
+                _telemetry.TrackEvent($"CourseSearch: ModelState Invalid.");
+                return View();
             }
 
 
-            return View();
+            
         }
 
         // GET: CourseDirectory/Details/5
@@ -230,7 +261,7 @@ namespace Dfc.FindACourse.Web.Controllers
 
                                     found = false;
                                     foreach (XmlNode nChilddata in oNode)
-                                        //if the child node has the search text then break out and add all elements of the expansion to the results
+                                        //if the child node has the search text then break out and add all elements of the expansion to the results too
                                         if (nChilddata.InnerText.Contains(nSubRepdata.InnerText))
                                             found = true;
 
@@ -251,16 +282,4 @@ namespace Dfc.FindACourse.Web.Controllers
         }
 
     }
-    //[Serializable, XmlRoot("thesaurus")]
-    //public class Thesaurus
-    //{
-    //    [XmlArray("Expansion")]
-    //    public List<string> Expansion { get; set; }
-    //}
-    //public class Expansion
-    //{
-    //    [XmlArray("Sub")]
-    //    public List<string> Sub { get; set; }
-    //}
-
 }
