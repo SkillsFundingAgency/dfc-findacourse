@@ -20,10 +20,7 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.StepDefinitions
 		[Then(@"I will be on What qualification levels mean page")]
 		public void ConfirmWhatQualificationLevelsMean()
 		{
-           // String parentWindowHandle = webDriver.CurrentWindowHandle;
-           // Console.WriteLine("current window handle: " + parentWindowHandle);
             SwitchWindowHelper.SwitchToNewWindow(webDriver);
-            //string mainWindowHandle = webDriver.CurrentWindowHandle;
             WhatQualificationLevelsMeanPage whatQualificationLevelsMeanPage = new WhatQualificationLevelsMeanPage(webDriver);
             WhatQualificationLevelsMeanPage.Equals(By.TagName("h1"), "What qualification levels mean");
 

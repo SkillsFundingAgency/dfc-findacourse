@@ -16,12 +16,14 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.StepDefinitions
         private BrowserStackDriver _bsDriver;
         private IWebElement listContainer;
 
-        [Scope(Tag = "regression")]
+
+       // [Scope(Tag = "Regression")]
         [Given(@"I navigate to Find a Course home page")]
         public void NavigateToFindACourseHomePage()
         {
             webDriver.Url = Configurator.GetConfiguratorInstance().GetBaseUrl();
         }
+
 
         [Scope(Tag = "BrowserStack")]
         [Given(@"I am on Find a Course for (.*) and (.*)")]
@@ -42,6 +44,7 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.StepDefinitions
             FindACoursePage findACoursePage = new FindACoursePage(webDriver);
             findACoursePage.EnterCourseName(courseTxt);
         }
+
 
         [When(@"one letter at a time (.*)")]
         public void EnterOneLetterAtATime(string courseTxt)
@@ -86,45 +89,28 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.StepDefinitions
         }
 
 
-        //[When(@"I click (.*) link")]
-        //public void ClickContactAnAdviserLink(string linktoClick)
-        //{
-        //    webDriver.FindElement(By.LinkText(linktoClick)).Click();
-        //}
-
-
         [When(@"I click (.*) link")]
         public void ClickLinkonFindACoursePage(string linkToClick)
         {
-                webDriver.FindElement(By.LinkText(linkToClick)).Click();
+            webDriver.FindElement(By.LinkText(linkToClick)).Click();
         }
 
 
         [Then(@"the Course suggestions (.*) displayed")]
         public void AutoPopulateList(string autopopulateList)
         {
- 
-            IList<IWebElement> all = webDriver.FindElements(By.CssSelector("#course-list"));
-            String[] allText = new String[all.Count];
+            FindACoursePage findACoursePage = new FindACoursePage(webDriver);
+            findACoursePage.CheckCourseList(autopopulateList);
+         }
 
-            List<string> s = new List<string>(autopopulateList.Split(new string[] { "," }, StringSplitOptions.None));
 
-            int i = 0;
-            foreach (IWebElement element in all)
-            {
-                allText[i++] = element.Text;
-                List<string> ss = new List<string>(element.Text.Split(new string[] { "\r\n" }, StringSplitOptions.None));
-                for (int j = 0; j <= ss.Count-1; j++)
-                {
-                    Console.WriteLine("Displayed : " + ss[j] + " Expected : " + s[j]);
-                    if (s[j] != ss[j])
-                    {
-                        throw new Exception("Autopopulate list not returning expected Results");
-                    }
-                }     
-    
-            }
-
+        [Then(@"I Can select one of the List options (.*)")]
+        public void ThenICanSelectOneOfTheListOptions(string course)
+        {
+            course = course.ToUpper();
+            FindACoursePage findACoursePage = new FindACoursePage(webDriver);
+            findACoursePage.SelectCourse(course);
         }
+
     }
 }
