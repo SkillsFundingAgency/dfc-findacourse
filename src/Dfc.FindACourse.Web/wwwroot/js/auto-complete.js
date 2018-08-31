@@ -23,7 +23,7 @@
                         var termReplace = '<strong>' + term.toUpperCase() + '</strong>';
                         var formatted = '';
 
-                        if (valueLow.indexOf(term) > -1) {
+                        if (valueLow.indexOf(term.toLowerCase()) > -1) {
                             formatted = valueHigh.replace(term.toUpperCase(), termReplace);
                         } else {
                             formatted = valueHigh;
@@ -53,6 +53,70 @@
             }); 
         };
 
+        var arrowNagivation = function (keyCode) {
+            var currentItem = $('#course-list li.item-hover');
+
+            if (keyCode === 38) {
+                if (currentItem.length) {
+                    currentItem.removeClass('item-hover');
+
+                    if (currentItem.prev()) {
+                        currentItem.prev().addClass('item-hover');
+                    }
+
+                    scrollSuggestions('up');
+                }
+            }
+
+            if (keyCode === 40) {
+                if (currentItem.length) {
+                    currentItem.removeClass('item-hover');
+
+                    if (currentItem.next()) {
+                        currentItem.next().addClass('item-hover');
+                    }
+
+                    scrollSuggestions('down');
+                } else {
+                    $('#course-list li').first().addClass('item-hover');
+                    scrollSuggestions('down');
+                }
+            }
+
+        };
+
+        var scrollSuggestions = function (direction) {
+            var tmpValue = $('#SubjectKeyword').val();
+            $('#SubjectKeyword').focus().val('').val(tmpValue);
+
+            var scrollableList = $('#course-list');
+            var currentItem = scrollableList.find('li.item-hover');
+            var height = scrollableList.innerHeight();
+            var currentVerticalScrollPos = scrollableList.scrollTop();
+            var itemHeight = currentItem.outerHeight(true);
+            var itemNumber = currentItem.index() + 1;
+
+            if (direction === 'down') {
+                if ((itemNumber * itemHeight) > height) {
+                    scrollableList.scrollTop(currentVerticalScrollPos + itemHeight);
+                }
+
+                if (!itemHeight) {
+                    scrollableList.scrollTop(0);
+                }
+            }
+
+            if (direction === 'up') {
+                scrollableList.scrollTop(currentVerticalScrollPos - itemHeight);
+
+                if (!itemHeight) {
+                    scrollableList.scrollTop(scrollableList[0].scrollHeight);
+                    currentItem.removeClass('item-hover');
+                    scrollableList.find('li:last-child').addClass('item-hover');
+                }
+            }
+        };
+
         $('#SubjectKeyword').on('keyup', function (e) {
             var keyCode = e.keyCode || e.which;
 
@@ -61,12 +125,25 @@
                     $(this).remove();
                 });
 
-                autoCompleteSuggestions($(this).val());
+                if (keyCode !== 13) {
+                    autoCompleteSuggestions($(this).val());
+                }
+            }
+
+            if (keyCode === 38 || keyCode === 40) {
+                arrowNagivation(keyCode);
             }
         });
 
         $('#SubjectKeyword').on('keydown', function (e) {
             var keyCode = e.keyCode || e.which;
+
+            if (keyCode === 13) {
+                if ($('#course-list').is(':visible')) {
+                    e.preventDefault();
+                    $('#course-list').trigger('click');
+                }
+            }
 
             if (keyCode === 9) {
                 $('#course-list').hide();
@@ -77,13 +154,20 @@
             $('#course-list').hide();
         });
 
-        $('#course-list').on('mouseleave', function () {
-            $(this).hide();
-            $('#SubjectKeyword').focus();
+        $(document).on('click', function () {
+            $('#course-list').hide();
         });
 
         $('#course-list').on('click', function () {
-            $('#SubjectKeyword').val($('li:hover').attr('data-value'));
+            var hoverValue = $('#course-list li:hover').attr('data-value');
+            var selectedValue = $('#course-list li.item-hover').attr('data-value');
+
+            if (selectedValue) {
+                $('#SubjectKeyword').val(selectedValue);
+            } else {
+                $('#SubjectKeyword').val(hoverValue);
+            }
+
             $(this).hide();
             $('#SubjectKeyword').focus();
         });
