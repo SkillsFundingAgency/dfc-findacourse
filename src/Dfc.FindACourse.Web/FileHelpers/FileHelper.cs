@@ -32,9 +32,9 @@ namespace Dfc.FindACourse.Web
         {
             _configuration = configuration;
             _cache = cache;
-            _storagename = _configuration["Storage_AccountName"];
-            _storagekey = _configuration["Storage_AccountKey"];
-            _containername = _configuration["Storage_ContainerReference"];
+            _storagename = _configuration["Storage:Storage_AccountName"];
+            _storagekey = _configuration["Storage:Storage_AccountKey"];
+            _containername = _configuration["Storage:Storage_ContainerReference"];
         }
 
         /// <summary>
@@ -59,17 +59,13 @@ namespace Dfc.FindACourse.Web
                 CloudBlobContainer container = blobClient.GetContainerReference(_containername);
                 CloudBlockBlob blockBlob = container.GetBlockBlobReference(blobFileName); 
 
-                //var blob = blobClient.GetContainerReference(_configuration["Storage_ContainerReference"]).GetBlobReference(blobFileName);
-
                 var existsAsync = blockBlob.ExistsAsync();
                 existsAsync.Wait();
                
                 if (existsAsync.Result)
                 {
 
-                    using (var fileStream = System.IO.File.OpenWrite(System.IO.Path.Combine(tempfolder, blobFileName)))// string.Format(@"{0}{1}", _configuration["Storage_ContainerReference"], blobFileName)))
-                    //using (var fileStream = System.IO.File.OpenWrite(string.Format(@"Data\\Temp\\{0}", blobFileName)))
-
+                    using (var fileStream = System.IO.File.OpenWrite(System.IO.Path.Combine(tempfolder, blobFileName)))
                     {
                         await blockBlob.DownloadToStreamAsync(fileStream);
                     }
@@ -101,10 +97,10 @@ namespace Dfc.FindACourse.Web
         /// <returns></returns>
         public async Task DownloadSynonymFile()
         {
-            string storageSynName = _configuration["Storage_SynonymsFilename"];
-            string tempPath = _configuration["App_TempSynonymFilePath"];
+            string storageSynName = _configuration["Storage:Storage_SynonymsFilename"];
+            string tempPath = _configuration["ConfigSettings:App_TempSynonymFilePath"];
             string tempFile = System.IO.Path.Combine(tempPath, storageSynName);
-            string configFile = System.IO.Path.Combine(_configuration["App_SynonymFilePath"], _configuration["App_SynonymFileName"]);
+            string configFile = System.IO.Path.Combine(_configuration["ConfigSettings:App_SynonymFilePath"], _configuration["ConfigSettings:App_SynonymFileName"]);
 
             var success = await DownloadFile(storageSynName, tempPath);
 
@@ -113,7 +109,7 @@ namespace Dfc.FindACourse.Web
                 File.Copy(tempFile, configFile, true);
                 //Now cache
                 XmlDocument searchTerms = new XmlDocument();
-                searchTerms.Load(System.IO.Path.Combine(_configuration["App_SynonymFilePath"], _configuration["App_SynonymFileName"]));
+                searchTerms.Load(System.IO.Path.Combine(_configuration["ConfigSettings:App_SynonymFilePath"], _configuration["ConfigSettings:App_SynonymFileName"]));
 
                 CacheHelper.CacheFile(_cache, searchTerms, CacheKeys.Synonyms);
             }
@@ -127,10 +123,10 @@ namespace Dfc.FindACourse.Web
         /// <returns></returns>
         public async Task DownloadConfigFiles()
         {
-            string storageName = _configuration["Storage_QualSettingsFilename"];
-            string tempPath = _configuration["App_TempSettingsFilePath"];
+            string storageName = _configuration["Storage:Storage_QualSettingsFilename"];
+            string tempPath = _configuration["ConfigSettings:App_TempSettingsFilePath"];
             string tempFilePath= System.IO.Path.Combine(tempPath, storageName);
-            string configFilePath = System.IO.Path.Combine(_configuration["App_SettingsFilePath"], _configuration["App_QualSettingsFileName"]);
+            string configFilePath = System.IO.Path.Combine(_configuration["ConfigSettings:App_SettingsFilePath"], _configuration["ConfigSettings:App_QualSettingsFileName"]);
 
             var success = await DownloadFile(storageName, tempPath);
 
@@ -234,14 +230,14 @@ namespace Dfc.FindACourse.Web
             XmlDocument searchTerms = new XmlDocument();
             if (!_cache.TryGetValue(CacheKeys.Synonyms, out searchTerms))
             {
-                if (!System.IO.File.Exists(System.IO.Path.Combine(_configuration["App_SynonymFilePath"], _configuration["App_SynonymFileName"])))
+                if (!System.IO.File.Exists(System.IO.Path.Combine(_configuration["ConfigSettings:App_SynonymFilePath"], _configuration["ConfigSettings:App_SynonymFileName"])))
                 {
                     DownloadSynonymFile().Wait();
                 }
                 else //since it exists and it is not cached, Cache it now
                 {
                     searchTerms = new XmlDocument();
-                    searchTerms.Load(System.IO.Path.Combine(_configuration["App_SynonymFilePath"], _configuration["App_SynonymFileName"]));
+                    searchTerms.Load(System.IO.Path.Combine(_configuration["ConfigSettings:App_SynonymFilePath"], _configuration["ConfigSettings:App_SynonymFileName"]));
                     CacheHelper.CacheFile(_cache, searchTerms, CacheKeys.Synonyms);
                 }
 
@@ -254,14 +250,14 @@ namespace Dfc.FindACourse.Web
             IEnumerable<QualLevel> qualificationlevels = null;
             if (!_cache.TryGetValue(CacheKeys.QualificationLevels, out qualificationlevels))
             {
-                if (!System.IO.File.Exists(System.IO.Path.Combine(_configuration["App_SettingsFilePath"], _configuration["App_QualSettingsFileName"])))
+                if (!System.IO.File.Exists(System.IO.Path.Combine(_configuration["ConfigSettings:App_SettingsFilePath"], _configuration["ConfigSettings:App_QualSettingsFileName"])))
                  {
                     DownloadConfigFiles().Wait();
                 }
                 //since it exists and it is not cached, cache it now
                 else
                 { 
-                    using (StreamReader r = new StreamReader(System.IO.Path.Combine(_configuration["App_SettingsFilePath"], _configuration["App_QualSettingsFileName"])))
+                    using (StreamReader r = new StreamReader(System.IO.Path.Combine(_configuration["ConfigSettings:App_SettingsFilePath"], _configuration["ConfigSettings:App_QualSettingsFileName"])))
                     {
                         qualificationlevels = JsonConvert.DeserializeObject<List<QualLevel>>(r.ReadToEnd());
                         CacheHelper.CacheFile(_cache, qualificationlevels, CacheKeys.QualificationLevels);

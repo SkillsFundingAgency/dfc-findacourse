@@ -78,6 +78,7 @@ namespace Dfc.FindACourse.Web.Controllers
 
 
                 _telemetry.TrackEvent($"CourseSearch for: {requestModel.SubjectKeyword} took: { (DateTime.Now - dtStart).TotalMilliseconds.ToString()} ms.");
+                //DEBUG_FIX - Add the flush to see if working straightaway
                 _telemetry.Flush();
 
 
