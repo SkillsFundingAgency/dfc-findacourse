@@ -1,0 +1,30 @@
+﻿.search-result-item {
+    h3 {
+        font-size: 1.17em;
+        font-weight: bold;
+
+        a:focus {
+            outline: 3px solid $yellow;
+            outline-offset: 0;
+            background-color: $yellow;
+        }
+    }
+
+    .result-item-course-attendence-study-mode-info {
+        list-style-type: none;
+        margin-bottom: 1em;
+
+        li {
+            display: inline;
+        }
+    }
+
+    .result-item-course-info {
+        list-style-type: none;
+        margin-bottom: 2em;
+
+        .label {
+            color: $grey-1;
+        }
+    }
+}

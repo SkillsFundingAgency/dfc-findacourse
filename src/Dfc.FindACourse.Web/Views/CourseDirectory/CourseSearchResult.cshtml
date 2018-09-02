@@ -6,22 +6,94 @@
 @{
     ViewData["Title"] = "CourseSearchResult";
 }
-
-<h2>CourseSearchResult</h2>
-
-@if (Model.NoOfPages > 0)
-{
-    <b>pages @Model.NoOfPages</b>
-    <b>Records @Model.NoOfRecords</b>
-}
-
-@foreach(var item in Model.Items )
-{
-    <div class="panel">
-        <div>
-            AttendanceMode: @item.AttendanceMode @item.CourseTitle @item.AttendencePattern @item.Distance, @item.Duration @item.Location @item.ProviderName
-
-            @item.QualificationLevel @item.StartDate @item.StudyMode 
+<form action="/" method="post">
+    <div class="grid-row">
+        <div class="column-one-third">
+            <div class="form-group margin-top-3em">
+                <input id="Location"
+                       class="form-control form-control-2-3"
+                       name="Location"
+                       placeholder="Postcode or town"
+                       autocomplete="off"
+                       type="text"
+                       value="" />
+                <input type="hidden" id="LocationCoordinates" name="LocationCoordinates" value="" />
+                <dfc-select id="LocationRadius"
+                            name="LocationRadius"
+                            class="form-control form-control-1-3"
+                            dfc-items="Html.GetEnumSelectList<RadiusDistance>()"
+                            dfc-selected-item="Html.GetEnumSelectListItem<CourseSearchResultViewModel, RadiusDistance>(Model.DefaultRadiusDistance)">
+                </dfc-select>
+            </div>
+        </div>
+        <div class="column-two-thirds">
+            <div class="grid-row">
+                <div class="column-full">
+                    <div class="form-group margin-top-3em">
+                        <div class="auto-complete-container">
+                            <span asp-validation-for="SubjectKeyword"></span>
+                            <input asp-for="SubjectKeyword"
+                                   class="form-control form-control-1-1"
+                                   autocomplete="off"
+                                   placeholder="Enter a course name or subject" />
+                            <ul id="course-list"></ul>
+                            <input class="button" type="submit" id="Search" name="Search" value="Search" />
+                        </div>
+                    </div>
+                    <a href="#">Print or download these search results </a>
+                    <span>Showing 1-10 of @Model.NoOfRecords results</span>
+                    <div class="form-group">
+                        <label class="form-label" for="SortBy">Sort by:</label>
+                        <dfc-select id="SortBy"
+                                    name="SortBy"
+                                    class="form-control form-control-1-4"
+                                    dfc-items="Html.GetEnumSelectList<SortBy>()">
+                        </dfc-select>
+                    </div>
+                    <hr />
+                </div>
+            </div>
+            <div class="grid-row">
+                <div class="column-full">
+                    @foreach (var item in Model.Items)
+                    {
+                    <div class="search-result-item">
+                        <h3>
+                            <a href="#">@item.CourseTitle</a>
+                        </h3>
+                        <div class="result-item-qualification-level">@item.QualificationLevel</div>
+                        <ul class="result-item-course-attendence-study-mode-info">
+                            <li>@item.StudyMode | </li>
+                            <li>@item.AttendencePattern | </li>
+                            <li>@item.AttendanceMode</li>
+                        </ul>
+                        <ul class="result-item-course-info">
+                            <li>
+                                <span class="label">Provider:</span>
+                                <span class="value">@item.ProviderName</span>
+                            </li>
+                            <li>
+                                <span class="label">Location:</span>
+                                <span class="value">@item.Location</span>
+                            </li>
+                            <li>
+                                <span class="label">Distance:</span>
+                                <span class="value">@item.Distance miles</span>
+                            </li>
+                            <li>
+                                <span class="label">Start date:</span>
+                                <span class="value">@item.StartDate</span>
+                            </li>
+                            <li>
+                                <span class="label">Duration:</span>
+                                <span class="value">@item.Duration</span>
+                            </li>
+                        </ul>
+                    </div>
+                    }
+                </div>
+            </div>
         </div>
     </div>
-}
+</form>
+

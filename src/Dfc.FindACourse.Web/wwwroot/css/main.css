@@ -2475,6 +2475,10 @@ input[type="search"]::-webkit-search-decoration {
   -webkit-appearance: none;
 }
 
+.margin-top-3em {
+  margin-top: 3em;
+}
+
 .form-control-1-1 {
   width: 100%;
 }
@@ -3080,4 +3084,33 @@ input[type="search"]::-webkit-search-decoration {
 .auto-complete-container ul li:hover, .auto-complete-container ul li.item-hover {
   background-color: dodgerblue;
   color: #fff;
+}
+
+.search-result-item h3 {
+  font-size: 1.17em;
+  font-weight: bold;
+}
+
+.search-result-item h3 a:focus {
+  outline: 3px solid #ffbf47;
+  outline-offset: 0;
+  background-color: #ffbf47;
+}
+
+.search-result-item .result-item-course-attendence-study-mode-info {
+  list-style-type: none;
+  margin-bottom: 1em;
+}
+
+.search-result-item .result-item-course-attendence-study-mode-info li {
+  display: inline;
+}
+
+.search-result-item .result-item-course-info {
+  list-style-type: none;
+  margin-bottom: 2em;
+}
+
+.search-result-item .result-item-course-info .label {
+  color: #6f777b;
 }
