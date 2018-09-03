@@ -20,6 +20,10 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
             Items = result.Value.Items.Select(x => new CourseSearchResultItemViewModel(x)).ToList();
         }
 
+        [Display(Name = "Course name")]
+        [Required]
+        public string SubjectKeyword { get; set; }
+        public RadiusDistance DefaultRadiusDistance => RadiusDistance.Miles10;
         public string SortyBy { get; set; }
         public int StartNo { get; set; }
         public int EndNo { get; set; }
