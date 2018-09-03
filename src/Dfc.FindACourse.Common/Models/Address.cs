@@ -1,6 +1,7 @@
 ﻿using Dfc.FindACourse.Common.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace Dfc.FindACourse.Common.Models
 {
@@ -56,6 +57,13 @@ namespace Dfc.FindACourse.Common.Models
             yield return Postcode;
             yield return Latitude;
             yield return Longitude;
+        }
+
+        public override string ToString()
+        {
+            return string.Join(" ", new string[] { Line1, Line2, Town, County, Postcode }
+                .Where(x => !string.IsNullOrWhiteSpace(x))
+                .Select(x => x));
         }
     }
 }
