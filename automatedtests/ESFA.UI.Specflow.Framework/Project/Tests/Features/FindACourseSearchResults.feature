@@ -12,7 +12,7 @@ Background:
 #		Then I should be on Search Results for page
 
  Scenario: Check search results
-		Given to be written
+		Given I am on the Search Results page
 		When to be written
 		Then to be written
 

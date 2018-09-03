@@ -10,6 +10,7 @@ using TechTalk.SpecFlow;
 using AventStack.ExtentReports.Reporter;
 using AventStack.ExtentReports;
 using AventStack.ExtentReports.Gherkin.Model;
+using OWASPZAPDotNetAPI;
 
 namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
 {
@@ -25,6 +26,7 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
         private static string reportPath = null;
         protected static int counter;
         protected static int counter2;
+        public static ClientApi Zap;
 
         [BeforeTestRun(Order =1)]
         public static void InitializeReport(object sender, EventArgs e)
@@ -56,6 +58,21 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
             finally
             {
                 webDriver.Quit();
+                //create OWASP Report
+                String reportsDirectory = AppDomain.CurrentDomain.BaseDirectory
+               + "../../"
+               + "\\Project\\OWASPReports\\"
+               + DateTime.Now.ToString("dd-MM-yyyy")
+               + "\\";
+                if (!Directory.Exists(reportsDirectory))
+                {
+                    Directory.CreateDirectory(reportsDirectory);
+                }
+                reportNm = (DateTime.Now.ToString("yyyyMMddHHmmss") + ".html");
+                reportPath = Path.Combine(reportsDirectory, reportNm);
+
+                WriteZapHtmlReport(reportPath + "_PassiveScanReport.html", Zap.core.htmlreport());
+                Zap.Dispose();
             }
         }
 
@@ -79,10 +96,6 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
                     webDriver = new InternetExplorerDriver();
                     webDriver.Manage().Window.Maximize();
                     break;
-
-                //km case "phantomjs":
-                //km    webDriver = new PhantomJSDriver();
-                //km    break;
 
                 case "zapProxyChrome":
                     InitialiseZapProxyChrome();
@@ -108,6 +121,22 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
         {
             webDriver.Quit();
             extent.Flush();
+
+            //create OWASP Report
+            String reportsDirectory = AppDomain.CurrentDomain.BaseDirectory
+           + "../../"
+           + "\\Project\\OWASPReports\\"
+           + DateTime.Now.ToString("dd-MM-yyyy")
+           + "\\";
+            if (!Directory.Exists(reportsDirectory))
+            {
+                Directory.CreateDirectory(reportsDirectory);
+            }
+            reportNm = (DateTime.Now.ToString("yyyyMMddHHmmss") + ".html");
+            reportPath = Path.Combine(reportsDirectory, reportNm);
+
+            WriteZapHtmlReport(reportPath + "_PassiveScanReport.html", Zap.core.htmlreport());
+            Zap.Dispose();
         }
 
         public static void TakeScreenshotOnFailure()
@@ -240,7 +269,17 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
             proxy.FtpProxy = PROXY;
             chromeOptions.Proxy = proxy;
 
+            Zap = new ClientApi("localhost", 8095, null);
+
             webDriver = new ChromeDriver(chromeOptions);
         }
+
+        public static void WriteZapHtmlReport(string path, byte[] bytes)
+        {
+            File.WriteAllBytes(path, bytes);
+        }
+
+
+
     }
 }
