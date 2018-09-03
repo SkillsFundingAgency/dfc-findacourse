@@ -11,11 +11,12 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.StepDefinitions
 	public class SearchResultsSteps : BaseTest
 	{
 
-		[Given(@"I am on the Find a Course Search page")]
+		[Given(@"I am on the Search Results page")]
 		public void NavigateToSearchResults()
 		{
-			//webDriver.Url = Configurator.GetConfiguratorInstance().GetBaseUrl();
-		}
+            FindACourseSearchResultsPage findACoursePage = new FindACourseSearchResultsPage(webDriver);
+            //PageInteractionHelper.VerifyPageHeading(By.TagName("h1"), "Search results for");
+        }
 
 
 		[Then(@"I should be on (.*) page")]
@@ -23,7 +24,6 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.StepDefinitions
 		{
 			FindACourseSearchResultsPage findACoursePage = new FindACourseSearchResultsPage(webDriver);
 			FindACourseSearchResultsPage.Equals(By.TagName("h1"), searchPage);
-			//PageInteractionHelper.VerifyPageHeading(By.TagName("h1"), onPage);
 		}
 
 	}
