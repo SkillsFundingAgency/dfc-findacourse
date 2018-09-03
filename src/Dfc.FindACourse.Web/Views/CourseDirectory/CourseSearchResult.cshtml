@@ -69,8 +69,8 @@
                         <div class="result-item-qualification-level">@item.QualificationLevel</div>
                         <ul class="result-item-course-attendence-study-mode-info">
                             <li>@item.StudyMode.GetDisplayName() | </li>
-                            <li>@item.AttendencePattern | </li>
-                            <li>@item.AttendanceMode</li>
+                            <li>@item.AttendanceMode.GetDisplayName() | </li>
+                            <li>@item.AttendencePattern.GetDisplayName()</li>
                         </ul>
                         <ul class="result-item-course-info">
                             <li>
