@@ -2475,10 +2475,6 @@ input[type="search"]::-webkit-search-decoration {
   -webkit-appearance: none;
 }
 
-.margin-top-3em {
-  margin-top: 3em;
-}
-
 .form-control-1-1 {
   width: 100%;
 }
@@ -2595,7 +2591,7 @@ input[type="search"]::-webkit-search-decoration {
 #global-header #logo img {
   margin: 2px 1px 0 0;
   vertical-align: bottom;
-  visibility: hidden;
+  visibility: visible;
 }
 
 #global-header #logo:hover, #global-header #logo:focus {

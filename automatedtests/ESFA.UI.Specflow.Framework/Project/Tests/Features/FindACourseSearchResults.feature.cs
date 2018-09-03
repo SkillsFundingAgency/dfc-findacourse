@@ -98,7 +98,7 @@ namespace ESFA.UI.Specflow.Framework.FindACourse.Project.Tests.Features
 #line 5
 this.FeatureBackground();
 #line 15
-  testRunner.Given("to be written", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+  testRunner.Given("I am on the Search Results page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 16
   testRunner.When("to be written", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 17

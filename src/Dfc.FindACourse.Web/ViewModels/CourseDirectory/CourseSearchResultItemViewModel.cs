@@ -18,10 +18,10 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
             AttendanceMode = item.Opportunity.AttendanceMode;
             AttendencePattern = item.Opportunity.AttendancePattern;
             ProviderName = item.Provider.Name;
-            Location = (item.Opportunity.Venue != null && item.Opportunity.Venue.Name  != null) ? item.Opportunity.Venue.Name : string.Empty;
-            Distance = (item.Opportunity.Venue != null && item.Opportunity.Venue.Distance.HasValue) ? item.Opportunity.Venue.Distance.Value :0.0;
-            StartDate = item.Opportunity.StartDate.HasValue ? item.Opportunity.StartDate.Value : default(DateTime);
-            Duration = item.Opportunity.Duration.Value.ToString();
+            Location = (item.Opportunity.HasVenue) ? item.Opportunity.Venue.Address.ToString() : item.Opportunity.Region;
+            Distance = (item.Opportunity.HasVenue && item.Opportunity.Venue.Distance.HasValue) ? item.Opportunity.Venue.Distance.Value.ToString("{0:0.#}") : "0.0";
+            StartDate = item.Opportunity.StartDate.HasValue ? item.Opportunity.StartDate.Value.ToString("d MMMM yyyy") : string.Empty;
+            Duration = item.Opportunity.Duration.ToString();
         }
 
 
@@ -32,8 +32,8 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
         public AttendancePattern AttendencePattern { get; set; }
         public string ProviderName { get; set; }
         public string Location { get; set; }
-        public double Distance { get; set; }
-        public DateTime StartDate { get; set; }
+        public string Distance { get; set; }
+        public string StartDate { get; set; }
         public string Duration { get; set; }
     }
 }
