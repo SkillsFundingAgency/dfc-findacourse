@@ -26,5 +26,16 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.StepDefinitions
 			FindACourseSearchResultsPage.Equals(By.TagName("h1"), searchPage);
 		}
 
-	}
+
+        [Then(@"no results found message is displayed")]
+        public void NoResultsFoundMessageIsDisplayed()
+        {
+            //ScenarioContext.Current.Pending();
+            FindACourseSearchResultsPage findACourseSearchResultsPage = new FindACourseSearchResultsPage(webDriver);
+            findACourseSearchResultsPage.CheckNullResults();
+
+        }
+
+
+    }
 }

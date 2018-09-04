@@ -19,5 +19,13 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.Pages
             return PageInteractionHelper.VerifyPageHeading(this.GetPageHeading(), PAGE_TITLE);
         }
 
-	}
+        private readonly By noResultsErrorMsg = By.XPath(".//*[@id='FindACourseForm']");
+
+        internal FindACourseSearchResultsPage CheckNullResults()
+        {
+            string errorString = "There are no courses matching that name. Make sure that you've spelled it correctly, or use a broader description of the course.";
+            PageInteractionHelper.VerifyText(noResultsErrorMsg, errorString);
+            return new FindACourseSearchResultsPage(webDriver);
+        }
+    }
 }

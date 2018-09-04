@@ -96,6 +96,14 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.StepDefinitions
         }
 
 
+        [When(@"Qualification Level field displays default (.*)")]
+        public void DefaultQualificationLevelIsDisplayed(string dropdownTxt)
+        {
+            FindACoursePage findACoursePage = new FindACoursePage(webDriver);
+            findACoursePage.QualificationDefaultValue(dropdownTxt);
+        }
+
+
         [Then(@"the Course suggestions (.*) displayed")]
         public void AutoPopulateList(string autopopulateList)
         {
