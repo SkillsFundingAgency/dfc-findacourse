@@ -63,7 +63,7 @@ namespace Dfc.FindACourse.Web.Controllers
             if(!string.IsNullOrEmpty(this.Request.Query["QualificationLevel"])) int.TryParse(this.Request.Query["QualificationLevel"], out quallevel);
             string param3 = this.Request.Query["Location"];
 
-            if(!string.IsNullOrEmpty(param3)) requestModel.TownOrPostcode = param3;
+            if(!string.IsNullOrEmpty(param3)) requestModel.Location = param3;
             if(distance > -1) requestModel.Distance = distance;
             if (quallevel > -1) requestModel.QualificationLevels = new int[] { quallevel };
             //END DEBUG

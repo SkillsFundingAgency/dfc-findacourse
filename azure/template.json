@@ -104,44 +104,88 @@
                 "value": "[reference('primaryUIAppInsights').outputs.InstrumentationKey.value]"
               },
               {
-                "name": "Storage_AccountName",
+                "name": "Storage__StorageAccountName",
                 "value": "[variables('storageAccountName')]"
               },
               {
-                "name": "Storage_AccountKey",
+                "name": "Storage__AccountKey",
                 "value": "[reference('primaryStorageAccount').outputs.storageKey.value]"
               },
               {
-                "name": "Storage_ContainerReference",
+                "name": "Storage__ContainerReference",
                 "value": "ncs_findacourse_config"
               },
               {
-                "name": "Storage_SynonymsFilename",
+                "name": "Storage__SynonymsFilename",
                 "value": "tsenu.xml"
               },
               {
-                "name": "Storage_QualSettingsFilename",
+                "name": "Storage__QualSettingsFilename",
                 "value": "qualsettings.json"
               },
               {
-                "name": "App_SynonymFileName",
+                "name": "ConfigSettings__SynonymFileName",
                 "value": "tsenu.xml"
               },
               {
-                "name": "App_SynonymFilePath",
+                "name": "ConfigSettings__QualSettingsFileName",
+                "value": "qualsettings.json"
+              },
+              {
+                "name": "ConfigSettings__SynonymFilePath",
                 "value": "Data"
               },
               {
-                "name": "App_SettingsFilePath",
+                "name": "ConfigSettings__SettingsFilePath",
                 "value": "Data"
               },
               {
-                "name": "App_TempSynonymFilePath",
+                "name": "ConfigSettings__TempSynonymFilePath",
                 "value": "Data\\\\Temp"
               },
               {
-                "name": "App_TempSettingsFilePath",
+                "name": "ConfigSettings__TempSettingsFilePath",
                 "value": "Data\\\\Temp"
+              },
+              {
+                "name": "App__ContentNCHLink",
+                "value": "https://nationalcareersservice.direct.gov.uk/contact-us/home"
+              },
+              {
+                "name": "App__ContentQualLink",
+                "value": "https://www.gov.uk/what-different-qualification-levels-mean/list-of-qualification-levels "
+              },
+              {
+                "name": "App__Page1Title",
+                "value": "Find a course"
+              },
+              {
+                "name": "App__Page1Text1",
+                "value": "Search for training and learning opportunities at all levels. We’ll show you courses from colleges, training providers and local education authorities. <<Contact an adviser>> if you need help finding the right course for you."
+              },
+              {
+                "name": "App__Page1Text2",
+                "value": "Course name"
+              },
+              {
+                "name": "App__Page1Text3",
+                "value": "For example, Engineering or Hairdressing"
+              },
+              {
+                "name": "App__Page1Text4",
+                "value": "Qualification level (Optional)"
+              },
+              {
+                "name": "App__Page1Text5",
+                "value": "What qualification levels mean"
+              },
+              {
+                "name": "App__Page1Text6",
+                "value": "Location (Optional)"
+              },
+              {
+                "name": "App__Page1Text7",
+                "value": "Enter a postcode or town. For example, S1 1WB or Sheffield"
               }
             ]
           }

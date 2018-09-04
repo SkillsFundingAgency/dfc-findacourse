@@ -646,5 +646,83 @@ namespace Dfc.FindACourse.Common.UnitTests.Models
             // act & assert
             Assert.False(a.Equals(b));
         }
+
+        [Fact]
+        public void ToString_WithAddressPropertiesAsUpperCase_AllPropertiesToSentenceCaseExceptPostcode()
+        {
+            // arrange
+            var line1 = "SOME CENTRE";
+            var line2 = "SOME STREET";
+            var town = "BIRMINGHAM";
+            var county = "WEST MIDLANDS";
+            var postcode = "B99 1AB";
+            var latitude = 0;
+            var longitude = 0;
+
+            // act
+            var actual = new Address(
+                line1,
+                line2,
+                town,
+                county,
+                postcode,
+                latitude,
+                longitude);
+
+            // assert
+            Assert.Equal("Some Centre, Some Street, Birmingham, West Midlands, B99 1AB", actual.ToString());
+        }
+
+        [Fact]
+        public void ToString_WithAddressPropertiesAsLowerCase_AllPropertiesToSentenceCaseExceptPostcode()
+        {
+            // arrange
+            var line1 = "some centre";
+            var line2 = "some street";
+            var town = "birmingham";
+            var county = "west midlands";
+            var postcode = "B99 1AB";
+            var latitude = 0;
+            var longitude = 0;
+
+            // act
+            var actual = new Address(
+                line1,
+                line2,
+                town,
+                county,
+                postcode,
+                latitude,
+                longitude);
+
+            // assert
+            Assert.Equal("Some Centre, Some Street, Birmingham, West Midlands, B99 1AB", actual.ToString());
+        }
+
+        [Fact]
+        public void ToString_WithPostcodeAsLowerCase_PostcodeToUpperCase()
+        {
+            // arrange
+            var line1 = "some centre";
+            var line2 = "some street";
+            var town = "birmingham";
+            var county = "west midlands";
+            var postcode = "b99 1ab";
+            var latitude = 0;
+            var longitude = 0;
+
+            // act
+            var actual = new Address(
+                line1,
+                line2,
+                town,
+                county,
+                postcode,
+                latitude,
+                longitude);
+
+            // assert
+            Assert.Equal("Some Centre, Some Street, Birmingham, West Midlands, B99 1AB", actual.ToString());
+        }
     }
 }

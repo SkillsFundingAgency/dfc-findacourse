@@ -6,7 +6,9 @@
 @{
     ViewData["Title"] = "CourseSearchResult";
 }
-<form action="/" method="post">
+<form id="FindACourseForm" 
+      name="FindACourseForm"  
+      action="/" method="post">
     <div class="grid-row">
         <div class="column-full">
             <h1 class="heading-xlarge">Search results for</h1>
@@ -15,14 +17,11 @@
     <div class="grid-row">
         <div class="column-one-third">
             <div class="form-group">
-                <input id="Location"
+                <input asp-for="Location"
                        class="form-control form-control-2-3"
-                       name="Location"
                        placeholder="Postcode or town"
                        autocomplete="off"
-                       type="text"
-                       value="" />
-                <input type="hidden" id="LocationCoordinates" name="LocationCoordinates" value="" />
+                       type="text" />
                 <dfc-select id="LocationRadius"
                             name="LocationRadius"
                             class="form-control form-control-1-3"
@@ -60,41 +59,48 @@
             </div>
             <div class="grid-row">
                 <div class="column-full">
-                    @foreach (var item in Model.Items)
+                    @if (Model.Items.Any())
                     {
-                    <div class="search-result-item">
-                        <h3>
-                            <a href="#">@item.CourseTitle</a>
-                        </h3>
-                        <div class="result-item-qualification-level">@item.QualificationLevel.GetDisplayName()</div>
-                        <ul class="result-item-course-attendence-study-mode-info">
-                            <li>@item.StudyMode.GetDisplayName() | </li>
-                            <li>@item.AttendanceMode.GetDisplayName() | </li>
-                            <li>@item.AttendencePattern.GetDisplayName()</li>
-                        </ul>
-                        <ul class="result-item-course-info">
-                            <li>
-                                <span class="label">Provider:</span>
-                                <span class="value">@item.ProviderName</span>
-                            </li>
-                            <li>
-                                <span class="label">Location:</span>
-                                <span class="value">@item.Location</span>
-                            </li>
-                            <li>
-                                <span class="label">Distance:</span>
-                                <span class="value">@item.Distance miles</span>
-                            </li>
-                            <li>
-                                <span class="label">Start date:</span>
-                                <span class="value">@item.StartDate</span>
-                            </li>
-                            <li>
-                                <span class="label">Duration:</span>
-                                <span class="value">@item.Duration</span>
-                            </li>
-                        </ul>
-                    </div>
+                        @foreach (var item in Model.Items)
+                        {
+                            <div class="search-result-item">
+                                <h3>
+                                    <a href="#">@item.CourseTitle</a>
+                                </h3>
+                                <div class="result-item-qualification-level">@item.QualificationLevel.GetDisplayName()</div>
+                                <ul class="result-item-course-attendence-study-mode-info">
+                                    <li>@item.StudyMode.GetDisplayName() | </li>
+                                    <li>@item.AttendanceMode.GetDisplayName() | </li>
+                                    <li>@item.AttendencePattern.GetDisplayName()</li>
+                                </ul>
+                                <ul class="result-item-course-info">
+                                    <li>
+                                        <span class="label">Provider:</span>
+                                        <span class="value">@item.ProviderName</span>
+                                    </li>
+                                    <li>
+                                        <span class="label">Location:</span>
+                                        <span class="value">@item.Location</span>
+                                    </li>
+                                    <li>
+                                        <span class="label">Distance:</span>
+                                        <span class="value">@item.Distance miles</span>
+                                    </li>
+                                    <li>
+                                        <span class="label">Start date:</span>
+                                        <span class="value">@item.StartDate</span>
+                                    </li>
+                                    <li>
+                                        <span class="label">Duration:</span>
+                                        <span class="value">@item.Duration</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <p>There are no courses matching that name. Make sure that you've spelled it correctly, or use a broader description of the course.</p>
                     }
                 </div>
             </div>
