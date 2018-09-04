@@ -5,31 +5,31 @@ namespace Dfc.FindACourse.Common
 {
     public enum QualificationLevel
     {
-        [Display(Name = "Entry level - Skills for Life")]
+        [Display(Name = "Entry level")]
         EntryLevel = 0,
 
-        [Display(Name = "Level 1 - First certificate")]
+        [Display(Name = "Level 1")]
         Level1 = 1,
 
-        [Display(Name = "Level 2 - GCSE/O level")]
+        [Display(Name = "Level 2")]
         Level2 = 2,
 
-        [Display(Name = "Level 3 - A level/Access to higher education diploma")]
+        [Display(Name = "Level 3")]
         Level3 = 3,
 
-        [Display(Name = "Level 4 - Certificate of higher education/HNC")]
+        [Display(Name = "Level 4")]
         Level4 = 4,
 
-        [Display(Name = "Level 5 - Foundation degree/HND")]
+        [Display(Name = "Level 5")]
         Level5 = 5,
     
-        [Display(Name = "Level 6 - Degree/Graduate diploma")]
+        [Display(Name = "Level 6")]
         Level6 = 6,
 
-        [Display(Name = "Level 7 - Masters Degree/Postgraduate diploma")]
+        [Display(Name = "Level 7")]
         Level7 = 7,
     
-        [Display(Name = "Level 8 - Doctorate/PhD")]
+        [Display(Name = "Level 8")]
         Level8 = 8,
 
         [Display(Name = "Higher Level")]

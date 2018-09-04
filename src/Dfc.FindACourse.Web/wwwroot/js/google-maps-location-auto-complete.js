@@ -12,7 +12,7 @@ Dfe.FindACourse.initGoogleMapsLocationAutoComplete = function () {
     var autocomplete = new google.maps.places.Autocomplete(inputElement);
 
     autocomplete.setComponentRestrictions({ 'country': ['uk'] });
-    autocomplete.setFields(['address_components', 'geometry', 'icon', 'name']);
+    autocomplete.setFields(['address_components', 'geometry', 'name']);
     autocomplete.addListener('place_changed', function () {
         var place = autocomplete.getPlace();
 

@@ -66,11 +66,11 @@
                         <h3>
                             <a href="#">@item.CourseTitle</a>
                         </h3>
-                        <div class="result-item-qualification-level">@item.QualificationLevel</div>
+                        <div class="result-item-qualification-level">@item.QualificationLevel.GetDisplayName()</div>
                         <ul class="result-item-course-attendence-study-mode-info">
                             <li>@item.StudyMode.GetDisplayName() | </li>
-                            <li>@item.AttendencePattern | </li>
-                            <li>@item.AttendanceMode</li>
+                            <li>@item.AttendanceMode.GetDisplayName() | </li>
+                            <li>@item.AttendencePattern.GetDisplayName()</li>
                         </ul>
                         <ul class="result-item-course-info">
                             <li>
