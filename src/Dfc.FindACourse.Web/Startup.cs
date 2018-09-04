@@ -50,8 +50,9 @@ namespace Dfc.FindACourse.Web
                 new CourseDirectoryServiceConfiguration(
                     Configuration["Tribal:ApiKey"],
                     tribalPerPage));
-            //services.Configure<StorageSettings>(Configuration.GetSection("Storage"));
 
+            services.AddSingleton<IConfiguration>(Configuration);
+                
             services.AddScoped<ICourseDirectoryService, CourseDirectoryService>();
 
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
