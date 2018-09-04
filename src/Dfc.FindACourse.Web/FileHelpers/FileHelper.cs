@@ -34,9 +34,9 @@ namespace Dfc.FindACourse.Web
         {
             _configuration = configuration;
             _cache = cache;
-            _storagename = _configuration["Storage:Storage_AccountName"];
-            _storagekey = _configuration["Storage:Storage_AccountKey"];
-            _containername = _configuration["Storage:Storage_ContainerReference"];
+            _storagename = _configuration["Storage:AccountName"];
+            _storagekey = _configuration["Storage:AccountKey"];
+            _containername = _configuration["Storage:ContainerReference"];
             _telemetry = telemetryClient;
         }
 
@@ -108,10 +108,10 @@ namespace Dfc.FindACourse.Web
         /// <returns></returns>
         public async Task DownloadSynonymFile()
         {
-            string storageSynName = _configuration["Storage:Storage_SynonymsFilename"];
-            string tempPath = _configuration["ConfigSettings:App_TempSynonymFilePath"];
+            string storageSynName = _configuration["Storage:SynonymsFilename"];
+            string tempPath = _configuration["ConfigSettings:TempSynonymFilePath"];
             string tempFile = System.IO.Path.Combine(tempPath, storageSynName);
-            string configFile = System.IO.Path.Combine(_configuration["ConfigSettings:App_SynonymFilePath"], _configuration["ConfigSettings:App_SynonymFileName"]);
+            string configFile = System.IO.Path.Combine(_configuration["ConfigSettings:SynonymFilePath"], _configuration["ConfigSettings:SynonymFileName"]);
 
             var success = await DownloadFile(storageSynName, tempPath);
 
@@ -120,7 +120,7 @@ namespace Dfc.FindACourse.Web
                 File.Copy(tempFile, configFile, true);
                 //Now cache
                 XmlDocument searchTerms = new XmlDocument();
-                searchTerms.Load(System.IO.Path.Combine(_configuration["ConfigSettings:App_SynonymFilePath"], _configuration["ConfigSettings:App_SynonymFileName"]));
+                searchTerms.Load(System.IO.Path.Combine(_configuration["ConfigSettings:SynonymFilePath"], _configuration["ConfigSettings:SynonymFileName"]));
 
                 CacheHelper.CacheFile(_cache, searchTerms, CacheKeys.Synonyms);
             }
@@ -134,10 +134,10 @@ namespace Dfc.FindACourse.Web
         /// <returns></returns>
         public async Task DownloadConfigFiles()
         {
-            string storageName = _configuration["Storage:Storage_QualSettingsFilename"];
-            string tempPath = _configuration["ConfigSettings:App_TempSettingsFilePath"];
+            string storageName = _configuration["Storage:QualSettingsFilename"];
+            string tempPath = _configuration["ConfigSettings:TempSettingsFilePath"];
             string tempFilePath= System.IO.Path.Combine(tempPath, storageName);
-            string configFilePath = System.IO.Path.Combine(_configuration["ConfigSettings:App_SettingsFilePath"], _configuration["ConfigSettings:App_QualSettingsFileName"]);
+            string configFilePath = System.IO.Path.Combine(_configuration["ConfigSettings:SettingsFilePath"], _configuration["ConfigSettings:QualSettingsFileName"]);
 
             var success = await DownloadFile(storageName, tempPath);
 
@@ -255,14 +255,14 @@ namespace Dfc.FindACourse.Web
             XmlDocument searchTerms = new XmlDocument();
             if (!_cache.TryGetValue(CacheKeys.Synonyms, out searchTerms))
             {
-                if (!System.IO.File.Exists(System.IO.Path.Combine(_configuration["ConfigSettings:App_SynonymFilePath"], _configuration["ConfigSettings:App_SynonymFileName"])))
+                if (!System.IO.File.Exists(System.IO.Path.Combine(_configuration["ConfigSettings:SynonymFilePath"], _configuration["ConfigSettings:SynonymFileName"])))
                 {
                     DownloadSynonymFile().Wait();
                 }
                 else //since it exists and it is not cached, Cache it now
                 {
                     searchTerms = new XmlDocument();
-                    searchTerms.Load(System.IO.Path.Combine(_configuration["ConfigSettings:App_SynonymFilePath"], _configuration["ConfigSettings:App_SynonymFileName"]));
+                    searchTerms.Load(System.IO.Path.Combine(_configuration["ConfigSettings:SynonymFilePath"], _configuration["ConfigSettings:SynonymFileName"]));
                     CacheHelper.CacheFile(_cache, searchTerms, CacheKeys.Synonyms);
                 }
 
@@ -275,14 +275,14 @@ namespace Dfc.FindACourse.Web
             IEnumerable<QualLevel> qualificationlevels = null;
             if (!_cache.TryGetValue(CacheKeys.QualificationLevels, out qualificationlevels))
             {
-                if (!System.IO.File.Exists(System.IO.Path.Combine(_configuration["ConfigSettings:App_SettingsFilePath"], _configuration["ConfigSettings:App_QualSettingsFileName"])))
+                if (!System.IO.File.Exists(System.IO.Path.Combine(_configuration["ConfigSettings:SettingsFilePath"], _configuration["ConfigSettings:QualSettingsFileName"])))
                  {
                     DownloadConfigFiles().Wait();
                 }
                 //since it exists and it is not cached, cache it now
                 else
                 { 
-                    using (StreamReader r = new StreamReader(System.IO.Path.Combine(_configuration["ConfigSettings:App_SettingsFilePath"], _configuration["ConfigSettings:App_QualSettingsFileName"])))
+                    using (StreamReader r = new StreamReader(System.IO.Path.Combine(_configuration["ConfigSettings:SettingsFilePath"], _configuration["ConfigSettings:QualSettingsFileName"])))
                     {
                         qualificationlevels = JsonConvert.DeserializeObject<List<QualLevel>>(r.ReadToEnd());
                         CacheHelper.CacheFile(_cache, qualificationlevels, CacheKeys.QualificationLevels);
