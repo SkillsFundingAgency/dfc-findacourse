@@ -1,5 +1,9 @@
 ﻿using Dfc.FindACourse.Common.Interfaces;
 using System;
+using System.Globalization;
+using System.Runtime.CompilerServices;
+
+[assembly: InternalsVisibleTo("Dfc.FindACourse.Common.UnitTests")]
 
 namespace Dfc.FindACourse.Common.Models
 {
@@ -16,7 +20,20 @@ namespace Dfc.FindACourse.Common.Models
                 throw new ArgumentException($"{nameof(name)} cannot be null, empty or only whitespace.");
 
             Id = id;
-            Name = name;
+            Name = NameFormatting(name);
+        }
+
+        internal static string NameFormatting(string name)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                return name;
+
+            var split = name.Split(" ");
+
+            if (split.Length == 1)
+                return name;
+
+            return name.ToSentenceCase();
         }
     }
 }

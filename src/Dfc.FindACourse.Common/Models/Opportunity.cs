@@ -48,7 +48,7 @@ namespace Dfc.FindACourse.Common.Models
             IsDfe1619Funded = isDfe1619Funded;
             StartDate = startDate;
             Venue = venue;
-            Region = (venue == null && string.IsNullOrWhiteSpace(region)) ? _defaultRegion : region;
+            Region = (venue == null && string.IsNullOrWhiteSpace(region)) ? _defaultRegion.ToSentenceCase() : region.ToSentenceCase();
             Duration = duration;
         }
     }
