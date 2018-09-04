@@ -17,14 +17,11 @@
     <div class="grid-row">
         <div class="column-one-third">
             <div class="form-group">
-                <input id="Location"
+                <input asp-for="Location"
                        class="form-control form-control-2-3"
-                       name="Location"
                        placeholder="Postcode or town"
                        autocomplete="off"
-                       type="text"
-                       value="" />
-                <input type="hidden" id="LocationCoordinates" name="LocationCoordinates" value="" />
+                       type="text" />
                 <dfc-select id="LocationRadius"
                             name="LocationRadius"
                             class="form-control form-control-1-3"
