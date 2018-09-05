@@ -161,7 +161,7 @@
               },
               {
                 "name": "App__Page1Text1",
-                "value": "Search for training and learning opportunities at all levels. We’ll show you courses from colleges, training providers and local education authorities. <<Contact an adviser>> if you need help finding the right course for you."
+                "value": "Search for training and learning opportunities at all levels. We'll show you courses from colleges, training providers and local education authorities. <a target='_blank' ref='https://nationalcareersservice.direct.gov.uk/contact-us/home'>Contact an adviser</a> if you need help finding the right course for you."
               },
               {
                 "name": "App__Page1Text2",
