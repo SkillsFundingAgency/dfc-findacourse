@@ -554,47 +554,6 @@ this.ScenarioInitialize(scenarioInfo);
 #line hidden
             this.ScenarioCleanup();
         }
-        
-        [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("BrowserStack Test Find a Course")]
-        [NUnit.Framework.CategoryAttribute("BrowserStack")]
-        [NUnit.Framework.TestCaseAttribute("single", "chrome", "Chemistry", "Entry level - Skills for Life", "Birmingham", "1 Mile", null)]
-        [NUnit.Framework.TestCaseAttribute("parallel", "safari", "Bricklaying", "Level 1 - First certificate", "London", "3 Miles", null)]
-        [NUnit.Framework.TestCaseAttribute("parallel", "chrome", "Bricklaying", "Level 1 - First certificate", "London", "3 Miles", null)]
-        [NUnit.Framework.TestCaseAttribute("parallel", "firefox", "Bricklaying", "Level 1 - First certificate", "London", "3 Miles", null)]
-        [NUnit.Framework.TestCaseAttribute("parallel", "ie", "Bricklaying", "Level 1 - First certificate", "London", "3 Miles", null)]
-        [NUnit.Framework.TestCaseAttribute("parallel", "edge", "Bricklaying", "Level 1 - First certificate", "London", "3 Miles", null)]
-        [NUnit.Framework.TestCaseAttribute("parallel", "chromeios", "Bricklaying", "Level 1 - First certificate", "London", "3 Miles", null)]
-        [NUnit.Framework.TestCaseAttribute("parallel", "chromeandroid", "Bricklaying", "Level 1 - First certificate", "London", "3 Miles", null)]
-        public virtual void BrowserStackTestFindACourse(string profile, string environment, string courseName, string qualificationLevel, string location, string distance, string[] exampleTags)
-        {
-            string[] @__tags = new string[] {
-                    "BrowserStack"};
-            if ((exampleTags != null))
-            {
-                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
-            }
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("BrowserStack Test Find a Course", null, @__tags);
-#line 259
-this.ScenarioInitialize(scenarioInfo);
-            this.ScenarioStart();
-#line 260
-  testRunner.Given(string.Format("I am on Find a Course for {0} and {1}", profile, environment), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 261
-  testRunner.When(string.Format("I enter course {0}", courseName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 262
-  testRunner.And(string.Format("I select qualification {0}", qualificationLevel), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 263
-  testRunner.And(string.Format("I enter location {0}", location), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 264
-  testRunner.And(string.Format("I select distance {0}", distance), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 265
-  testRunner.And("I click Search", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 266
-  testRunner.Then("I should be on Search Results for page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
-            this.ScenarioCleanup();
-        }
     }
 }
 #pragma warning restore
