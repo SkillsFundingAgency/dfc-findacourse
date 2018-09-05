@@ -186,6 +186,14 @@
               {
                 "name": "App__Page1Text7",
                 "value": "Enter a postcode or town. For example, S1 1WB or Sheffield"
+              },
+              {
+                "name": "Tribal__ApiKey",
+                "value": "247962c3-5d72-4581-9840-19c6b6bb638c"
+              },
+              {
+                "name": "Tribal__PerPage",
+                "value": "20"
               }
             ]
           }
