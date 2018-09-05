@@ -12,7 +12,7 @@ namespace Dfc.FindACourse.Common.Models
         public AttendanceMode AttendanceMode { get; }
         public AttendancePattern AttendancePattern { get; }
         public bool IsDfe1619Funded { get; }
-        public DateTime? StartDate { get; }
+        public IDescriptionDate StartDate { get; }
         public IVenue Venue { get; }
         public bool HasVenue => Venue != null;
         public string Region { get; }
@@ -25,7 +25,7 @@ namespace Dfc.FindACourse.Common.Models
             AttendanceMode attendanceMode,
             AttendancePattern attendancePattern,
             bool isDfe1619Funded,
-            DateTime? startDate,
+            IDescriptionDate startDate,
             IVenue venue,
             string region,
             IDuration duration)
@@ -38,6 +38,8 @@ namespace Dfc.FindACourse.Common.Models
                 throw new ArgumentOutOfRangeException(nameof(attendanceMode));
             if (!Enum.IsDefined(typeof(AttendancePattern), attendancePattern))
                 throw new ArgumentOutOfRangeException(nameof(attendancePattern));
+            if (startDate == null)
+                throw new ArgumentNullException(nameof(startDate));
             if (duration == null)
                 throw new ArgumentNullException(nameof(duration));
 

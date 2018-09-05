@@ -20,7 +20,7 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
             ProviderName = item.Provider.Name;
             Location = (item.Opportunity.HasVenue) ? item.Opportunity.Venue.Address.ToString() : item.Opportunity.Region;
             Distance = (item.Opportunity.HasVenue && item.Opportunity.Venue.Distance.HasValue) ? item.Opportunity.Venue.Distance.Value.ToString("0.0") : "0.0";
-            StartDate = item.Opportunity.StartDate.HasValue ? item.Opportunity.StartDate.Value.ToString("d MMMM yyyy") : string.Empty;
+            StartDate = item.Opportunity.StartDate.ToString();
             Duration = item.Opportunity.Duration.ToString();
         }
 

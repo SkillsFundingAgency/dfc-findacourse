@@ -138,6 +138,23 @@ namespace Dfc.FindACourse.Services.CourseDirectory
             return Duration.Default;
         }
 
+        public static DescriptionDate ToDescriptionDate(this StartDateType startDateType)
+        {
+            DateTime? startDate = DateTime.TryParse(startDateType.Item, out DateTime dt) ? dt : default(DateTime?);
+
+            if (startDate.HasValue)
+            {
+                return new DescriptionDate(startDate.Value);
+            }
+
+            if (!string.IsNullOrWhiteSpace(startDateType.Item))
+            {
+                return new DescriptionDate(startDateType.Item);
+            }
+
+            return DescriptionDate.Default;
+        }
+
         public static Opportunity ToOpportunity(this OpportunityInfo opportunityInfo)
         {
             int id = int.TryParse(opportunityInfo.OpportunityId, out id) ? id : 0;
@@ -168,7 +185,7 @@ namespace Dfc.FindACourse.Services.CourseDirectory
                 opportunityInfo.AttendanceMode.ToAttendanceMode(),
                 opportunityInfo.AttendancePattern.ToAttendancePattern(),
                 opportunityInfo.DFE1619Funded,
-                startDate,
+                opportunityInfo.StartDate.ToDescriptionDate(),
                 venue,
                 region,
                 opportunityInfo.Duration.ToDuration());

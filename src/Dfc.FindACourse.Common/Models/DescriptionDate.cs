@@ -7,6 +7,10 @@ namespace Dfc.FindACourse.Common.Models
 {
     public class DescriptionDate : ValueObject<DescriptionDate>, IDescriptionDate
     {
+        private static readonly string _defaultDescription = "Not available";
+
+        public static DescriptionDate Default => new DescriptionDate(_defaultDescription);
+
         public DateTime? Date { get; }
         public string Description { get; }
 
@@ -21,6 +25,15 @@ namespace Dfc.FindACourse.Common.Models
                 throw new ArgumentException($"{nameof(description)} cannot be null, empty or only whitespace.");
 
             Description = description;
+        }
+        public override string ToString()
+        {
+            if (Date.HasValue)
+            {
+                return Date.Value.ToString("d MMMM yyyy");
+            }
+
+            return Description;
         }
 
         protected override IEnumerable<object> GetEqualityComponents()
