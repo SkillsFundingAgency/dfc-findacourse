@@ -4,5 +4,6 @@
     {
         double Value { get; }
         string Unit { get; }
+        string Description { get; }
     }
 }

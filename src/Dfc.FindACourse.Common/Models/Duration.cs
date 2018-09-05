@@ -14,7 +14,7 @@ namespace Dfc.FindACourse.Common.Models
         public string Unit { get; }
         public string Description { get; }
 
-        private bool HasValue => Value > 0;
+        private bool HasValue => Value >= 0;
         private bool HasUnit => !string.IsNullOrWhiteSpace(Unit);
 
         public Duration(double value, string unit, string description)
