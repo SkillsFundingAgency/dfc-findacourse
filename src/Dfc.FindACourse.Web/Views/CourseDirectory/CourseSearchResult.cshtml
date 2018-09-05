@@ -82,10 +82,13 @@
                                         <span class="label">Location:</span>
                                         <span class="value">@item.Location</span>
                                     </li>
-                                    <li>
-                                        <span class="label">Distance:</span>
-                                        <span class="value">@item.Distance miles</span>
-                                    </li>
+                                    @if (!string.IsNullOrWhiteSpace(Model.Location))
+                                    {
+                                        <li>
+                                            <span class="label">Distance:</span>
+                                            <span class="value">@item.Distance miles</span>
+                                        </li>
+                                    }
                                     <li>
                                         <span class="label">Start date:</span>
                                         <span class="value">@item.StartDate</span>

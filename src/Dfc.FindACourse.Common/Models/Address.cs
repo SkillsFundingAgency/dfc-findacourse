@@ -64,10 +64,10 @@ namespace Dfc.FindACourse.Common.Models
             return string.Join(", ", 
                 new string[] 
                 {
-                    Line1.ToSentenceCase(),
-                    Line2.ToSentenceCase(),
-                    Town.ToSentenceCase(),
-                    County.ToSentenceCase(),
+                    Line1.RemoveFromEnd(",").ToSentenceCase(),
+                    Line2.RemoveFromEnd(",").ToSentenceCase(),
+                    Town.RemoveFromEnd(",").ToSentenceCase(),
+                    County.RemoveFromEnd(",").ToSentenceCase(),
                     Postcode.ToUpper()
                 }
                 .Where(x => !string.IsNullOrWhiteSpace(x))
