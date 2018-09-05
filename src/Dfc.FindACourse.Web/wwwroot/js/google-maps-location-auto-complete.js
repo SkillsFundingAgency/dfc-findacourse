@@ -12,7 +12,7 @@ Dfe.FindACourse.initGoogleMapsLocationAutoComplete = function () {
     var autocomplete = new google.maps.places.Autocomplete(inputElement);
 
     autocomplete.setComponentRestrictions({ 'country': ['uk'] });
-    autocomplete.setFields(['address_components', 'geometry', 'icon', 'name']);
+    autocomplete.setFields(['address_components', 'geometry', 'name']);
     autocomplete.addListener('place_changed', function () {
         var place = autocomplete.getPlace();
 
@@ -23,5 +23,19 @@ Dfe.FindACourse.initGoogleMapsLocationAutoComplete = function () {
 
         hiddenElement.val('');
         hiddenElement.val(place.geometry.location.lat() + ',' + place.geometry.location.lng());
+
+        var foundPostcodes = place.address_components.filter(function (item) {
+            return $.inArray('postal_code', item.types) > -1;
+        });
+
+        var foundPostalTowns = place.address_components.filter(function (item) {
+            return $.inArray('postal_town', item.types) > -1;
+        });
+
+        if (foundPostcodes && foundPostcodes.length > 0) {
+            $(inputElement).val('').val(foundPostcodes[0].long_name);
+        } else if (foundPostalTowns && foundPostalTowns.length > 0) {
+            $(inputElement).val('').val(foundPostalTowns[0].long_name);
+        } 
     });
 };

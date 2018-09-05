@@ -181,6 +181,7 @@
     <replacement>
       <sub>BIOLOGY</sub>
       <pat>BIOLGY</pat>
+      <pat>BOILOGY</pat>
       <pat>BIOLAGY</pat>
       <pat>BIOALIGY</pat>
     </replacement>

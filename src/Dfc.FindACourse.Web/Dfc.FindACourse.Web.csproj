@@ -4,6 +4,7 @@
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <Configurations>Debug;Release;Development</Configurations>
     <StartupObject></StartupObject>
+    <UserSecretsId>ad6cf20e-9172-4cf1-971b-76f7c12f112d</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

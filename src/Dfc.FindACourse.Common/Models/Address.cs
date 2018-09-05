@@ -61,7 +61,15 @@ namespace Dfc.FindACourse.Common.Models
 
         public override string ToString()
         {
-            return string.Join(" ", new string[] { Line1, Line2, Town, County, Postcode }
+            return string.Join(", ", 
+                new string[] 
+                {
+                    Line1.ToSentenceCase(),
+                    Line2.ToSentenceCase(),
+                    Town.ToSentenceCase(),
+                    County.ToSentenceCase(),
+                    Postcode.ToUpper()
+                }
                 .Where(x => !string.IsNullOrWhiteSpace(x))
                 .Select(x => x));
         }

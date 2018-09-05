@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Dfc.FindACourse.Common.Settings;
 using Dfc.FindACourse.Services.CourseDirectory;
 using Dfc.FindACourse.Services.Interfaces;
 using Microsoft.ApplicationInsights;
@@ -19,9 +20,14 @@ namespace Dfc.FindACourse.Web
     public class Startup
     {
         FileHelper _filehelper;
-        public Startup(IConfiguration configuration)
+        public Startup(IHostingEnvironment env)
         {
-            Configuration = configuration;
+            var builder = new ConfigurationBuilder()
+                 .SetBasePath(env.ContentRootPath)
+                 .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
+                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+                 .AddEnvironmentVariables();
+            Configuration = builder.Build();
         }
 
         public IConfiguration Configuration { get; }
@@ -44,6 +50,9 @@ namespace Dfc.FindACourse.Web
                 new CourseDirectoryServiceConfiguration(
                     Configuration["Tribal:ApiKey"],
                     tribalPerPage));
+
+            services.AddSingleton<IConfiguration>(Configuration);
+           
 
             services.AddScoped<ICourseDirectoryService, CourseDirectoryService>();
 
