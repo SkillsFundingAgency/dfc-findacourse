@@ -21,18 +21,18 @@ namespace Dfc.FindACourse.Common.Settings
         public string TempSynonymFilePath { get; set; }
         public string TempSettingsFilePath { get; set; }
     }
-    public class AppSettings
+    public class App
     {
-        public string App__ContentNCHLink { get; set; }
-        public string App__ContentQualLink { get; set; }    
-        public string App__Page1Title { get; set; }
-        public string App__Page1Text1 { get; set; }
-        public string App__Page1Text2 { get; set; }
-        public string App__Page1Text3 { get; set; }
-        public string App__Page1Text4 { get; set; }
-        public string App__Page1Text5 { get; set; }
-        public string App__Page1Text6 { get; set; }
-        public string App__Page1Text7 { get; set; }
+        public string ContentNCHLink { get; set; }
+        public string ContentQualLink { get; set; }    
+        public string Page1Title { get; set; }
+        public string Page1Text1 { get; set; }
+        public string Page1Text2 { get; set; }
+        public string Page1Text3 { get; set; }
+        public string Page1Text4 { get; set; }
+        public string Page1Text5 { get; set; }
+        public string Page1Text6 { get; set; }
+        public string Page1Text7 { get; set; }
 
 
     }

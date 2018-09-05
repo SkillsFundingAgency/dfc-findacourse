@@ -2,6 +2,9 @@
 @using Dfc.FindACourse.Web.HtmlHelpers;
 @using Dfc.FindACourse.Web.ViewModels.CourseDirectory;
 @model Dfc.FindACourse.Web.ViewModels.CourseDirectory.IndexViewModel;
+@using Microsoft.Extensions.Options;
+@using Dfc.FindACourse.Common.Settings;
+@inject IOptions<App> appSettings
 
 @{
     ViewData["Title"] = "Index";
@@ -9,18 +12,19 @@
 
 <div class="grid-row">
     <div class="column-two-thirds">
-        <h1 class="heading-xlarge">Find a course</h1>
-        <p>Search for training and learning opportunities at all levels. We’ll show you courses from colleges, training providers and local education authorities. <a href="https://nationalcareersservice.direct.gov.uk/contact-us/home">Contact an adviser</a> if you need help finding the right course for you.</p>
-        <form 
-              id="FindACourseForm" 
-              name="FindACourseForm" 
-              method="get" 
-              asp-controller="CourseDirectory" 
+        <h1 class="heading-xlarge">@Html.Raw(appSettings.Value.Page1Title)</h1>
+        <p>
+            @Html.Raw(appSettings.Value.Page1Text1)
+        </p>
+        <form id="FindACourseForm"
+              name="FindACourseForm"
+              method="get"
+              asp-controller="CourseDirectory"
               asp-action="CourseSearchResult">
             <div class="form-group">
                 <label class="form-label" for="SubjectKeyword">
-                    Course name
-                    <span class="form-hint">For example, Engineering or Hairdressing</span>
+                    @Html.Raw(appSettings.Value.Page1Text2)
+                    <span class="form-hint">@Html.Raw(appSettings.Value.Page1Text3)</span>
                 </label>
                 <div class="auto-complete-container">
                     <span asp-validation-for="SubjectKeyword"></span>
@@ -33,16 +37,16 @@
             </div>
             <div class="form-group">
                 <label class="form-label" for="QualificationLevel">
-                    Qualification level (Optional)
+                    @Html.Raw(appSettings.Value.Page1Text4)
                     <span class="form-hint">
-                        <a target="_blank" href="https://www.gov.uk/what-different-qualification-levels-mean/list-of-qualification-levels">What qualification levels mean</a>
+                        <a target="_blank" href="@Html.Raw(appSettings.Value.ContentQualLink)">@Html.Raw(appSettings.Value.Page1Text5)</a>
                     </span>
                 </label>
                 @*<dfc-select class="form-control form-control-1-1" id="QualificationLevel" name="QualificationLevel"
-                    dfc-items="Html.GetEnumSelectList<QualificationLevel>()"
-                    dfc-ignored-item-values="@(new Enum[] { QualificationLevel.Level9, QualificationLevel.LevelNa })">
-                    <option value="">Select level</option>
-                </dfc-select>*@
+                        dfc-items="Html.GetEnumSelectList<QualificationLevel>()"
+                        dfc-ignored-item-values="@(new Enum[] { QualificationLevel.Level9, QualificationLevel.LevelNa })">
+                        <option value="">Select level</option>
+                    </dfc-select>*@
                 <select class="form-control form-control-1-1" id="QualificationLevel" name="QualificationLevel">
                     @foreach (var item in Model.QualificationLevels)
                     {
@@ -59,12 +63,12 @@
                     <span class="form-hint">Enter a postcode or town. For example, S1 1WB or Sheffield</span>
                 </label>
                 <input id="Location"
-                        class="form-control"
-                        name="Location"
-                        placeholder="Postcode or town"
-                        autocomplete="off"
-                        type="text"
-                        value=""/>
+                       class="form-control"
+                       name="Location"
+                       placeholder="Postcode or town"
+                       autocomplete="off"
+                       type="text"
+                       value="" />
                 <input type="hidden" id="LocationCoordinates" name="LocationCoordinates" value="" />
                 <dfc-select id="LocationRadius"
                             name="LocationRadius"

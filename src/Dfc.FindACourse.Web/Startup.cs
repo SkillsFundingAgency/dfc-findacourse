@@ -52,10 +52,8 @@ namespace Dfc.FindACourse.Web
                     tribalPerPage));
 
             services.AddSingleton<IConfiguration>(Configuration);
-           
-
+            services.Configure<App>(Configuration.GetSection("App"));
             services.AddScoped<ICourseDirectoryService, CourseDirectoryService>();
-
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddMemoryCache();
             services.AddApplicationInsightsTelemetry();

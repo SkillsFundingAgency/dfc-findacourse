@@ -12,8 +12,9 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
-using System.Xml.Serialization;
+using Microsoft.Extensions.Options;
 using Microsoft.ApplicationInsights;
+using Dfc.FindACourse.Common.Settings;
 
 namespace Dfc.FindACourse.Web.Controllers
 {
@@ -24,17 +25,19 @@ namespace Dfc.FindACourse.Web.Controllers
         private IMemoryCache _cache;
         private FileHelper _fileHelper;
         private TelemetryClient _telemetry;
+        private readonly IOptions<App> _appSettings;
 
-        public CourseDirectoryController(IConfiguration configuration, ICourseDirectoryService courseDirectoryService, IMemoryCache memoryCache, TelemetryClient telemetryClient)
+        public CourseDirectoryController(IConfiguration configuration, ICourseDirectoryService courseDirectoryService, IMemoryCache memoryCache, TelemetryClient telemetryClient, IOptions<App> appSettings)
         {
             _configuration = configuration;
             _courseDirectoryService = courseDirectoryService;
             _cache = memoryCache;
             _fileHelper = new FileHelper(configuration, memoryCache, telemetryClient);
             _telemetry = telemetryClient;
-
+            _appSettings = appSettings;
+            
         }
-
+        
         // GET: CourseDirectory
         public ActionResult Index()
         {
