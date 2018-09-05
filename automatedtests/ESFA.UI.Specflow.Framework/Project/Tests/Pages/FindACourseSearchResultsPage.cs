@@ -20,11 +20,32 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.Pages
         }
 
         private readonly By noResultsErrorMsg = By.XPath(".//*[@id='FindACourseForm']");
+        private readonly By courseTitle = By.XPath(".//*[@id='FindACourseForm']/div[2]/div[2]/div[2]/div/div[1]/h3/a");
+        private readonly By courseLevel = By.XPath(".//*[@id='FindACourseForm']/div[2]/div[2]/div[2]/div/div[1]/div");
 
         internal FindACourseSearchResultsPage CheckNullResults()
         {
             string errorString = "There are no courses matching that name. Make sure that you've spelled it correctly, or use a broader description of the course.";
             PageInteractionHelper.VerifyText(noResultsErrorMsg, errorString);
+            return new FindACourseSearchResultsPage(webDriver);
+        }
+
+        internal FindACourseSearchResultsPage CheckResultsReturned()
+        {
+            string errorString = "There are no courses matching that name. Make sure that you've spelled it correctly, or use a broader description of the course.";
+            PageInteractionHelper.VerifyTextNotPresent(noResultsErrorMsg, errorString);
+            return new FindACourseSearchResultsPage(webDriver);
+        }
+
+        internal FindACourseSearchResultsPage GetCourseTitle(string CourseTitle)
+        {
+            PageInteractionHelper.VerifyText(courseTitle, CourseTitle);
+            return new FindACourseSearchResultsPage(webDriver);
+        }
+
+        internal FindACourseSearchResultsPage GetCourseLevel(string CourseLevel)
+        {
+            PageInteractionHelper.VerifyText(courseLevel, CourseLevel);
             return new FindACourseSearchResultsPage(webDriver);
         }
     }
