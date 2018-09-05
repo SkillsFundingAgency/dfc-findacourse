@@ -1,11 +1,11 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using ESFA.UI.Specflow.Framework.Project.Framework.Helpers;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
+//using OpenQA.Selenium.PhantomJS;
 using TechTalk.SpecFlow;
 using AventStack.ExtentReports.Reporter;
 using AventStack.ExtentReports;
@@ -96,6 +96,10 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
                     webDriver = new InternetExplorerDriver();
                     webDriver.Manage().Window.Maximize();
                     break;
+
+                //case "phantomjs":
+                //    webDriver = new PhantomJSDriver();
+                //    break;
 
                 case "zapProxyChrome":
                     InitialiseZapProxyChrome();
