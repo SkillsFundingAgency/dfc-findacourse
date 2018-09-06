@@ -38,9 +38,21 @@ namespace Dfc.FindACourse.Services.CourseDirectory
 
 
                 };
-                if (criteria.QualificationLevels.Count > 0) searchCriteria.QualificationLevels = criteria.QualificationLevels.Select(x => x.Level).ToArray();
-                if (!string.IsNullOrEmpty(criteria.TownOrPostcode)) searchCriteria.Location = criteria.TownOrPostcode;
-                if (criteria.Distance.HasValue) searchCriteria.Distance = criteria.Distance.Value;
+                //Set up Qual Levels
+                if (criteria.QualificationLevels.Count > 0)
+                        searchCriteria.QualificationLevels = criteria.QualificationLevels.Select(x => x.Level).ToArray();
+                //Add Location
+                if (!string.IsNullOrEmpty(criteria.TownOrPostcode))
+                        searchCriteria.Location = criteria.TownOrPostcode;
+                //And then distance (Always set so add check on TownOrPostcode)
+                if (criteria.Distance.HasValue && !string.IsNullOrEmpty(criteria.TownOrPostcode))
+                        searchCriteria.Distance = criteria.Distance.Value;
+                //Add DFEFunded
+                if (criteria.IsDfe1619Funded.HasValue)
+                    searchCriteria.DFE1619Funded = criteria.IsDfe1619Funded.Value ? "Y": "N";
+                //study modes
+                //if (criteria.StudyModes.Count > 0)
+                //    searchCriteria.StudyModes = criteria.StudyModes.Select(x => x.ToString)
 
                  var request = new CourseListRequestStructure()
                 {
