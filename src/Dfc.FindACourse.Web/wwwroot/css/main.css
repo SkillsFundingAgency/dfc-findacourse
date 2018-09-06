@@ -3093,10 +3093,6 @@ input[type="search"]::-webkit-search-decoration {
   background-color: #ffbf47;
 }
 
-.search-result-item .result-item-qualification-level {
-  height: 1.17em;
-}
-
 .search-result-item .result-item-course-attendence-study-mode-info {
   list-style-type: none;
   margin-bottom: 1em;
