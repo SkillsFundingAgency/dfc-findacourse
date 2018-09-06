@@ -58,26 +58,51 @@ namespace Dfc.FindACourse.Web.Controllers
         {
             //Log response time
             var dtStart = DateTime.Now;
+            var parmQualLevels = new List<QualLevel>();
+            var parmStudyModes = new List<StudyMode>();
+            var allQualLevels = _fileHelper.LoadQualificationLevels();
+
 
             //DEBUG
             int distance = -1;
             int quallevel = -1;
             int.TryParse(this.Request.Query["LocationRadius"], out distance);
             if(!string.IsNullOrEmpty(this.Request.Query["QualificationLevel"])) int.TryParse(this.Request.Query["QualificationLevel"], out quallevel);
-            string param3 = this.Request.Query["Location"];
+            string location = this.Request.Query["Location"];
 
-            if(!string.IsNullOrEmpty(param3)) requestModel.Location = param3;
+            if(!string.IsNullOrEmpty(location)) requestModel.Location = location;
             if(distance > -1) requestModel.Distance = distance;
-            if (quallevel > -1) requestModel.QualificationLevels = new int[] { quallevel };
+            //Pass in the Qual Level from Query on first page and check model from second page
+            if (quallevel > -1 || (requestModel.QualificationLevels != null && requestModel.QualificationLevels.Length > 0))
+            { 
+                requestModel.QualificationLevels = new int[] { quallevel };
+                //Now Populate Qual Levels values from int array
+                requestModel.QualificationLevels.ToList().ForEach(
+                                       q => parmQualLevels.Add(
+                                                   allQualLevels.Where(x => x.Key == q.ToString()).FirstOrDefault()));
+            }
+
+            //Debuging - Sample Vars to be passed in from UI, here for testing
+
+            //bool? dfeFunded = null;
+            //requestModel.QualificationLevels = new int[] { 3, 4 };
+            //requestModel.IsDfe1619Funded = dfeFunded;
+            //requestModel.StudyModes = new int[] { 0, 2};
+
+            //var arrStudyModes = requestModel.StudyModes.Cast<StudyMode>().ToArray();
+
             //END DEBUG
+
 
             if (ModelState.IsValid)
             {
-                var criteria = new CourseSearchCriteria(requestModel.SubjectKeyword,
-                   _fileHelper.LoadQualificationLevels().Where( x => x.Key == quallevel.ToString()).ToList(), param3, distance )
-                {
-                    
-                };
+                var criteria = new CourseSearchCriteria(requestModel.SubjectKeyword, 
+                                                            parmQualLevels, 
+                                                                requestModel.Location, 
+                                                                    requestModel.Distance.Value,
+                                                                        requestModel.IsDfe1619Funded
+                                                                        //,requestModel.StudyModes.Cast<StudyMode>().ToArray().ToList()
+                                                                        ) {};
                 
                 var result = _courseDirectoryService.CourseSearch(criteria, new PagingOptions(SortBy.Relevance, 1));
 

@@ -12,9 +12,9 @@ namespace Dfc.FindACourse.Common.Models
         public string TownOrPostcode { get; set; }
         public int? Distance { get; set; }
         public List<QualLevel> QualificationLevels { get; set; }
-        public IEnumerable<StudyMode> StudyModes { get; set; }
-        public IEnumerable<AttendanceMode> AttendanceModes { get; set; }
-        public IEnumerable<AttendancePattern> AttendancePatterns { get; set; }
+        public List<StudyMode> StudyModes { get; set; }
+        public List<AttendanceMode> AttendanceModes { get; set; }
+        public List<AttendancePattern> AttendancePatterns { get; set; }
         public bool? IsDfe1619Funded { get; set; }
 
         public CourseSearchCriteria(string subjectKeyword)
@@ -25,9 +25,9 @@ namespace Dfc.FindACourse.Common.Models
             SubjectKeyword = subjectKeyword;
 
             QualificationLevels = new List<QualLevel>();
-            StudyModes = (new List<StudyMode>()).AsEnumerable();
-            AttendanceModes = (new List<AttendanceMode>()).AsEnumerable();
-            AttendancePatterns = (new List<AttendancePattern>()).AsEnumerable();
+            StudyModes = new List<StudyMode>();
+            AttendanceModes = new List<AttendanceMode>();
+            AttendancePatterns = new List<AttendancePattern>();
         }
         public CourseSearchCriteria(string subjectKeyword, List<QualLevel> qualLevels, string postcode, int radius)
         {
@@ -38,9 +38,37 @@ namespace Dfc.FindACourse.Common.Models
             TownOrPostcode = postcode;
             Distance = radius;
             QualificationLevels = qualLevels;
-            StudyModes = (new List<StudyMode>()).AsEnumerable();
-            AttendanceModes = (new List<AttendanceMode>()).AsEnumerable();
-            AttendancePatterns = (new List<AttendancePattern>()).AsEnumerable();
+            StudyModes = new List<StudyMode>();
+            AttendanceModes = new List<AttendanceMode>();
+            AttendancePatterns = new List<AttendancePattern>();
+        }
+        public CourseSearchCriteria(string subjectKeyword, List<QualLevel> qualLevels, string postcode, int radius, bool? dfeFunded)
+        {
+            if (string.IsNullOrWhiteSpace(subjectKeyword))
+                throw new ArgumentException($"{nameof(subjectKeyword)} cannot be null, empty or only whitespace.");
+
+            SubjectKeyword = subjectKeyword;
+            TownOrPostcode = postcode;
+            Distance = radius;
+            QualificationLevels = qualLevels;
+            IsDfe1619Funded = dfeFunded;
+            StudyModes = new List<StudyMode>();
+            AttendanceModes = new List<AttendanceMode>();
+            AttendancePatterns = new List<AttendancePattern>();
+        }
+        public CourseSearchCriteria(string subjectKeyword, List<QualLevel> qualLevels, string postcode, int radius, bool? dfeFunded, List<StudyMode> studyModes)
+        {
+            if (string.IsNullOrWhiteSpace(subjectKeyword))
+                throw new ArgumentException($"{nameof(subjectKeyword)} cannot be null, empty or only whitespace.");
+
+            SubjectKeyword = subjectKeyword;
+            TownOrPostcode = postcode;
+            Distance = radius;
+            QualificationLevels = qualLevels;
+            IsDfe1619Funded = dfeFunded;
+            StudyModes = new List<StudyMode>();
+            AttendanceModes = new List<AttendanceMode>();
+            AttendancePatterns = new List<AttendancePattern>();
         }
         protected override IEnumerable<object> GetEqualityComponents()
         {

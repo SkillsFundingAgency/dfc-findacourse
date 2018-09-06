@@ -9,9 +9,9 @@ namespace Dfc.FindACourse.Common.Interfaces
         string TownOrPostcode { get; set; }
         int? Distance { get; set; }
         List<QualLevel> QualificationLevels { get; set; }
-        IEnumerable<StudyMode> StudyModes { get; set; }
-        IEnumerable<AttendanceMode> AttendanceModes { get; set; }
-        IEnumerable<AttendancePattern> AttendancePatterns { get; set; }
+        List<StudyMode> StudyModes { get; set; }
+        List<AttendanceMode> AttendanceModes { get; set; }
+        List<AttendancePattern> AttendancePatterns { get; set; }
         bool? IsDfe1619Funded { get; set; }
     }
 }
