@@ -14,6 +14,7 @@ using OWASPZAPDotNetAPI;
 using System.Configuration;
 using System.Collections.Specialized;
 using OpenQA.Selenium.Remote;
+using System.Diagnostics;
 
 namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
 {
@@ -167,7 +168,7 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
                 default:
                     throw new Exception("Driver name does not match OR this framework does not support the webDriver specified");
             }
-            
+
             //webDriver.Manage().Window.Maximize();
             //webDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
             //webDriver.Manage().Cookies.DeleteAllCookies();
@@ -383,31 +384,5 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
            // File.AppendAllText("C:\\Users\\kadir\\Desktop\\sf.log", "Starting local");
             webDriver = new RemoteWebDriver(new Uri("http://" + ConfigurationManager.AppSettings.Get("server") + "/wd/hub/"), capability);
         }
-
-
-        //public static void BrowserstackConfig2(string browser)
-        //{
-        //    NameValueCollection caps = ConfigurationManager.GetSection("capabilities/" + "parallel") as NameValueCollection;
-        //    NameValueCollection settings = ConfigurationManager.GetSection("environments/" + browser) as NameValueCollection;
-        //    DesiredCapabilities capability = new DesiredCapabilities();
-
-        //    foreach (string key in caps.AllKeys)
-        //    {
-        //        capability.SetCapability(key, caps[key]);
-        //    }
-
-        //    foreach (string key in settings.AllKeys)
-        //    {
-        //        capability.SetCapability(key, settings[key]);
-        //    }
-
-        //    capability.SetCapability("browserstack.user", ConfigurationManager.AppSettings["user"]);
-        //    capability.SetCapability("browserstack.key", ConfigurationManager.AppSettings["key"]);
-
-        //    File.AppendAllText("C:\\Users\\kadir\\Desktop\\sf.log", "Starting local");
-        //    webDriver = new RemoteWebDriver(new Uri("http://" + ConfigurationManager.AppSettings.Get("server") + "/wd/hub/"), capability);
-        //}
-
-
     }
 }

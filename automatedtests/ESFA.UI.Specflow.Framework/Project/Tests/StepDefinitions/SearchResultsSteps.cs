@@ -42,6 +42,14 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.StepDefinitions
             findACourseSearchResultsPage.CheckResultsReturned();
         }
 
+        [Then(@"Search (.*) displayed in location field")]
+        public void SearchLocationDisplayedInLocationField(string location)
+        {
+            FindACourseSearchResultsPage findACourseSearchResultsPage = new FindACourseSearchResultsPage(webDriver);
+            findACourseSearchResultsPage.GetSearchLocation(location);
+        }
+
+
         [Then(@"the course title (.*) is displayed")]
         public void CourseTitleIsDisplayed(string courseTitle)
         {

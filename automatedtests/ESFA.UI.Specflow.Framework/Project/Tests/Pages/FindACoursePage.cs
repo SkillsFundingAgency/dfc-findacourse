@@ -9,7 +9,7 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.Pages
 {
     public class FindACoursePage : BasePage
     {
-        private static String PAGE_TITLE = "Find a course";
+        private static readonly String PAGE_TITLE = "Find a course";
 
         public FindACoursePage(IWebDriver webDriver) : base(webDriver)
         {

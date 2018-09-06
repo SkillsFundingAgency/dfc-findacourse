@@ -78,6 +78,19 @@ namespace ESFA.UI.Specflow.Framework.Project.Framework.Helpers
                 + "\n Found: " + actual);
         }
 
+        public static Boolean VerifyEditFieldText(By locator, String expected)
+        {
+            String actual = webDriver.FindElement(locator).GetAttribute("value");
+            if (actual.Contains(expected))
+            {
+                return true;
+            }
+
+            throw new Exception("Text verification failed: "
+                + "\n Expected: " + expected
+                + "\n Found: " + actual);
+        }
+
         public static Boolean VerifyTextNotPresent(By locator, String txtNotPresnet)
         {
             String actual = webDriver.FindElement(locator).Text;

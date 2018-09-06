@@ -29,16 +29,17 @@
 		And I select distance <Distance>
 		And I click Search
 		Then I should be on Search Results for page
+		And Search <Location> displayed in location field
 
   Examples:
-    | CourseName  | Location   | Distance |
-    | Chemistry   | b13 9da    | 1 Mile   |
-    | Bricklaying | B13 9DA    | 3 Miles  |
-    | Maths       | London     | 5 Miles  |
-    | English     | Birmingham | 10 Miles |
-    | Plumbing    | London     | 15 Miles |
-    | Electronic  | London     | 20 Miles |
-    | Medicine    | Birmingham | National |  
+    | CourseName  | Location      | Distance |
+    | Chemistry   | b13 9da       | 1 Mile   |
+    | Bricklaying | B13 9DA       | 3 Miles  |
+    | Maths       | west midlands | 5 Miles  |
+    | English     | Birmingham    | 10 Miles |
+    | Plumbing    | London        | 15 Miles |
+    | Electronic  | moseley       | 20 Miles |
+    | Medicine    | sandford rd   | National |
 
 
 
