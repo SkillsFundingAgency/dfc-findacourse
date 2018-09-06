@@ -35,7 +35,7 @@ namespace Dfc.FindACourse.Common
         [Display(Name = "Unknown")]
         Level9 = 9,
 
-        [Display(Name = "Unknown/not applicable")]
+        [Display(Name = "")]
         LevelNa = 10,
     }
 }

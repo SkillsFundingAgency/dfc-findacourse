@@ -71,15 +71,23 @@
                                 <ul class="result-item-course-attendence-study-mode-info">
                                     @if (item.IsDisplayble(item.StudyMode))
                                     {
-                                        <li>@item.StudyMode.GetDisplayName() | </li>
+                                        <li>@item.StudyMode.GetDisplayName()</li>
                                     }
 
-                                    @if (item.IsDisplayble(item.AttendanceMode))
+                                    @if (item.IsDisplayble(item.AttendanceMode) && item.IsDisplayble(item.StudyMode))
                                     {
-                                        <li>@item.AttendanceMode.GetDisplayName() | </li>
+                                        <li> | @item.AttendanceMode.GetDisplayName() </li>
+                                    }
+                                    else if (item.IsDisplayble(item.AttendanceMode))
+                                    {
+                                        <li>@item.AttendanceMode.GetDisplayName()</li>
                                     }
 
-                                    @if (item.IsDisplayble(item.AttendencePattern))
+                                    @if (item.IsDisplayble(item.AttendencePattern) && item.IsDisplayble(item.AttendanceMode))
+                                    {
+                                        <li> | @item.AttendencePattern.GetDisplayName() </li>
+                                    }
+                                    else if (item.IsDisplayble(item.AttendencePattern))
                                     {
                                         <li>@item.AttendencePattern.GetDisplayName()</li>
                                     }

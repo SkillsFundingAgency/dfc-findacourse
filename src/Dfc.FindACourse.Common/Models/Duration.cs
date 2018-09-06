@@ -67,6 +67,9 @@ namespace Dfc.FindACourse.Common.Models
             if (value == 1)
                 return unit.RemoveFromEnd("(s)");
 
+            if (value > 1)
+                return unit.RemoveFromEnd("(s)") + "s";
+
             return unit;
         }
 

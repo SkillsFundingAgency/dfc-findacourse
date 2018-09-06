@@ -3109,4 +3109,12 @@ input[type="search"]::-webkit-search-decoration {
 
 .search-result-item .result-item-course-info .label {
   color: #6f777b;
+  display: inline-block;
+  width: 4.62em;
+  vertical-align: top;
+}
+
+.search-result-item .result-item-course-info .value {
+  display: inline-block;
+  width: 28em;
 }
