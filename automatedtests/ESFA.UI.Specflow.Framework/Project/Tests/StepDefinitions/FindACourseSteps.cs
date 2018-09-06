@@ -4,8 +4,9 @@ using ESFA.UI.Specflow.Framework.Project.Tests.TestSupport;
 using OpenQA.Selenium;
 using System;
 using System.Threading;
-using System.Collections.Generic;
+using System.Diagnostics;
 using TechTalk.SpecFlow;
+using System.Configuration;
 
 namespace ESFA.UI.Specflow.Framework.Project.Tests.StepDefinitions
 {
@@ -14,7 +15,7 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.StepDefinitions
     {
         private IWebDriver _driver;
         private BrowserStackDriver _bsDriver;
-        private IWebElement listContainer;
+        //private readonly IWebElement listContainer;
 
 
        // [Scope(Tag = "Regression")]
@@ -22,6 +23,7 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.StepDefinitions
         public void NavigateToFindACourseHomePage()
         {
             webDriver.Url = Configurator.GetConfiguratorInstance().GetBaseUrl();
+            Console.WriteLine("**** TEST ENV : " + ConfigurationManager.AppSettings["BaseUrl"] + " ****");
         }
 
 
