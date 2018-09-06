@@ -25,6 +25,14 @@
 
         .label {
             color: $grey-1;
+            display: inline-block;
+            width: 4.62em;
+            vertical-align: top;
+        }
+
+        .value {
+            display: inline-block;
+            width: 28em;
         }
     }
 }
