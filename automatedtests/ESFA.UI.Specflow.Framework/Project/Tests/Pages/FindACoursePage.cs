@@ -43,11 +43,6 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.Pages
 
         internal FindACoursePage QualificationDefaultValue(String expectedTxt)
         {
-            //IWebElement comboBox = webDriver.FindElement(qualificationLevel);
-            //SelectElement selectedValue = new SelectElement(comboBox);
-            //string wantedText = selectedValue.SelectedOption.GetAttribute("label");
-            //Console.WriteLine("qualifiaction label : " + wantedText);
-
             PageInteractionHelper.VerifyDropdownDefaultValue(qualificationLevel, expectedTxt);
             return new FindACoursePage(webDriver);
         }

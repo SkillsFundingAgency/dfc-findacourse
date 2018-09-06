@@ -30,7 +30,6 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.StepDefinitions
         [Then(@"no results found message is displayed")]
         public void NoResultsFoundMessageIsDisplayed()
         {
-            //ScenarioContext.Current.Pending();
             FindACourseSearchResultsPage findACourseSearchResultsPage = new FindACourseSearchResultsPage(webDriver);
             findACourseSearchResultsPage.CheckNullResults();
 

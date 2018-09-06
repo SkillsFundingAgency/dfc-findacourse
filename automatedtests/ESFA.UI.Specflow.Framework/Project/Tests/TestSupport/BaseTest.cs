@@ -85,13 +85,73 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
             String browser = Configurator.GetConfiguratorInstance().GetBrowser();
             switch(browser)
             {
-                case "firefox" :
-                    webDriver = new FirefoxDriver();
+                case "debug" :
+                    webDriver = new ChromeDriver();
                     webDriver.Manage().Window.Maximize();
                     break;
 
-                case "chrome" :
-                    webDriver = new ChromeDriver();
+                case "win10chrome":
+                    BrowserstackConfig();
+                    break;
+
+                case "win10edge":
+                    BrowserstackConfig();
+                    break;
+
+                case "win10firefox":
+                    BrowserstackConfig();
+                    break;
+
+                case "win10IE":
+                    BrowserstackConfig();
+                    break;
+
+                case "osxECsafari":
+                    BrowserstackConfig();
+                    break;
+
+                case "osxHSsafari":
+                    BrowserstackConfig();
+                    break;
+
+                case "osxHsafari":
+                    BrowserstackConfig();
+                    break;
+
+                case "osxHSchrome":
+                    BrowserstackConfig();
+                    break;
+
+                case "osxHSfirefox":
+                    BrowserstackConfig();
+                    break;
+
+                case "iOSchrome":
+                    BrowserstackConfigMob();
+                    break;
+
+                case "iOSfirefox":
+                    BrowserstackConfigMob();
+                    break;
+
+                case "iOSsafari":
+                    BrowserstackConfigMob();
+                    break;
+
+                case "androidchrome":
+                    BrowserstackConfigMob();
+                    break;
+
+                case "androidnative":
+                    BrowserstackConfigMob();
+                    break;
+
+                //case "phantomjs":
+                //    webDriver = new PhantomJSDriver();
+                //    break;
+
+                case "firefox":
+                    webDriver = new FirefoxDriver();
                     webDriver.Manage().Window.Maximize();
                     break;
 
@@ -99,33 +159,6 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
                     webDriver = new InternetExplorerDriver();
                     webDriver.Manage().Window.Maximize();
                     break;
-
-                case "bs":
-
-                    NameValueCollection caps = ConfigurationManager.GetSection("capabilities/" + "parallel") as NameValueCollection;
-                    NameValueCollection settings = ConfigurationManager.GetSection("environments/" + "edge") as NameValueCollection;
-                    DesiredCapabilities capability = new DesiredCapabilities();
-
-                    foreach (string key in caps.AllKeys)
-                    {
-                        capability.SetCapability(key, caps[key]);
-                    }
-
-                    foreach (string key in settings.AllKeys)
-                    {
-                        capability.SetCapability(key, settings[key]);
-                    }
-
-                    capability.SetCapability("browserstack.user", ConfigurationManager.AppSettings["user"]);
-                    capability.SetCapability("browserstack.key", ConfigurationManager.AppSettings["key"]);
-
-                    File.AppendAllText("C:\\Users\\kadir\\Desktop\\sf.log", "Starting local");
-                    webDriver = new RemoteWebDriver(new Uri("http://" + ConfigurationManager.AppSettings.Get("server") + "/wd/hub/"), capability);
-                    break;
-
-                //case "phantomjs":
-                //    webDriver = new PhantomJSDriver();
-                //    break;
 
                 case "zapProxyChrome":
                     InitialiseZapProxyChrome();
@@ -135,11 +168,11 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
                     throw new Exception("Driver name does not match OR this framework does not support the webDriver specified");
             }
             
-            webDriver.Manage().Window.Maximize();
-            webDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            webDriver.Manage().Cookies.DeleteAllCookies();
-            String currentWindow = webDriver.CurrentWindowHandle;
-            webDriver.SwitchTo().Window(currentWindow);
+            //webDriver.Manage().Window.Maximize();
+            //webDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+            //webDriver.Manage().Cookies.DeleteAllCookies();
+            //String currentWindow = webDriver.CurrentWindowHandle;
+            //webDriver.SwitchTo().Window(currentWindow);
             
             PageInteractionHelper.SetDriver(webDriver);
 
@@ -309,6 +342,71 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
             File.WriteAllBytes(path, bytes);
         }
 
+        public static void BrowserstackConfig()
+        {
+            DesiredCapabilities capability = new DesiredCapabilities();
+            capability.SetCapability("browserName", ConfigurationManager.AppSettings["browser"]);
+            capability.SetCapability("browser_version", ConfigurationManager.AppSettings["browser_version"]);
+            capability.SetCapability("name", ConfigurationManager.AppSettings["name"]);
+            capability.SetCapability("os", ConfigurationManager.AppSettings["os"]);
+            capability.SetCapability("os_version", ConfigurationManager.AppSettings["os_version"]);
+            capability.SetCapability("browserstack.user", ConfigurationManager.AppSettings["user"]);
+            capability.SetCapability("browserstack.key", ConfigurationManager.AppSettings["key"]);
+
+            NameValueCollection caps = ConfigurationManager.GetSection("capabilities/" + "parallel") as NameValueCollection;
+            foreach (string key in caps.AllKeys)
+            {
+                capability.SetCapability(key, caps[key]);
+            }
+
+           // File.AppendAllText("C:\\Users\\kadir\\Desktop\\sf.log", "Starting local");
+            webDriver = new RemoteWebDriver(new Uri("http://" + ConfigurationManager.AppSettings.Get("server") + "/wd/hub/"), capability);
+        }
+
+        public static void BrowserstackConfigMob()
+        {
+            DesiredCapabilities capability = new DesiredCapabilities();
+            capability.SetCapability("browserName", ConfigurationManager.AppSettings["browserName"]);
+            capability.SetCapability("device", ConfigurationManager.AppSettings["device"]);
+            capability.SetCapability("realMobile", ConfigurationManager.AppSettings["realMobile"]);
+            capability.SetCapability("name", ConfigurationManager.AppSettings["name"]);
+            capability.SetCapability("os_version", ConfigurationManager.AppSettings["os_version"]);
+            capability.SetCapability("browserstack.user", ConfigurationManager.AppSettings["user"]);
+            capability.SetCapability("browserstack.key", ConfigurationManager.AppSettings["key"]);
+
+            NameValueCollection caps = ConfigurationManager.GetSection("capabilities/" + "parallel") as NameValueCollection;
+            foreach (string key in caps.AllKeys)
+            {
+                capability.SetCapability(key, caps[key]);
+            }
+
+           // File.AppendAllText("C:\\Users\\kadir\\Desktop\\sf.log", "Starting local");
+            webDriver = new RemoteWebDriver(new Uri("http://" + ConfigurationManager.AppSettings.Get("server") + "/wd/hub/"), capability);
+        }
+
+
+        //public static void BrowserstackConfig2(string browser)
+        //{
+        //    NameValueCollection caps = ConfigurationManager.GetSection("capabilities/" + "parallel") as NameValueCollection;
+        //    NameValueCollection settings = ConfigurationManager.GetSection("environments/" + browser) as NameValueCollection;
+        //    DesiredCapabilities capability = new DesiredCapabilities();
+
+        //    foreach (string key in caps.AllKeys)
+        //    {
+        //        capability.SetCapability(key, caps[key]);
+        //    }
+
+        //    foreach (string key in settings.AllKeys)
+        //    {
+        //        capability.SetCapability(key, settings[key]);
+        //    }
+
+        //    capability.SetCapability("browserstack.user", ConfigurationManager.AppSettings["user"]);
+        //    capability.SetCapability("browserstack.key", ConfigurationManager.AppSettings["key"]);
+
+        //    File.AppendAllText("C:\\Users\\kadir\\Desktop\\sf.log", "Starting local");
+        //    webDriver = new RemoteWebDriver(new Uri("http://" + ConfigurationManager.AppSettings.Get("server") + "/wd/hub/"), capability);
+        //}
 
 
     }
