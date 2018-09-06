@@ -1,18 +1,11 @@
 ﻿using System;
-using System.Threading;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
 using System.Collections.ObjectModel;
-using ESFA.UI.Specflow.Framework.Project.Framework.Helpers;
 
 namespace ESFA.UI.Specflow.Framework.FindACourse.Project.Framework.Helpers
 {
-    public class SwitchWindowHelper
+    public class WindowHelper
     {
-        //protected static IWebDriver webDriver;
-       // private static string mainWindowHandle = webDriver.CurrentWindowHandle;
-
-
          public static void SwitchToNewWindow(IWebDriver webDriver)
         {
             webDriver.SwitchTo().DefaultContent();

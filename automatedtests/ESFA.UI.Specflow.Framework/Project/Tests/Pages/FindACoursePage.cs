@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using ESFA.UI.Specflow.Framework.Project.Framework.Helpers;
 using ESFA.UI.Specflow.Framework.Project.Tests.TestSupport;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
 
 namespace ESFA.UI.Specflow.Framework.Project.Tests.Pages
 {

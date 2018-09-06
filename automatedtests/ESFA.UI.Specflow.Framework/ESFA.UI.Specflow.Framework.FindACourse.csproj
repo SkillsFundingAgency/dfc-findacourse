@@ -199,7 +199,8 @@
     <Compile Include="Project\Framework\Helpers\PageInteractionHelper.cs" />
     <Compile Include="Project\Framework\Helpers\RandomDataGenerator.cs" />
     <Compile Include="Project\Framework\Helpers\SqlDatabaseConnectionHelper.cs" />
-    <Compile Include="Project\Framework\Helpers\SwitchWindowHelper.cs" />
+    <Compile Include="Project\Framework\Helpers\FileSystemHelper.cs" />
+    <Compile Include="Project\Framework\Helpers\WindowHelper.cs" />
     <Compile Include="Project\Tests\Features\FindACourse.feature.cs">
       <DependentUpon>FindACourse.feature</DependentUpon>
       <AutoGen>True</AutoGen>

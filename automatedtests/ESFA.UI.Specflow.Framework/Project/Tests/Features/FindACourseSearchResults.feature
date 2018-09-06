@@ -43,6 +43,6 @@
 		And the course level <CourseLevel> is displayed
 
   Examples:
-    | CourseName | CourseTitle | CourseLevel            |
-    | Biology    | Biology     | Unknown/not applicable |
-    | Chemistry  | Chemi       | Level 6                |
+    | CourseName | CourseTitle | CourseLevel |
+    | Biology    | Biology     |             |
+    | Chemistry  | Chemi       | Level 6     |

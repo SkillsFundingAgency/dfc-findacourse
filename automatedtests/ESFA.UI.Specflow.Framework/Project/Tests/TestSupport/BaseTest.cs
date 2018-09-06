@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using ESFA.UI.Specflow.Framework.Project.Framework.Helpers;
+using ESFA.UI.Specflow.Framework.FindACourse.Project.Framework.Helpers;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
@@ -26,8 +27,6 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
         private static ExtentTest scenario;
         private static ExtentReports extent;
         private static string screenshotPath;
-        private static string reportNm = null;
-        private static string reportPath = null;
         protected static int counter;
         protected static int counter2;
         public static ClientApi Zap;
@@ -35,17 +34,9 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
         [BeforeTestRun(Order =1)]
         public static void InitializeReport(object sender, EventArgs e)
         {
-            String reportsDirectory = AppDomain.CurrentDomain.BaseDirectory
-                       + "../../"
-                       + "\\Project\\Reports\\"
-                       + DateTime.Now.ToString("dd-MM-yyyy")
-                       + "\\";
-            if (!Directory.Exists(reportsDirectory))
-            {
-                Directory.CreateDirectory(reportsDirectory);
-            }
-            reportNm = (DateTime.Now.ToString("yyyyMMddHHmmss") + ".html");
-            reportPath = Path.Combine(reportsDirectory, reportNm);
+            //Create extent report
+            string reportPath = "\\Project\\Reports\\";
+            FileSystemHelper.CreateFilePath(reportPath);
             var htmlReporter = new ExtentHtmlReporter(reportPath);
             htmlReporter.Configuration().Theme = AventStack.ExtentReports.Reporter.Configuration.Theme.Dark;
             extent = new ExtentReports();
@@ -62,21 +53,12 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
             finally
             {
                 webDriver.Quit();
-                //create OWASP Report
-                String reportsDirectory = AppDomain.CurrentDomain.BaseDirectory
-               + "../../"
-               + "\\Project\\OWASPReports\\"
-               + DateTime.Now.ToString("dd-MM-yyyy")
-               + "\\";
-                if (!Directory.Exists(reportsDirectory))
-                {
-                    Directory.CreateDirectory(reportsDirectory);
-                }
-                reportNm = (DateTime.Now.ToString("yyyyMMddHHmmss") + ".html");
-                reportPath = Path.Combine(reportsDirectory, reportNm);
-
+                 //create OWASP Report
+                string reportPath = "\\Project\\OWASPReports\\";
+                FileSystemHelper.CreateFilePath(reportPath);
                 WriteZapHtmlReport(reportPath + "_PassiveScanReport.html", Zap.core.htmlreport());
                 Zap.Dispose();
+                extent.Flush();
             }
         }
 
@@ -180,66 +162,6 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
         }
 
 
-        [AfterTestRun(Order = 2)]
-        public static void TearDown2()
-        {
-            webDriver.Quit();
-            extent.Flush();
-
-            //create OWASP Report
-            String reportsDirectory = AppDomain.CurrentDomain.BaseDirectory
-           + "../../"
-           + "\\Project\\OWASPReports\\"
-           + DateTime.Now.ToString("dd-MM-yyyy")
-           + "\\";
-            if (!Directory.Exists(reportsDirectory))
-            {
-                Directory.CreateDirectory(reportsDirectory);
-            }
-            reportNm = (DateTime.Now.ToString("yyyyMMddHHmmss") + ".html");
-            reportPath = Path.Combine(reportsDirectory, reportNm);
-
-            WriteZapHtmlReport(reportPath + "_PassiveScanReport.html", Zap.core.htmlreport());
-            Zap.Dispose();
-        }
-
-        public static void TakeScreenshotOnFailure()
-        {
-            if (ScenarioContext.Current.TestError != null)
-            {
-                try
-                {
-                    DateTime dateTime = DateTime.Now;
-                    String featureTitle = FeatureContext.Current.FeatureInfo.Title;
-                    String scenarioTitle = ScenarioContext.Current.ScenarioInfo.Title;
-                    String failureImageName = dateTime.ToString("HH-mm-ss")
-                        + "_"
-                        + scenarioTitle
-                        + ".png";
-                    String screenshotsDirectory = AppDomain.CurrentDomain.BaseDirectory
-                        + "../../"
-                        + "\\Project\\Screenshots\\"
-                        + dateTime.ToString("dd-MM-yyyy")
-                        + "\\";
-                    if (!Directory.Exists(screenshotsDirectory))
-                    {
-                        Directory.CreateDirectory(screenshotsDirectory);
-                    }
-                
-                    ITakesScreenshot screenshotHandler = webDriver as ITakesScreenshot;
-                    Screenshot screenshot = screenshotHandler.GetScreenshot();
-                    screenshotPath = Path.Combine(screenshotsDirectory, failureImageName);
-                    screenshot.SaveAsFile(screenshotPath, ScreenshotImageFormat.Png);
-                    Console.WriteLine(scenarioTitle
-                        + " -- Scenario failed and the screenshot is available at -- "
-                        + screenshotPath);
-                } catch (Exception exception)
-                {
-                    Console.WriteLine("Exception occurred while taking screenshot - " + exception);
-                }
-            }            
-        }
-
         [BeforeFeature]
         public static void BeforeFeature()
         {
@@ -253,9 +175,9 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
         public void BeforeScenario()
         {
             if (counter / counter2 == 5)
-            { 
-            scenario = featureName.CreateNode<Scenario>(ScenarioContext.Current.ScenarioInfo.Title);
-                counter2++;
+            {
+                scenario = featureName.CreateNode<Scenario>(ScenarioContext.Current.ScenarioInfo.Title);
+            counter2++;
             }
             counter++;
         }
@@ -321,9 +243,46 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
                     scenario.CreateNode<Then>(ScenarioStepContext.Current.StepInfo.Text).Skip("Step Definition Pending");
             }
         }
-  
 
-    private static void InitialiseZapProxyChrome()
+        public static void TakeScreenshotOnFailure()
+        {
+            if (ScenarioContext.Current.TestError != null)
+            {
+                try
+                {
+                    DateTime dateTime = DateTime.Now;
+                    String featureTitle = FeatureContext.Current.FeatureInfo.Title;
+                    String scenarioTitle = ScenarioContext.Current.ScenarioInfo.Title;
+                    String failureImageName = dateTime.ToString("HH-mm-ss")
+                        + "_"
+                        + scenarioTitle
+                        + ".png";
+                    String screenshotsDirectory = AppDomain.CurrentDomain.BaseDirectory
+                        + "../../"
+                        + "\\Project\\Screenshots\\"
+                        + dateTime.ToString("dd-MM-yyyy")
+                        + "\\";
+                    if (!Directory.Exists(screenshotsDirectory))
+                    {
+                        Directory.CreateDirectory(screenshotsDirectory);
+                    }
+
+                    ITakesScreenshot screenshotHandler = webDriver as ITakesScreenshot;
+                    Screenshot screenshot = screenshotHandler.GetScreenshot();
+                    screenshotPath = Path.Combine(screenshotsDirectory, failureImageName);
+                    screenshot.SaveAsFile(screenshotPath, ScreenshotImageFormat.Png);
+                    Console.WriteLine(scenarioTitle
+                        + " -- Scenario failed and the screenshot is available at -- "
+                        + screenshotPath);
+                }
+                catch (Exception exception)
+                {
+                    Console.WriteLine("Exception occurred while taking screenshot - " + exception);
+                }
+            }
+        }
+
+        private static void InitialiseZapProxyChrome()
         {
             const string PROXY = "localhost:8095";
             var chromeOptions = new ChromeOptions();
@@ -359,8 +318,6 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
             {
                 capability.SetCapability(key, caps[key]);
             }
-
-           // File.AppendAllText("C:\\Users\\kadir\\Desktop\\sf.log", "Starting local");
             webDriver = new RemoteWebDriver(new Uri("http://" + ConfigurationManager.AppSettings.Get("server") + "/wd/hub/"), capability);
         }
 
@@ -380,8 +337,6 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
             {
                 capability.SetCapability(key, caps[key]);
             }
-
-           // File.AppendAllText("C:\\Users\\kadir\\Desktop\\sf.log", "Starting local");
             webDriver = new RemoteWebDriver(new Uri("http://" + ConfigurationManager.AppSettings.Get("server") + "/wd/hub/"), capability);
         }
     }
