@@ -78,6 +78,28 @@ namespace ESFA.UI.Specflow.Framework.Project.Framework.Helpers
                 + "\n Found: " + actual);
         }
 
+        public static Boolean VerifyTextNotPresent(By locator, String txtNotPresnet)
+        {
+            String actual = webDriver.FindElement(locator).Text;
+            if (actual.Contains(txtNotPresnet))
+            {
+                throw new Exception("Text verification failed: "
+                                    + "\n The following text should not be displayed in this scenario " + txtNotPresnet); 
+            }
+            return false;
+        }
+
+        public static void VerifyDropdownDefaultValue(By locator, String expected)
+        {
+            IWebElement dropdown = webDriver.FindElement(locator);
+            SelectElement selectedValue = new SelectElement(dropdown);
+            string labelText = selectedValue.SelectedOption.GetAttribute("label");
+            if (labelText != expected)
+            {
+                throw new Exception("Default Value of dropdown not as expected, expecting: " +expected +", displayed: "+labelText);
+            }
+        }
+
         public static void WaitForPageToLoad(int implicitWaitTime = 10)
         {
             Thread.Sleep(500);

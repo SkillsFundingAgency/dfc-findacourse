@@ -69,9 +69,20 @@
                                 </h3>
                                 <div class="result-item-qualification-level">@item.QualificationLevel.GetDisplayName()</div>
                                 <ul class="result-item-course-attendence-study-mode-info">
-                                    <li>@item.StudyMode.GetDisplayName() | </li>
-                                    <li>@item.AttendanceMode.GetDisplayName() | </li>
-                                    <li>@item.AttendencePattern.GetDisplayName()</li>
+                                    @if (item.IsDisplayble(item.StudyMode))
+                                    {
+                                        <li>@item.StudyMode.GetDisplayName() | </li>
+                                    }
+
+                                    @if (item.IsDisplayble(item.AttendanceMode))
+                                    {
+                                        <li>@item.AttendanceMode.GetDisplayName() | </li>
+                                    }
+
+                                    @if (item.IsDisplayble(item.AttendencePattern))
+                                    {
+                                        <li>@item.AttendencePattern.GetDisplayName()</li>
+                                    }
                                 </ul>
                                 <ul class="result-item-course-info">
                                     <li>
@@ -82,10 +93,13 @@
                                         <span class="label">Location:</span>
                                         <span class="value">@item.Location</span>
                                     </li>
-                                    <li>
-                                        <span class="label">Distance:</span>
-                                        <span class="value">@item.Distance miles</span>
-                                    </li>
+                                    @if (!string.IsNullOrWhiteSpace(Model.Location))
+                                    {
+                                        <li>
+                                            <span class="label">Distance:</span>
+                                            <span class="value">@item.Distance miles</span>
+                                        </li>
+                                    }
                                     <li>
                                         <span class="label">Start date:</span>
                                         <span class="value">@item.StartDate</span>

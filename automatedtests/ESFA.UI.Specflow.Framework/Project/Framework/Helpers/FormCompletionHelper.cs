@@ -91,7 +91,8 @@ namespace ESFA.UI.Specflow.Framework.Project.Framework.Helpers
                 }
             }
         }
-        
+
+
         public static void SelectFromDropDownByText(IWebElement element, String text)
         {
             var selectElement = new SelectElement(element);

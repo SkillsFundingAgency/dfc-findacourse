@@ -118,10 +118,41 @@ namespace Dfc.FindACourse.Services.CourseDirectory
         {
             double value = double.TryParse(durationType.DurationValue, out value) ? value : 0;
 
-            if (string.IsNullOrWhiteSpace(durationType.DurationUnit))
-                return Duration.NotKnown;
+            if (value > 0
+                && !string.IsNullOrWhiteSpace(durationType.DurationUnit)
+                && !string.IsNullOrWhiteSpace(durationType.DurationDescription))
+            {
+                return new Duration(value, durationType.DurationUnit, durationType.DurationDescription);
+            }
 
-            return new Duration(value, durationType.DurationUnit);
+            if (value > 0 && !string.IsNullOrWhiteSpace(durationType.DurationUnit))
+            {
+                return new Duration(value, durationType.DurationUnit);
+            }
+
+            if (!string.IsNullOrWhiteSpace(durationType.DurationDescription))
+            {
+                return new Duration(durationType.DurationDescription);
+            }
+
+            return Duration.Default;
+        }
+
+        public static DescriptionDate ToDescriptionDate(this StartDateType startDateType)
+        {
+            DateTime? startDate = DateTime.TryParse(startDateType.Item, out DateTime dt) ? dt : default(DateTime?);
+
+            if (startDate.HasValue)
+            {
+                return new DescriptionDate(startDate.Value);
+            }
+
+            if (!string.IsNullOrWhiteSpace(startDateType.Item))
+            {
+                return new DescriptionDate(startDateType.Item);
+            }
+
+            return DescriptionDate.Default;
         }
 
         public static Opportunity ToOpportunity(this OpportunityInfo opportunityInfo)
@@ -154,7 +185,7 @@ namespace Dfc.FindACourse.Services.CourseDirectory
                 opportunityInfo.AttendanceMode.ToAttendanceMode(),
                 opportunityInfo.AttendancePattern.ToAttendancePattern(),
                 opportunityInfo.DFE1619Funded,
-                startDate,
+                opportunityInfo.StartDate.ToDescriptionDate(),
                 venue,
                 region,
                 opportunityInfo.Duration.ToDuration());

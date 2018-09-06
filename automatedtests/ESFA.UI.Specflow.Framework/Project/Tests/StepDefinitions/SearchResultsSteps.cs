@@ -14,7 +14,7 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.StepDefinitions
 		[Given(@"I am on the Search Results page")]
 		public void NavigateToSearchResults()
 		{
-            FindACourseSearchResultsPage findACoursePage = new FindACourseSearchResultsPage(webDriver);
+            FindACourseSearchResultsPage findACourseSearchResultsPage = new FindACourseSearchResultsPage(webDriver);
             //PageInteractionHelper.VerifyPageHeading(By.TagName("h1"), "Search results for");
         }
 
@@ -22,9 +22,40 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.StepDefinitions
 		[Then(@"I should be on (.*) page")]
 		public void ConfirmSearchResultsPage(string searchPage)
 		{
-			FindACourseSearchResultsPage findACoursePage = new FindACourseSearchResultsPage(webDriver);
+			FindACourseSearchResultsPage findACourseSearchResultsPage = new FindACourseSearchResultsPage(webDriver);
 			FindACourseSearchResultsPage.Equals(By.TagName("h1"), searchPage);
 		}
 
-	}
+
+        [Then(@"no results found message is displayed")]
+        public void NoResultsFoundMessageIsDisplayed()
+        {
+            //ScenarioContext.Current.Pending();
+            FindACourseSearchResultsPage findACourseSearchResultsPage = new FindACourseSearchResultsPage(webDriver);
+            findACourseSearchResultsPage.CheckNullResults();
+
+        }
+
+        [Then(@"Valid Results are returned")]
+        public void ValidResultsAreReturned()
+        {
+            FindACourseSearchResultsPage findACourseSearchResultsPage = new FindACourseSearchResultsPage(webDriver);
+            findACourseSearchResultsPage.CheckResultsReturned();
+        }
+
+        [Then(@"the course title (.*) is displayed")]
+        public void CourseTitleIsDisplayed(string courseTitle)
+        {
+            FindACourseSearchResultsPage findACourseSearchResultsPage = new FindACourseSearchResultsPage(webDriver);
+            findACourseSearchResultsPage.GetCourseTitle(courseTitle);
+        }
+
+        [Then(@"the course level (.*) is displayed")]
+        public void CourseLevelIsDisplayed(string courseLevel)
+        {
+            FindACourseSearchResultsPage findACourseSearchResultsPage = new FindACourseSearchResultsPage(webDriver);
+            findACourseSearchResultsPage.GetCourseLevel(courseLevel);
+        }
+
+    }
 }

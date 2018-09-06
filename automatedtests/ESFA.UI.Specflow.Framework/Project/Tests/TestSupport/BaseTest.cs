@@ -1,16 +1,19 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using ESFA.UI.Specflow.Framework.Project.Framework.Helpers;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
+//using OpenQA.Selenium.PhantomJS;
 using TechTalk.SpecFlow;
 using AventStack.ExtentReports.Reporter;
 using AventStack.ExtentReports;
 using AventStack.ExtentReports.Gherkin.Model;
 using OWASPZAPDotNetAPI;
+using System.Configuration;
+using System.Collections.Specialized;
+using OpenQA.Selenium.Remote;
 
 namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
 {
@@ -96,6 +99,33 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
                     webDriver = new InternetExplorerDriver();
                     webDriver.Manage().Window.Maximize();
                     break;
+
+                case "bs":
+
+                    NameValueCollection caps = ConfigurationManager.GetSection("capabilities/" + "parallel") as NameValueCollection;
+                    NameValueCollection settings = ConfigurationManager.GetSection("environments/" + "edge") as NameValueCollection;
+                    DesiredCapabilities capability = new DesiredCapabilities();
+
+                    foreach (string key in caps.AllKeys)
+                    {
+                        capability.SetCapability(key, caps[key]);
+                    }
+
+                    foreach (string key in settings.AllKeys)
+                    {
+                        capability.SetCapability(key, settings[key]);
+                    }
+
+                    capability.SetCapability("browserstack.user", ConfigurationManager.AppSettings["user"]);
+                    capability.SetCapability("browserstack.key", ConfigurationManager.AppSettings["key"]);
+
+                    File.AppendAllText("C:\\Users\\kadir\\Desktop\\sf.log", "Starting local");
+                    webDriver = new RemoteWebDriver(new Uri("http://" + ConfigurationManager.AppSettings.Get("server") + "/wd/hub/"), capability);
+                    break;
+
+                //case "phantomjs":
+                //    webDriver = new PhantomJSDriver();
+                //    break;
 
                 case "zapProxyChrome":
                     InitialiseZapProxyChrome();

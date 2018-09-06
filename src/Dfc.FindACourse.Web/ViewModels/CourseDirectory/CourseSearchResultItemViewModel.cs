@@ -20,7 +20,7 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
             ProviderName = item.Provider.Name;
             Location = (item.Opportunity.HasVenue) ? item.Opportunity.Venue.Address.ToString() : item.Opportunity.Region;
             Distance = (item.Opportunity.HasVenue && item.Opportunity.Venue.Distance.HasValue) ? item.Opportunity.Venue.Distance.Value.ToString("0.0") : "0.0";
-            StartDate = item.Opportunity.StartDate.HasValue ? item.Opportunity.StartDate.Value.ToString("d MMMM yyyy") : string.Empty;
+            StartDate = item.Opportunity.StartDate.ToString();
             Duration = item.Opportunity.Duration.ToString();
         }
 
@@ -35,5 +35,44 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
         public string Distance { get; set; }
         public string StartDate { get; set; }
         public string Duration { get; set; }
+
+        public bool IsDisplayble(StudyMode studyMode)
+        {
+            switch (studyMode)
+            {
+                case StudyMode.FullTime:
+                case StudyMode.PartTime:
+                case StudyMode.Flexible:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        public bool IsDisplayble(AttendanceMode attendanceMode)
+        {
+            switch (attendanceMode)
+            {
+                case AttendanceMode.FaceToFace:
+                case AttendanceMode.MixedMode:
+                case AttendanceMode.NotKnown:
+                    return false;
+                default:
+                    return true;
+            }
+        }
+
+        public bool IsDisplayble(AttendancePattern attendancePattern)
+        {
+            switch (attendancePattern)
+            {
+                case AttendancePattern.Customised:
+                case AttendancePattern.NotKnown:
+                case AttendancePattern.NotApplicable:
+                    return false;
+                default:
+                    return true;
+            }
+        }
     }
 }

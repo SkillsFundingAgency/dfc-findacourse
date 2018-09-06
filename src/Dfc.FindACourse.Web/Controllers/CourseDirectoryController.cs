@@ -113,10 +113,7 @@ namespace Dfc.FindACourse.Web.Controllers
                 //DEBUG_FIX - Add the flush to see if working straightaway
                 _telemetry.Flush();
 
-
-
-
-                return View(new CourseSearchResultViewModel(result));
+                return View(new CourseSearchResultViewModel(result) { SubjectKeyword = requestModel.SubjectKeyword, Location = requestModel.Location });
             }
             else
             {

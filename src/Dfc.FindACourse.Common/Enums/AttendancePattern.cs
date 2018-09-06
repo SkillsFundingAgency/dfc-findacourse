@@ -5,14 +5,17 @@ namespace Dfc.FindACourse.Common
     {
         [Display(Name = "Not Known")]
         NotKnown = 0,
-        [Display(Name = "Daytime Work Hours")]
+        [Display(Name = "Normal Working Hours")]
         DaytimeWorkHours = 1,
-        [Display(Name = "Day Block Release")]
+        [Display(Name = "Day Release/Block Release")]
         DayBlockRelease = 2,
-
+        [Display(Name = "Evening/Weekend")]
         Evening = 3,
+        [Display(Name = "Evening/Weekend")]
         Twilight = 4,
+        [Display(Name = "Evening/Weekend")]
         Weekend = 5,
+        [Display(Name = "Customised")]
         Customised = 6,
         [Display(Name = "Not Applicable")]
         NotApplicable = 7

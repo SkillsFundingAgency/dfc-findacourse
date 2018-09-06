@@ -32,7 +32,7 @@ namespace Dfc.FindACourse.Common
         [Display(Name = "Level 8")]
         Level8 = 8,
 
-        [Display(Name = "Higher Level")]
+        [Display(Name = "Unknown")]
         Level9 = 9,
 
         [Display(Name = "Unknown/not applicable")]

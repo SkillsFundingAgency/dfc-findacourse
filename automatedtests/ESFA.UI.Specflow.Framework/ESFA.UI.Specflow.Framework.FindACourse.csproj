@@ -136,6 +136,11 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
     </Compile>
+    <Compile Include="Project\Tests\Features\FindACourseSearchResults.feature.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>FindACourseSearchResults.feature</DependentUpon>
+    </Compile>
     <Compile Include="Project\Tests\Pages\WhatQualificationLevelsMeanPage.cs" />
     <Compile Include="Project\Tests\Pages\ContactUsPage.cs" />
     <Compile Include="Project\Tests\Pages\FindACourseSearchResultsPage.cs" />
@@ -161,6 +166,10 @@
     <None Include="Project\Tests\Features\FindACourse.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>FindACourse.feature.cs</LastGenOutput>
+    </None>
+    <None Include="Project\Tests\Features\FindACourseSearchResults.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>FindACourseSearchResults.feature.cs</LastGenOutput>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -198,6 +207,7 @@
     <Error Condition="!Exists('..\packages\xunit.runner.console.2.4.0\build\xunit.runner.console.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\xunit.runner.console.2.4.0\build\xunit.runner.console.props'))" />
     <Error Condition="!Exists('..\packages\NUnit.3.10.1\build\NUnit.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NUnit.3.10.1\build\NUnit.props'))" />
     <Error Condition="!Exists('..\packages\NUnit3TestAdapter.3.10.0\build\net35\NUnit3TestAdapter.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\NUnit3TestAdapter.3.10.0\build\net35\NUnit3TestAdapter.props'))" />
+    <Error Condition="!Exists('..\packages\Selenium.PhantomJS.WebDriver.2.1.1\build\Selenium.PhantomJS.WebDriver.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Selenium.PhantomJS.WebDriver.2.1.1\build\Selenium.PhantomJS.WebDriver.targets'))" />
   </Target>
   <Import Project="..\packages\Selenium.WebDriver.PhantomJS.1.0.0.0\build\Selenium.WebDriver.PhantomJS.targets" Condition="Exists('..\packages\Selenium.WebDriver.PhantomJS.1.0.0.0\build\Selenium.WebDriver.PhantomJS.targets')" />
   <Import Project="..\packages\Selenium.Firefox.WebDriver.0.21.0\build\Selenium.Firefox.WebDriver.targets" Condition="Exists('..\packages\Selenium.Firefox.WebDriver.0.21.0\build\Selenium.Firefox.WebDriver.targets')" />
@@ -208,4 +218,5 @@
   <Import Project="..\packages\SpecFlow.2.4.0\build\SpecFlow.targets" Condition="Exists('..\packages\SpecFlow.2.4.0\build\SpecFlow.targets')" />
   <Import Project="..\packages\xunit.core.2.4.0\build\xunit.core.targets" Condition="Exists('..\packages\xunit.core.2.4.0\build\xunit.core.targets')" />
   <Import Project="..\packages\SpecFlow.xUnitAdapter.1.2.1\build\net45\SpecFlow.xUnitAdapter.targets" Condition="Exists('..\packages\SpecFlow.xUnitAdapter.1.2.1\build\net45\SpecFlow.xUnitAdapter.targets')" />
+  <Import Project="..\packages\Selenium.PhantomJS.WebDriver.2.1.1\build\Selenium.PhantomJS.WebDriver.targets" Condition="Exists('..\packages\Selenium.PhantomJS.WebDriver.2.1.1\build\Selenium.PhantomJS.WebDriver.targets')" />
 </Project>

@@ -22,5 +22,18 @@ namespace Dfc.FindACourse.Common
 
             return string.Join(delimiter, list);
         }
+
+        public static string RemoveFromEnd(this string extendee, string remove)
+        {
+            if (string.IsNullOrWhiteSpace(extendee))
+                return extendee;
+
+            if (extendee.EndsWith(remove, StringComparison.InvariantCultureIgnoreCase))
+            {
+                return extendee.Remove(extendee.Length - remove.Length);
+            }
+
+            return extendee;
+        }
     }
 }
