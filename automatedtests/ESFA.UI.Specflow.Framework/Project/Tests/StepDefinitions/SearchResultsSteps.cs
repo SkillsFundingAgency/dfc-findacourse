@@ -64,5 +64,63 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.StepDefinitions
             findACourseSearchResultsPage.GetCourseLevel(courseLevel);
         }
 
+        [Then(@"the study mode (.*) is displayed")]
+        public void StudyModeIsDisplayed(string studyMode)
+        {
+            FindACourseSearchResultsPage findACourseSearchResultsPage = new FindACourseSearchResultsPage(webDriver);
+            findACourseSearchResultsPage.GetStudyMode(studyMode);
+        }
+
+
+        [Then(@"the attendance mode (.*) is displayed")]
+        public void AttendanceModeIsDisplayed(string attendanceMode)
+        {
+            FindACourseSearchResultsPage findACourseSearchResultsPage = new FindACourseSearchResultsPage(webDriver);
+            findACourseSearchResultsPage.GetAttendanceMode(attendanceMode);
+        }
+
+        [Then(@"the attendance pattern (.*) is displayed")]
+        public void AttendancePatternIsDisplayed(string attendancePattern)
+        {
+            FindACourseSearchResultsPage findACourseSearchResultsPage = new FindACourseSearchResultsPage(webDriver);
+            findACourseSearchResultsPage.GetAttendancePattern(attendancePattern);
+        }
+
+        [Then(@"the provider (.*) is displayed")]
+        public void ProviderIsDisplayed(string provider)
+        {
+            FindACourseSearchResultsPage findACourseSearchResultsPage = new FindACourseSearchResultsPage(webDriver);
+            findACourseSearchResultsPage.GetProvider(provider);
+        }
+
+        [Then(@"the location (.*) is dispalyed")]
+        public void LocationIsDispalyed(string location)
+        {
+            FindACourseSearchResultsPage findACourseSearchResultsPage = new FindACourseSearchResultsPage(webDriver);
+            findACourseSearchResultsPage.GetLocation(location);
+        }
+
+        [Then(@"the distance (.*) is displayed")]
+        public void DistanceIsDisplayed(string distance)
+        {
+            FindACourseSearchResultsPage findACourseSearchResultsPage = new FindACourseSearchResultsPage(webDriver);
+            findACourseSearchResultsPage.GetDistance(distance);
+        }
+
+        [Then(@"the start date (.*) is displayed")]
+        public void StartDateIsDisplayed(string startDate)
+        {
+            FindACourseSearchResultsPage findACourseSearchResultsPage = new FindACourseSearchResultsPage(webDriver);
+            findACourseSearchResultsPage.GetStartDate(startDate);
+        }
+
+        [Then(@"the duration (.*) is displayed")]
+        public void DurationYearsIsDisplayed(string duration)
+        {
+            FindACourseSearchResultsPage findACourseSearchResultsPage = new FindACourseSearchResultsPage(webDriver);
+            findACourseSearchResultsPage.GetDuration(duration);
+        }
+
+
     }
 }
