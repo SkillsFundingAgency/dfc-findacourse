@@ -97,7 +97,8 @@
                         {
                             <div class="search-result-item">
                                 <h3>
-                                    <a href="#">@item.CourseTitle</a>
+                                    <a asp-action="CourseDetails" asp-route-id="@item.Id">@item.CourseTitle</a> 
+                                    
                                 </h3>
                                 <div class="result-item-qualification-level">@item.QualificationLevel.GetDisplayName()</div>
                                 <ul class="result-item-course-attendence-study-mode-info">

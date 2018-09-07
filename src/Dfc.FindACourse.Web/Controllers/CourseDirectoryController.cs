@@ -15,6 +15,7 @@ using System.Xml;
 using Microsoft.Extensions.Options;
 using Microsoft.ApplicationInsights;
 using Dfc.FindACourse.Common.Settings;
+using System.Threading.Tasks;
 
 namespace Dfc.FindACourse.Web.Controllers
 {
@@ -153,79 +154,49 @@ namespace Dfc.FindACourse.Web.Controllers
         }
 
         // GET: CourseDirectory/Details/5
-        public ActionResult Details(int id)
+        public IActionResult CourseDetails(int? id)
         {
-            return View();
-        }
+            //Parmeters
+            var dtStart = DateTime.Now;
+            if (ModelState.IsValid)
+            {
+                
 
+                var result = _courseDirectoryService.CourseDetails(id);
+
+                if (result.HasValue && result.IsSuccess && !result.IsFailure)
+                {
+                    
+
+                    _telemetry.TrackEvent($"Course Detail for: {id.Value} took: { (DateTime.Now - dtStart).TotalMilliseconds.ToString()} ms.");
+                }
+                else
+                {
+                    _telemetry.TrackEvent($"Course Detail: Invalid.");
+                    return View();
+                }
+                //DEBUG_FIX - Add the flush to see if working straightaway
+                _telemetry.Flush();
+
+                return View(new CourseDetailViewModel(result.Value) { });
+            }
+            else
+            {
+                _telemetry.TrackEvent($"CourseSearch: ModelState Invalid.");
+                return View();
+            }
+
+
+            
+        }
+    
         // GET: CourseDirectory/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: CourseDirectory/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: CourseDirectory/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: CourseDirectory/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: CourseDirectory/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: CourseDirectory/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        
         private IEnumerable<SelectListItem> GetQualificationLevels()
         {
             var searchTerms = _fileHelper.LoadQualificationLevels();

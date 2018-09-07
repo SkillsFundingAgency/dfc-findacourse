@@ -27,6 +27,10 @@ namespace Dfc.FindACourse.Common.Models
             Provider = provider;
         }
 
+        public CourseItem()
+        {
+        }
+
         protected override IEnumerable<object> GetEqualityComponents()
         {
             yield return Course;
