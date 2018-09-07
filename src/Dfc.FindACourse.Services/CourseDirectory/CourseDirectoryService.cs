@@ -51,10 +51,10 @@ namespace Dfc.FindACourse.Services.CourseDirectory
                 if (criteria.IsDfe1619Funded.HasValue)
                     searchCriteria.DFE1619Funded = criteria.IsDfe1619Funded.Value ? "Y": "N";
                 //study modes
-                //if (criteria.StudyModes.Count > 0)
-                //    searchCriteria.StudyModes = criteria.StudyModes.Select(x => x.ToString)
+                if (criteria.StudyModes.Count > 0)
+                    searchCriteria.StudyModes = criteria.StudyModes.Select(x => x.Value).ToArray();
 
-                 var request = new CourseListRequestStructure()
+                var request = new CourseListRequestStructure()
                 {
                     CourseSearchCriteria = searchCriteria,
                     SortBy = options.SortBy.ToSortType(),

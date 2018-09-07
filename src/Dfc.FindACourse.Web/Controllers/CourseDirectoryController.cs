@@ -56,11 +56,14 @@ namespace Dfc.FindACourse.Web.Controllers
         // GET: CourseDirectory
         public ActionResult CourseSearchResult([FromQuery] CourseSearchRequestModel requestModel)
         {
-            //Log response time
+            //Parmeters
             var dtStart = DateTime.Now;
             var parmQualLevels = new List<QualLevel>();
             var parmStudyModes = new List<StudyMode>();
+            var paramStudyModes = new List<StudyModeExt>();
+            //Data 
             var allQualLevels = _fileHelper.LoadQualificationLevels();
+            var allStudyModes = new StudyModes().StudyModesList;
 
 
             //DEBUG
@@ -72,26 +75,42 @@ namespace Dfc.FindACourse.Web.Controllers
 
             if(!string.IsNullOrEmpty(location)) requestModel.Location = location;
             if(distance > -1) requestModel.Distance = distance;
-            //Pass in the Qual Level from Query on first page and check model from second page
-            if (quallevel > -1 || (requestModel.QualificationLevels != null && requestModel.QualificationLevels.Length > 0))
-            { 
-                requestModel.QualificationLevels = new int[] { quallevel };
-                //Now Populate Qual Levels values from int array
-                requestModel.QualificationLevels.ToList().ForEach(
-                                       q => parmQualLevels.Add(
-                                                   allQualLevels.Where(x => x.Key == q.ToString()).FirstOrDefault()));
-            }
 
             //Debuging - Sample Vars to be passed in from UI, here for testing
 
             //bool? dfeFunded = null;
             //requestModel.QualificationLevels = new int[] { 3, 4 };
+            //requestModel.StudyModes = new int[] { 3, 4 };
             //requestModel.IsDfe1619Funded = dfeFunded;
             //requestModel.StudyModes = new int[] { 0, 2};
 
             //var arrStudyModes = requestModel.StudyModes.Cast<StudyMode>().ToArray();
 
             //END DEBUG
+
+            //Pass in the Qual Level from Query on first page and check model from second page
+            if (quallevel > -1 || (requestModel.QualificationLevels != null && requestModel.QualificationLevels.Length > 0))
+            { 
+                requestModel.QualificationLevels = new int[] { quallevel };
+                //Now Populate parmQualLevels values from int array
+                requestModel.QualificationLevels.ToList().ForEach(
+                     q => parmQualLevels.Add(
+                       allQualLevels.
+                       Where(x => x.Key == q.ToString()).FirstOrDefault()));
+            }
+            //If we have study modes int array in the model then create the List<StudyModes> 
+            if (requestModel.StudyModes != null && requestModel.StudyModes.Length > 0)
+            {
+
+                //Now Populate StudyModes values from int array
+                requestModel.StudyModes.ToList().ForEach(
+                    q => paramStudyModes.Add(allStudyModes.
+                            Where(x => x.Key.ToString() == q.ToString()).FirstOrDefault()));
+              
+            }
+            
+
+          
 
 
             if (ModelState.IsValid)
@@ -100,16 +119,24 @@ namespace Dfc.FindACourse.Web.Controllers
                                                             parmQualLevels, 
                                                                 requestModel.Location, 
                                                                     requestModel.Distance.Value,
-                                                                        requestModel.IsDfe1619Funded
-                                                                        //,requestModel.StudyModes.Cast<StudyMode>().ToArray().ToList()
+                                                                        requestModel.IsDfe1619Funded, paramStudyModes
+
                                                                         ) {};
                 
                 var result = _courseDirectoryService.CourseSearch(criteria, new PagingOptions(SortBy.Relevance, 1));
 
-                var regionsOnly = result.Value.Items.Where(x => x.Opportunity.HasRegion);
+                if (result.HasValue && result.IsSuccess && !result.IsFailure)
+                {
+                    var regionsOnly = result.Value.Items.Where(x => x.Opportunity.HasRegion);
 
 
-                _telemetry.TrackEvent($"CourseSearch for: {requestModel.SubjectKeyword} took: { (DateTime.Now - dtStart).TotalMilliseconds.ToString()} ms.");
+                    _telemetry.TrackEvent($"CourseSearch for: {requestModel.SubjectKeyword} took: { (DateTime.Now - dtStart).TotalMilliseconds.ToString()} ms.");
+                }
+                else
+                {
+                    _telemetry.TrackEvent($"CourseSearch: Invalid.");
+                    return View();
+                }
                 //DEBUG_FIX - Add the flush to see if working straightaway
                 _telemetry.Flush();
 
