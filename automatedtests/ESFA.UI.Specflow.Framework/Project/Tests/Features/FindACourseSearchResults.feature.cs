@@ -134,7 +134,7 @@ namespace ESFA.UI.Specflow.Framework.FindACourse.Project.Tests.Features
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("DFC3900 View Search Results By Course Name")]
         [NUnit.Framework.CategoryAttribute("DFC-3900")]
-        [NUnit.Framework.TestCaseAttribute("Biology", "Biology", "Unknown/not applicable", null)]
+        [NUnit.Framework.TestCaseAttribute("Biology", "Biology", "", null)]
         [NUnit.Framework.TestCaseAttribute("Chemistry", "Chemi", "Level 6", null)]
         public virtual void DFC3900ViewSearchResultsByCourseName(string courseName, string courseTitle, string courseLevel, string[] exampleTags)
         {

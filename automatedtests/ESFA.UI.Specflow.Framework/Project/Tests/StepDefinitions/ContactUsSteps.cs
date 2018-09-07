@@ -1,5 +1,5 @@
-﻿using System;
-using ESFA.UI.Specflow.Framework.Project.Framework.Helpers;
+﻿using System.Threading;
+using ESFA.UI.Specflow.Framework.FindACourse.Project.Framework.Helpers;
 using ESFA.UI.Specflow.Framework.Project.Tests.Pages;
 using ESFA.UI.Specflow.Framework.Project.Tests.TestSupport;
 using OpenQA.Selenium;
@@ -20,10 +20,11 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.StepDefinitions
 		[Then(@"I will be on Contact us page")]
 		public void ConfirmContactUsPage()
 		{
-			ContactUsPage findACoursePage = new ContactUsPage(webDriver);
-			ContactUsPage.Equals(By.TagName("h1"), "Contact us");
-
-		}
+            WindowHelper.SwitchToNewWindow(webDriver);
+            Thread.Sleep(1000);
+            ContactUsPage contactUsPage = new ContactUsPage(webDriver);
+            ContactUsPage.Equals(By.TagName("h1"), "Contact us");
+        }
 
 	}
 }

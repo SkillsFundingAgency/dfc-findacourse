@@ -7,7 +7,7 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.Pages
 {
     public class FindACourseSearchResultsPage : BasePage
     {
-        private static String PAGE_TITLE = "Search results for";
+        private static readonly String PAGE_TITLE = "Search results for";
 
         public FindACourseSearchResultsPage(IWebDriver webDriver) : base(webDriver)
         {
@@ -22,6 +22,7 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.Pages
         private readonly By noResultsErrorMsg = By.XPath(".//*[@id='FindACourseForm']");
         private readonly By courseTitle = By.XPath(".//*[@id='FindACourseForm']/div[2]/div[2]/div[2]/div/div[1]/h3/a");
         private readonly By courseLevel = By.XPath(".//*[@id='FindACourseForm']/div[2]/div[2]/div[2]/div/div[1]/div");
+        private readonly By location = By.Name("Location");
 
         internal FindACourseSearchResultsPage CheckNullResults()
         {
@@ -34,6 +35,12 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.Pages
         {
             string errorString = "There are no courses matching that name. Make sure that you've spelled it correctly, or use a broader description of the course.";
             PageInteractionHelper.VerifyTextNotPresent(noResultsErrorMsg, errorString);
+            return new FindACourseSearchResultsPage(webDriver);
+        }
+
+        internal FindACourseSearchResultsPage GetSearchLocation(string Location)
+        {
+            PageInteractionHelper.VerifyEditFieldText(location, Location);
             return new FindACourseSearchResultsPage(webDriver);
         }
 

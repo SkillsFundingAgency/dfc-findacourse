@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using ESFA.UI.Specflow.Framework.Project.Framework.Helpers;
 using ESFA.UI.Specflow.Framework.Project.Tests.TestSupport;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
 
 namespace ESFA.UI.Specflow.Framework.Project.Tests.Pages
 {
     public class FindACoursePage : BasePage
     {
-        private static String PAGE_TITLE = "Find a course";
+        private static readonly String PAGE_TITLE = "Find a course";
 
         public FindACoursePage(IWebDriver webDriver) : base(webDriver)
         {
@@ -43,11 +42,6 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.Pages
 
         internal FindACoursePage QualificationDefaultValue(String expectedTxt)
         {
-            //IWebElement comboBox = webDriver.FindElement(qualificationLevel);
-            //SelectElement selectedValue = new SelectElement(comboBox);
-            //string wantedText = selectedValue.SelectedOption.GetAttribute("label");
-            //Console.WriteLine("qualifiaction label : " + wantedText);
-
             PageInteractionHelper.VerifyDropdownDefaultValue(qualificationLevel, expectedTxt);
             return new FindACoursePage(webDriver);
         }

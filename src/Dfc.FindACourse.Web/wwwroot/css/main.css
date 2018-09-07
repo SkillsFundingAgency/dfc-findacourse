@@ -3082,6 +3082,61 @@ input[type="search"]::-webkit-search-decoration {
   color: #fff;
 }
 
+.accordion {
+  border: 2px solid #bfc1c3;
+}
+
+.accordion .accordion-header {
+  position: relative;
+  background-color: #bfc1c3;
+  padding: 5px 1em 4px 1em;
+  cursor: pointer;
+}
+
+.accordion .accordion-header:focus, .accordion .accordion-header:hover {
+  outline: 2px solid #ffbf47;
+}
+
+.accordion .accordion-header .accordion-header-icon {
+  position: absolute;
+  right: 1em;
+  top: 1.3em;
+  width: 0;
+  height: 0;
+  border-color: #0b0c0c;
+}
+
+.accordion .accordion-header a, .accordion .accordion-header .accordion-subheading {
+  font-family: "nta", Arial, sans-serif;
+  font-weight: 400;
+  text-transform: none;
+  font-size: 12px;
+  line-height: 1.25;
+}
+
+@media (min-width: 641px) {
+  .accordion .accordion-header a, .accordion .accordion-header .accordion-subheading {
+    font-size: 14px;
+    line-height: 1.42857;
+  }
+}
+
+.accordion .accordion-panel {
+  padding: 1em 2em 1em 2em;
+}
+
+.accordion.accordion--state-open .accordion-header .accordion-header-icon {
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid;
+}
+
+.accordion.accordion--state-close .accordion-header .accordion-header-icon {
+  border-top: 4px solid transparent;
+  border-left: 4px solid;
+  border-bottom: 4px solid transparent;
+}
+
 .search-result-item h3 {
   font-size: 1.17em;
   font-weight: bold;
@@ -3109,4 +3164,12 @@ input[type="search"]::-webkit-search-decoration {
 
 .search-result-item .result-item-course-info .label {
   color: #6f777b;
+  display: inline-block;
+  width: 4.62em;
+  vertical-align: top;
+}
+
+.search-result-item .result-item-course-info .value {
+  display: inline-block;
+  width: 28em;
 }

@@ -9,7 +9,7 @@
             background-color: $yellow;
         }
     }
-
+       
     .result-item-course-attendence-study-mode-info {
         list-style-type: none;
         margin-bottom: 1em;
@@ -25,6 +25,14 @@
 
         .label {
             color: $grey-1;
+            display: inline-block;
+            width: 4.62em;
+            vertical-align: top;
+        }
+
+        .value {
+            display: inline-block;
+            width: 28em;
         }
     }
 }

@@ -2,8 +2,6 @@
 	As a user
 	I am able to access and use the Find a Course Page
 
-
-@Regression
 @DFC-3885
 	Scenario Outline: DFC-3885 Select Location and Distance
 		Given I navigate to Find a Course home page
@@ -23,7 +21,6 @@
 
 
 
-@Regression
 @DFC-4090
 	Scenario Outline: DFC-4090 Search for Courses By Location & Distance
 		Given I navigate to Find a Course home page
@@ -32,20 +29,20 @@
 		And I select distance <Distance>
 		And I click Search
 		Then I should be on Search Results for page
+		And Search <Location> displayed in location field
 
   Examples:
-    | CourseName  | Location   | Distance |
-    | Chemistry   | b13 9da    | 1 Mile   |
-    | Bricklaying | B13 9DA    | 3 Miles  |
-    | Maths       | London     | 5 Miles  |
-    | English     | Birmingham | 10 Miles |
-    | Plumbing    | London     | 15 Miles |
-    | Electronic  | London     | 20 Miles |
-    | Medicine    | Birmingham | National |  
+    | CourseName  | Location      | Distance |
+    | Chemistry   | b13 9da       | 1 Mile   |
+    | Bricklaying | B13 9DA       | 3 Miles  |
+    | Maths       | west midlands | 5 Miles  |
+    | English     | Birmingham    | 10 Miles |
+    | Plumbing    | London        | 15 Miles |
+    | Electronic  | moseley       | 20 Miles |
+    | Medicine    | sandford rd   | National |
 
 
 
-@Regression
 @DFC-4090
 	Scenario Outline: DFC-4090 Search for Courses By Location & Distance Invalid Location
 		Given I navigate to Find a Course home page
@@ -68,7 +65,6 @@
 
 
 
-@Regression
 @DFC-4090
 Scenario Outline: DFC-4090 Search for Courses By Location & Distance Null Results
 		Given I navigate to Find a Course home page
@@ -85,7 +81,6 @@ Scenario Outline: DFC-4090 Search for Courses By Location & Distance Null Result
  
 
 
-@Regression
 @DFC-3884
 	Scenario Outline: DFC-3884 Select Qualification Level
 		Given I navigate to Find a Course home page
@@ -106,7 +101,6 @@ Scenario Outline: DFC-4090 Search for Courses By Location & Distance Null Result
 
 
 
-@Regression
 @DFC-3884
 	Scenario Outline: DFC-3884 Select Qualification Level Default Value
 		Given I navigate to Find a Course home page
@@ -119,7 +113,6 @@ Scenario Outline: DFC-4090 Search for Courses By Location & Distance Null Result
 
 
 
-@Regression
 @DFC-4091
 	Scenario Outline: DFC-4091 Search for Courses By Qualification Level
 		Given I navigate to Find a Course home page
@@ -142,7 +135,6 @@ Scenario Outline: DFC-4090 Search for Courses By Location & Distance Null Result
 
 
 
-@Regression
 @DFC-4091
 	Scenario Outline: DFC-4091 Search for Courses By Qualification Level Null Results
 		Given I navigate to Find a Course home page
@@ -158,7 +150,6 @@ Scenario Outline: DFC-4090 Search for Courses By Location & Distance Null Result
 
 
 	
-@Regression
 @DFC-3888
 	Scenario Outline: DFC-3888 Search for Courses By Course Name All Options
 		Given I navigate to Find a Course home page
@@ -183,7 +174,6 @@ Scenario Outline: DFC-4090 Search for Courses By Location & Distance Null Result
 
 
 
-@Regression
 @DFC-3888
 	Scenario Outline: DFC-3888 Search for Courses By Course Name Only
 		Given I navigate to Find a Course home page
@@ -205,7 +195,6 @@ Scenario Outline: DFC-4090 Search for Courses By Location & Distance Null Result
 
 
 
-@Regression
 @DFC-3888
 	Scenario Outline: DFC-3888 Search for Courses By Course Name Null Results
 		Given I navigate to Find a Course home page
@@ -220,7 +209,6 @@ Scenario Outline: DFC-4090 Search for Courses By Location & Distance Null Result
 
 
 
-@Regression
 @DFC-3883
 	Scenario Outline: DFC-3883 Auto Populate Course Name
 		Given I navigate to Find a Course home page
@@ -237,7 +225,6 @@ Scenario Outline: DFC-4090 Search for Courses By Location & Distance Null Result
 	
 
 
-@Regression
 @DFC-4094
 	Scenario: DFC-4094 Contact Adviser
 		Given I navigate to Find a Course home page
@@ -246,7 +233,6 @@ Scenario Outline: DFC-4090 Search for Courses By Location & Distance Null Result
 
 
 
-@Regression
 @DFC-3887
 	Scenario: DFC-3887 View Qualification Level Help Text
 		Given I navigate to Find a Course home page

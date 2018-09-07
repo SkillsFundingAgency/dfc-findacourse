@@ -7,13 +7,13 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
     {
         private static Configurator configuratorInstance = null;
 
-        private String browser;
-        private String baseUrl;
-        private String useBS;
+        private readonly String browser;
+        private readonly String baseUrl;
+        private readonly String useBS;
 
         private Configurator()
         {
-            browser = ConfigurationManager.AppSettings["Browser"];
+            browser = ConfigurationManager.AppSettings["config_setting"];
             useBS = ConfigurationManager.AppSettings["useBS"];
             baseUrl = ConfigurationManager.AppSettings["BaseUrl"];
         }

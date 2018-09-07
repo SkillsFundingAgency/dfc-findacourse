@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using ESFA.UI.Specflow.Framework.Project.Framework.Helpers;
+using ESFA.UI.Specflow.Framework.FindACourse.Project.Framework.Helpers;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
@@ -14,6 +15,7 @@ using OWASPZAPDotNetAPI;
 using System.Configuration;
 using System.Collections.Specialized;
 using OpenQA.Selenium.Remote;
+using System.Diagnostics;
 
 namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
 {
@@ -25,8 +27,6 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
         private static ExtentTest scenario;
         private static ExtentReports extent;
         private static string screenshotPath;
-        private static string reportNm = null;
-        private static string reportPath = null;
         protected static int counter;
         protected static int counter2;
         public static ClientApi Zap;
@@ -34,17 +34,9 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
         [BeforeTestRun(Order =1)]
         public static void InitializeReport(object sender, EventArgs e)
         {
-            String reportsDirectory = AppDomain.CurrentDomain.BaseDirectory
-                       + "../../"
-                       + "\\Project\\Reports\\"
-                       + DateTime.Now.ToString("dd-MM-yyyy")
-                       + "\\";
-            if (!Directory.Exists(reportsDirectory))
-            {
-                Directory.CreateDirectory(reportsDirectory);
-            }
-            reportNm = (DateTime.Now.ToString("yyyyMMddHHmmss") + ".html");
-            reportPath = Path.Combine(reportsDirectory, reportNm);
+            //Create extent report
+            string reportPath = "\\Project\\Reports\\";
+            FileSystemHelper.CreateFilePath(reportPath);
             var htmlReporter = new ExtentHtmlReporter(reportPath);
             htmlReporter.Configuration().Theme = AventStack.ExtentReports.Reporter.Configuration.Theme.Dark;
             extent = new ExtentReports();
@@ -61,21 +53,12 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
             finally
             {
                 webDriver.Quit();
-                //create OWASP Report
-                String reportsDirectory = AppDomain.CurrentDomain.BaseDirectory
-               + "../../"
-               + "\\Project\\OWASPReports\\"
-               + DateTime.Now.ToString("dd-MM-yyyy")
-               + "\\";
-                if (!Directory.Exists(reportsDirectory))
-                {
-                    Directory.CreateDirectory(reportsDirectory);
-                }
-                reportNm = (DateTime.Now.ToString("yyyyMMddHHmmss") + ".html");
-                reportPath = Path.Combine(reportsDirectory, reportNm);
-
+                 //create OWASP Report
+                string reportPath = "\\Project\\OWASPReports\\";
+                FileSystemHelper.CreateFilePath(reportPath);
                 WriteZapHtmlReport(reportPath + "_PassiveScanReport.html", Zap.core.htmlreport());
                 Zap.Dispose();
+                extent.Flush();
             }
         }
 
@@ -85,13 +68,73 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
             String browser = Configurator.GetConfiguratorInstance().GetBrowser();
             switch(browser)
             {
-                case "firefox" :
-                    webDriver = new FirefoxDriver();
+                case "debug" :
+                    webDriver = new ChromeDriver();
                     webDriver.Manage().Window.Maximize();
                     break;
 
-                case "chrome" :
-                    webDriver = new ChromeDriver();
+                case "win10chrome":
+                    BrowserstackConfig();
+                    break;
+
+                case "win10edge":
+                    BrowserstackConfig();
+                    break;
+
+                case "win10firefox":
+                    BrowserstackConfig();
+                    break;
+
+                case "win10IE":
+                    BrowserstackConfig();
+                    break;
+
+                case "osxECsafari":
+                    BrowserstackConfig();
+                    break;
+
+                case "osxHSsafari":
+                    BrowserstackConfig();
+                    break;
+
+                case "osxHsafari":
+                    BrowserstackConfig();
+                    break;
+
+                case "osxHSchrome":
+                    BrowserstackConfig();
+                    break;
+
+                case "osxHSfirefox":
+                    BrowserstackConfig();
+                    break;
+
+                case "iOSchrome":
+                    BrowserstackConfigMob();
+                    break;
+
+                case "iOSfirefox":
+                    BrowserstackConfigMob();
+                    break;
+
+                case "iOSsafari":
+                    BrowserstackConfigMob();
+                    break;
+
+                case "androidchrome":
+                    BrowserstackConfigMob();
+                    break;
+
+                case "androidnative":
+                    BrowserstackConfigMob();
+                    break;
+
+                //case "phantomjs":
+                //    webDriver = new PhantomJSDriver();
+                //    break;
+
+                case "firefox":
+                    webDriver = new FirefoxDriver();
                     webDriver.Manage().Window.Maximize();
                     break;
 
@@ -100,33 +143,6 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
                     webDriver.Manage().Window.Maximize();
                     break;
 
-                case "bs":
-
-                    NameValueCollection caps = ConfigurationManager.GetSection("capabilities/" + "parallel") as NameValueCollection;
-                    NameValueCollection settings = ConfigurationManager.GetSection("environments/" + "edge") as NameValueCollection;
-                    DesiredCapabilities capability = new DesiredCapabilities();
-
-                    foreach (string key in caps.AllKeys)
-                    {
-                        capability.SetCapability(key, caps[key]);
-                    }
-
-                    foreach (string key in settings.AllKeys)
-                    {
-                        capability.SetCapability(key, settings[key]);
-                    }
-
-                    capability.SetCapability("browserstack.user", ConfigurationManager.AppSettings["user"]);
-                    capability.SetCapability("browserstack.key", ConfigurationManager.AppSettings["key"]);
-
-                    File.AppendAllText("C:\\Users\\kadir\\Desktop\\sf.log", "Starting local");
-                    webDriver = new RemoteWebDriver(new Uri("http://" + ConfigurationManager.AppSettings.Get("server") + "/wd/hub/"), capability);
-                    break;
-
-                //case "phantomjs":
-                //    webDriver = new PhantomJSDriver();
-                //    break;
-
                 case "zapProxyChrome":
                     InitialiseZapProxyChrome();
                     break;
@@ -134,77 +150,17 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
                 default:
                     throw new Exception("Driver name does not match OR this framework does not support the webDriver specified");
             }
-            
-            webDriver.Manage().Window.Maximize();
-            webDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            webDriver.Manage().Cookies.DeleteAllCookies();
-            String currentWindow = webDriver.CurrentWindowHandle;
-            webDriver.SwitchTo().Window(currentWindow);
+
+            //webDriver.Manage().Window.Maximize();
+            //webDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+            //webDriver.Manage().Cookies.DeleteAllCookies();
+            //String currentWindow = webDriver.CurrentWindowHandle;
+            //webDriver.SwitchTo().Window(currentWindow);
             
             PageInteractionHelper.SetDriver(webDriver);
 
         }
 
-
-        [AfterTestRun(Order = 2)]
-        public static void TearDown2()
-        {
-            webDriver.Quit();
-            extent.Flush();
-
-            //create OWASP Report
-            String reportsDirectory = AppDomain.CurrentDomain.BaseDirectory
-           + "../../"
-           + "\\Project\\OWASPReports\\"
-           + DateTime.Now.ToString("dd-MM-yyyy")
-           + "\\";
-            if (!Directory.Exists(reportsDirectory))
-            {
-                Directory.CreateDirectory(reportsDirectory);
-            }
-            reportNm = (DateTime.Now.ToString("yyyyMMddHHmmss") + ".html");
-            reportPath = Path.Combine(reportsDirectory, reportNm);
-
-            WriteZapHtmlReport(reportPath + "_PassiveScanReport.html", Zap.core.htmlreport());
-            Zap.Dispose();
-        }
-
-        public static void TakeScreenshotOnFailure()
-        {
-            if (ScenarioContext.Current.TestError != null)
-            {
-                try
-                {
-                    DateTime dateTime = DateTime.Now;
-                    String featureTitle = FeatureContext.Current.FeatureInfo.Title;
-                    String scenarioTitle = ScenarioContext.Current.ScenarioInfo.Title;
-                    String failureImageName = dateTime.ToString("HH-mm-ss")
-                        + "_"
-                        + scenarioTitle
-                        + ".png";
-                    String screenshotsDirectory = AppDomain.CurrentDomain.BaseDirectory
-                        + "../../"
-                        + "\\Project\\Screenshots\\"
-                        + dateTime.ToString("dd-MM-yyyy")
-                        + "\\";
-                    if (!Directory.Exists(screenshotsDirectory))
-                    {
-                        Directory.CreateDirectory(screenshotsDirectory);
-                    }
-                
-                    ITakesScreenshot screenshotHandler = webDriver as ITakesScreenshot;
-                    Screenshot screenshot = screenshotHandler.GetScreenshot();
-                    screenshotPath = Path.Combine(screenshotsDirectory, failureImageName);
-                    screenshot.SaveAsFile(screenshotPath, ScreenshotImageFormat.Png);
-                    Console.WriteLine(scenarioTitle
-                        + " -- Scenario failed and the screenshot is available at -- "
-                        + screenshotPath);
-                } catch (Exception exception)
-                {
-                    Console.WriteLine("Exception occurred while taking screenshot - " + exception);
-                }
-            }            
-        }
 
         [BeforeFeature]
         public static void BeforeFeature()
@@ -219,9 +175,9 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
         public void BeforeScenario()
         {
             if (counter / counter2 == 5)
-            { 
-            scenario = featureName.CreateNode<Scenario>(ScenarioContext.Current.ScenarioInfo.Title);
-                counter2++;
+            {
+                scenario = featureName.CreateNode<Scenario>(ScenarioContext.Current.ScenarioInfo.Title);
+            counter2++;
             }
             counter++;
         }
@@ -287,9 +243,46 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
                     scenario.CreateNode<Then>(ScenarioStepContext.Current.StepInfo.Text).Skip("Step Definition Pending");
             }
         }
-  
 
-    private static void InitialiseZapProxyChrome()
+        public static void TakeScreenshotOnFailure()
+        {
+            if (ScenarioContext.Current.TestError != null)
+            {
+                try
+                {
+                    DateTime dateTime = DateTime.Now;
+                    String featureTitle = FeatureContext.Current.FeatureInfo.Title;
+                    String scenarioTitle = ScenarioContext.Current.ScenarioInfo.Title;
+                    String failureImageName = dateTime.ToString("HH-mm-ss")
+                        + "_"
+                        + scenarioTitle
+                        + ".png";
+                    String screenshotsDirectory = AppDomain.CurrentDomain.BaseDirectory
+                        + "../../"
+                        + "\\Project\\Screenshots\\"
+                        + dateTime.ToString("dd-MM-yyyy")
+                        + "\\";
+                    if (!Directory.Exists(screenshotsDirectory))
+                    {
+                        Directory.CreateDirectory(screenshotsDirectory);
+                    }
+
+                    ITakesScreenshot screenshotHandler = webDriver as ITakesScreenshot;
+                    Screenshot screenshot = screenshotHandler.GetScreenshot();
+                    screenshotPath = Path.Combine(screenshotsDirectory, failureImageName);
+                    screenshot.SaveAsFile(screenshotPath, ScreenshotImageFormat.Png);
+                    Console.WriteLine(scenarioTitle
+                        + " -- Scenario failed and the screenshot is available at -- "
+                        + screenshotPath);
+                }
+                catch (Exception exception)
+                {
+                    Console.WriteLine("Exception occurred while taking screenshot - " + exception);
+                }
+            }
+        }
+
+        private static void InitialiseZapProxyChrome()
         {
             const string PROXY = "localhost:8095";
             var chromeOptions = new ChromeOptions();
@@ -309,7 +302,42 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
             File.WriteAllBytes(path, bytes);
         }
 
+        public static void BrowserstackConfig()
+        {
+            DesiredCapabilities capability = new DesiredCapabilities();
+            capability.SetCapability("browserName", ConfigurationManager.AppSettings["browser"]);
+            capability.SetCapability("browser_version", ConfigurationManager.AppSettings["browser_version"]);
+            capability.SetCapability("name", ConfigurationManager.AppSettings["name"]);
+            capability.SetCapability("os", ConfigurationManager.AppSettings["os"]);
+            capability.SetCapability("os_version", ConfigurationManager.AppSettings["os_version"]);
+            capability.SetCapability("browserstack.user", ConfigurationManager.AppSettings["user"]);
+            capability.SetCapability("browserstack.key", ConfigurationManager.AppSettings["key"]);
 
+            NameValueCollection caps = ConfigurationManager.GetSection("capabilities/" + "parallel") as NameValueCollection;
+            foreach (string key in caps.AllKeys)
+            {
+                capability.SetCapability(key, caps[key]);
+            }
+            webDriver = new RemoteWebDriver(new Uri("http://" + ConfigurationManager.AppSettings.Get("server") + "/wd/hub/"), capability);
+        }
 
+        public static void BrowserstackConfigMob()
+        {
+            DesiredCapabilities capability = new DesiredCapabilities();
+            capability.SetCapability("browserName", ConfigurationManager.AppSettings["browserName"]);
+            capability.SetCapability("device", ConfigurationManager.AppSettings["device"]);
+            capability.SetCapability("realMobile", ConfigurationManager.AppSettings["realMobile"]);
+            capability.SetCapability("name", ConfigurationManager.AppSettings["name"]);
+            capability.SetCapability("os_version", ConfigurationManager.AppSettings["os_version"]);
+            capability.SetCapability("browserstack.user", ConfigurationManager.AppSettings["user"]);
+            capability.SetCapability("browserstack.key", ConfigurationManager.AppSettings["key"]);
+
+            NameValueCollection caps = ConfigurationManager.GetSection("capabilities/" + "parallel") as NameValueCollection;
+            foreach (string key in caps.AllKeys)
+            {
+                capability.SetCapability(key, caps[key]);
+            }
+            webDriver = new RemoteWebDriver(new Uri("http://" + ConfigurationManager.AppSettings.Get("server") + "/wd/hub/"), capability);
+        }
     }
 }
