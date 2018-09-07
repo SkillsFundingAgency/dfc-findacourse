@@ -1,18 +1,14 @@
 ﻿using Dfc.FindACourse.Common;
 using Dfc.FindACourse.Common.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
 {
-    public class CourseSearchResultItemViewModel
+    public class CourseDetailViewModel
     {
-        
-        public CourseSearchResultItemViewModel(ICourseItem item)
+        public CourseDetailViewModel(ICourseItem item)
         {
-            Id = item.Course.Id;
+
+            Id = item.Course.Id;// Opportunity.Id;   
             CourseTitle = item.Course.Title;
             QualificationLevel = item.Course.QualificationLevel;
             StudyMode = item.Opportunity.StudyMode;
@@ -23,6 +19,7 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
             Distance = (item.Opportunity.HasVenue && item.Opportunity.Venue.Distance.HasValue) ? item.Opportunity.Venue.Distance.Value.ToString("0.0") : "0.0";
             StartDate = item.Opportunity.StartDate.ToString();
             Duration = item.Opportunity.Duration.ToString();
+
         }
 
         public int Id { get; set; }
@@ -75,5 +72,6 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
                     return true;
             }
         }
+
     }
 }

@@ -53,7 +53,7 @@ namespace Dfc.FindACourse.Common.UnitTests.Models
             Assert.Equal(default(string), actual.TownOrPostcode);
             Assert.Equal(default(int?), actual.Distance);
            // Assert.Equal(new QualificationLevel[] { }, actual.QualificationLevels);
-            Assert.Equal(new StudyMode[] { }, actual.StudyModes);
+            Assert.Equal(new StudyModeExt[] { }, actual.StudyModes);
             Assert.Equal(new AttendanceMode[] { }, actual.AttendanceModes);
             Assert.Equal(new AttendancePattern[] { }, actual.AttendancePatterns);
             Assert.Equal(default(bool?), actual.IsDfe1619Funded);

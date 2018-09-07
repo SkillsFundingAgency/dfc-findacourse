@@ -40,21 +40,21 @@ namespace Dfc.FindACourse.Services.CourseDirectory
                 };
                 //Set up Qual Levels
                 if (criteria.QualificationLevels.Count > 0)
-                        searchCriteria.QualificationLevels = criteria.QualificationLevels.Select(x => x.Level).ToArray();
+                    searchCriteria.QualificationLevels = criteria.QualificationLevels.Select(x => x.Level).ToArray();
                 //Add Location
                 if (!string.IsNullOrEmpty(criteria.TownOrPostcode))
-                        searchCriteria.Location = criteria.TownOrPostcode;
+                    searchCriteria.Location = criteria.TownOrPostcode;
                 //And then distance (Always set so add check on TownOrPostcode)
                 if (criteria.Distance.HasValue && !string.IsNullOrEmpty(criteria.TownOrPostcode))
-                        searchCriteria.Distance = criteria.Distance.Value;
+                    searchCriteria.Distance = criteria.Distance.Value;
                 //Add DFEFunded
                 if (criteria.IsDfe1619Funded.HasValue)
-                    searchCriteria.DFE1619Funded = criteria.IsDfe1619Funded.Value ? "Y": "N";
+                    searchCriteria.DFE1619Funded = criteria.IsDfe1619Funded.Value ? "Y" : "N";
                 //study modes
-                //if (criteria.StudyModes.Count > 0)
-                //    searchCriteria.StudyModes = criteria.StudyModes.Select(x => x.ToString)
+                if (criteria.StudyModes.Count > 0)
+                    searchCriteria.StudyModes = criteria.StudyModes.Select(x => x.Value).ToArray();
 
-                 var request = new CourseListRequestStructure()
+                var request = new CourseListRequestStructure()
                 {
                     CourseSearchCriteria = searchCriteria,
                     SortBy = options.SortBy.ToSortType(),
@@ -100,6 +100,44 @@ namespace Dfc.FindACourse.Services.CourseDirectory
             {
                 return Result.Fail<CourseSearchResult>(e.Message);
             }
+        }
+        public IResult<CourseItem> CourseDetails(int? courseDetailsId)
+        {
+            if (courseDetailsId == null)
+                throw new ArgumentNullException(nameof(courseDetailsId));
+            try
+            {
+                var client = new ServiceInterfaceClient();
+                var request = new CourseDetailInput()
+                {
+                    APIKey = _configuration.ApiKey,
+                    CourseID = new string[] { courseDetailsId.Value.ToString() }
+                    
+                   
+                };
+                var task = client.CourseDetailAsync(request);
+                Task.WaitAll(task);
+                var taskResult = task.Result;
+
+                if (taskResult.CourseDetails == null)
+                {
+                    var result = new CourseItem();
+                    return Result.Fail<CourseItem>("No Course Details found");
+                }
+
+                var courseItem = taskResult.CourseDetails
+                    .Select(x => new CourseItem(
+                        x.Course.ToCourse(), x.Opportunity[0].ToOpportunity(), x.Provider.ToProvider()
+                       )).FirstOrDefault();
+
+                return Result.Ok<CourseItem>(courseItem);
+            }
+            catch (Exception e)
+            {
+                return Result.Fail<CourseItem>(e.Message);
+            }
+
+
         }
     }
 }

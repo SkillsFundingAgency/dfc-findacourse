@@ -1,7 +1,69 @@
-﻿
+﻿@using Dfc.FindACourse.Common;
+@using Dfc.FindACourse.Web.HtmlHelpers;
+@using Dfc.FindACourse.Web.ViewModels.CourseDirectory;
+@model Dfc.FindACourse.Web.ViewModels.CourseDirectory.CourseDetailViewModel;
+
+
 @{
     ViewData["Title"] = "CourseDetails";
 }
 
 <h2>CourseDetails</h2>
 
+<div class="column-full">
+
+    <div class="search-result-item">
+
+        <div class="result-item-qualification-level">@Model.QualificationLevel.GetDisplayName()</div>
+        <ul class="result-item-course-attendence-study-mode-info">
+            @if (Model.IsDisplayble(Model.StudyMode))
+            {
+                <li>@Model.StudyMode.GetDisplayName()</li>
+            }
+
+            @if (Model.IsDisplayble(Model.AttendanceMode) && Model.IsDisplayble(Model.StudyMode))
+            {
+                <li> | @Model.AttendanceMode.GetDisplayName() </li>
+            }
+            else if (Model.IsDisplayble(Model.AttendanceMode))
+            {
+                <li>@Model.AttendanceMode.GetDisplayName()</li>
+            }
+
+            @if (Model.IsDisplayble(Model.AttendencePattern) && Model.IsDisplayble(Model.AttendanceMode))
+            {
+                <li> | @Model.AttendencePattern.GetDisplayName() </li>
+            }
+            else if (Model.IsDisplayble(Model.AttendencePattern))
+            {
+                <li>@Model.AttendencePattern.GetDisplayName()</li>
+            }
+        </ul>
+        <ul class="result-item-course-info">
+            <li>
+                <span class="label">Provider:</span>
+                <span class="value">@Model.ProviderName</span>
+            </li>
+            <li>
+                <span class="label">Location:</span>
+                <span class="value">@Model.Location</span>
+            </li>
+            @if (!string.IsNullOrWhiteSpace(Model.Location))
+            {
+                <li>
+                    <span class="label">Distance:</span>
+                    <span class="value">@Model.Distance miles</span>
+                </li>
+            }
+            <li>
+                <span class="label">Start date:</span>
+                <span class="value">@Model.StartDate</span>
+            </li>
+            <li>
+                <span class="label">Duration:</span>
+                <span class="value">@Model.Duration</span>
+            </li>
+        </ul>
+    </div>
+
+</div>

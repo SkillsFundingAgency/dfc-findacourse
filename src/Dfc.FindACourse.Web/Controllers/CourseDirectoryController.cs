@@ -15,6 +15,7 @@ using System.Xml;
 using Microsoft.Extensions.Options;
 using Microsoft.ApplicationInsights;
 using Dfc.FindACourse.Common.Settings;
+using System.Threading.Tasks;
 
 namespace Dfc.FindACourse.Web.Controllers
 {
@@ -56,11 +57,14 @@ namespace Dfc.FindACourse.Web.Controllers
         // GET: CourseDirectory
         public ActionResult CourseSearchResult([FromQuery] CourseSearchRequestModel requestModel)
         {
-            //Log response time
+            //Parmeters
             var dtStart = DateTime.Now;
             var parmQualLevels = new List<QualLevel>();
             var parmStudyModes = new List<StudyMode>();
+            var paramStudyModes = new List<StudyModeExt>();
+            //Data 
             var allQualLevels = _fileHelper.LoadQualificationLevels();
+            var allStudyModes = new StudyModes().StudyModesList;
 
 
             //DEBUG
@@ -72,26 +76,42 @@ namespace Dfc.FindACourse.Web.Controllers
 
             if(!string.IsNullOrEmpty(location)) requestModel.Location = location;
             if(distance > -1) requestModel.Distance = distance;
-            //Pass in the Qual Level from Query on first page and check model from second page
-            if (quallevel > -1 || (requestModel.QualificationLevels != null && requestModel.QualificationLevels.Length > 0))
-            { 
-                requestModel.QualificationLevels = new int[] { quallevel };
-                //Now Populate Qual Levels values from int array
-                requestModel.QualificationLevels.ToList().ForEach(
-                                       q => parmQualLevels.Add(
-                                                   allQualLevels.Where(x => x.Key == q.ToString()).FirstOrDefault()));
-            }
 
             //Debuging - Sample Vars to be passed in from UI, here for testing
 
             //bool? dfeFunded = null;
             //requestModel.QualificationLevels = new int[] { 3, 4 };
+            //requestModel.StudyModes = new int[] { 3, 4 };
             //requestModel.IsDfe1619Funded = dfeFunded;
             //requestModel.StudyModes = new int[] { 0, 2};
 
             //var arrStudyModes = requestModel.StudyModes.Cast<StudyMode>().ToArray();
 
             //END DEBUG
+
+            //Pass in the Qual Level from Query on first page and check model from second page
+            if (quallevel > -1 || (requestModel.QualificationLevels != null && requestModel.QualificationLevels.Length > 0))
+            { 
+                requestModel.QualificationLevels = new int[] { quallevel };
+                //Now Populate parmQualLevels values from int array
+                requestModel.QualificationLevels.ToList().ForEach(
+                     q => parmQualLevels.Add(
+                       allQualLevels.
+                       Where(x => x.Key == q.ToString()).FirstOrDefault()));
+            }
+            //If we have study modes int array in the model then create the List<StudyModes> 
+            if (requestModel.StudyModes != null && requestModel.StudyModes.Length > 0)
+            {
+
+                //Now Populate StudyModes values from int array
+                requestModel.StudyModes.ToList().ForEach(
+                    q => paramStudyModes.Add(allStudyModes.
+                            Where(x => x.Key.ToString() == q.ToString()).FirstOrDefault()));
+              
+            }
+            
+
+          
 
 
             if (ModelState.IsValid)
@@ -100,16 +120,24 @@ namespace Dfc.FindACourse.Web.Controllers
                                                             parmQualLevels, 
                                                                 requestModel.Location, 
                                                                     requestModel.Distance.Value,
-                                                                        requestModel.IsDfe1619Funded
-                                                                        //,requestModel.StudyModes.Cast<StudyMode>().ToArray().ToList()
+                                                                        requestModel.IsDfe1619Funded, paramStudyModes
+
                                                                         ) {};
                 
                 var result = _courseDirectoryService.CourseSearch(criteria, new PagingOptions(SortBy.Relevance, 1));
 
-                var regionsOnly = result.Value.Items.Where(x => x.Opportunity.HasRegion);
+                if (result.HasValue && result.IsSuccess && !result.IsFailure)
+                {
+                    var regionsOnly = result.Value.Items.Where(x => x.Opportunity.HasRegion);
 
 
-                _telemetry.TrackEvent($"CourseSearch for: {requestModel.SubjectKeyword} took: { (DateTime.Now - dtStart).TotalMilliseconds.ToString()} ms.");
+                    _telemetry.TrackEvent($"CourseSearch for: {requestModel.SubjectKeyword} took: { (DateTime.Now - dtStart).TotalMilliseconds.ToString()} ms.");
+                }
+                else
+                {
+                    _telemetry.TrackEvent($"CourseSearch: Invalid.");
+                    return View();
+                }
                 //DEBUG_FIX - Add the flush to see if working straightaway
                 _telemetry.Flush();
 
@@ -126,79 +154,49 @@ namespace Dfc.FindACourse.Web.Controllers
         }
 
         // GET: CourseDirectory/Details/5
-        public ActionResult Details(int id)
+        public IActionResult CourseDetails(int? id)
         {
-            return View();
-        }
+            //Parmeters
+            var dtStart = DateTime.Now;
+            if (ModelState.IsValid)
+            {
+                
 
+                var result = _courseDirectoryService.CourseDetails(id);
+
+                if (result.HasValue && result.IsSuccess && !result.IsFailure)
+                {
+                    
+
+                    _telemetry.TrackEvent($"Course Detail for: {id.Value} took: { (DateTime.Now - dtStart).TotalMilliseconds.ToString()} ms.");
+                }
+                else
+                {
+                    _telemetry.TrackEvent($"Course Detail: Invalid.");
+                    return View();
+                }
+                //DEBUG_FIX - Add the flush to see if working straightaway
+                _telemetry.Flush();
+
+                return View(new CourseDetailViewModel(result.Value) { });
+            }
+            else
+            {
+                _telemetry.TrackEvent($"CourseSearch: ModelState Invalid.");
+                return View();
+            }
+
+
+            
+        }
+    
         // GET: CourseDirectory/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: CourseDirectory/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add insert logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: CourseDirectory/Edit/5
-        public ActionResult Edit(int id)
-        {
-            return View();
-        }
-
-        // POST: CourseDirectory/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add update logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
-
-        // GET: CourseDirectory/Delete/5
-        public ActionResult Delete(int id)
-        {
-            return View();
-        }
-
-        // POST: CourseDirectory/Delete/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(int id, IFormCollection collection)
-        {
-            try
-            {
-                // TODO: Add delete logic here
-
-                return RedirectToAction(nameof(Index));
-            }
-            catch
-            {
-                return View();
-            }
-        }
+        
         private IEnumerable<SelectListItem> GetQualificationLevels()
         {
             var searchTerms = _fileHelper.LoadQualificationLevels();

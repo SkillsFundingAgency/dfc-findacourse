@@ -191,6 +191,44 @@ namespace Dfc.FindACourse.Services.CourseDirectory
                 opportunityInfo.Duration.ToDuration());
         }
 
+        public static Opportunity ToOpportunity(this OpportunityDetail opportunityDetail)
+        {
+            int id = int.TryParse(opportunityDetail.OpportunityId, out id) ? id : 0;
+            DateTime? startDate = DateTime.TryParse(opportunityDetail.StartDate.Item, out DateTime dt) ? dt : default(DateTime?);
+
+            Venue venue = null;
+            string region = null;
+
+            //DEBUG FIX
+            //try
+            //{
+            //    venue = ((VenueInfo)opportunityDetail).ToVenue();
+            //}
+            //catch (InvalidCastException)
+            //{
+            //    try
+            //    {
+            //        region = opportunityInfo.Item.ToString();
+            //    }
+            //    catch (InvalidCastException)
+            //    {
+            //        // Unbale to cast to a Venue or a Region
+            //    }
+            //}
+
+            return new Opportunity(
+                id,
+                opportunityDetail.StudyMode.ToStudyMode(),
+                opportunityDetail.AttendanceMode.ToAttendanceMode(),
+                opportunityDetail.AttendancePattern.ToAttendancePattern(),
+                //DEBUG FIX
+                false,
+                opportunityDetail.StartDate.ToDescriptionDate(),
+                venue,
+                region,
+                opportunityDetail.Duration.ToDuration());
+        }
+
         public static Provider ToProvider(this ProviderInfo providerInfo)
         {
             int id = int.TryParse(providerInfo.ProviderID, out id) ? id : 0;
