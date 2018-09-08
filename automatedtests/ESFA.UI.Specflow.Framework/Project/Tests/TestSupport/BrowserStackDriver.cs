@@ -17,7 +17,7 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
 		private Local browserStackLocal;
 		//private string profile;
 		//private string environment;
-		private ScenarioContext context;
+		private readonly ScenarioContext context;
 
 		public BrowserStackDriver(ScenarioContext context)
 		{

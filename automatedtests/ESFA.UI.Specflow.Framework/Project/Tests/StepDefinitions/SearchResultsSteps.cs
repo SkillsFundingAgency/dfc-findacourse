@@ -18,7 +18,6 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.StepDefinitions
             //PageInteractionHelper.VerifyPageHeading(By.TagName("h1"), "Search results for");
         }
 
-
 		[Then(@"I should be on (.*) page")]
 		public void ConfirmSearchResultsPage(string searchPage)
 		{
@@ -26,13 +25,11 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.StepDefinitions
 			FindACourseSearchResultsPage.Equals(By.TagName("h1"), searchPage);
 		}
 
-
         [Then(@"no results found message is displayed")]
         public void NoResultsFoundMessageIsDisplayed()
         {
             FindACourseSearchResultsPage findACourseSearchResultsPage = new FindACourseSearchResultsPage(webDriver);
             findACourseSearchResultsPage.CheckNullResults();
-
         }
 
         [Then(@"Valid Results are returned")]
@@ -48,7 +45,6 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.StepDefinitions
             FindACourseSearchResultsPage findACourseSearchResultsPage = new FindACourseSearchResultsPage(webDriver);
             findACourseSearchResultsPage.GetSearchLocation(location);
         }
-
 
         [Then(@"the course title (.*) is displayed")]
         public void CourseTitleIsDisplayed(string courseTitle)
@@ -70,7 +66,6 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.StepDefinitions
             FindACourseSearchResultsPage findACourseSearchResultsPage = new FindACourseSearchResultsPage(webDriver);
             findACourseSearchResultsPage.GetStudyMode(studyMode);
         }
-
 
         [Then(@"the attendance mode (.*) is displayed")]
         public void AttendanceModeIsDisplayed(string attendanceMode)
