@@ -110,6 +110,5 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.Pages
             PageInteractionHelper.VerifyText(duration, Duration);
             return new FindACourseSearchResultsPage(webDriver);
         }
-
     }
 }

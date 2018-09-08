@@ -1,4 +1,4 @@
-﻿Feature: Find A  Course Search Results Page
+﻿Feature: Find A Course Search Results Page
 	As a user
 	I am able to view and use the Search Results
 	

@@ -15,7 +15,7 @@ using OWASPZAPDotNetAPI;
 using System.Configuration;
 using System.Collections.Specialized;
 using OpenQA.Selenium.Remote;
-using System.Diagnostics;
+
 
 namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
 {
@@ -30,17 +30,22 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
         protected static int counter;
         protected static int counter2;
         public static ClientApi Zap;
+        public static bool zapTest = false;
+        protected static string reportLocation;
 
         [BeforeTestRun(Order =1)]
         public static void InitializeReport(object sender, EventArgs e)
         {
             //Create extent report
             string reportPath = "\\Project\\Reports\\";
-            FileSystemHelper.CreateFilePath(reportPath);
-            var htmlReporter = new ExtentHtmlReporter(reportPath);
+            reportLocation = FileSystemHelper.CreateFilePath(reportPath);
+            var htmlReporter = new ExtentHtmlReporter(reportLocation);
             htmlReporter.Configuration().Theme = AventStack.ExtentReports.Reporter.Configuration.Theme.Dark;
+            htmlReporter.Configuration().ReportName = reportLocation;
             extent = new ExtentReports();
             extent.AttachReporter(htmlReporter);
+            extent.AddSystemInfo("Test Environment", Configurator.GetConfiguratorInstance().GetBaseUrl());
+            extent.AddSystemInfo("Test Configuration", Configurator.GetConfiguratorInstance().GetBrowser());
         }
 
         [AfterTestRun(Order = 1)]
@@ -53,12 +58,15 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
             finally
             {
                 webDriver.Quit();
-                 //create OWASP Report
-                string reportPath = "\\Project\\OWASPReports\\";
-                FileSystemHelper.CreateFilePath(reportPath);
-                WriteZapHtmlReport(reportPath + "_PassiveScanReport.html", Zap.core.htmlreport());
-                Zap.Dispose();
-                extent.Flush();
+                if (zapTest)
+                {
+                    //create OWASP Report
+                    string reportPath = "\\Project\\OWASPReports\\";
+                    reportLocation = FileSystemHelper.CreateFilePath(reportPath);
+                    WriteZapHtmlReport(reportLocation + "_PassiveScanReport.html", Zap.core.htmlreport());
+                    Zap.Dispose();
+                }
+                extent.Flush();          
             }
         }
 
@@ -292,8 +300,8 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
             proxy.FtpProxy = PROXY;
             chromeOptions.Proxy = proxy;
 
+            zapTest = true; 
             Zap = new ClientApi("localhost", 8095, null);
-
             webDriver = new ChromeDriver(chromeOptions);
         }
 
