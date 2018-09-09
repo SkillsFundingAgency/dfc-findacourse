@@ -105,6 +105,9 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'AndroidNative|AnyCPU'">
     <OutputPath>bin\AndroidNative\</OutputPath>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'zapProxyChrome|AnyCPU'">
+    <OutputPath>bin\zapProxyChrome\</OutputPath>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="BrowserStackLocal, Version=1.4.0.0, Culture=neutral, PublicKeyToken=0941226e876e334f, processorArchitecture=MSIL">
       <HintPath>..\packages\BrowserStackLocal.1.4.0\lib\net20\BrowserStackLocal.dll</HintPath>
@@ -264,6 +267,10 @@
       <IsTransformFile>true</IsTransformFile>
     </None>
     <None Include="App.Windows10IE.config">
+      <DependentUpon>App.config</DependentUpon>
+      <IsTransformFile>true</IsTransformFile>
+    </None>
+    <None Include="App.zapProxyChrome.config">
       <DependentUpon>App.config</DependentUpon>
       <IsTransformFile>true</IsTransformFile>
     </None>

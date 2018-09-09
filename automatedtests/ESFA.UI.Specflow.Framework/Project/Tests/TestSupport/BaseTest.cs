@@ -48,7 +48,7 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
             extent.AddSystemInfo("Test Configuration", Configurator.GetConfiguratorInstance().GetBrowser());
         }
 
-        [AfterTestRun(Order = 1)]
+        [AfterTestRun]
         public static void TearDown()
         {
             try
@@ -57,8 +57,7 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
             }
             finally
             {
-                webDriver.Quit();
-                if (zapTest)
+                if (zapTest == true)
                 {
                     //create OWASP Report
                     string reportPath = "\\Project\\OWASPReports\\";
@@ -66,8 +65,10 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
                     WriteZapHtmlReport(reportLocation + "_PassiveScanReport.html", Zap.core.htmlreport());
                     Zap.Dispose();
                 }
-                extent.Flush();          
+                webDriver.Quit();
+                extent.Flush();
             }
+
         }
 
         [BeforeTestRun(Order = 2)]
@@ -204,6 +205,7 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
             //TODO: implement logic that has to run before executing each step
         }
 
+
         [AfterStep]
         public static void InsertReportingSteps(object sender, EventArgs e)
         {
@@ -252,6 +254,7 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
             }
         }
 
+
         public static void TakeScreenshotOnFailure()
         {
             if (ScenarioContext.Current.TestError != null)
@@ -290,8 +293,13 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
             }
         }
 
+
         private static void InitialiseZapProxyChrome()
         {
+            //connect to Zap service
+            Zap = new ClientApi("localhost", 8095, null);
+
+            //conffigure proxy
             const string PROXY = "localhost:8095";
             var chromeOptions = new ChromeOptions();
             var proxy = new Proxy();
@@ -299,9 +307,9 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
             proxy.SslProxy = PROXY;
             proxy.FtpProxy = PROXY;
             chromeOptions.Proxy = proxy;
-
-            zapTest = true; 
-            Zap = new ClientApi("localhost", 8095, null);
+            chromeOptions.AddArgument("start-maximized");
+            chromeOptions.AddArguments("disable-infobars");
+            zapTest = true;
             webDriver = new ChromeDriver(chromeOptions);
         }
 
@@ -347,5 +355,7 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
             }
             webDriver = new RemoteWebDriver(new Uri("http://" + ConfigurationManager.AppSettings.Get("server") + "/wd/hub/"), capability);
         }
+
+
     }
 }
