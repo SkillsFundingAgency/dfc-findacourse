@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using Dfc.FindACourse.Common.Settings;
 using Dfc.FindACourse.Services.CourseDirectory;
 using Dfc.FindACourse.Services.Interfaces;
+using Dfc.FindACourse.Web.Interfaces;
+using Dfc.FindACourse.Web.Services;
 using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -43,7 +45,7 @@ namespace Dfc.FindACourse.Web
             });
 
             services.AddSingleton(Configuration);
-            //??
+            //??  ASB What is this doing? 
             int tribalPerPage = int.TryParse(Configuration["Tribal:PerPage"], out tribalPerPage) ? tribalPerPage : 0;
 
             services.AddSingleton(typeof(ICourseDirectoryServiceConfiguration), 
@@ -53,15 +55,21 @@ namespace Dfc.FindACourse.Web
 
             services.AddSingleton<IConfiguration>(Configuration);
             services.Configure<App>(Configuration.GetSection("App"));
+
+            services.AddScoped<ITelemetryClient, MyTelemetryClient>();
+            services.AddScoped<ICourseDirectory, CourseDirectory>();
+            services.AddScoped<IFileHelper, FileHelper>();
+
             services.AddScoped<ICourseDirectoryService, CourseDirectoryService>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddMemoryCache();
             services.AddApplicationInsightsTelemetry();
+            
 
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IMemoryCache cache, TelemetryClient telemetryClient)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, IMemoryCache cache, ITelemetryClient telemetryClient)
         {
             if (env.IsDevelopment())
             {
@@ -87,7 +95,9 @@ namespace Dfc.FindACourse.Web
             DownloadConfig(cache, telemetryClient).Wait();
         }
 
-        private async Task DownloadConfig(IMemoryCache cache, TelemetryClient telemetryClient)
+
+        //ASB What is this doing?
+        private async Task DownloadConfig(IMemoryCache cache, ITelemetryClient telemetryClient)
         {
             try
             {
