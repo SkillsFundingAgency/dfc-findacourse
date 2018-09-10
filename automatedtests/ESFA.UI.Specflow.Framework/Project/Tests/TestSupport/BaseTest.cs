@@ -48,6 +48,7 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
             extent.AddSystemInfo("Test Configuration", Configurator.GetConfiguratorInstance().GetBrowser());
         }
 
+
         [AfterTestRun]
         public static void TearDown()
         {
@@ -68,8 +69,8 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
                 webDriver.Quit();
                 extent.Flush();
             }
-
         }
+
 
         [BeforeTestRun(Order = 2)]
         public static void SetUp()
@@ -293,7 +294,6 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
             }
         }
 
-
         private static void InitialiseZapProxyChrome()
         {
             //connect to Zap service
@@ -306,10 +306,14 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
             proxy.HttpProxy = PROXY;
             proxy.SslProxy = PROXY;
             proxy.FtpProxy = PROXY;
+            proxy.Kind = ProxyKind.Manual;
+            proxy.IsAutoDetect = false;
             chromeOptions.Proxy = proxy;
+            chromeOptions.AddArgument("ignore-certificate-errors");
             chromeOptions.AddArgument("start-maximized");
             chromeOptions.AddArguments("disable-infobars");
             zapTest = true;
+
             webDriver = new ChromeDriver(chromeOptions);
         }
 
