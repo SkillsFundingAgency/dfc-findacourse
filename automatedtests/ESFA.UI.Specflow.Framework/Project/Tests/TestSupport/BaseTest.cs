@@ -15,7 +15,7 @@ using OWASPZAPDotNetAPI;
 using System.Configuration;
 using System.Collections.Specialized;
 using OpenQA.Selenium.Remote;
-using System.Diagnostics;
+
 
 namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
 {
@@ -30,20 +30,25 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
         protected static int counter;
         protected static int counter2;
         public static ClientApi Zap;
+        public static bool zapTest = false;
+        protected static string reportLocation;
 
         [BeforeTestRun(Order =1)]
         public static void InitializeReport(object sender, EventArgs e)
         {
             //Create extent report
             string reportPath = "\\Project\\Reports\\";
-            FileSystemHelper.CreateFilePath(reportPath);
-            var htmlReporter = new ExtentHtmlReporter(reportPath);
+            reportLocation = FileSystemHelper.CreateFilePath(reportPath);
+            var htmlReporter = new ExtentHtmlReporter(reportLocation);
             htmlReporter.Configuration().Theme = AventStack.ExtentReports.Reporter.Configuration.Theme.Dark;
+            htmlReporter.Configuration().ReportName = reportLocation;
             extent = new ExtentReports();
             extent.AttachReporter(htmlReporter);
+            extent.AddSystemInfo("Test Environment", Configurator.GetConfiguratorInstance().GetBaseUrl());
+            extent.AddSystemInfo("Test Configuration", Configurator.GetConfiguratorInstance().GetBrowser());
         }
 
-        [AfterTestRun(Order = 1)]
+        [AfterTestRun]
         public static void TearDown()
         {
             try
@@ -52,14 +57,18 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
             }
             finally
             {
+                if (zapTest == true)
+                {
+                    //create OWASP Report
+                    string reportPath = "\\Project\\OWASPReports\\";
+                    reportLocation = FileSystemHelper.CreateFilePath(reportPath);
+                    WriteZapHtmlReport(reportLocation + "_PassiveScanReport.html", Zap.core.htmlreport());
+                    Zap.Dispose();
+                }
                 webDriver.Quit();
-                 //create OWASP Report
-                string reportPath = "\\Project\\OWASPReports\\";
-                FileSystemHelper.CreateFilePath(reportPath);
-                WriteZapHtmlReport(reportPath + "_PassiveScanReport.html", Zap.core.htmlreport());
-                Zap.Dispose();
                 extent.Flush();
             }
+
         }
 
         [BeforeTestRun(Order = 2)]
@@ -196,6 +205,7 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
             //TODO: implement logic that has to run before executing each step
         }
 
+
         [AfterStep]
         public static void InsertReportingSteps(object sender, EventArgs e)
         {
@@ -244,6 +254,7 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
             }
         }
 
+
         public static void TakeScreenshotOnFailure()
         {
             if (ScenarioContext.Current.TestError != null)
@@ -282,8 +293,13 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
             }
         }
 
+
         private static void InitialiseZapProxyChrome()
         {
+            //connect to Zap service
+            Zap = new ClientApi("localhost", 8095, null);
+
+            //conffigure proxy
             const string PROXY = "localhost:8095";
             var chromeOptions = new ChromeOptions();
             var proxy = new Proxy();
@@ -291,9 +307,9 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
             proxy.SslProxy = PROXY;
             proxy.FtpProxy = PROXY;
             chromeOptions.Proxy = proxy;
-
-            Zap = new ClientApi("localhost", 8095, null);
-
+            chromeOptions.AddArgument("start-maximized");
+            chromeOptions.AddArguments("disable-infobars");
+            zapTest = true;
             webDriver = new ChromeDriver(chromeOptions);
         }
 
@@ -339,5 +355,7 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
             }
             webDriver = new RemoteWebDriver(new Uri("http://" + ConfigurationManager.AppSettings.Get("server") + "/wd/hub/"), capability);
         }
+
+
     }
 }

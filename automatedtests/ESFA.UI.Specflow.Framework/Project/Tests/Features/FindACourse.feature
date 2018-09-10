@@ -1,4 +1,4 @@
-﻿Feature: Find A Course
+﻿Feature: Find A Course Search Page
 	As a user
 	I am able to access and use the Find a Course Page
 

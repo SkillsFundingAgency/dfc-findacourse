@@ -9,7 +9,7 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
     public abstract class BasePage
     {
         protected IWebDriver webDriver;
-	    private By pageHeading = By.CssSelector("h1");
+	    private readonly By pageHeading = By.CssSelector("h1");
 
 		public BasePage(IWebDriver webDriver)
         {
