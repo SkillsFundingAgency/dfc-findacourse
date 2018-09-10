@@ -4,6 +4,7 @@ using System.Linq;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using System.Threading;
+using ESFA.UI.Specflow.Framework.Project.Tests.TestSupport;
 
 namespace ESFA.UI.Specflow.Framework.Project.Framework.Helpers
 {
@@ -62,9 +63,16 @@ namespace ESFA.UI.Specflow.Framework.Project.Framework.Helpers
                 List<string> ss = new List<string>(element.Text.Split(new string[] { "\r\n" }, StringSplitOptions.None));
                 for (int j = 0; j <= ss.Count - 1; j++)
                 {
-                    if (s[j] != ss[j])
+                    if (Configurator.GetConfiguratorInstance().GetBrowser().ToLower().Contains("safari"))
                     {
-                        throw new Exception("Dropdown list not returning expected Results");
+                        if (!ss[j].Contains(s[j]))
+                        {
+                            throw new Exception("Dropdown list not returning expected Results. Expected: " + s[j] + " Returned: " + ss[j]);
+                        }
+                    }
+                    else if (s[j] != ss[j])
+                    {
+                        throw new Exception("Dropdown list not returning expected Results. Expected: " + s[j] + " Returned: " + ss[j]);
                     }
                 }
             }
@@ -72,7 +80,7 @@ namespace ESFA.UI.Specflow.Framework.Project.Framework.Helpers
 
         public static void SelectFromDropDownList(IList<IWebElement> list, String text, By locator)
         {
-            String[] allText = new String[list.Count];
+                String[] allText = new String[list.Count];
 
             int i = 0;
             foreach (IWebElement element in list)

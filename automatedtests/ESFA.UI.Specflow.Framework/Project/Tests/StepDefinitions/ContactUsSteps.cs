@@ -20,8 +20,8 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.StepDefinitions
 		[Then(@"I will be on Contact us page")]
 		public void ConfirmContactUsPage()
 		{
+            Thread.Sleep(3000);
             WindowHelper.SwitchToNewWindow(webDriver);
-            Thread.Sleep(2000);
             ContactUsPage contactUsPage = new ContactUsPage(webDriver);
             ContactUsPage.Equals(By.TagName("h1"), "Contact us");
         }
