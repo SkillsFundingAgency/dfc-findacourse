@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Dfc.FindACourse.TestUtilities\Dfc.FindACourse.TestUtilities.csproj" />
     <ProjectReference Include="..\src\Dfc.FindACourse.Web\Dfc.FindACourse.Web.csproj" />
   </ItemGroup>
 

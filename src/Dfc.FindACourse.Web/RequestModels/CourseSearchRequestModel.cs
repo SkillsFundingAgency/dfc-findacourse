@@ -8,7 +8,6 @@ namespace Dfc.FindACourse.Web.RequestModels
         [Required]
         public string SubjectKeyword { get; set; }
         public string Location { get; set; }
-      //  public int? Distance { get; set; }
         public int[] QualificationLevels { get; set; }
         public int[] StudyModes { get; set; }
         public int[] AttendanceModes { get; set; }
