@@ -36,7 +36,7 @@ namespace Dfc.FindACourse.Web.UnitTest
         [TestMethod]
         public void TestAutoSuggestCourseName()
         {
-         //   throw new AssertFailedException();
+         //  throw new AssertFailedException();
 
         }
     }

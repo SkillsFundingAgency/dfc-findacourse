@@ -1,5 +1,14 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using Dfc.FindACourse.Common;
+using Dfc.FindACourse.Common.Interfaces;
+using Dfc.FindACourse.Common.Models;
+using Dfc.FindACourse.TestUtilities.TestUtilities;
 using Dfc.FindACourse.Web.Controllers;
+using Dfc.FindACourse.Web.Interfaces;
+using Dfc.FindACourse.Web.RequestModels;
+using Dfc.FindACourse.Web.ViewModels.CourseDirectory;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -29,7 +38,7 @@ namespace Dfc.FindACourse.Web.UnitTest
                 MockMemoryCache.Object,
                 MockTelemetryClient.Object,
                 MockAppSettings.Object,
-                MockDataService.Object,
+                MockCourseDirectory.Object,
                 MockFileHelper.Object
             );
             Assert.IsNotNull(Controller.Configuration, "Configuration");
@@ -52,14 +61,14 @@ namespace Dfc.FindACourse.Web.UnitTest
         public void TestIndex()
         {
             // Arrange
-            MockDataService.Setup(x => x.GetQualificationLevels()).Returns(new List<SelectListItem>()).Verifiable();
-            MockTelemetryClient.Setup(x=>x.TrackEvent(It.IsAny<string>(), null, null)).Verifiable();
+            MockCourseDirectory.Setup(x => x.GetQualificationLevels()).Returns(new List<SelectListItem>()).Verifiable();
+            MockTelemetryClient.Setup(x => x.TrackEvent(It.IsAny<string>(), null, null)).Verifiable();
 
             // Act
             var result = Controller.Index();
 
             // Assert
-            MockDataService.Verify();
+            MockCourseDirectory.Verify();
             MockTelemetryClient.Verify();
             Assert.IsNotNull(result);
         }
@@ -67,32 +76,198 @@ namespace Dfc.FindACourse.Web.UnitTest
         [TestMethod]
         public void TestAutocomplete()
         {
-            //throw new AssertFailedException();
             //Arrange
-           // var inp =
-            //    "[[\"ANIMAL\",\"ANIMAL BEHAVIOUR\",\"ANIMAL KEEPER\",\"ANIMAL CARE\",\"ANIMAL MANAGEMENT\",\"ANIMAL WELFARE\",\"ANIMALS\"]]";
-            //var input = JsonConvert.DeserializeObject<List<string>>(inp);
-
-            //var input = new JsonResult(list);
-            
-           // MockDataService.Setup(x=>x.AutoSuggestCourseName(It.IsAny<string>())).Returns
+            IEnumerable<string> courseNames = new List<string>(
+                new[] { "ANIMAL BEHAVIOR", "ANIMAL", "ANIMAL BEHAVIOR",
+                    "BAKER", "ANIMAL KEEPER", "BAKER CLEANER", "ANIMAL CARE", "BAKER ASSISTANT" }
+             );
+            MockCourseDirectory.Setup(x => x.AutoSuggestCourseName(It.IsAny<string>())).Returns(courseNames);
 
             //Act
+            var json = Controller.Autocomplete("TEST") as JsonResult;
+            var result = json.Value as List<string>;
 
-            //Assert that the Returned List is 
-            //1) Ordered Descending by groups
-            //2) Items in Groups are ordered - Not ure if this is correct interpretation
-            //3) List only has distinct items
-            //4) It is of type list
-            // got expected Json
+            //Assert
+            Assert.IsTrue(result != null);
+            Assert.IsTrue(result.Count == 7);
+            Assert.IsTrue(result[0] == "ANIMAL");
+            Assert.IsTrue(result[1] == "ANIMAL BEHAVIOR");
+            Assert.IsTrue(result[2] == "ANIMAL CARE");
+            Assert.IsTrue(result[3] == "ANIMAL KEEPER");
+            Assert.IsTrue(result[4] == "BAKER");
+            Assert.IsTrue(result[5] == "BAKER ASSISTANT");
+            Assert.IsTrue(result[6] == "BAKER CLEANER");
+        }
 
+        [TestMethod]
+        public void TestAutocompleteNoInput()
+        {
+            var json = Controller.Autocomplete(null) as JsonResult;
+
+            Assert.IsNull(json.Value);
         }
 
 
         [TestMethod]
-        public void TestCourseSearchResult()
+        public void TestCourseDetailsInvalidModelState()
         {
-           // throw new AssertFailedException();
+            Controller.ModelState.AddModelError("test", "test");
+            MockTelemetryClient.Setup(x => x.TrackEvent(It.IsAny<string>(), null, null)).Verifiable();
+
+            var result = Controller.CourseDetails(5) as ViewResult;
+            MockTelemetryClient.Verify();
+            AssertDefaultView(result);
+        }
+
+        [TestMethod]
+        public void TestCourseDetailsResultWithValidModelState()
+        {
+            var courseDetailsResult = CreateCourseDetailsResult();
+
+            MockCourseDirectoryService.Setup(x => x.CourseDetails(It.IsAny<int>())).Returns(courseDetailsResult);
+            MockCourseDirectory.Setup(x => x.IsSuccessfulResult<CourseItem>(
+                It.IsAny<IResult<CourseItem>>(), It.IsAny<ITelemetryClient>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<DateTime>()
+            )).Returns(true);
+            MockTelemetryClient.Setup(x => x.TrackEvent(It.IsAny<string>(), null, null)).Verifiable();
+            MockTelemetryClient.Setup(x => x.Flush()).Verifiable();
+
+            var expected = new CourseDetailViewModel(courseDetailsResult.Value);
+
+            var result = Controller.CourseDetails(5) as ViewResult;
+
+            MockTelemetryClient.Verify(x => x.TrackEvent(It.IsAny<string>(), null, null), (Times.Never()));
+            MockTelemetryClient.Verify(x => x.Flush(), (Times.Exactly(1)));
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(result.Model);
+            expected.IsSame(result.Model);
+            Assert.IsNull(result.ContentType);
+            Assert.IsNull(result.StatusCode);
+            Assert.IsNull(result.TempData);
+            Assert.IsNull(result.ViewEngine);
+            Assert.IsNull(result.ViewName);
+            Assert.IsTrue(result.ViewData.Count == 0);
+        }
+
+
+        [TestMethod]
+        public void TestCourseDetailsResultWithValidModelStateAndInvalidSearchResult()
+        {
+            var courseDetailsResult = CreateCourseDetailsResult();
+
+            MockCourseDirectoryService.Setup(x => x.CourseDetails(It.IsAny<int>())).Returns(courseDetailsResult);
+            MockCourseDirectory.Setup(x => x.IsSuccessfulResult<CourseItem>(
+                It.IsAny<IResult<CourseItem>>(), It.IsAny<ITelemetryClient>(), It.IsAny<string>(), It.IsAny<string>(),
+                It.IsAny<DateTime>()
+            )).Returns(false);
+            MockTelemetryClient.Setup(x => x.TrackEvent(It.IsAny<string>(), null, null)).Verifiable();
+            MockTelemetryClient.Setup(x => x.Flush()).Verifiable();
+
+            var result = Controller.CourseDetails(5) as ViewResult;
+            MockTelemetryClient.Verify(x => x.TrackEvent(It.IsAny<string>(), null, null), (Times.Never()));
+            MockTelemetryClient.Verify(x => x.Flush(), (Times.Never()));
+            AssertDefaultView(result);
+        }
+
+        private static Result<CourseItem> CreateCourseDetailsResult()
+        {
+            var descriptionDate = new DescriptionDate(DateTime.Now);
+            var venue = new Venue("v", new Address("L1", "L2", "L3", "L4", "L5", 10, 10), 10);
+            var course = new Course(1, "test", QualificationLevel.Level2);
+            var duration = new Duration("desc");
+            var opportunity = new Opportunity(
+                1,
+                StudyMode.Flexible,
+                AttendanceMode.DistanceWithoutAttendence,
+                AttendancePattern.Customised,
+                true, descriptionDate,
+                venue,
+                "region",
+                duration);
+            var provider = new Provider(1, "provider");
+            var courseItem = new CourseItem(course, opportunity, provider);
+            var courseDetailsResult = Result.Ok(courseItem);
+            return courseDetailsResult;
+        }
+
+        [TestMethod]
+        public void TestCourseSearchResultInvalidModelState()
+        {
+            Controller.ModelState.AddModelError("test", "test");
+            MockTelemetryClient.Setup(x => x.TrackEvent(It.IsAny<string>(), null, null)).Verifiable();
+
+            var result = Controller.CourseSearchResult(new CourseSearchRequestModel()) as ViewResult;
+            MockTelemetryClient.Verify();
+            AssertDefaultView(result);
+        }
+
+        [TestMethod]
+        public void TestCourseSearchResultWithValidModelState()
+        {
+            var fromQuery = new CourseSearchRequestModel() { SubjectKeyword = "TestSubjectKeyword", LocationRadius = 20 };
+            var criteria = new CourseSearchCriteria("test");
+            var courseSearchResult = Result.Ok(new CourseSearchResult(1, 1, 1, new CourseItem[] { }));
+            var expected = new CourseSearchResultViewModel(courseSearchResult)
+            { SubjectKeyword = fromQuery.SubjectKeyword, Location = fromQuery.Location };
+
+            MockTelemetryClient.Setup(x => x.TrackEvent(It.IsAny<string>(), null, null)).Verifiable();
+            MockTelemetryClient.Setup(x => x.Flush()).Verifiable();
+            MockCourseDirectory.Setup(x => x.CreateCourseSearchCriteria(fromQuery)).Returns(criteria);
+            MockCourseDirectory.Setup(x => x.IsSuccessfulResult<CourseSearchResult>(
+                It.IsAny<IResult<CourseSearchResult>>(), It.IsAny<ITelemetryClient>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<DateTime>()
+                )).Returns(true);
+            MockCourseDirectoryService.Setup(x => x.CourseSearch(criteria, It.IsAny<PagingOptions>())).Returns(courseSearchResult);
+
+            var result = Controller.CourseSearchResult(fromQuery) as ViewResult;
+            MockTelemetryClient.Verify(x=>x.TrackEvent(It.IsAny<string>(), null, null),(Times.Never()));
+            MockTelemetryClient.Verify(x => x.Flush(), (Times.Exactly(1)));
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(result);
+            Assert.IsNotNull(result.Model);
+            expected.IsSame(result.Model);
+            Assert.IsNull(result.ContentType);
+            Assert.IsNull(result.StatusCode);
+            Assert.IsNull(result.TempData);
+            Assert.IsNull(result.ViewEngine);
+            Assert.IsNull(result.ViewName);
+            Assert.IsTrue(result.ViewData.Count == 0);
+        }
+
+        private void AssertDefaultView(ViewResult result)
+        {
+            Assert.IsNotNull(result);
+            Assert.IsNull(result.Model);
+            Assert.IsNull(result.ContentType);
+            Assert.IsNull(result.StatusCode);
+            Assert.IsNull(result.TempData);
+            Assert.IsNull(result.ViewEngine);
+            Assert.IsNull(result.ViewName);
+            Assert.IsTrue(result.ViewData.Count == 0);
+        }
+
+        [TestMethod]
+        public void TestCourseSearchResultWithValidModelStateAndInvalidSearchResult()
+        {
+            var fromQuery = new CourseSearchRequestModel() { SubjectKeyword = "TestSubjectKeyword", LocationRadius = 20 };
+            var criteria = new CourseSearchCriteria("test");
+            var courseSearchResult = Result.Ok(new CourseSearchResult(1, 1, 1, new CourseItem[] { }));
+            var expected = new CourseSearchResultViewModel(courseSearchResult)
+            { SubjectKeyword = fromQuery.SubjectKeyword, Location = fromQuery.Location };
+
+            MockTelemetryClient.Setup(x => x.TrackEvent(It.IsAny<string>(), null, null)).Verifiable();
+            MockTelemetryClient.Setup(x => x.Flush()).Verifiable();
+            MockCourseDirectory.Setup(x => x.CreateCourseSearchCriteria(fromQuery)).Returns(criteria);
+            MockCourseDirectory.Setup(x => x.IsSuccessfulResult(
+                It.IsAny<IResult<CourseSearchResult>>(), It.IsAny<ITelemetryClient>(), It.IsAny<string>(),
+                It.IsAny<string>(), It.IsAny<DateTime>()
+            )).Returns(false); // Mock that Is Invalid Search Result
+            MockCourseDirectoryService.Setup(x => x.CourseSearch(criteria, It.IsAny<PagingOptions>()))
+                .Returns(courseSearchResult);
+
+            var result = Controller.CourseSearchResult(fromQuery) as ViewResult;
+            MockTelemetryClient.Verify(x => x.TrackEvent(It.IsAny<string>(), null, null), (Times.Never()));
+            MockTelemetryClient.Verify(x => x.Flush(), (Times.Never()));
+            AssertDefaultView(result);
         }
     }
 }
