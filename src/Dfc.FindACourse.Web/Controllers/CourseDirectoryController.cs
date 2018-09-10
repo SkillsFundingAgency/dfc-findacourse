@@ -89,6 +89,39 @@ namespace Dfc.FindACourse.Web.Controllers
             
         }
 
+        // GET: CourseDirectory/Details/5
+        public IActionResult CourseDetails(int? id)
+        {
+            //Parmeters
+            var dtStart = DateTime.Now;
+            if (ModelState.IsValid)
+            {
+                var result = Service.CourseDetails(id);
+
+                if (result.HasValue && result.IsSuccess && !result.IsFailure)
+                {
+                    Telemetry.TrackEvent($"Course Detail for: {id.Value} took: { (DateTime.Now - dtStart).TotalMilliseconds.ToString()} ms.");
+                }
+                else
+                {
+                    Telemetry.TrackEvent($"Course Detail: Invalid.");
+                    return View();
+                }
+                //DEBUG_FIX - Add the flush to see if working straightaway
+                Telemetry.Flush();
+
+                return View(new CourseDetailViewModel(result.Value) { });
+            }
+            else
+            {
+                Telemetry.TrackEvent($"CourseSearch: ModelState Invalid.");
+                return View();
+            }
+
+
+
+        }
+
 
 
         /// <summary>
