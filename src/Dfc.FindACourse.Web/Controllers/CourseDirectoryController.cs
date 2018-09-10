@@ -8,10 +8,9 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
+using Dfc.FindACourse.Common.Interfaces;
 using Microsoft.Extensions.Options;
 using Dfc.FindACourse.Common.Settings;
 using Dfc.FindACourse.Web.Interfaces;
@@ -57,6 +56,7 @@ namespace Dfc.FindACourse.Web.Controllers
         }
 
         // GET: CourseDirectory
+        // ASB TODO - Should we not be returning OK objects? rather than empty Views if something goes wrong?
         public ActionResult CourseSearchResult([FromQuery] CourseSearchRequestModel requestModel)
         {
             var dtStart = DateTime.Now;
@@ -69,57 +69,37 @@ namespace Dfc.FindACourse.Web.Controllers
             var criteria = CourseDirectory.CreateCourseSearchCriteria(requestModel);
             var result = Service.CourseSearch(criteria, new PagingOptions(SortBy.Relevance, 1));
 
-            if (result.HasValue && result.IsSuccess && !result.IsFailure)
-            {
-                var regionsOnly = result.Value.Items.Where(x => x.Opportunity.HasRegion);
-                Telemetry.TrackEvent($"CourseSearch for: {requestModel.SubjectKeyword} took: { (DateTime.Now - dtStart).TotalMilliseconds.ToString()} ms.");
-            }
-            else
-            {
-                Telemetry.TrackEvent($"CourseSearch: Invalid.");
-                return View();
-            }
+            if (!CourseDirectory.IsSuccessfulResult(result, Telemetry, "Course Search", requestModel.SubjectKeyword, dtStart)) return View();
+
             //DEBUG_FIX - Add the flush to see if working straightaway
+            //ASB TODO Why are we flushing here? We may not end up here due to higher up returns.
             Telemetry.Flush();
 
             return View(new CourseSearchResultViewModel(result) { SubjectKeyword = requestModel.SubjectKeyword, Location = requestModel.Location });
             
-
-
-            
         }
+
 
         // GET: CourseDirectory/Details/5
         public IActionResult CourseDetails(int? id)
         {
             //Parmeters
             var dtStart = DateTime.Now;
-            if (ModelState.IsValid)
-            {
-                var result = Service.CourseDetails(id);
 
-                if (result.HasValue && result.IsSuccess && !result.IsFailure)
-                {
-                    Telemetry.TrackEvent($"Course Detail for: {id.Value} took: { (DateTime.Now - dtStart).TotalMilliseconds.ToString()} ms.");
-                }
-                else
-                {
-                    Telemetry.TrackEvent($"Course Detail: Invalid.");
-                    return View();
-                }
-                //DEBUG_FIX - Add the flush to see if working straightaway
-                Telemetry.Flush();
-
-                return View(new CourseDetailViewModel(result.Value) { });
-            }
-            else
+            if (!ModelState.IsValid)
             {
                 Telemetry.TrackEvent($"CourseSearch: ModelState Invalid.");
                 return View();
             }
 
+            var result = Service.CourseDetails(id);
 
+            if (!CourseDirectory.IsSuccessfulResult(result, Telemetry, "Course Detail", id.Value.ToString(), dtStart)) return View();
 
+            //DEBUG_FIX - Add the flush to see if working straightaway ASB TODO AGain is this correct as wont get called if ModelState is Invalid
+            Telemetry.Flush();
+
+            return View(new CourseDetailViewModel(result.Value) { });
         }
 
 
@@ -132,48 +112,17 @@ namespace Dfc.FindACourse.Web.Controllers
         // GET: AutoComplete
         public JsonResult Autocomplete(string parm)
         {
-            if (null != parm)
-            {
-               // List<Grouping<bool, string>> comp = DataService.AutoSuggestCourseName(parm.ToUpper()).GroupBy(x => x.Contains(parm.ToUpper())).ToList();
-               // var b = JsonConvert.SerializeObject(comp);
-                //var c = JsonConvert.DeserializeObject<List<Grouping<bool,string>>>(b);
-                var result = CourseDirectory.AutoSuggestCourseName(parm.ToUpper()).GroupBy(x => x.Contains(parm.ToUpper()))
-                    .OrderByDescending(x => x.Key) //order groups
-                    .SelectMany(g => g.OrderBy(x => x)) //order items in each group
-                    .Distinct()
-                    .ToList();
-                //Debug
-                JsonResult autoData = new JsonResult(result);
-                return Json(result);
-            }
-            return Json(null);
+            if (null == parm) return Json(null);
+
+            var result = CourseDirectory.AutoSuggestCourseName(parm.ToUpper()).GroupBy(x => x.Contains(parm.ToUpper()))
+                .OrderByDescending(x => x.Key) //order groups
+                .SelectMany(g => g.OrderBy(x => x)) //order items in each group
+                .Distinct()
+                .ToList();
+
+            return Json(result);
         }
 
-
-    }
-
-    public class Grouping<TKey, TElement> : IGrouping<TKey, TElement>
-    {
-
-        readonly List<TElement> elements;
-
-        public Grouping(IGrouping<TKey, TElement> grouping)
-        {
-            if (grouping == null)
-                throw new ArgumentNullException("grouping");
-            Key = grouping.Key;
-            elements = grouping.ToList();
-        }
-
-        public TKey Key { get; private set; }
-
-        public IEnumerator<TElement> GetEnumerator()
-        {
-            return this.elements.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        { return GetEnumerator(); }
 
     }
 }

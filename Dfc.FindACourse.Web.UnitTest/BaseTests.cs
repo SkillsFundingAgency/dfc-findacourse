@@ -1,8 +1,6 @@
 ﻿using Dfc.FindACourse.Common.Settings;
 using Dfc.FindACourse.Services.Interfaces;
-using Dfc.FindACourse.Web.Controllers;
 using Dfc.FindACourse.Web.Interfaces;
-using Microsoft.ApplicationInsights.Channel;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
@@ -56,8 +54,6 @@ namespace Dfc.FindACourse.Web.UnitTest
             }
         }
 
-       
-
         private Mock<ITelemetryClient> _telemetryClientMock;
         public Mock<ITelemetryClient> MockTelemetryClient
         {
@@ -86,17 +82,17 @@ namespace Dfc.FindACourse.Web.UnitTest
             }
         }
 
-        private Mock<ICourseDirectory> _dataServiceMock;
-        public Mock<ICourseDirectory> MockDataService
+        private Mock<ICourseDirectory> _courseDirectoryMock;
+        public Mock<ICourseDirectory> MockCourseDirectory
         {
             get
             {
-                if (_dataServiceMock != null) return _dataServiceMock;
+                if (_courseDirectoryMock != null) return _courseDirectoryMock;
 
                 var mock = new Mock<ICourseDirectory>();
                 // mock.Setup(x => x.GetAll()).Returns(StoriesAll);
-                _dataServiceMock = mock;
-                return _dataServiceMock;
+                _courseDirectoryMock = mock;
+                return _courseDirectoryMock;
             }
         }
 

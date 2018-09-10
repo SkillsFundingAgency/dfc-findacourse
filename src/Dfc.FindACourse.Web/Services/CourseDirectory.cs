@@ -120,5 +120,24 @@ namespace Dfc.FindACourse.Web.Services
             );
         }
 
+        public bool IsSuccessfulResult<T>(IResult<T> result, ITelemetryClient telemetryClient,
+            string methodName, string value, DateTime dtStart)
+        {
+            if (result.HasValue && result.IsSuccess && !result.IsFailure)
+            {
+                //ASB TODO This is never used? I am commenting it out.
+                //var regionsOnly = result.Value.Items.Where(x => x.Opportunity.HasRegion);
+                telemetryClient.TrackEvent(
+                    $"{methodName} for: {value} took: {(DateTime.Now - dtStart).TotalMilliseconds.ToString()} ms.");
+            }
+            else
+            {
+                telemetryClient.TrackEvent($"{methodName}: Invalid.");
+                return false;
+            }
+
+            return true;
+        }
+
     }
 }

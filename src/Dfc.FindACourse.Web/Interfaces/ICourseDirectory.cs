@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Dfc.FindACourse.Common.Interfaces;
+using Dfc.FindACourse.Common.Models;
 using Dfc.FindACourse.Web.RequestModels;
 using Microsoft.AspNetCore.Mvc.Rendering;
 
@@ -11,5 +13,8 @@ namespace Dfc.FindACourse.Web.Interfaces
 
         IEnumerable<string> AutoSuggestCourseName(string search);
         ICourseSearchCriteria CreateCourseSearchCriteria(CourseSearchRequestModel requestModel);
+
+        bool IsSuccessfulResult<T>(IResult<T> result, ITelemetryClient telemetryClient, string methodName,
+            string value, DateTime dtStart);
     }
 }
