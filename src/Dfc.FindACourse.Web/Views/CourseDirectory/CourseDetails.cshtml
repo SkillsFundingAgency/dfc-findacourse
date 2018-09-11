@@ -223,6 +223,9 @@
     <div class="search-result-item">
         <div class="result-item-qualification-level">@Model.QualificationLevel.GetDisplayName()</div>
         <ul class="result-item-course-attendence-study-mode-info">
+            <li>@Model.CourseId</li>
+           
+
             @if (Model.IsDisplayble(Model.StudyMode))
             {
             <li>@Model.StudyMode.GetDisplayName()</li>
