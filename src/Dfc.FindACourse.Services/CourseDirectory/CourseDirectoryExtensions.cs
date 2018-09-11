@@ -259,11 +259,68 @@ namespace Dfc.FindACourse.Services.CourseDirectory
 
         public static Provider ToProvider(this ProviderInfo providerInfo)
         {
+            try
+            { 
             int id = int.TryParse(providerInfo.ProviderID, out id) ? id : 0;
+            Provider provider = new Provider(id, providerInfo.ProviderName);
+            provider.UKPRN = providerInfo.UKPRN;
+            provider.UPIN = providerInfo.UPIN;
+            provider.TFPlusLoans = providerInfo.TFPlusLoans;
+            provider.TFPlusLoansSpecified = providerInfo.TFPlusLoansSpecified;
+            provider.DFE1619Funded = providerInfo.DFE1619Funded;
+            provider.DFE1619FundedSpecified = providerInfo.DFE1619FundedSpecified;
+            provider.FEChoices_LearnerDestination = providerInfo.FEChoices_LearnerDestination;
+            provider.FEChoices_LearnerDestinationSpecified = providerInfo.FEChoices_LearnerDestinationSpecified;
+            provider.FEChoices_LearnerSatisfaction = providerInfo.FEChoices_LearnerSatisfaction;
+            provider.FEChoices_LearnerSatisfactionSpecified = providerInfo.FEChoices_LearnerSatisfactionSpecified;
+            provider.FEChoices_EmployerSatisfaction = providerInfo.FEChoices_EmployerSatisfaction;
+            provider.FEChoices_EmployerSatisfactionSpecified = providerInfo.FEChoices_EmployerSatisfactionSpecified;
+            //provider.Website = providerInfo.Website;
+            //provider.Email = providerInfo.Email;
+            //provider.Phone = providerInfo.Phone;
+            //provider.UKPRN = providerInfo.Fax;
+            //provider.UKPRN = providerInfo.UKPRN;
 
-            return new Provider(id, providerInfo.ProviderName);
+
+            return provider;
+            }
+            catch
+            {
+                return new Provider (1, "test");
+            }
         }
-       
+        public static Provider ToProvider(this ProviderDetail providerDetail)
+        {
+            try
+            {
+                int id = int.TryParse(providerDetail.ProviderID, out id) ? id : 0;
+                Provider provider = new Provider(id, providerDetail.ProviderName);
+                provider.UKPRN = providerDetail.UKPRN;
+                provider.UPIN = providerDetail.UPIN;
+                provider.TFPlusLoans = providerDetail.TFPlusLoans;
+                provider.TFPlusLoansSpecified = providerDetail.TFPlusLoansSpecified;
+                provider.DFE1619Funded = providerDetail.DFE1619Funded;
+                provider.DFE1619FundedSpecified = providerDetail.DFE1619FundedSpecified;
+                provider.FEChoices_LearnerDestination = providerDetail.FEChoices_LearnerDestination;
+                provider.FEChoices_LearnerDestinationSpecified = providerDetail.FEChoices_LearnerDestinationSpecified;
+                provider.FEChoices_LearnerSatisfaction = providerDetail.FEChoices_LearnerSatisfaction;
+                provider.FEChoices_LearnerSatisfactionSpecified = providerDetail.FEChoices_LearnerSatisfactionSpecified;
+                provider.FEChoices_EmployerSatisfaction = providerDetail.FEChoices_EmployerSatisfaction;
+                provider.FEChoices_EmployerSatisfactionSpecified = providerDetail.FEChoices_EmployerSatisfactionSpecified;
+                provider.Website = providerDetail.Website;
+                provider.Email = providerDetail.Email;
+                provider.Phone = providerDetail.Phone;
+                provider.UKPRN = providerDetail.Fax;
+                provider.UKPRN = providerDetail.UKPRN;
+
+
+                return provider;
+            }
+            catch
+            {
+                return new Provider(1, "test");
+            }
+        }
         public static Venue ToVenueInfo(this VenueDetail venue)
         {
             string name = venue.VenueName;

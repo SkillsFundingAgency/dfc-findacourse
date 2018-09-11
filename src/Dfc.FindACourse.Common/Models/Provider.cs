@@ -9,8 +9,25 @@ namespace Dfc.FindACourse.Common.Models
 {
     public class Provider : IProvider
     {
-        public int Id { get; }
-        public string Name { get; }
+        public int Id  { get; }
+        public string Name  { get; }
+        public string ProviderName  { get; set; }
+        public string UKPRN { get; set; }
+        public string UPIN { get; set; }
+        public bool TFPlusLoans { get; set; }
+        public bool TFPlusLoansSpecified  { get; set; }
+        public bool DFE1619Funded  { get; set; }
+        public bool DFE1619FundedSpecified  { get; set; }
+        public double FEChoices_LearnerDestination  { get; set; }
+        public bool FEChoices_LearnerDestinationSpecified  { get; set; }
+        public double FEChoices_LearnerSatisfaction  { get; set; }
+        public bool FEChoices_LearnerSatisfactionSpecified  { get; set; }
+        public double FEChoices_EmployerSatisfaction  { get; set; }
+        public bool FEChoices_EmployerSatisfactionSpecified  { get; set; }
+        public string Website  { get; set; }
+        public string Email  { get; set; }
+        public string Phone  { get; set; }
+        public string Fax  { get; set; }
 
         public Provider(int id, string name)
         {

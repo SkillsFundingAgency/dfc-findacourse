@@ -55,7 +55,7 @@ namespace Dfc.FindACourse.Web.Controllers
 
         // GET: CourseDirectory
         // ASB TODO - Should we not be returning OK objects? rather than empty Views if something goes wrong?
-        public ActionResult CourseSearchResult([FromQuery] CourseSearchRequestModel requestModel)
+        public ActionResult CourseSearchResult([FromQuery]  CourseSearchRequestModel requestModel)
         {
             var dtStart = DateTime.Now;
             if (!ModelState.IsValid)
@@ -71,6 +71,7 @@ namespace Dfc.FindACourse.Web.Controllers
 
             //DEBUG_FIX - Add the flush to see if working straightaway
             //ASB TODO Why are we flushing here? We may not end up here due to higher up returns.
+            //So that we could test the telemetry, a la the DEBUG_FIX
             Telemetry.Flush();
 
             return View(new CourseSearchResultViewModel(result) { SubjectKeyword = requestModel.SubjectKeyword, Location = requestModel.Location, DefaultRadiusDistance = (RadiusDistance)requestModel.LocationRadius });
@@ -79,7 +80,7 @@ namespace Dfc.FindACourse.Web.Controllers
 
 
         // GET: CourseDirectory/Details/5
-        public IActionResult CourseDetails(int? id)
+        public IActionResult CourseDetails(int? id, string distance)
         {
             //Parmeters
             var dtStart = DateTime.Now;
@@ -97,7 +98,7 @@ namespace Dfc.FindACourse.Web.Controllers
             //DEBUG_FIX - Add the flush to see if working straightaway ASB TODO AGain is this correct as wont get called if ModelState is Invalid
             Telemetry.Flush();
 
-            return View(new CourseDetailViewModel(result.Value) { });
+            return View(new CourseDetailViewModel(result.Value, !string.IsNullOrEmpty(distance) ? distance: string.Empty) { });
         }
 
 
