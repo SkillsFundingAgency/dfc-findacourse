@@ -8,6 +8,8 @@ namespace Dfc.FindACourse.Common.Models
     public class CourseDetails : ICourseDetails
     {
         public CourseDetails(int courseid,
+            string courseTitle,
+            string courseSummary,
             string awardingBody,
             string entryRequirements,
             string assessmentMethod,
@@ -34,6 +36,8 @@ namespace Dfc.FindACourse.Common.Models
             )
         {
             CourseId = courseid;
+            CourseTitle = courseTitle;
+            CourseSummary = courseSummary;
             AwardingBody = awardingBody;
             EntryRequirements = entryRequirements;
             AssessmentMethod = assessmentMethod;
@@ -57,7 +61,8 @@ namespace Dfc.FindACourse.Common.Models
         }
         public int CourseId { get; }
 
-       //ublic int CourseId { get; }
+        public string CourseTitle { get; }
+        public string CourseSummary { get; }
         public string AwardingBody { get; }
 
         public string EntryRequirements { get; }

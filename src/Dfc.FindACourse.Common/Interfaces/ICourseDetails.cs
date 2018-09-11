@@ -8,6 +8,8 @@ namespace Dfc.FindACourse.Common.Interfaces
     {
         //IVenue Venue { get; }
         int CourseId { get; }
+        string CourseTitle { get; }
+        string CourseSummary { get; }
         string AwardingBody { get; }
         string AssessmentMethod { get; }
 

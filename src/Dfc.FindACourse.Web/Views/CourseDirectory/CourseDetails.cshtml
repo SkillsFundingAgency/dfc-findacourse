@@ -22,7 +22,7 @@
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <h1 class="govuk-heading-l" style="padding-top: 20px;">
-                City & Guilds Intermediate Diploma in Plumbing
+                @Model.CourseTitle
             </h1>
             <section id="1">
 
@@ -30,12 +30,12 @@
                     <tbody class="govuk-table__body">
                         <tr class="govuk-table__row">
                             <td class="govuk-table__cell">Qualification name</td>
-                            <td class="govuk-table__cell">Level 2 Diploma in Plumbing Studies</td>
+                            <td class="govuk-table__cell">@Model.CourseTitle</td>
                         </tr>
                         <tr class="govuk-table__row">
                             <td class="govuk-table__cell">Entry requirements</td>
                             <td class="govuk-table__cell">
-                                Plumbing L1, or working in the trade, or previous experience.
+                                @Model.EntryRequirements
 
                             </td>
                         </tr>
@@ -45,27 +45,27 @@
                         </tr>
                         <tr class="govuk-table__row">
                             <td class="govuk-table__cell">Start date</td>
-                            <td class="govuk-table__cell">10 September 2018</td>
+                            <td class="govuk-table__cell">@Model.StartDate</td>
                         </tr>
                         <tr class="govuk-table__row">
                             <td class="govuk-table__cell">Duration</td>
-                            <td class="govuk-table__cell">35 weeks </td>
+                            <td class="govuk-table__cell">@Model.Duration</td>
                         </tr>
                         <tr class="govuk-table__row">
                             <td class="govuk-table__cell">Full-time or part-time</td>
-                            <td class="govuk-table__cell">Part-time</td>
+                            <td class="govuk-table__cell">@Model.AttendanceMode.GetDisplayName()</td>
                         </tr>
                         <tr class="govuk-table__row">
                             <td class="govuk-table__cell">Day, night or weekend</td>
-                            <td class="govuk-table__cell">Normal working hours</td>
+                            <td class="govuk-table__cell">@Model.AttendencePattern.GetDisplayName()</td>
                         </tr>
                         <tr class="govuk-table__row">
                             <td class="govuk-table__cell">Classroom or online</td>
-                            <td class="govuk-table__cell">Classroom-based</td>
+                            <td class="govuk-table__cell">@Model.StudyMode.GetDisplayName()</td>
                         </tr>
                     </tbody>
                 </table>
-                <a target="_blank" href="https://www.newham.ac.uk/course-listing/city-guilds-intermediate-diploma-in-plumbing.html" role="button" class="govuk-button govuk-button--start">
+                <a target="_blank" href="@Model.BookingURL" role="button" class="govuk-button govuk-button--start">
                     Enrol now
                 </a>
                 <p class="enrol-text">on the provider’s website</p>
@@ -74,15 +74,15 @@
             <section id="2">
                 <h2 class="govuk-heading-m">Course description</h2>
                 <p class="govuk-body govuk-!-font-size-19">
-                    The qualification covers many areas within plumbing and domestic heating, such as hot and cold water supplies, sanitation and understanding health and safety within Building Services Engineering. Candidates will be assessed by on-demand multiple choice tests (available through the City & Guilds assessment platform e-volve) and practical assignments.
+                    Desc
                 </p>
                 <p class="govuk-heading-s">What you’ll need to bring</p>
                 <p class="govuk-body govuk-!-font-size-19">
-                    No equipment required
+                    @Model.EquipmentRequired
                 </p>
                 <p class="govuk-heading-s">How you’ll be assessed</p>
                 <p class="govuk-body govuk-!-font-size-19">
-                    Exam & Course work based
+                    @Model.AssessmentMethod
                 </p>
             </section>
 
@@ -112,7 +112,7 @@
             <section id="6">
                 <aside class="govuk-related-items" role="complementary">
                     <h2 class="govuk-heading-s" style="margin-top: 10px">Provider</h2>
-                    <p class="govuk-body-s">Newham College of Further Education</p>
+                    <p class="govuk-body-s">@Model.ProviderName</p>
                     <hr>
                     <h2 class="govuk-heading-s" style="margin-top: 10px;padding-top: 10px">Venue</h2>
                     <table class="govuk-table" role="presentation">

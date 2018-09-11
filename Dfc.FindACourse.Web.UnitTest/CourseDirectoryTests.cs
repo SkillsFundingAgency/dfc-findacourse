@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Xml;
 using Dfc.FindACourse.Common;
 using Dfc.FindACourse.Common.Models;
 using Dfc.FindACourse.TestUtilities.TestUtilities;
@@ -62,10 +63,49 @@ namespace Dfc.FindACourse.Web.UnitTest
         }
 
         [TestMethod]
-        public void TestAutoSuggestCourseName()
+        public void TestAutoSuggestCourseNameWithMissSpellings()
         {
-           // throw new AssertFailedException();
+            var doc = CreateTestSynonymsDoc();
+            var expected = new[] {"1", "2", "3", "4"};
 
+            MockFileHelper.Setup(x => x.LoadSynonyms()).Returns(doc);
+            MockCourseDirectoryHelper.Setup(x => x.GetMatches(It.IsAny<string>(), It.IsAny<XmlNodeList>()))
+                .Returns(new []{ "1", "2" });
+            MockCourseDirectoryHelper.Setup(x => x.GetMissSpellings(It.IsAny<string>(), It.IsAny<XmlDocument>(), It.IsAny<XmlNodeList>()))
+                .Returns(new[] { "3", "4" });
+
+            var actual = CourseDirectory.AutoSuggestCourseName("ABC");
+
+            expected.IsSame(actual);
+        }
+
+
+        [TestMethod]
+        public void TestAutoSuggestCourseNameWithoutMissSpellings()
+        {
+            var doc = CreateTestSynonymsDoc();
+            var expected = new[] { "1", "2" };
+
+            MockFileHelper.Setup(x => x.LoadSynonyms()).Returns(doc);
+            MockCourseDirectoryHelper.Setup(x => x.GetMatches(It.IsAny<string>(), It.IsAny<XmlNodeList>()))
+                .Returns(new[] { "1", "2" });
+            MockCourseDirectoryHelper.Setup(x => x.GetMissSpellings(It.IsAny<string>(), It.IsAny<XmlDocument>(), It.IsAny<XmlNodeList>()))
+                .Returns(new[] { "3", "4" });
+
+            var actual = CourseDirectory.AutoSuggestCourseName("AB");
+
+            expected.IsSame(actual);
+        }
+
+        private XmlDocument CreateTestSynonymsDoc()
+        {
+            var doc = new XmlDocument();
+            XmlNode node = doc.CreateElement("test");
+            doc.AppendChild(node);
+            XmlNode expansionNode = doc.CreateElement("expansion");
+            node.AppendChild(expansionNode);
+
+            return doc;
         }
 
         [TestMethod]
@@ -98,11 +138,10 @@ namespace Dfc.FindACourse.Web.UnitTest
                 modes
             );
 
-            var helper = new Mock<ICourseDirectoryHelper>();
-            helper.Setup(x => x.StudyModes(It.IsAny<ICourseSearchRequestModel>())).Returns(modes);
-            helper.Setup(x => x.QualificationLevels(It.IsAny<ICourseSearchRequestModel>(), It.IsAny<IFileHelper>())).Returns(quals);
+            MockCourseDirectoryHelper.Setup(x => x.StudyModes(It.IsAny<ICourseSearchRequestModel>())).Returns(modes);
+            MockCourseDirectoryHelper.Setup(x => x.QualificationLevels(It.IsAny<ICourseSearchRequestModel>(), It.IsAny<IFileHelper>())).Returns(quals);
 
-            var actual = CourseDirectory.CreateCourseSearchCriteria(requestModel, helper.Object);
+            var actual = CourseDirectory.CreateCourseSearchCriteria(requestModel);
 
             expected.IsSame(actual);
         }

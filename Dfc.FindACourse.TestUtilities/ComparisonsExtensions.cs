@@ -29,5 +29,6 @@ namespace Dfc.FindACourse.TestUtilities
                 Assert.AreEqual(a, b);
             }
         }
+
     }
 }

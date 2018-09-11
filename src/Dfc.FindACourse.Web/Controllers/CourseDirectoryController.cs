@@ -3,18 +3,14 @@ using Dfc.FindACourse.Common.Models;
 using Dfc.FindACourse.Services.Interfaces;
 using Dfc.FindACourse.Web.RequestModels;
 using Dfc.FindACourse.Web.ViewModels.CourseDirectory;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Linq;
-using System.Xml;
-using Dfc.FindACourse.Common.Interfaces;
 using Microsoft.Extensions.Options;
 using Dfc.FindACourse.Common.Settings;
 using Dfc.FindACourse.Web.Interfaces;
-using Newtonsoft.Json;
 
 namespace Dfc.FindACourse.Web.Controllers
 {
@@ -68,7 +64,7 @@ namespace Dfc.FindACourse.Web.Controllers
                 return View();
             }
 
-            var criteria = CourseDirectory.CreateCourseSearchCriteria(requestModel, CourseDirectoryHelper);
+            var criteria = CourseDirectory.CreateCourseSearchCriteria(requestModel);
             var result = Service.CourseSearch(criteria, new PagingOptions(SortBy.Relevance, 1));
 
             if (!CourseDirectory.IsSuccessfulResult(result, Telemetry, "Course Search", requestModel.SubjectKeyword, dtStart)) return View();
@@ -77,7 +73,7 @@ namespace Dfc.FindACourse.Web.Controllers
             //ASB TODO Why are we flushing here? We may not end up here due to higher up returns.
             Telemetry.Flush();
 
-            return View(new CourseSearchResultViewModel(result) { SubjectKeyword = requestModel.SubjectKeyword, Location = requestModel.Location });
+            return View(new CourseSearchResultViewModel(result) { SubjectKeyword = requestModel.SubjectKeyword, Location = requestModel.Location, DefaultRadiusDistance = (RadiusDistance)requestModel.LocationRadius });
             
         }
 
