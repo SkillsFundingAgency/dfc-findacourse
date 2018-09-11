@@ -14,10 +14,12 @@ namespace Dfc.FindACourse.Web.Services
     public class CourseDirectory : ICourseDirectory
     {
         public IFileHelper Files { get; }
+        public ICourseDirectoryHelper CourseDirectoryHelper { get; }
 
-        public CourseDirectory(IFileHelper fileHelper)
+        public CourseDirectory(IFileHelper fileHelper, ICourseDirectoryHelper courseDirectoryHelper)
         {
             Files = fileHelper;
+            CourseDirectoryHelper = courseDirectoryHelper;
         }
 
         public IEnumerable<SelectListItem> GetQualificationLevels()
@@ -46,77 +48,25 @@ namespace Dfc.FindACourse.Web.Services
         public IEnumerable<string> AutoSuggestCourseName(string search)
         {
             var searchTerms = Files.LoadSynonyms();
+            var expansionNodes = searchTerms.GetElementsByTagName("expansion");
 
-            bool found = false;
-            XmlNodeList expnData = searchTerms.GetElementsByTagName("expansion");
+            foreach (var p in CourseDirectoryHelper.GetMatches(search, expansionNodes)) yield return p;
 
-            foreach (XmlNode nData in expnData)
-            {
+            if (search.Length <= 2) yield break;
 
-                XmlNodeList oNode = nData.SelectNodes(".//sub");
-
-                found = false;
-                foreach (XmlNode nChilddata in oNode)
-                    //if the child node has the search text then break out and add all elements of the expansion to the results
-                    if (nChilddata.InnerText.Contains(search))
-                        found = true;
-
-                if (found)
-                    foreach (XmlNode nChilddata in oNode)
-                        yield return nChilddata.InnerText;
-
-            }
-
-            if (search.Length > 2)
-            {
-                //now check for common misspellings
-                foreach (XmlNode nRepData in searchTerms.GetElementsByTagName("replacement"))
-                {
-                    foreach (XmlNode nPatdata in nRepData.SelectNodes(".//pat"))
-                    {
-                        //if the pat node has the search text return all sub nodes
-                        if (nPatdata.InnerText.ToUpper().Contains(search))
-                        {
-                            foreach (XmlNode nSubRepdata in nRepData.SelectNodes(".//sub"))
-                            {
-                                yield return nSubRepdata.InnerText;
-                                foreach (XmlNode nData in expnData)
-                                {
-
-                                    XmlNodeList oNode = nData.SelectNodes(".//sub");
-
-                                    found = false;
-                                    foreach (XmlNode nChilddata in oNode)
-                                        //if the child node has the search text then break out and add all elements of the expansion to the results too
-                                        if (nChilddata.InnerText.Contains(nSubRepdata.InnerText))
-                                            found = true;
-
-                                    if (found)
-                                        foreach (XmlNode nChilddata in oNode)
-                                            yield return nChilddata.InnerText;
-
-                                }
-
-                            }
-                        }
-
-                    }
-                }
-            }
-
-
+            foreach (var p1 in CourseDirectoryHelper.GetMissSpellings(search, searchTerms, expansionNodes)) yield return p1;
         }
 
 
-        public ICourseSearchCriteria CreateCourseSearchCriteria(ICourseSearchRequestModel requestModel, IRequestModelHelper helper)
+        public ICourseSearchCriteria CreateCourseSearchCriteria(ICourseSearchRequestModel requestModel)
         {
             return new CourseSearchCriteria(
                 requestModel.SubjectKeyword,
-                helper.QualificationLevels(requestModel, Files),
+                CourseDirectoryHelper.QualificationLevels(requestModel, Files),
                 requestModel.Location,
                 requestModel.LocationRadius,
                 requestModel.IsDfe1619Funded,
-                helper.StudyModes(requestModel)
+                CourseDirectoryHelper.StudyModes(requestModel)
             );
         }
 
