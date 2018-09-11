@@ -119,6 +119,8 @@ namespace Dfc.FindACourse.Services.CourseDirectory
             int id = int.TryParse(courseDetail.CourseID, out id) ? id : 0;
            
             return new CourseDetails(id,
+             courseDetail.CourseTitle, 
+             courseDetail.CourseSummary,
              courseDetail.AwardingBody,
              courseDetail.EntryRequirements,
              courseDetail.AssessmentMethod= string.Empty,

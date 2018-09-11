@@ -24,7 +24,7 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
         [Required]
         public string SubjectKeyword { get; set; }
         public string Location { get; set; }
-        public RadiusDistance DefaultRadiusDistance => RadiusDistance.Miles10;
+        public RadiusDistance DefaultRadiusDistance { get; set; }
         public string SortyBy { get; set; }
         public int StartNo { get; set; }
         public int EndNo { get; set; }

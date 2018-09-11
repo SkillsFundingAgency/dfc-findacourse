@@ -6,7 +6,7 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
 {
     public class CourseDetailViewModel
     {
-        private CourseDetails value;
+        //private CourseDetails value;
 
 
         /// <summary>
@@ -16,7 +16,8 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
         public CourseDetailViewModel(ICourseItemDetail value)
         {
             CourseId = value.Coursedetails.CourseId;// Opportunity.Id;   
-            //CourseTitle = value.Coursedetails.TTitle;
+            CourseTitle = value.Coursedetails.CourseTitle;
+            CourseSummary = value.Coursedetails.CourseSummary;
             //QualificationLevel = value.Coursedetails.Le.QualificationLevel;
             StudyMode = value.Opportunity.StudyMode;
             AttendanceMode = value.Opportunity.AttendanceMode;
@@ -56,6 +57,7 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
 
         public int CourseId { get; set; }
         public string CourseTitle { get; set; }
+        public string CourseSummary { get; set; }
         public QualificationLevel QualificationLevel { get; set; }
         public StudyMode StudyMode { get; set; }
         public AttendanceMode AttendanceMode { get; set; }

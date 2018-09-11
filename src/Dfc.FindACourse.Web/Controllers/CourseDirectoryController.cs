@@ -73,7 +73,7 @@ namespace Dfc.FindACourse.Web.Controllers
             //ASB TODO Why are we flushing here? We may not end up here due to higher up returns.
             Telemetry.Flush();
 
-            return View(new CourseSearchResultViewModel(result) { SubjectKeyword = requestModel.SubjectKeyword, Location = requestModel.Location });
+            return View(new CourseSearchResultViewModel(result) { SubjectKeyword = requestModel.SubjectKeyword, Location = requestModel.Location, DefaultRadiusDistance = (RadiusDistance)requestModel.LocationRadius });
             
         }
 
