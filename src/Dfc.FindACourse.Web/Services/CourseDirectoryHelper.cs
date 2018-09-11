@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Xml;
 using Dfc.FindACourse.Common;
 using Dfc.FindACourse.Common.Models;
 using Dfc.FindACourse.Web.Interfaces;
@@ -45,6 +46,59 @@ namespace Dfc.FindACourse.Web.Services
             }
 
             return paramStudyModes;
+        }
+
+        public IEnumerable<string> GetMissSpellings(string search, XmlDocument searchTerms, XmlNodeList expnData)
+        {
+            bool found;
+            //now check for common misspellings
+            foreach (XmlNode nRepData in searchTerms.GetElementsByTagName("replacement"))
+            {
+                foreach (XmlNode nPatdata in nRepData.SelectNodes(".//pat"))
+                {
+                    //if the pat node has the search text return all sub nodes
+                    if (nPatdata.InnerText.ToUpper().Contains(search))
+                    {
+                        foreach (XmlNode nSubRepdata in nRepData.SelectNodes(".//sub"))
+                        {
+                            yield return nSubRepdata.InnerText;
+                            foreach (XmlNode nData in expnData)
+                            {
+                                XmlNodeList oNode = nData.SelectNodes(".//sub");
+
+                                found = false;
+                                foreach (XmlNode nChilddata in oNode)
+                                    //if the child node has the search text then break out and add all elements of the expansion to the results too
+                                    if (nChilddata.InnerText.Contains(nSubRepdata.InnerText))
+                                        found = true;
+
+                                if (found)
+                                    foreach (XmlNode nChilddata in oNode)
+                                        yield return nChilddata.InnerText;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        public IEnumerable<string> GetMatches(string search, XmlNodeList expnData)
+        {
+            bool found;
+            foreach (XmlNode nData in expnData)
+            {
+                XmlNodeList oNode = nData.SelectNodes(".//sub");
+
+                found = false;
+                foreach (XmlNode nChilddata in oNode)
+                    //if the child node has the search text then break out and add all elements of the expansion to the results
+                    if (nChilddata.InnerText.Contains(search))
+                        found = true;
+
+                if (found)
+                    foreach (XmlNode nChilddata in oNode)
+                        yield return nChilddata.InnerText;
+            }
         }
 
     }
