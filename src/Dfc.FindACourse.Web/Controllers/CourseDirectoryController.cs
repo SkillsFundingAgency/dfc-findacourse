@@ -162,7 +162,7 @@ namespace Dfc.FindACourse.Web.Controllers
             {
                 
 
-                var result = _courseDirectoryService.CourseDetails(id);
+                var result = _courseDirectoryService.CourseItemDetail(id);
 
                 if (result.HasValue && result.IsSuccess && !result.IsFailure)
                 {
@@ -175,8 +175,7 @@ namespace Dfc.FindACourse.Web.Controllers
                     _telemetry.TrackEvent($"Course Detail: Invalid.");
                     return View();
                 }
-                //DEBUG_FIX - Add the flush to see if working straightaway
-                _telemetry.Flush();
+               
 
                 return View(new CourseDetailViewModel(result.Value) { });
             }

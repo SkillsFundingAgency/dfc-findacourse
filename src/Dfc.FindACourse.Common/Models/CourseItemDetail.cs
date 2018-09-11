@@ -1,34 +1,33 @@
 ﻿using Dfc.FindACourse.Common.Interfaces;
 using System;
 using System.Collections.Generic;
+using System.Text;
 
 namespace Dfc.FindACourse.Common.Models
 {
-    public class CourseItem : ValueObject<CourseItem>, ICourseItem
+    public class CourseItemDetail : ValueObject<CourseItemDetail>, ICourseItemDetail
     {
-        public ICourse Course { get; }
+        public ICourseDetails Coursedetails { get; }
         public IOpportunity Opportunity { get; }
         public IProvider Provider { get; }
+        public IVenue Venue { get; }
 
-        public CourseItem(
-            ICourse course,
+        public CourseItemDetail(
+            ICourseDetails courseDetails,
             IOpportunity opportunity,
-            IProvider provider)
+            IProvider provider, 
+            IVenue  venue)
         {
-            Course = course ?? throw new ArgumentNullException(nameof(course));
+            Coursedetails = courseDetails ?? throw new ArgumentNullException(nameof(courseDetails));
             Opportunity = opportunity ?? throw new ArgumentNullException(nameof(opportunity));
             Provider = provider ?? throw new ArgumentNullException(nameof(provider));
+            Venue = venue ?? throw new ArgumentNullException(nameof(venue));
         }
 
-        public CourseItem()
-        {
-        }
-
+      
         protected override IEnumerable<object> GetEqualityComponents()
         {
-            yield return Course;
-            yield return Opportunity;
-            yield return Provider;
+            throw new NotImplementedException();
         }
     }
 }

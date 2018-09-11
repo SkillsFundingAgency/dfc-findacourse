@@ -38,20 +38,15 @@ namespace Dfc.FindACourse.Common.Models
                 throw new ArgumentOutOfRangeException(nameof(attendanceMode));
             if (!Enum.IsDefined(typeof(AttendancePattern), attendancePattern))
                 throw new ArgumentOutOfRangeException(nameof(attendancePattern));
-            if (startDate == null)
-                throw new ArgumentNullException(nameof(startDate));
-            if (duration == null)
-                throw new ArgumentNullException(nameof(duration));
-
             Id = id;
             StudyMode = studyMode;
             AttendanceMode = attendanceMode;
             AttendancePattern = attendancePattern;
             IsDfe1619Funded = isDfe1619Funded;
-            StartDate = startDate;
+            StartDate = startDate ?? throw new ArgumentNullException(nameof(startDate));
             Venue = venue;
             Region = (venue == null && string.IsNullOrWhiteSpace(region)) ? _defaultRegion.ToSentenceCase() : region.ToSentenceCase();
-            Duration = duration;
+            Duration = duration ?? throw new ArgumentNullException(nameof(duration));
         }
     }
 }

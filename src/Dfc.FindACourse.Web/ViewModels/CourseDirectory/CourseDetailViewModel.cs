@@ -1,28 +1,60 @@
 ﻿using Dfc.FindACourse.Common;
 using Dfc.FindACourse.Common.Interfaces;
+using Dfc.FindACourse.Common.Models;
 
 namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
 {
     public class CourseDetailViewModel
     {
-        public CourseDetailViewModel(ICourseItem item)
-        {
+        private CourseDetails value;
 
-            Id = item.Course.Id;// Opportunity.Id;   
-            CourseTitle = item.Course.Title;
-            QualificationLevel = item.Course.QualificationLevel;
-            StudyMode = item.Opportunity.StudyMode;
-            AttendanceMode = item.Opportunity.AttendanceMode;
-            AttendencePattern = item.Opportunity.AttendancePattern;
-            ProviderName = item.Provider.Name;
-            Location = (item.Opportunity.HasVenue) ? item.Opportunity.Venue.Address.ToString() : item.Opportunity.Region;
-            Distance = (item.Opportunity.HasVenue && item.Opportunity.Venue.Distance.HasValue) ? item.Opportunity.Venue.Distance.Value.ToString("0.0") : "0.0";
-            StartDate = item.Opportunity.StartDate.ToString();
-            Duration = item.Opportunity.Duration.ToString();
+
+        /// <summary>
+        /// Main view model constructor
+        /// </summary>
+        /// <param name="value"></param>
+        public CourseDetailViewModel(ICourseItemDetail value)
+        {
+            CourseId = value.Coursedetails.CourseId;// Opportunity.Id;   
+            //CourseTitle = value.Coursedetails.TTitle;
+            //QualificationLevel = value.Coursedetails.Le.QualificationLevel;
+            StudyMode = value.Opportunity.StudyMode;
+            AttendanceMode = value.Opportunity.AttendanceMode;
+            AttendencePattern = value.Opportunity.AttendancePattern;
+            ProviderName = value.Provider.Name;
+            Location = (value.Opportunity.HasVenue) ? value.Opportunity.Venue.Address.ToString() : value.Opportunity.Region;
+            Distance = (value.Opportunity.HasVenue && value.Opportunity.Venue.Distance.HasValue) ? value.Opportunity.Venue.Distance.Value.ToString("0.0") : "0.0";
+            StartDate = value.Opportunity.StartDate.ToString();
+            Duration = value.Opportunity.Duration.ToString();
+            AwardingBody = value.Coursedetails.AwardingBody;
+            EntryRequirements = value.Coursedetails.EntryRequirements;
+            AssessmentMethod = value.Coursedetails.AssessmentMethod;
+            EquipmentRequired = value.Coursedetails.EquipmentRequired;
+            URL = value.Coursedetails.URL;
+            BookingURL = value.Coursedetails.BookingURL;
+            TariffRequired = value.Coursedetails.TariffRequired;
+            LADID = value.Coursedetails.LADID;
+            QualificationReferenceAuthority = value.Coursedetails.QualificationReferenceAuthority;
+            QualificationReference = value.Coursedetails.QualificationReference;
+            QualificationTitle = value.Coursedetails.QualificationTitle;
+            Level2EntitlementCategoryDesc = value.Coursedetails.Level2EntitlementCategoryDesc;
+            Level3EntitlementCategoryDesc = value.Coursedetails.Level3EntitlementCategoryDesc;
+            SectorLeadBodyDesc = value.Coursedetails.SectorLeadBodyDesc;
+            AccreditationStartDate = value.Coursedetails.AccreditationStartDate;
+            AccreditationEndDate = value.Coursedetails.AccreditationEndDate;
+            CertificationEndDate = value.Coursedetails.CertificationEndDate;
+            CreditValue = value.Coursedetails.CreditValue;
+            QCAGuidedLearningHours = value.Coursedetails.QCAGuidedLearningHours;
+            SkillsForLifeTypeDesc = value.Coursedetails.SkillsForLifeTypeDesc;
+
+
+
 
         }
 
-        public int Id { get; set; }
+        
+
+        public int CourseId { get; set; }
         public string CourseTitle { get; set; }
         public QualificationLevel QualificationLevel { get; set; }
         public StudyMode StudyMode { get; set; }
@@ -33,6 +65,44 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
         public string Distance { get; set; }
         public string StartDate { get; set; }
         public string Duration { get; set; }
+        public string AwardingBody { get; set; }
+
+        public string EntryRequirements { get; set; }
+
+        public string AssessmentMethod { get; set; }
+
+        public string EquipmentRequired { get; set; }
+
+        public string URL { get; set; }
+
+        public string BookingURL { get; set; }
+
+        public string TariffRequired { get; set; }
+
+        public string LADID { get; set; }
+
+        public string QualificationReferenceAuthority { get; set; }
+
+        public string QualificationReference { get; set; }
+
+        public string QualificationTitle { get; set; }
+
+        public string Level2EntitlementCategoryDesc { get; set; }
+
+        public string Level3EntitlementCategoryDesc { get; set; }
+
+        public string SectorLeadBodyDesc { get; set; }
+
+        public string AccreditationStartDate { get; set; }
+
+        public string AccreditationEndDate { get; set; }
+
+        public string CertificationEndDate { get; set; }
+
+        public string CreditValue { get; set; }
+
+        public string QCAGuidedLearningHours { get; set; }
+        public string SkillsForLifeTypeDesc { get; set; }
 
         public bool IsDisplayble(StudyMode studyMode)
         {

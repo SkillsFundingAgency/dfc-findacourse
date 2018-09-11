@@ -54,6 +54,16 @@ namespace Dfc.FindACourse.Services.CourseDirectory
                 if (criteria.StudyModes.Count > 0)
                     searchCriteria.StudyModes = criteria.StudyModes.Select(x => x.Value).ToArray();
 
+                if (criteria.Distance.HasValue && criteria.Distance.Value > 0)
+                {
+                    searchCriteria.Distance = criteria.Distance.Value;
+                    searchCriteria.DistanceSpecified = true;
+                }
+                else
+                {
+                    searchCriteria.DistanceSpecified = false;
+                }
+
                 var request = new CourseListRequestStructure()
                 {
                     CourseSearchCriteria = searchCriteria,
@@ -101,7 +111,7 @@ namespace Dfc.FindACourse.Services.CourseDirectory
                 return Result.Fail<CourseSearchResult>(e.Message);
             }
         }
-        public IResult<CourseItem> CourseDetails(int? courseDetailsId)
+        public IResult<Common.Models.CourseItemDetail> CourseItemDetail(int? courseDetailsId)
         {
             if (courseDetailsId == null)
                 throw new ArgumentNullException(nameof(courseDetailsId));
@@ -112,8 +122,8 @@ namespace Dfc.FindACourse.Services.CourseDirectory
                 {
                     APIKey = _configuration.ApiKey,
                     CourseID = new string[] { courseDetailsId.Value.ToString() }
-                    
-                   
+
+
                 };
                 var task = client.CourseDetailAsync(request);
                 Task.WaitAll(task);
@@ -122,22 +132,28 @@ namespace Dfc.FindACourse.Services.CourseDirectory
                 if (taskResult.CourseDetails == null)
                 {
                     var result = new CourseItem();
-                    return Result.Fail<CourseItem>("No Course Details found");
+                    return Result.Fail<CourseItemDetail>("No Course Details found");
                 }
 
-                var courseItem = taskResult.CourseDetails
-                    .Select(x => new CourseItem(
-                        x.Course.ToCourse(), x.Opportunity[0].ToOpportunity(), x.Provider.ToProvider()
+                //This will create a new CourseItemDetail model, that contains the Coursedetail, Opportunity, Provider and Venue
+                //Password back to calling controller function, and ViewModel contructor
+                var courseDetails = taskResult.CourseDetails
+                    .Select(x => new CourseItemDetail(
+                        x.Course.ToCourseDetail(), x.Opportunity[0].ToOpportunity(), x.Provider.ToProvider(), x.Venue[0].ToVenueInfo()
                        )).FirstOrDefault();
 
-                return Result.Ok<CourseItem>(courseItem);
+                return Result.Ok<CourseItemDetail>(courseDetails);
             }
             catch (Exception e)
             {
-                return Result.Fail<CourseItem>(e.Message);
+                return Result.Fail<CourseItemDetail>(e.Message);
+
+
             }
-
-
         }
+
+       
+
+       
     }
 }

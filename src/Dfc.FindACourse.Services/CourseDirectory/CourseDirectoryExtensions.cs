@@ -1,4 +1,5 @@
 ﻿using Dfc.FindACourse.Common;
+using Dfc.FindACourse.Common.Interfaces;
 using Dfc.FindACourse.Common.Models;
 using System;
 using Tribal;
@@ -113,7 +114,33 @@ namespace Dfc.FindACourse.Services.CourseDirectory
                 courseInfo.CourseTitle,
                 courseInfo.QualificationLevel.ToQualificationLevel());
         }
-
+        public static CourseDetails ToCourseDetail(this CourseDetail courseDetail)
+        {
+            int id = int.TryParse(courseDetail.CourseID, out id) ? id : 0;
+           
+            return new CourseDetails(id,
+             courseDetail.AwardingBody,
+             courseDetail.EntryRequirements,
+             courseDetail.AssessmentMethod= string.Empty,
+             courseDetail.EquipmentRequired,
+             courseDetail.URL,
+             courseDetail.BookingURL,
+             courseDetail.TariffRequired,
+             courseDetail.LADID,
+             courseDetail.QualificationReferenceAuthority,
+             courseDetail.QualificationReference,
+             courseDetail.QualificationTitle,
+             courseDetail.Level2EntitlementCategoryDesc,
+             courseDetail.Level3EntitlementCategoryDesc,
+             courseDetail.SectorLeadBodyDesc,
+             courseDetail.AccreditationStartDate,
+             courseDetail.AccreditationEndDate,
+             courseDetail.CertificationEndDate,
+             courseDetail.CreditValue,
+             courseDetail.QCAGuidedLearningHours,
+             courseDetail.SkillsForLifeTypeDesc
+                );
+        }
         public static Duration ToDuration(this DurationType durationType)
         {
             double value = double.TryParse(durationType.DurationValue, out value) ? value : 0;
@@ -234,6 +261,15 @@ namespace Dfc.FindACourse.Services.CourseDirectory
             int id = int.TryParse(providerInfo.ProviderID, out id) ? id : 0;
 
             return new Provider(id, providerInfo.ProviderName);
+        }
+       
+        public static Venue ToVenueInfo(this VenueDetail venue)
+        {
+            string name = venue.VenueName;
+            IAddress address = venue.VenueAddress.ToAddess();
+            double? distance = 0.0f;
+
+            return new Venue(name, address, distance);
         }
     }
 }
