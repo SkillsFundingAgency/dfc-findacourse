@@ -3,18 +3,14 @@ using Dfc.FindACourse.Common.Models;
 using Dfc.FindACourse.Services.Interfaces;
 using Dfc.FindACourse.Web.RequestModels;
 using Dfc.FindACourse.Web.ViewModels.CourseDirectory;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Linq;
-using System.Xml;
-using Dfc.FindACourse.Common.Interfaces;
 using Microsoft.Extensions.Options;
 using Dfc.FindACourse.Common.Settings;
 using Dfc.FindACourse.Web.Interfaces;
-using Newtonsoft.Json;
 
 namespace Dfc.FindACourse.Web.Controllers
 {

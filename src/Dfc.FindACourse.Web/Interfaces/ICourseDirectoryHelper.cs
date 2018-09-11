@@ -11,5 +11,6 @@ namespace Dfc.FindACourse.Web.Interfaces
         List<StudyModeExt> StudyModes(ICourseSearchRequestModel requestModel);
         IEnumerable<string> GetMatches(string search, XmlNodeList expnData);
         IEnumerable<string> GetMissSpellings(string search, XmlDocument searchTerms, XmlNodeList expnData);
+        int GetQualificationLevel(string qualificationLevel);
     }
 }
