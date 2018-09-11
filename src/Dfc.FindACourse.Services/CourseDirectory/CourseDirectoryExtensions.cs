@@ -171,12 +171,12 @@ namespace Dfc.FindACourse.Services.CourseDirectory
         {
             DateTime? startDate = DateTime.TryParse(startDateType.Item, out DateTime dt) ? dt : default(DateTime?);
 
-            if (startDate.HasValue)
+            if (startDate.HasValue && startDateType.ItemElementName == ItemChoiceType.Date)
             {
                 return new DescriptionDate(startDate.Value);
             }
 
-            if (!string.IsNullOrWhiteSpace(startDateType.Item))
+            if (!string.IsNullOrWhiteSpace(startDateType.Item) && startDateType.ItemElementName == ItemChoiceType.DateDesc)
             {
                 return new DescriptionDate(startDateType.Item);
             }
@@ -187,7 +187,6 @@ namespace Dfc.FindACourse.Services.CourseDirectory
         public static Opportunity ToOpportunity(this OpportunityInfo opportunityInfo)
         {
             int id = int.TryParse(opportunityInfo.OpportunityId, out id) ? id : 0;
-            DateTime? startDate = DateTime.TryParse(opportunityInfo.StartDate.Item, out DateTime dt) ? dt : default(DateTime?);
 
             Venue venue = null;
             string region = null;
