@@ -41,6 +41,27 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.StepDefinitions
             findACourseCourseDetailsPage.GetQualification(qualification);
         }
 
+        [Then(@"Entry Requirements (.*) are displayed")]
+        public void EntryRequirementsAreDisplayed(string entryRequirements)
+        {
+            FindACourseCourseDetailsPage findACourseCourseDetailsPage = new FindACourseCourseDetailsPage(webDriver);
+            findACourseCourseDetailsPage.GetEntryRequirements(entryRequirements);
+        }
+
+        [Then(@"Cost Details (.*) are displayed")]
+        public void ThenCostDetailsAreDisplayed(string cost)
+        {
+            FindACourseCourseDetailsPage findACourseCourseDetailsPage = new FindACourseCourseDetailsPage(webDriver);
+            findACourseCourseDetailsPage.GetCost(cost);
+        }
+
+        [Then(@"I click the advanced learner link")]
+        public void ClickTheAdvancedLearnerLink()
+        {
+            FindACourseCourseDetailsPage findACourseCourseDetailsPage = new FindACourseCourseDetailsPage(webDriver);
+            findACourseCourseDetailsPage.ClickAdvancedlearnerlink();
+        }
+
 
     }
 }

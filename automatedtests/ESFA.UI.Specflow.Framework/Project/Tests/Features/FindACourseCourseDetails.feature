@@ -70,13 +70,14 @@ Scenario Outline: DFC-3973 View Course Details display Entry Requirements
 	Then I should be on Search Results for page
 	When I select course title
 	Then the View Course details page is displayed
-	And Entry Requirements are displayed
+	And Entry Requirements <EntryRequirements> are displayed
 
   Examples:
-    | CourseName |
-    | Maths      |
-    | Electrical |
-    | horse      |
+    | CourseName    | EntryRequirements                                                     |
+    | Hair & Beauty | Three or more GCSEs at grades A*-E, including Maths and English.      |
+    | Electrical    | Two GCSE subjects at grade E or better or equivalent to include Maths | 
+    | Gardening     | There are no entry requirements for this course.                      |
+
 
 
 @DFC-3973
@@ -87,13 +88,14 @@ Scenario Outline: DFC-3973 View Course Details display Cost
 	Then I should be on Search Results for page
 	When I select course title
 	Then the View Course details page is displayed
-	And Cost Details are displayed
+	And Cost Details <Cost> are displayed
 
   Examples:
-    | CourseName |
-    | Maths      |
-    | Electrical |
-    | horse      |
+    | CourseName | Cost                    |
+    | Gardening  | The course fee is £1275 |
+    | Electrical | The course fee is £1275 |
+    | horse      | The course fee is £1275 |
+
 
 
 @DFC-3973
@@ -104,15 +106,15 @@ Scenario Outline: DFC-3973 View Course Details display Loans
 	Then I should be on Search Results for page
 	When I select course title
 	Then the View Course details page is displayed
-	And Advanced learner loans details are displayed
+	And I click the advanced learner link
+	Then I will be on the advanced learner loan page
 
   Examples:
     | CourseName |
-    | Maths      |
     | Electrical |
-    | horse      |
 	
 	
+
 @DFC-3973
 Scenario Outline: DFC-3973 View Course Details display Start Date
 	Given I navigate to Find a Course home page
@@ -128,6 +130,7 @@ Scenario Outline: DFC-3973 View Course Details display Start Date
     | Maths      |
     | Electrical |
     | horse      |
+
 
 
 @DFC-3973
@@ -146,6 +149,7 @@ Scenario Outline: DFC-3973 View Course Details display Duration
     | Electrical |
 
 
+
 @DFC-3973
 Scenario Outline: DFC-3973 View Course Details display Study Mode
 	Given I navigate to Find a Course home page
@@ -160,6 +164,7 @@ Scenario Outline: DFC-3973 View Course Details display Study Mode
     | CourseName |
     | Maths      |
     | Electrical |
+
 
 
 @DFC-3973

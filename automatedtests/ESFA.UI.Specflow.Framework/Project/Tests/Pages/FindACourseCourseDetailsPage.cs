@@ -25,6 +25,9 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.Pages
         private readonly string errorString = "There are no courses matching that name. Make sure that you've spelled it correctly, or use a broader description of the course.";
         private readonly By courseTitle = By.XPath(".//*[@id='content']/div[2]/div[1]/h1");
         private readonly By qualification = By.XPath(".//*[@id='1']/table/tbody/tr[1]/td[2]");
+        private readonly By entryRequirements = By.XPath(".//*[@id='1']/table/tbody/tr[2]/td[2]");
+        private readonly By cost = By.XPath(".//*[@id='1']/table/tbody/tr[3]/td[2]");
+        private readonly By advancedlink = By.PartialLinkText("Advanced Learner");
 
 
         internal FindACourseCourseDetailsPage CheckNullResults()
@@ -50,5 +53,26 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.Pages
             PageInteractionHelper.VerifyText(qualification, Qualification);
             return new FindACourseCourseDetailsPage(webDriver);
         }
+
+        internal FindACourseCourseDetailsPage GetEntryRequirements(string EntryRequirements)
+        {
+            PageInteractionHelper.VerifyText(entryRequirements, EntryRequirements);
+            return new FindACourseCourseDetailsPage(webDriver);
+        }
+
+        internal FindACourseCourseDetailsPage GetCost(string Cost)
+        {
+            PageInteractionHelper.VerifyText(cost, Cost);
+            return new FindACourseCourseDetailsPage(webDriver);
+        }
+
+        internal FindACourseCourseDetailsPage ClickAdvancedlearnerlink()
+        {
+            FormCompletionHelper.ClickElement(advancedlink);
+            return new FindACourseCourseDetailsPage(webDriver);
+        }
+
     }
+
+
 }
