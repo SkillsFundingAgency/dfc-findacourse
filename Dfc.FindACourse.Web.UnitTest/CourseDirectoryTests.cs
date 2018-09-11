@@ -98,11 +98,10 @@ namespace Dfc.FindACourse.Web.UnitTest
                 modes
             );
 
-            var helper = new Mock<ICourseDirectoryHelper>();
-            helper.Setup(x => x.StudyModes(It.IsAny<ICourseSearchRequestModel>())).Returns(modes);
-            helper.Setup(x => x.QualificationLevels(It.IsAny<ICourseSearchRequestModel>(), It.IsAny<IFileHelper>())).Returns(quals);
+            MockCourseDirectoryHelper.Setup(x => x.StudyModes(It.IsAny<ICourseSearchRequestModel>())).Returns(modes);
+            MockCourseDirectoryHelper.Setup(x => x.QualificationLevels(It.IsAny<ICourseSearchRequestModel>(), It.IsAny<IFileHelper>())).Returns(quals);
 
-            var actual = CourseDirectory.CreateCourseSearchCriteria(requestModel, helper.Object);
+            var actual = CourseDirectory.CreateCourseSearchCriteria(requestModel);
 
             expected.IsSame(actual);
         }

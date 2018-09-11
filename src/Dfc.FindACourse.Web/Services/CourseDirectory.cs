@@ -112,15 +112,15 @@ namespace Dfc.FindACourse.Web.Services
         }
 
 
-        public ICourseSearchCriteria CreateCourseSearchCriteria(ICourseSearchRequestModel requestModel, ICourseDirectoryHelper helper)
+        public ICourseSearchCriteria CreateCourseSearchCriteria(ICourseSearchRequestModel requestModel)
         {
             return new CourseSearchCriteria(
                 requestModel.SubjectKeyword,
-                helper.QualificationLevels(requestModel, Files),
+                CourseDirectoryHelper.QualificationLevels(requestModel, Files),
                 requestModel.Location,
                 requestModel.LocationRadius,
                 requestModel.IsDfe1619Funded,
-                helper.StudyModes(requestModel)
+                CourseDirectoryHelper.StudyModes(requestModel)
             );
         }
 

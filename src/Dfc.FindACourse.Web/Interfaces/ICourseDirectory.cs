@@ -12,7 +12,7 @@ namespace Dfc.FindACourse.Web.Interfaces
         IEnumerable<SelectListItem> GetQualificationLevels();
 
         IEnumerable<string> AutoSuggestCourseName(string search);
-        ICourseSearchCriteria CreateCourseSearchCriteria(ICourseSearchRequestModel requestModel , ICourseDirectoryHelper helper);
+        ICourseSearchCriteria CreateCourseSearchCriteria(ICourseSearchRequestModel requestModel);
 
         bool IsSuccessfulResult<T>(IResult<T> result, ITelemetryClient telemetryClient, string methodName,
             string value, DateTime dtStart);

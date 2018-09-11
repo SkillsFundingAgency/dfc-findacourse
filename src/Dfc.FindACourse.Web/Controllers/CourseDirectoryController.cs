@@ -68,7 +68,7 @@ namespace Dfc.FindACourse.Web.Controllers
                 return View();
             }
 
-            var criteria = CourseDirectory.CreateCourseSearchCriteria(requestModel, CourseDirectoryHelper);
+            var criteria = CourseDirectory.CreateCourseSearchCriteria(requestModel);
             var result = Service.CourseSearch(criteria, new PagingOptions(SortBy.Relevance, 1));
 
             if (!CourseDirectory.IsSuccessfulResult(result, Telemetry, "Course Search", requestModel.SubjectKeyword, dtStart)) return View();
