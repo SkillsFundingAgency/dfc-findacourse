@@ -2,6 +2,7 @@
 using ESFA.UI.Specflow.Framework.Project.Framework.Helpers;
 using ESFA.UI.Specflow.Framework.Project.Tests.TestSupport;
 using OpenQA.Selenium;
+using TechTalk.SpecFlow;
 
 namespace ESFA.UI.Specflow.Framework.Project.Tests.Pages
 {
@@ -11,7 +12,7 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.Pages
 
         public FindACourseSearchResultsPage(IWebDriver webDriver) : base(webDriver)
         {
-            SelfVerify();
+            //SelfVerify();
         }
 
         protected override bool SelfVerify()
@@ -109,6 +110,15 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.Pages
         {
             PageInteractionHelper.VerifyText(duration, Duration);
             return new FindACourseSearchResultsPage(webDriver);
+        }
+
+        internal FindACourseSearchResultsPage SelectFirstCourse()
+        {
+            ScenarioContext.Current["CourseTitle"] = webDriver.FindElement(courseTitle).GetAttribute("innerText");
+            Console.WriteLine("course title: " + ScenarioContext.Current["CourseTitle"]);
+            FormCompletionHelper.ClickElement(courseTitle);
+            return new FindACourseSearchResultsPage(webDriver);
+
         }
     }
 }

@@ -20,7 +20,7 @@ namespace ESFA.UI.Specflow.Framework.FindACourse.Project.Framework.Helpers
                     break;
                 }
             }
-
+            webDriver.Close();
             webDriver.SwitchTo().Window(newWindowHandle);
         }
 

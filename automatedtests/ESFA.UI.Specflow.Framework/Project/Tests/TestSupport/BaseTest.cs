@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using ESFA.UI.Specflow.Framework.Project.Framework.Helpers;
 using ESFA.UI.Specflow.Framework.FindACourse.Project.Framework.Helpers;
@@ -63,8 +64,9 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
                     //create OWASP Report
                     string reportPath = "\\Project\\OWASPReports\\";
                     reportLocation = FileSystemHelper.CreateFilePath(reportPath);
-                    WriteZapHtmlReport(reportLocation + "_PassiveScanReport.html", Zap.core.htmlreport());
+                    
                     Zap.Dispose();
+                    WriteZapHtmlReport(reportLocation + "_PassiveScanReport.html", Zap.core.htmlreport());
                 }
                 webDriver.Quit();
                 extent.Flush();
@@ -298,6 +300,7 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
         {
             //connect to Zap service
             Zap = new ClientApi("localhost", 8095, null);
+          
 
             //conffigure proxy
             const string PROXY = "localhost:8095";
@@ -306,7 +309,6 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
             proxy.HttpProxy = PROXY;
             proxy.SslProxy = PROXY;
             proxy.FtpProxy = PROXY;
-            proxy.Kind = ProxyKind.Manual;
             proxy.IsAutoDetect = false;
             chromeOptions.Proxy = proxy;
             chromeOptions.AddArgument("ignore-certificate-errors");
@@ -359,7 +361,6 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
             }
             webDriver = new RemoteWebDriver(new Uri("http://" + ConfigurationManager.AppSettings.Get("server") + "/wd/hub/"), capability);
         }
-
 
     }
 }

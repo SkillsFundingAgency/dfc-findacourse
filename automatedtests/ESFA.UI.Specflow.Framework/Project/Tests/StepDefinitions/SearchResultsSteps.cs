@@ -19,7 +19,8 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.StepDefinitions
             //PageInteractionHelper.VerifyPageHeading(By.TagName("h1"), "Search results for");
         }
 
-		[Then(@"I should be on (.*) page")]
+
+        [Then(@"I should be on (.*) page")]
 		public void ConfirmSearchResultsPage(string searchPage)
 		{
             Thread.Sleep(2000);
@@ -119,6 +120,12 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.StepDefinitions
             findACourseSearchResultsPage.GetDuration(duration);
         }
 
-
+        [When(@"I select course title")]
+        public void SelectCourseTitle()
+        {
+            FindACourseSearchResultsPage findACourseSearchResultsPage = new FindACourseSearchResultsPage(webDriver);
+            findACourseSearchResultsPage.SelectFirstCourse();
+            
+        }
     }
 }
