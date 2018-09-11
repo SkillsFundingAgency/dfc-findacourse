@@ -16,7 +16,7 @@ using Moq;
 using Newtonsoft.Json;
 using Remotion.Linq.Parsing.Structure.IntermediateModel;
 
-namespace Dfc.FindACourse.Web.UnitTest
+namespace Dfc.FindACourse.Web.UnitTests
 {
     [TestClass]
     public class ControllerTests : BaseTests
@@ -175,7 +175,7 @@ namespace Dfc.FindACourse.Web.UnitTest
         {
             var descriptionDate = new DescriptionDate(DateTime.Now);
             var venue = new Venue("v", new Address("L1", "L2", "L3", "L4", "L5", 10, 10), 10);
-            var course = new CourseDetails(1, "test", string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
+            var course = new CourseDetails(1, "test", string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
             var duration = new Duration("desc");
             var opportunity = new Opportunity(
                 1,

@@ -15,7 +15,7 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
 
-namespace Dfc.FindACourse.Web.UnitTest
+namespace Dfc.FindACourse.Web.UnitTests
 {
     [TestClass]
     public class CourseDirectoryHelperTests : BaseTests
