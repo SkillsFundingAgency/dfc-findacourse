@@ -4,7 +4,7 @@ using Dfc.FindACourse.Common.Models;
 
 namespace Dfc.FindACourse.Web.Interfaces
 {
-    public interface IRequestModelHelper
+    public interface ICourseDirectoryHelper
     {
         List<QualLevel> QualificationLevels(ICourseSearchRequestModel requestModel, IFileHelper files);
         List<StudyModeExt> StudyModes(ICourseSearchRequestModel requestModel);

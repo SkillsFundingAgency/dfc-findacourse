@@ -46,13 +46,55 @@ namespace Dfc.FindACourse.Web.Services
         public IEnumerable<string> AutoSuggestCourseName(string search)
         {
             var searchTerms = Files.LoadSynonyms();
+            var expansionNodes = searchTerms.GetElementsByTagName("expansion");
 
-            bool found = false;
-            XmlNodeList expnData = searchTerms.GetElementsByTagName("expansion");
+            foreach (var p in GetMatches(search, expansionNodes)) yield return p;
 
+            if (search.Length <= 2) yield break;
+
+            foreach (var p1 in GetMissSpellings(search, searchTerms, expansionNodes)) yield return p1;
+
+        }
+
+        private static IEnumerable<string> GetMissSpellings(string search, XmlDocument searchTerms, XmlNodeList expnData)
+        {
+            bool found;
+//now check for common misspellings
+            foreach (XmlNode nRepData in searchTerms.GetElementsByTagName("replacement"))
+            {
+                foreach (XmlNode nPatdata in nRepData.SelectNodes(".//pat"))
+                {
+                    //if the pat node has the search text return all sub nodes
+                    if (nPatdata.InnerText.ToUpper().Contains(search))
+                    {
+                        foreach (XmlNode nSubRepdata in nRepData.SelectNodes(".//sub"))
+                        {
+                            yield return nSubRepdata.InnerText;
+                            foreach (XmlNode nData in expnData)
+                            {
+                                XmlNodeList oNode = nData.SelectNodes(".//sub");
+
+                                found = false;
+                                foreach (XmlNode nChilddata in oNode)
+                                    //if the child node has the search text then break out and add all elements of the expansion to the results too
+                                    if (nChilddata.InnerText.Contains(nSubRepdata.InnerText))
+                                        found = true;
+
+                                if (found)
+                                    foreach (XmlNode nChilddata in oNode)
+                                        yield return nChilddata.InnerText;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        private static IEnumerable<string> GetMatches(string search, XmlNodeList expnData)
+        {
+            bool found;
             foreach (XmlNode nData in expnData)
             {
-
                 XmlNodeList oNode = nData.SelectNodes(".//sub");
 
                 found = false;
@@ -64,51 +106,11 @@ namespace Dfc.FindACourse.Web.Services
                 if (found)
                     foreach (XmlNode nChilddata in oNode)
                         yield return nChilddata.InnerText;
-
             }
-
-            if (search.Length > 2)
-            {
-                //now check for common misspellings
-                foreach (XmlNode nRepData in searchTerms.GetElementsByTagName("replacement"))
-                {
-                    foreach (XmlNode nPatdata in nRepData.SelectNodes(".//pat"))
-                    {
-                        //if the pat node has the search text return all sub nodes
-                        if (nPatdata.InnerText.ToUpper().Contains(search))
-                        {
-                            foreach (XmlNode nSubRepdata in nRepData.SelectNodes(".//sub"))
-                            {
-                                yield return nSubRepdata.InnerText;
-                                foreach (XmlNode nData in expnData)
-                                {
-
-                                    XmlNodeList oNode = nData.SelectNodes(".//sub");
-
-                                    found = false;
-                                    foreach (XmlNode nChilddata in oNode)
-                                        //if the child node has the search text then break out and add all elements of the expansion to the results too
-                                        if (nChilddata.InnerText.Contains(nSubRepdata.InnerText))
-                                            found = true;
-
-                                    if (found)
-                                        foreach (XmlNode nChilddata in oNode)
-                                            yield return nChilddata.InnerText;
-
-                                }
-
-                            }
-                        }
-
-                    }
-                }
-            }
-
-
         }
 
 
-        public ICourseSearchCriteria CreateCourseSearchCriteria(ICourseSearchRequestModel requestModel, IRequestModelHelper helper)
+        public ICourseSearchCriteria CreateCourseSearchCriteria(ICourseSearchRequestModel requestModel, ICourseDirectoryHelper helper)
         {
             return new CourseSearchCriteria(
                 requestModel.SubjectKeyword,

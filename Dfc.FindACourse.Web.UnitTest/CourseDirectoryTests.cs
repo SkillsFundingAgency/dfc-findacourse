@@ -97,7 +97,7 @@ namespace Dfc.FindACourse.Web.UnitTest
                 modes
             );
 
-            var helper = new Mock<IRequestModelHelper>();
+            var helper = new Mock<ICourseDirectoryHelper>();
             helper.Setup(x => x.StudyModes(It.IsAny<ICourseSearchRequestModel>())).Returns(modes);
             helper.Setup(x => x.QualificationLevels(It.IsAny<ICourseSearchRequestModel>(), It.IsAny<IFileHelper>())).Returns(quals);
 

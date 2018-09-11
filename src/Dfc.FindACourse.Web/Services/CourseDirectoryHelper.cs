@@ -7,7 +7,7 @@ using Dfc.FindACourse.Web.RequestModels;
 
 namespace Dfc.FindACourse.Web.Services
 {
-    public class RequestModelHelper : IRequestModelHelper
+    public class CourseDirectoryHelper : ICourseDirectoryHelper
     {
         //ASB TODO Move into an Interface/Class implementation and inject into CourseDirectory.
         public List<QualLevel> QualificationLevels(ICourseSearchRequestModel requestModel, IFileHelper files)

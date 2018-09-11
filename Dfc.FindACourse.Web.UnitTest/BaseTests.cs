@@ -110,14 +110,14 @@ namespace Dfc.FindACourse.Web.UnitTest
             }
         }
 
-        private Mock<IRequestModelHelper> _requestModelHelper;
-        public Mock<IRequestModelHelper> MockRequestModelHelper
+        private Mock<ICourseDirectoryHelper> _requestModelHelper;
+        public Mock<ICourseDirectoryHelper> MockRequestModelHelper
         {
             get
             {
                 if (_requestModelHelper != null) return _requestModelHelper;
 
-                var mock = new Mock<IRequestModelHelper>();
+                var mock = new Mock<ICourseDirectoryHelper>();
                 // mock.Setup(x => x.GetAll()).Returns(StoriesAll);
                 _requestModelHelper = mock;
                 return _requestModelHelper;

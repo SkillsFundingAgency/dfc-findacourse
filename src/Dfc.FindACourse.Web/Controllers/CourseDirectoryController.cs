@@ -27,12 +27,12 @@ namespace Dfc.FindACourse.Web.Controllers
         public IOptions<App> Settings { get; }
         public ICourseDirectory CourseDirectory { get; }
         public IFileHelper Files { get; }
-        public IRequestModelHelper RequestModelHelper { get; }
+        public ICourseDirectoryHelper RequestModelHelper { get; }
 
 
         public CourseDirectoryController(IConfiguration configuration, ICourseDirectoryService courseDirectoryService
             , IMemoryCache memoryCache, ITelemetryClient telemetryClient, IOptions<App> appSettings,
-            ICourseDirectory courseDirectory, IFileHelper fileHelper, IRequestModelHelper requestModelHelper)
+            ICourseDirectory courseDirectory, IFileHelper fileHelper, ICourseDirectoryHelper requestModelHelper)
         {
             Configuration = configuration;
             Service = courseDirectoryService;
