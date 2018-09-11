@@ -40,7 +40,7 @@ namespace Dfc.FindACourse.Web.UnitTest
                 MockAppSettings.Object,
                 MockCourseDirectory.Object,
                 MockFileHelper.Object,
-                MockRequestModelHelper.Object
+                MockCourseDirectoryHelper.Object
             );
             Assert.IsNotNull(Controller.Configuration, "Configuration");
             Assert.IsNotNull(Controller.Service, "Service");
@@ -49,7 +49,7 @@ namespace Dfc.FindACourse.Web.UnitTest
             Assert.IsNotNull(Controller.Settings, "Settings");
             Assert.IsNotNull(Controller.Files, "Settings");
             Assert.IsNotNull(Controller.CourseDirectory);
-            Assert.IsNotNull(Controller.RequestModelHelper);
+            Assert.IsNotNull(Controller.CourseDirectoryHelper);
         }
 
         [TestMethod]

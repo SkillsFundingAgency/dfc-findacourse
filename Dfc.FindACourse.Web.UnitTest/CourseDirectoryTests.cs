@@ -26,9 +26,10 @@ namespace Dfc.FindACourse.Web.UnitTest
 
         public void BuildServiceClass()
         {
-            CourseDirectory = new CourseDirectory(MockFileHelper.Object);
+            CourseDirectory = new CourseDirectory(MockFileHelper.Object, MockCourseDirectoryHelper.Object);
 
             Assert.IsNotNull(CourseDirectory.Files);
+            Assert.IsNotNull(CourseDirectory.CourseDirectoryHelper);
         }
 
         [TestMethod]

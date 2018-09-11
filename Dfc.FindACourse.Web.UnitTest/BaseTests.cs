@@ -110,17 +110,17 @@ namespace Dfc.FindACourse.Web.UnitTest
             }
         }
 
-        private Mock<ICourseDirectoryHelper> _requestModelHelper;
-        public Mock<ICourseDirectoryHelper> MockRequestModelHelper
+        private Mock<ICourseDirectoryHelper> _courseDirectoryHelper;
+        public Mock<ICourseDirectoryHelper> MockCourseDirectoryHelper
         {
             get
             {
-                if (_requestModelHelper != null) return _requestModelHelper;
+                if (_courseDirectoryHelper != null) return _courseDirectoryHelper;
 
                 var mock = new Mock<ICourseDirectoryHelper>();
                 // mock.Setup(x => x.GetAll()).Returns(StoriesAll);
-                _requestModelHelper = mock;
-                return _requestModelHelper;
+                _courseDirectoryHelper = mock;
+                return _courseDirectoryHelper;
             }
         }
     }

@@ -14,10 +14,12 @@ namespace Dfc.FindACourse.Web.Services
     public class CourseDirectory : ICourseDirectory
     {
         public IFileHelper Files { get; }
+        public ICourseDirectoryHelper CourseDirectoryHelper { get; }
 
-        public CourseDirectory(IFileHelper fileHelper)
+        public CourseDirectory(IFileHelper fileHelper, ICourseDirectoryHelper courseDirectoryHelper)
         {
             Files = fileHelper;
+            CourseDirectoryHelper = courseDirectoryHelper;
         }
 
         public IEnumerable<SelectListItem> GetQualificationLevels()
