@@ -13,13 +13,18 @@ namespace Dfc.FindACourse.Web.Services
         //ASB TODO Move into an Interface/Class implementation and inject into CourseDirectory.
         public List<QualLevel> QualificationLevels(ICourseSearchRequestModel requestModel, IFileHelper files)
         {
+            //Data
             var qualificationLevel = -1;
+            var allQualLevels = files.LoadQualificationLevels();
+            //Parm to return
             var parmQualLevels = new List<QualLevel>();
+            //Check to see of parm from Page 1
             if (!string.IsNullOrEmpty(requestModel.QualificationLevel)) int.TryParse(requestModel.QualificationLevel, out qualificationLevel);
+
             //Pass in the Qual Level from Query on first page and check model from second page
             if (qualificationLevel > -1 || (requestModel.QualificationLevels != null && requestModel.QualificationLevels.Length > 0))
             {
-                var allQualLevels = files.LoadQualificationLevels();
+               
                 requestModel.QualificationLevels = new int[] { qualificationLevel };
                 //Now Populate parmQualLevels values from int array
                 requestModel.QualificationLevels.ToList().ForEach(

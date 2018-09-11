@@ -98,7 +98,7 @@
                         {
                             <div class="search-result-item">
                                 <h3>
-                                    <a asp-action="CourseDetails" asp-route-id="@item.Id">@item.CourseTitle</a>
+                                    <a asp-action="CourseDetails" asp-route-id="@item.Id" asp-route-distance="@item.Distance">@item.CourseTitle</a>
 
                                 </h3>
                                 <div class="result-item-qualification-level">@item.QualificationLevel.GetDisplayName()</div>

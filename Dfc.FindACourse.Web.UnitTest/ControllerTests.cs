@@ -116,7 +116,7 @@ namespace Dfc.FindACourse.Web.UnitTest
             Controller.ModelState.AddModelError("test", "test");
             MockTelemetryClient.Setup(x => x.TrackEvent(It.IsAny<string>(), null, null)).Verifiable();
 
-            var result = Controller.CourseDetails(5) as ViewResult;
+            var result = Controller.CourseDetails(5, "0") as ViewResult;
             MockTelemetryClient.Verify();
             AssertDefaultView(result);
         }
@@ -133,9 +133,9 @@ namespace Dfc.FindACourse.Web.UnitTest
             MockTelemetryClient.Setup(x => x.TrackEvent(It.IsAny<string>(), null, null)).Verifiable();
             MockTelemetryClient.Setup(x => x.Flush()).Verifiable();
 
-            var expected = new CourseDetailViewModel(courseDetailsResult.Value);
+            var expected = new CourseDetailViewModel(courseDetailsResult.Value, "0");
 
-            var result = Controller.CourseDetails(5) as ViewResult;
+            var result = Controller.CourseDetails(5, "0") as ViewResult;
 
             MockTelemetryClient.Verify(x => x.TrackEvent(It.IsAny<string>(), null, null), (Times.Never()));
             MockTelemetryClient.Verify(x => x.Flush(), (Times.Exactly(1)));
@@ -165,7 +165,7 @@ namespace Dfc.FindACourse.Web.UnitTest
             MockTelemetryClient.Setup(x => x.TrackEvent(It.IsAny<string>(), null, null)).Verifiable();
             MockTelemetryClient.Setup(x => x.Flush()).Verifiable();
 
-            var result = Controller.CourseDetails(5) as ViewResult;
+            var result = Controller.CourseDetails(5, "0") as ViewResult;
             MockTelemetryClient.Verify(x => x.TrackEvent(It.IsAny<string>(), null, null), (Times.Never()));
             MockTelemetryClient.Verify(x => x.Flush(), (Times.Never()));
             AssertDefaultView(result);
@@ -175,7 +175,7 @@ namespace Dfc.FindACourse.Web.UnitTest
         {
             var descriptionDate = new DescriptionDate(DateTime.Now);
             var venue = new Venue("v", new Address("L1", "L2", "L3", "L4", "L5", 10, 10), 10);
-            var course = new CourseDetails(1, "test", string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
+            var course = new CourseDetails(1, "test", string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
             var duration = new Duration("desc");
             var opportunity = new Opportunity(
                 1,
