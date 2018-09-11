@@ -175,7 +175,7 @@ namespace Dfc.FindACourse.Web.UnitTest
         {
             var descriptionDate = new DescriptionDate(DateTime.Now);
             var venue = new Venue("v", new Address("L1", "L2", "L3", "L4", "L5", 10, 10), 10);
-            var course = new CourseDetails(1, "test", string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
+            var course = new CourseDetails(1, "test", string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
             var duration = new Duration("desc");
             var opportunity = new Opportunity(
                 1,
@@ -217,7 +217,7 @@ namespace Dfc.FindACourse.Web.UnitTest
             MockTelemetryClient.Setup(x => x.TrackEvent(It.IsAny<string>(), null, null)).Verifiable();
             MockTelemetryClient.Setup(x => x.Flush()).Verifiable();
             MockCourseDirectory.Setup(x => x.CreateCourseSearchCriteria(fromQuery)).Returns(criteria);
-            MockCourseDirectory.Setup(x => x.IsSuccessfulResult<CourseSearchResult>(
+            MockCourseDirectory.Setup(x => x.IsSuccessfulResult(
                 It.IsAny<IResult<CourseSearchResult>>(), It.IsAny<ITelemetryClient>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<DateTime>()
                 )).Returns(true);
             MockCourseDirectoryService.Setup(x => x.CourseSearch(criteria, It.IsAny<PagingOptions>())).Returns(courseSearchResult);
