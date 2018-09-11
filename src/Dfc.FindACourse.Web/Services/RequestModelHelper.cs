@@ -7,9 +7,10 @@ using Dfc.FindACourse.Web.RequestModels;
 
 namespace Dfc.FindACourse.Web.Services
 {
-    public static class RequestModelExtensions
+    public class RequestModelHelper : IRequestModelHelper
     {
-        public static List<QualLevel> QualificationLevels(this CourseSearchRequestModel requestModel, IFileHelper files)
+        //ASB TODO Move into an Interface/Class implementation and inject into CourseDirectory.
+        public List<QualLevel> QualificationLevels(ICourseSearchRequestModel requestModel, IFileHelper files)
         {
             var qualificationLevel = -1;
             var parmQualLevels = new List<QualLevel>();
@@ -29,7 +30,7 @@ namespace Dfc.FindACourse.Web.Services
             return parmQualLevels;
         }
 
-        public static List<StudyModeExt> StudyModes(this CourseSearchRequestModel requestModel)
+        public List<StudyModeExt> StudyModes (ICourseSearchRequestModel requestModel)
         {
             var paramStudyModes = new List<StudyModeExt>();
             

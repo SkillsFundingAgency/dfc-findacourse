@@ -39,7 +39,8 @@ namespace Dfc.FindACourse.Web.UnitTest
                 MockTelemetryClient.Object,
                 MockAppSettings.Object,
                 MockCourseDirectory.Object,
-                MockFileHelper.Object
+                MockFileHelper.Object,
+                MockRequestModelHelper.Object
             );
             Assert.IsNotNull(Controller.Configuration, "Configuration");
             Assert.IsNotNull(Controller.Service, "Service");
@@ -48,6 +49,7 @@ namespace Dfc.FindACourse.Web.UnitTest
             Assert.IsNotNull(Controller.Settings, "Settings");
             Assert.IsNotNull(Controller.Files, "Settings");
             Assert.IsNotNull(Controller.CourseDirectory);
+            Assert.IsNotNull(Controller.RequestModelHelper);
         }
 
         [TestMethod]
@@ -210,9 +212,10 @@ namespace Dfc.FindACourse.Web.UnitTest
             var expected = new CourseSearchResultViewModel(courseSearchResult)
             { SubjectKeyword = fromQuery.SubjectKeyword, Location = fromQuery.Location };
 
+
             MockTelemetryClient.Setup(x => x.TrackEvent(It.IsAny<string>(), null, null)).Verifiable();
             MockTelemetryClient.Setup(x => x.Flush()).Verifiable();
-            MockCourseDirectory.Setup(x => x.CreateCourseSearchCriteria(fromQuery)).Returns(criteria);
+            MockCourseDirectory.Setup(x => x.CreateCourseSearchCriteria(fromQuery, It.IsAny<IRequestModelHelper>())).Returns(criteria);
             MockCourseDirectory.Setup(x => x.IsSuccessfulResult<CourseSearchResult>(
                 It.IsAny<IResult<CourseSearchResult>>(), It.IsAny<ITelemetryClient>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<DateTime>()
                 )).Returns(true);
@@ -256,7 +259,7 @@ namespace Dfc.FindACourse.Web.UnitTest
 
             MockTelemetryClient.Setup(x => x.TrackEvent(It.IsAny<string>(), null, null)).Verifiable();
             MockTelemetryClient.Setup(x => x.Flush()).Verifiable();
-            MockCourseDirectory.Setup(x => x.CreateCourseSearchCriteria(fromQuery)).Returns(criteria);
+            MockCourseDirectory.Setup(x => x.CreateCourseSearchCriteria(fromQuery, It.IsAny<IRequestModelHelper>())).Returns(criteria);
             MockCourseDirectory.Setup(x => x.IsSuccessfulResult(
                 It.IsAny<IResult<CourseSearchResult>>(), It.IsAny<ITelemetryClient>(), It.IsAny<string>(),
                 It.IsAny<string>(), It.IsAny<DateTime>()

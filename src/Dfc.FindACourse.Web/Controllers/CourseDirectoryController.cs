@@ -27,11 +27,12 @@ namespace Dfc.FindACourse.Web.Controllers
         public IOptions<App> Settings { get; }
         public ICourseDirectory CourseDirectory { get; }
         public IFileHelper Files { get; }
+        public IRequestModelHelper RequestModelHelper { get; }
 
 
         public CourseDirectoryController(IConfiguration configuration, ICourseDirectoryService courseDirectoryService
             , IMemoryCache memoryCache, ITelemetryClient telemetryClient, IOptions<App> appSettings,
-            ICourseDirectory courseDirectory, IFileHelper fileHelper)
+            ICourseDirectory courseDirectory, IFileHelper fileHelper, IRequestModelHelper requestModelHelper)
         {
             Configuration = configuration;
             Service = courseDirectoryService;
@@ -40,6 +41,7 @@ namespace Dfc.FindACourse.Web.Controllers
             Settings = appSettings;
             CourseDirectory = courseDirectory;
             Files = fileHelper;
+            RequestModelHelper = requestModelHelper;
         }
 
         // GET: CourseDirectory
@@ -66,7 +68,7 @@ namespace Dfc.FindACourse.Web.Controllers
                 return View();
             }
 
-            var criteria = CourseDirectory.CreateCourseSearchCriteria(requestModel);
+            var criteria = CourseDirectory.CreateCourseSearchCriteria(requestModel, RequestModelHelper);
             var result = Service.CourseSearch(criteria, new PagingOptions(SortBy.Relevance, 1));
 
             if (!CourseDirectory.IsSuccessfulResult(result, Telemetry, "Course Search", requestModel.SubjectKeyword, dtStart)) return View();

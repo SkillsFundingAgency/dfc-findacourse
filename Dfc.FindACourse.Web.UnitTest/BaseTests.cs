@@ -109,5 +109,19 @@ namespace Dfc.FindACourse.Web.UnitTest
                 return _fileHelperMock;
             }
         }
+
+        private Mock<IRequestModelHelper> _requestModelHelper;
+        public Mock<IRequestModelHelper> MockRequestModelHelper
+        {
+            get
+            {
+                if (_requestModelHelper != null) return _requestModelHelper;
+
+                var mock = new Mock<IRequestModelHelper>();
+                // mock.Setup(x => x.GetAll()).Returns(StoriesAll);
+                _requestModelHelper = mock;
+                return _requestModelHelper;
+            }
+        }
     }
 }
