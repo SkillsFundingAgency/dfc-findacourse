@@ -4,6 +4,7 @@ using ESFA.UI.Specflow.Framework.Project.Tests.Pages;
 using ESFA.UI.Specflow.Framework.Project.Tests.TestSupport;
 using OpenQA.Selenium;
 using TechTalk.SpecFlow;
+using System.Threading;
 
 namespace ESFA.UI.Specflow.Framework.Project.Tests.StepDefinitions
 {
@@ -21,7 +22,9 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.StepDefinitions
 		[Then(@"I should be on (.*) page")]
 		public void ConfirmSearchResultsPage(string searchPage)
 		{
-			FindACourseSearchResultsPage findACourseSearchResultsPage = new FindACourseSearchResultsPage(webDriver);
+            Thread.Sleep(2000);
+            PageInteractionHelper.WaitForPageToLoad();
+            FindACourseSearchResultsPage findACourseSearchResultsPage = new FindACourseSearchResultsPage(webDriver);
 			FindACourseSearchResultsPage.Equals(By.TagName("h1"), searchPage);
 		}
 
