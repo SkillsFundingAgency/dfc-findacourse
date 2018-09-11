@@ -8,7 +8,7 @@ namespace ESFA.UI.Specflow.Framework.FindACourse.Project.Framework.Helpers
         //private static string reportNm = null;
         //private static string reportPath = null;
 
-        public static void CreateFilePath(string filePath)
+        public static string CreateFilePath(string filePath)
         {
             String reportsDirectory = AppDomain.CurrentDomain.BaseDirectory
                        + "../../"
@@ -21,7 +21,7 @@ namespace ESFA.UI.Specflow.Framework.FindACourse.Project.Framework.Helpers
             }
             string reportNm = (DateTime.Now.ToString("yyyyMMddHHmmss") + ".html");
             string reportPath = Path.Combine(reportsDirectory, reportNm);
-            return;
+            return reportPath;
         }
     }
 }

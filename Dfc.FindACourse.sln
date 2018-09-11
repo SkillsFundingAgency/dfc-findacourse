@@ -11,6 +11,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfc.FindACourse.Common", "s
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfc.FindACourse.Common.UnitTests", "tests\Dfc.FindACourse.Common.UnitTests\Dfc.FindACourse.Common.UnitTests.csproj", "{4D06FB61-B9C2-4EC8-BD50-E6C4A7B08B3C}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dfc.FindACourse.Web.UnitTest", "Dfc.FindACourse.Web.UnitTest\Dfc.FindACourse.Web.UnitTest.csproj", "{7AF739C5-FB15-4ED2-91E0-C970551A0445}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dfc.FindACourse.TestUtilities", "Dfc.FindACourse.TestUtilities\Dfc.FindACourse.TestUtilities.csproj", "{BC6A6303-84AA-403F-9E89-F2FC75B0ACE5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -33,6 +37,14 @@ Global
 		{4D06FB61-B9C2-4EC8-BD50-E6C4A7B08B3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4D06FB61-B9C2-4EC8-BD50-E6C4A7B08B3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4D06FB61-B9C2-4EC8-BD50-E6C4A7B08B3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7AF739C5-FB15-4ED2-91E0-C970551A0445}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7AF739C5-FB15-4ED2-91E0-C970551A0445}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7AF739C5-FB15-4ED2-91E0-C970551A0445}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7AF739C5-FB15-4ED2-91E0-C970551A0445}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC6A6303-84AA-403F-9E89-F2FC75B0ACE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC6A6303-84AA-403F-9E89-F2FC75B0ACE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC6A6303-84AA-403F-9E89-F2FC75B0ACE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC6A6303-84AA-403F-9E89-F2FC75B0ACE5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

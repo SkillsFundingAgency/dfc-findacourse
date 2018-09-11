@@ -12,6 +12,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Xml;
+using Dfc.FindACourse.Web.Interfaces;
 
 namespace Dfc.FindACourse.Web
 {
@@ -20,23 +21,25 @@ namespace Dfc.FindACourse.Web
     /// Validates the data
     /// then caches that data in Memcache for the application to use
     /// </summary>
-    public class FileHelper
+    public class FileHelper : IFileHelper
     {
-        public IConfiguration _configuration;
-        private IMemoryCache _cache;
+        public IConfiguration Configuration { get; }
+        public IMemoryCache Cache { get; }
+        public ITelemetryClient Telemetry { get; }
+
         private string _storagename;
         private string _storagekey;
         private string _containername;
-        private TelemetryClient _telemetry;
+        private ITelemetryClient _telemetry;
 
 
-        public FileHelper(IConfiguration configuration, IMemoryCache cache, TelemetryClient telemetryClient)
+        public FileHelper(IConfiguration configuration, IMemoryCache cache, ITelemetryClient telemetryClient)
         {
-            _configuration = configuration;
-            _cache = cache;
-            _storagename = _configuration["Storage:AccountName"];
-            _storagekey = _configuration["Storage:AccountKey"];
-            _containername = _configuration["Storage:ContainerReference"];
+            Configuration = configuration;
+            Cache = cache;
+            _storagename = Configuration["Storage:AccountName"];
+            _storagekey = Configuration["Storage:AccountKey"];
+            _containername = Configuration["Storage:ContainerReference"];
             _telemetry = telemetryClient;
         }
 
@@ -108,10 +111,10 @@ namespace Dfc.FindACourse.Web
         /// <returns></returns>
         public async Task DownloadSynonymFile()
         {
-            string storageSynName = _configuration["Storage:SynonymsFilename"];
-            string tempPath = _configuration["ConfigSettings:TempSynonymFilePath"];
+            string storageSynName = Configuration["Storage:SynonymsFilename"];
+            string tempPath = Configuration["ConfigSettings:TempSynonymFilePath"];
             string tempFile = System.IO.Path.Combine(tempPath, storageSynName);
-            string configFile = System.IO.Path.Combine(_configuration["ConfigSettings:SynonymFilePath"], _configuration["ConfigSettings:SynonymFileName"]);
+            string configFile = System.IO.Path.Combine(Configuration["ConfigSettings:SynonymFilePath"], Configuration["ConfigSettings:SynonymFileName"]);
 
             var success = await DownloadFile(storageSynName, tempPath);
 
@@ -120,9 +123,9 @@ namespace Dfc.FindACourse.Web
                 File.Copy(tempFile, configFile, true);
                 //Now cache
                 XmlDocument searchTerms = new XmlDocument();
-                searchTerms.Load(System.IO.Path.Combine(_configuration["ConfigSettings:SynonymFilePath"], _configuration["ConfigSettings:SynonymFileName"]));
+                searchTerms.Load(System.IO.Path.Combine(Configuration["ConfigSettings:SynonymFilePath"], Configuration["ConfigSettings:SynonymFileName"]));
 
-                CacheHelper.CacheFile(_cache, searchTerms, CacheKeys.Synonyms);
+                CacheHelper.CacheFile(Cache, searchTerms, CacheKeys.Synonyms);
             }
 
 
@@ -134,10 +137,10 @@ namespace Dfc.FindACourse.Web
         /// <returns></returns>
         public async Task DownloadConfigFiles()
         {
-            string storageName = _configuration["Storage:QualSettingsFilename"];
-            string tempPath = _configuration["ConfigSettings:TempSettingsFilePath"];
+            string storageName = Configuration["Storage:QualSettingsFilename"];
+            string tempPath = Configuration["ConfigSettings:TempSettingsFilePath"];
             string tempFilePath= System.IO.Path.Combine(tempPath, storageName);
-            string configFilePath = System.IO.Path.Combine(_configuration["ConfigSettings:SettingsFilePath"], _configuration["ConfigSettings:QualSettingsFileName"]);
+            string configFilePath = System.IO.Path.Combine(Configuration["ConfigSettings:SettingsFilePath"], Configuration["ConfigSettings:QualSettingsFileName"]);
 
             var success = await DownloadFile(storageName, tempPath);
 
@@ -147,7 +150,7 @@ namespace Dfc.FindACourse.Web
                 //now cache the data
                 using (StreamReader r = new StreamReader(configFilePath))
                 {
-                    CacheHelper.CacheFile(_cache, JsonConvert.DeserializeObject<List<QualLevel>>(r.ReadToEnd()), CacheKeys.QualificationLevels);
+                    CacheHelper.CacheFile(Cache, JsonConvert.DeserializeObject<List<QualLevel>>(r.ReadToEnd()), CacheKeys.QualificationLevels);
                     r.Close();
                 }
 
@@ -253,39 +256,40 @@ namespace Dfc.FindACourse.Web
         public XmlDocument LoadSynonyms()
         {
             XmlDocument searchTerms = new XmlDocument();
-            if (!_cache.TryGetValue(CacheKeys.Synonyms, out searchTerms))
+            if (!Cache.TryGetValue(CacheKeys.Synonyms, out searchTerms))
             {
-                if (!System.IO.File.Exists(System.IO.Path.Combine(_configuration["ConfigSettings:SynonymFilePath"], _configuration["ConfigSettings:SynonymFileName"])))
+                if (!System.IO.File.Exists(System.IO.Path.Combine(Configuration["ConfigSettings:SynonymFilePath"], Configuration["ConfigSettings:SynonymFileName"])))
                 {
                     DownloadSynonymFile().Wait();
                 }
                 else //since it exists and it is not cached, Cache it now
                 {
                     searchTerms = new XmlDocument();
-                    searchTerms.Load(System.IO.Path.Combine(_configuration["ConfigSettings:SynonymFilePath"], _configuration["ConfigSettings:SynonymFileName"]));
-                    CacheHelper.CacheFile(_cache, searchTerms, CacheKeys.Synonyms);
+                    searchTerms.Load(System.IO.Path.Combine(Configuration["ConfigSettings:SynonymFilePath"], Configuration["ConfigSettings:SynonymFileName"]));
+                    CacheHelper.CacheFile(Cache, searchTerms, CacheKeys.Synonyms);
                 }
 
 
             }
             return searchTerms;
         }
+
         public IEnumerable<QualLevel> LoadQualificationLevels()
         {
             IEnumerable<QualLevel> qualificationlevels = null;
-            if (!_cache.TryGetValue(CacheKeys.QualificationLevels, out qualificationlevels))
+            if (!Cache.TryGetValue(CacheKeys.QualificationLevels, out qualificationlevels))
             {
-                if (!System.IO.File.Exists(System.IO.Path.Combine(_configuration["ConfigSettings:SettingsFilePath"], _configuration["ConfigSettings:QualSettingsFileName"])))
+                if (!System.IO.File.Exists(System.IO.Path.Combine(Configuration["ConfigSettings:SettingsFilePath"], Configuration["ConfigSettings:QualSettingsFileName"])))
                  {
                     DownloadConfigFiles().Wait();
                 }
                 //since it exists and it is not cached, cache it now
                 else
                 { 
-                    using (StreamReader r = new StreamReader(System.IO.Path.Combine(_configuration["ConfigSettings:SettingsFilePath"], _configuration["ConfigSettings:QualSettingsFileName"])))
+                    using (StreamReader r = new StreamReader(System.IO.Path.Combine(Configuration["ConfigSettings:SettingsFilePath"], Configuration["ConfigSettings:QualSettingsFileName"])))
                     {
                         qualificationlevels = JsonConvert.DeserializeObject<List<QualLevel>>(r.ReadToEnd());
-                        CacheHelper.CacheFile(_cache, qualificationlevels, CacheKeys.QualificationLevels);
+                        CacheHelper.CacheFile(Cache, qualificationlevels, CacheKeys.QualificationLevels);
                        
                         r.Close();
                     }
@@ -298,29 +302,6 @@ namespace Dfc.FindACourse.Web
         
         #endregion
 
-    }
-    public static class CacheHelper
-    {
-        public static void CacheFile<TItem>(IMemoryCache cache, TItem file, string fileKey)
-        {
-            TItem data = cache.GetOrCreate(fileKey, entry =>
-            {
-                entry.SlidingExpiration = TimeSpan.FromHours(23);
-                return file;
-            });
-        }
-        private static TItem GetOrCreate<TItem>(this IMemoryCache cache, object key, Func<ICacheEntry, TItem> factory)
-        {
-            object obj;
-            if (!cache.TryGetValue(key, out obj))
-            {
-                ICacheEntry entry = cache.CreateEntry(key);
-                obj = (object)factory(entry);
-                entry.SetValue(obj);
-                entry.Dispose();
-            }
-            return (TItem)obj;
-        }
     }
 
 }

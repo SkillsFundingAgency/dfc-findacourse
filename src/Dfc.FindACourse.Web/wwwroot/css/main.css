@@ -3173,3 +3173,7 @@ input[type="search"]::-webkit-search-decoration {
   display: inline-block;
   width: 28em;
 }
+
+.h1 {
+  color: red !important;
+}
