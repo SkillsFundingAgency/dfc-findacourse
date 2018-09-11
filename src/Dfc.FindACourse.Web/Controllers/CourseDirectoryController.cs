@@ -94,7 +94,7 @@ namespace Dfc.FindACourse.Web.Controllers
                 return View();
             }
 
-            var result = Service.CourseDetails(id);
+            var result = Service.CourseItemDetail(id);
 
             if (!CourseDirectory.IsSuccessfulResult(result, Telemetry, "Course Detail", id.Value.ToString(), dtStart)) return View();
 

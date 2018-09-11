@@ -126,7 +126,7 @@ namespace Dfc.FindACourse.Web.UnitTest
         {
             var courseDetailsResult = CreateCourseDetailsResult();
 
-            MockCourseDirectoryService.Setup(x => x.CourseDetails(It.IsAny<int>())).Returns(courseDetailsResult);
+            MockCourseDirectoryService.Setup(x => x.CourseItemDetail(It.IsAny<int>())).Returns(courseDetailsResult);
             MockCourseDirectory.Setup(x => x.IsSuccessfulResult<CourseItem>(
                 It.IsAny<IResult<CourseItem>>(), It.IsAny<ITelemetryClient>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<DateTime>()
             )).Returns(true);
@@ -157,7 +157,7 @@ namespace Dfc.FindACourse.Web.UnitTest
         {
             var courseDetailsResult = CreateCourseDetailsResult();
 
-            MockCourseDirectoryService.Setup(x => x.CourseDetails(It.IsAny<int>())).Returns(courseDetailsResult);
+            MockCourseDirectoryService.Setup(x => x.CourseItemDetail(It.IsAny<int>())).Returns(courseDetailsResult);
             MockCourseDirectory.Setup(x => x.IsSuccessfulResult<CourseItem>(
                 It.IsAny<IResult<CourseItem>>(), It.IsAny<ITelemetryClient>(), It.IsAny<string>(), It.IsAny<string>(),
                 It.IsAny<DateTime>()
@@ -171,11 +171,11 @@ namespace Dfc.FindACourse.Web.UnitTest
             AssertDefaultView(result);
         }
 
-        private static Result<CourseItem> CreateCourseDetailsResult()
+        private static Result<CourseItemDetail> CreateCourseDetailsResult()
         {
             var descriptionDate = new DescriptionDate(DateTime.Now);
             var venue = new Venue("v", new Address("L1", "L2", "L3", "L4", "L5", 10, 10), 10);
-            var course = new Course(1, "test", QualificationLevel.Level2);
+            var course = new CourseDetails(1, "test", string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
             var duration = new Duration("desc");
             var opportunity = new Opportunity(
                 1,
@@ -186,8 +186,9 @@ namespace Dfc.FindACourse.Web.UnitTest
                 venue,
                 "region",
                 duration);
+
             var provider = new Provider(1, "provider");
-            var courseItem = new CourseItem(course, opportunity, provider);
+            var courseItem = new CourseItemDetail(course, opportunity, provider, venue);
             var courseDetailsResult = Result.Ok(courseItem);
             return courseDetailsResult;
         }
