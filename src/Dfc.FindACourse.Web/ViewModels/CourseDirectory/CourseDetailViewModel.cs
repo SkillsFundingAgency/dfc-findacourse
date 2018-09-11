@@ -13,7 +13,7 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
         /// Main view model constructor
         /// </summary>
         /// <param name="value"></param>
-        public CourseDetailViewModel(ICourseItemDetail value)
+        public CourseDetailViewModel(ICourseItemDetail value, string distance)
         {
             CourseId = value.Coursedetails.CourseId;// Opportunity.Id;   
             CourseTitle = value.Coursedetails.CourseTitle;
@@ -24,7 +24,7 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
             AttendencePattern = value.Opportunity.AttendancePattern;
             ProviderName = value.Provider.Name;
             Location = (value.Opportunity.HasVenue) ? value.Opportunity.Venue.Address.ToString() : value.Opportunity.Region;
-            Distance = (value.Opportunity.HasVenue && value.Opportunity.Venue.Distance.HasValue) ? value.Opportunity.Venue.Distance.Value.ToString("0.0") : "0.0";
+            Distance = (value.Opportunity.HasVenue && value.Opportunity.Venue.Distance.HasValue) ? value.Opportunity.Venue.Distance.Value.ToString("0.0") : distance;
             StartDate = value.Opportunity.StartDate.ToString();
             Duration = value.Opportunity.Duration.ToString();
             AwardingBody = value.Coursedetails.AwardingBody;
@@ -47,8 +47,8 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
             CreditValue = value.Coursedetails.CreditValue;
             QCAGuidedLearningHours = value.Coursedetails.QCAGuidedLearningHours;
             SkillsForLifeTypeDesc = value.Coursedetails.SkillsForLifeTypeDesc;
-
-
+            Venue = (Venue)value.Venue;
+            Provider = (Provider)value.Provider;
 
 
         }
@@ -105,6 +105,9 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
 
         public string QCAGuidedLearningHours { get; set; }
         public string SkillsForLifeTypeDesc { get; set; }
+
+        public Venue Venue { get; set; }
+        public Provider Provider { get; set; }
 
         public bool IsDisplayble(StudyMode studyMode)
         {

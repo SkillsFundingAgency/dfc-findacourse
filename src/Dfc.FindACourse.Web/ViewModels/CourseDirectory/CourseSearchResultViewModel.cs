@@ -18,6 +18,7 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
             NoOfRecords = result.Value.NoOfRecords;
             NoOfPages = result.Value.NoOfPages;
             Items = result.Value.Items.Select(x => new CourseSearchResultItemViewModel(x)).ToList();
+            DefaultRadiusDistance = RadiusDistance.Miles20;
         }
 
         [Display(Name = "Course name")]
