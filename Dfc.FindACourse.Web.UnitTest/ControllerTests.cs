@@ -127,8 +127,8 @@ namespace Dfc.FindACourse.Web.UnitTest
             var courseDetailsResult = CreateCourseDetailsResult();
 
             MockCourseDirectoryService.Setup(x => x.CourseItemDetail(It.IsAny<int>())).Returns(courseDetailsResult);
-            MockCourseDirectory.Setup(x => x.IsSuccessfulResult<CourseItem>(
-                It.IsAny<IResult<CourseItem>>(), It.IsAny<ITelemetryClient>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<DateTime>()
+            MockCourseDirectory.Setup(x => x.IsSuccessfulResult(
+                It.IsAny<IResult<CourseItemDetail>>(), It.IsAny<ITelemetryClient>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<DateTime>()
             )).Returns(true);
             MockTelemetryClient.Setup(x => x.TrackEvent(It.IsAny<string>(), null, null)).Verifiable();
             MockTelemetryClient.Setup(x => x.Flush()).Verifiable();
@@ -158,8 +158,8 @@ namespace Dfc.FindACourse.Web.UnitTest
             var courseDetailsResult = CreateCourseDetailsResult();
 
             MockCourseDirectoryService.Setup(x => x.CourseItemDetail(It.IsAny<int>())).Returns(courseDetailsResult);
-            MockCourseDirectory.Setup(x => x.IsSuccessfulResult<CourseItem>(
-                It.IsAny<IResult<CourseItem>>(), It.IsAny<ITelemetryClient>(), It.IsAny<string>(), It.IsAny<string>(),
+            MockCourseDirectory.Setup(x => x.IsSuccessfulResult(
+                It.IsAny<IResult<CourseItemDetail>>(), It.IsAny<ITelemetryClient>(), It.IsAny<string>(), It.IsAny<string>(),
                 It.IsAny<DateTime>()
             )).Returns(false);
             MockTelemetryClient.Setup(x => x.TrackEvent(It.IsAny<string>(), null, null)).Verifiable();
