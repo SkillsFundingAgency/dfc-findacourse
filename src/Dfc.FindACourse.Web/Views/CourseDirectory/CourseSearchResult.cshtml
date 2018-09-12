@@ -1,7 +1,9 @@
 ﻿@using Dfc.FindACourse.Common;
 @using Microsoft.AspNetCore.Http;
+@using Microsoft.AspNetCore.Http.Extensions;
 @using Dfc.FindACourse.Web.HtmlHelpers;
 @using Dfc.FindACourse.Web.ViewModels.CourseDirectory;
+@using System.Web;
 @model Dfc.FindACourse.Web.ViewModels.CourseDirectory.CourseSearchResultViewModel;
 
 @{
@@ -154,20 +156,28 @@
                             </div>
                         }
 
-                        <div class="pagination">
-                            <a href="" class="pagination-item pagination-previous">previous</a>
-                            <a href="" class="pagination-item">1</a>
-                            <a href="" class="pagination-item">2</a>
-                            <a href="" class="pagination-item">3</a>
-                            <a href="" class="pagination-item">4</a>
-                            <a href="" class="pagination-item">5</a>
-                            <a href="" class="pagination-item">6</a>
-                            <a href="" class="pagination-item">7</a>
-                            <a href="" class="pagination-item">8</a>
-                            <a href="" class="pagination-item">9</a>
-                            <a href="" class="pagination-item">10</a>
-                            <a href="" class="pagination-item pagination-next">next</a>
-                        </div>
+                            <div class="pagination">
+                                <a href="" class="pagination-item pagination-previous">previous</a>
+
+                                @for (var i = 1; i <= Model.NoOfPages; i++)
+                                {
+                                    var ub = new UriBuilder(Context.Request.GetDisplayUrl());
+                                    var qs = HttpUtility.ParseQueryString(ub.Query);
+                                    qs.Set(nameof(Model.PageNo), i.ToString());
+                                    ub.Query = qs.ToString();
+
+                                    if (i == Model.PageNo)
+                                    {
+                                        <a href="@ub.ToString()" class="pagination-item current">@i</a>
+                                    }
+                                    else
+                                    {
+                                        <a href="@ub.ToString()" class="pagination-item">@i</a>
+                                    }
+                                }
+
+                                <a href="" class="pagination-item pagination-next">next</a>
+                            </div>
                     }
                     else
                     {
