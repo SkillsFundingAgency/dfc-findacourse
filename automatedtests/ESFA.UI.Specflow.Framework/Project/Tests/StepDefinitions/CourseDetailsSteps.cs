@@ -62,6 +62,40 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.StepDefinitions
             findACourseCourseDetailsPage.ClickAdvancedlearnerlink();
         }
 
+        [Then(@"Course Start Date details are displayed")]
+        public void CourseStartDateDisplayed()
+        {
+            FindACourseCourseDetailsPage findACourseCourseDetailsPage = new FindACourseCourseDetailsPage(webDriver);
+            findACourseCourseDetailsPage.GetStartDate();
+        }
+
+        [Then(@"Course Duration details are displayed")]
+        public void CourseDurationDisplayed()
+        {
+            FindACourseCourseDetailsPage findACourseCourseDetailsPage = new FindACourseCourseDetailsPage(webDriver);
+            findACourseCourseDetailsPage.GetDuration();
+        }
+
+        [Then(@"Study Mode details are displayed")]
+        public void StudyModeDisplayed()
+        {
+            FindACourseCourseDetailsPage findACourseCourseDetailsPage = new FindACourseCourseDetailsPage(webDriver);
+            findACourseCourseDetailsPage.GetStudyMode();
+        }
+
+        [Then(@"Attendance Pattern details are displayed")]
+        public void AttendancePatternDisplayed()
+        {
+            FindACourseCourseDetailsPage findACourseCourseDetailsPage = new FindACourseCourseDetailsPage(webDriver);
+            findACourseCourseDetailsPage.GetAttendancePattern();
+        }
+
+        [Then(@"Attendance Pattern Mode are displayed")]
+        public void AttendanceModeDisplayed()
+        {
+            FindACourseCourseDetailsPage findACourseCourseDetailsPage = new FindACourseCourseDetailsPage(webDriver);
+            findACourseCourseDetailsPage.GetAttendanceMode();
+        }
 
     }
 }

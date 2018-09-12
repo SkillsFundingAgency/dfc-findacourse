@@ -124,7 +124,7 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.StepDefinitions
         public void SelectCourseTitle()
         {
             FindACourseSearchResultsPage findACourseSearchResultsPage = new FindACourseSearchResultsPage(webDriver);
-            findACourseSearchResultsPage.SelectFirstCourse();
+            findACourseSearchResultsPage.SelectFirstCourseAndStoreData();
             
         }
     }

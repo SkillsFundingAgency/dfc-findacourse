@@ -18,13 +18,8 @@ Scenario Outline: DFC-4194 View Course Details
 
 Examples:
 | CourseName        | QualificationLevel                                   | Location   | Distance | 
-| Maths             | Level 2 - GCSE/O level                               | London     | 5 Miles  |
 | English           | Level 3 - A level/Access to higher education diploma | Birmingham | 10 Miles |
-| BUILDING SERVICES | Level 3 - A level/Access to higher education diploma | B13 9DA    | 3 Miles  | 
-| Bricklaying       | Level 1 - First certificate                          | London     | 3 Miles  | 
-| Maths             | Level 2 - GCSE/O level                               | London     | 5 Miles  |
-| English           | Level 3 - A level/Access to higher education diploma | Birmingham | 10 Miles |
-| Electronic        | Level 5 - Foundation degree/HND                      | London     | 20 Miles |
+| BUILDING SERVICES | Level 3 - A level/Access to higher education diploma | B13 9DA    | 3 Miles  |  
 
 
 
@@ -32,6 +27,7 @@ Examples:
 Scenario Outline: DFC-3973 View Course Details display Course Title
 	Given I navigate to Find a Course home page
 	When I enter course <CourseName>
+    And I enter location <Location>
 	And I click Search
 	Then I should be on Search Results for page
 	When I select course title
@@ -39,26 +35,26 @@ Scenario Outline: DFC-3973 View Course Details display Course Title
 	And course title information is displayed
 
   Examples:
-    | CourseName |
-    | Maths      |
-    | Electrical |
-    | horse      |
+    | CourseName | Location |
+    | Maths      | b13 8py  |
+    | Electrical | b13 8py  |
 
 
-
-@DFC-3973
-Scenario Outline: DFC-3973 View Course Details display Qualification
-	Given I navigate to Find a Course home page
-	When I enter course <CourseName>
-	And I click Search
-	Then I should be on Search Results for page
-	When I select course title
-	Then the View Course details page is displayed
-	And Qualification information <Qualification> is displayed
-
-  Examples:
-    | CourseName    | Qualification|
-    | Hair & Beauty | Hair and Beauty - Introduction to the Hairdressing and Beauty Sector (Hair & Beauty Route) |
+# BUG
+#@DFC-3973
+#Scenario Outline: DFC-3973 View Course Details display Qualification
+#	Given I navigate to Find a Course home page
+#	When I enter course <CourseName>
+#    And I enter location <Location>
+#	And I click Search
+#	Then I should be on Search Results for page
+#	When I select course title
+#	Then the View Course details page is displayed
+#	And Qualification information <Qualification> is displayed
+#
+#  Examples:
+#    | CourseName    | Location | Qualification|
+#    | Hair & Beauty | b14 7en  |Hair and Beauty - Introduction to the Hairdressing and Beauty Sector (Hair & Beauty Route) |
 
 
 
@@ -66,6 +62,7 @@ Scenario Outline: DFC-3973 View Course Details display Qualification
 Scenario Outline: DFC-3973 View Course Details display Entry Requirements
 	Given I navigate to Find a Course home page
 	When I enter course <CourseName>
+	And I enter location <Location>
 	And I click Search
 	Then I should be on Search Results for page
 	When I select course title
@@ -73,10 +70,10 @@ Scenario Outline: DFC-3973 View Course Details display Entry Requirements
 	And Entry Requirements <EntryRequirements> are displayed
 
   Examples:
-    | CourseName    | EntryRequirements                                                     |
-    | Hair & Beauty | Three or more GCSEs at grades A*-E, including Maths and English.      |
-    | Electrical    | Two GCSE subjects at grade E or better or equivalent to include Maths | 
-    | Gardening     | There are no entry requirements for this course.                      |
+    | CourseName    | Location | EntryRequirements                                      |
+    | Hair & Beauty | b14 7en  | There are no formal entry requirements                 |
+    | Electrical    | b14 7en  | City & Guilds 2365 Level 2.City & Guilds 2330 Level 2. |
+    | Gardening     | b14 7en  | There are no prerequisites for entry                   |
 
 
 
@@ -84,6 +81,7 @@ Scenario Outline: DFC-3973 View Course Details display Entry Requirements
 Scenario Outline: DFC-3973 View Course Details display Cost
 	Given I navigate to Find a Course home page
 	When I enter course <CourseName>
+    And I enter location <Location>
 	And I click Search
 	Then I should be on Search Results for page
 	When I select course title
@@ -91,10 +89,9 @@ Scenario Outline: DFC-3973 View Course Details display Cost
 	And Cost Details <Cost> are displayed
 
   Examples:
-    | CourseName | Cost                    |
-    | Gardening  | The course fee is £1275 |
-    | Electrical | The course fee is £1275 |
-    | horse      | The course fee is £1275 |
+    | CourseName | Location | Cost                    |
+    | Gardening  | b14 7en  | The course fee is £1275 |
+    | Electrical | b14 7en  | The course fee is £1275 |
 
 
 
@@ -102,6 +99,7 @@ Scenario Outline: DFC-3973 View Course Details display Cost
 Scenario Outline: DFC-3973 View Course Details display Loans
 	Given I navigate to Find a Course home page
 	When I enter course <CourseName>
+    And I enter location <Location>
 	And I click Search
 	Then I should be on Search Results for page
 	When I select course title
@@ -110,8 +108,8 @@ Scenario Outline: DFC-3973 View Course Details display Loans
 	Then I will be on the advanced learner loan page
 
   Examples:
-    | CourseName |
-    | Electrical |
+    | CourseName |Location|
+    | Electrical |b14 7en   |
 	
 	
 
@@ -119,6 +117,7 @@ Scenario Outline: DFC-3973 View Course Details display Loans
 Scenario Outline: DFC-3973 View Course Details display Start Date
 	Given I navigate to Find a Course home page
 	When I enter course <CourseName>
+	And I enter location <Location>
 	And I click Search
 	Then I should be on Search Results for page
 	When I select course title
@@ -126,10 +125,9 @@ Scenario Outline: DFC-3973 View Course Details display Start Date
 	And Course Start Date details are displayed
 
   Examples:
-    | CourseName |
-    | Maths      |
-    | Electrical |
-    | horse      |
+    | CourseName | Location |
+    | Gardening  | London   |
+
 
 
 
@@ -137,6 +135,7 @@ Scenario Outline: DFC-3973 View Course Details display Start Date
 Scenario Outline: DFC-3973 View Course Details display Duration
 	Given I navigate to Find a Course home page
 	When I enter course <CourseName>
+	And I enter location <Location>
 	And I click Search
 	Then I should be on Search Results for page
 	When I select course title
@@ -144,9 +143,9 @@ Scenario Outline: DFC-3973 View Course Details display Duration
 	And Course Duration details are displayed
 
   Examples:
-    | CourseName |
-    | Maths      |
-    | Electrical |
+    | CourseName | Location |
+    | baker      | cv1 2nl   |
+    | geology    | b14 7rn  |
 
 
 
@@ -154,6 +153,7 @@ Scenario Outline: DFC-3973 View Course Details display Duration
 Scenario Outline: DFC-3973 View Course Details display Study Mode
 	Given I navigate to Find a Course home page
 	When I enter course <CourseName>
+	And I enter location <Location>
 	And I click Search
 	Then I should be on Search Results for page
 	When I select course title
@@ -161,9 +161,8 @@ Scenario Outline: DFC-3973 View Course Details display Study Mode
 	And Study Mode details are displayed
 
   Examples:
-    | CourseName |
-    | Maths      |
-    | Electrical |
+    | CourseName | Location |
+    | baker      | cv1 2nl  |
 
 
 
@@ -171,6 +170,7 @@ Scenario Outline: DFC-3973 View Course Details display Study Mode
 Scenario Outline: DFC-3973 View Course Details display Attendance Pattern
 	Given I navigate to Find a Course home page
 	When I enter course <CourseName>
+	And I enter location <Location>
 	And I click Search
 	Then I should be on Search Results for page
 	When I select course title
@@ -178,6 +178,21 @@ Scenario Outline: DFC-3973 View Course Details display Attendance Pattern
 	And Attendance Pattern details are displayed
 
   Examples:
-    | CourseName |
-    | Maths      |
-    | Electrical |
+    | CourseName | Location |
+    | baker      | cv1 2nl  |
+
+
+	@DFC-3973
+Scenario Outline: DFC-3973 View Course Details display Attendance Mode
+	Given I navigate to Find a Course home page
+	When I enter course <CourseName>
+	And I enter location <Location>
+	And I click Search
+	Then I should be on Search Results for page
+	When I select course title
+	Then the View Course details page is displayed
+	And Attendance Pattern Mode are displayed
+
+  Examples:
+    | CourseName | Location |
+    | baker      | cv1 2nl  |

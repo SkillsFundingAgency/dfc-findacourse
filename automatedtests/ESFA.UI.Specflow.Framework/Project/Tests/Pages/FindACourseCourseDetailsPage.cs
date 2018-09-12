@@ -28,6 +28,11 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.Pages
         private readonly By entryRequirements = By.XPath(".//*[@id='1']/table/tbody/tr[2]/td[2]");
         private readonly By cost = By.XPath(".//*[@id='1']/table/tbody/tr[3]/td[2]");
         private readonly By advancedlink = By.PartialLinkText("Advanced Learner");
+        private readonly By startDate = By.XPath(".//*[@id='1']/table/tbody/tr[4]/td[2]");
+        private readonly By duration = By.XPath(".//*[@id='1']/table/tbody/tr[5]/td[2]");
+        private readonly By studyMode = By.XPath(".//*[@id='1']/table/tbody/tr[6]/td[2]");
+        private readonly By attendancePattern = By.XPath(".//*[@id='1']/table/tbody/tr[7]/td[2]");
+        private readonly By attendanceMode = By.XPath(".//*[@id='1']/table/tbody/tr[8]/td[2]");
 
 
         internal FindACourseCourseDetailsPage CheckNullResults()
@@ -72,7 +77,35 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.Pages
             return new FindACourseCourseDetailsPage(webDriver);
         }
 
+        internal FindACourseCourseDetailsPage GetStartDate()
+        {
+            PageInteractionHelper.VerifyText(startDate, ScenarioContext.Current["StartDate"].ToString());
+            return new FindACourseCourseDetailsPage(webDriver);
+        }
+
+        internal FindACourseCourseDetailsPage GetDuration()
+        {
+            PageInteractionHelper.VerifyText(duration, ScenarioContext.Current["Duration"].ToString());
+            return new FindACourseCourseDetailsPage(webDriver);
+        }
+
+        internal FindACourseCourseDetailsPage GetStudyMode()
+        {
+            PageInteractionHelper.VerifyText(studyMode, ScenarioContext.Current["StudyMode"].ToString());
+            return new FindACourseCourseDetailsPage(webDriver);
+        }
+
+        internal FindACourseCourseDetailsPage GetAttendancePattern()
+        {
+            PageInteractionHelper.VerifyText(attendancePattern, ScenarioContext.Current["AttendancePattern"].ToString());
+            return new FindACourseCourseDetailsPage(webDriver);
+        }
+
+        internal FindACourseCourseDetailsPage GetAttendanceMode()
+        {
+            PageInteractionHelper.VerifyText(attendanceMode, ScenarioContext.Current["AttendanceMode"].ToString());
+            return new FindACourseCourseDetailsPage(webDriver);
+        }
+
     }
-
-
-}
+ }

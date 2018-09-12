@@ -33,6 +33,7 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.Pages
         private readonly By distance = By.XPath(".//*[@id='FindACourseForm']/div[2]/div[2]/div[2]/div/div[1]/ul[2]/li[3]/span[2]");
         private readonly By startDate = By.XPath(".//*[@id='FindACourseForm']/div[2]/div[2]/div[2]/div/div[1]/ul[2]/li[4]/span[2]");
         private readonly By duration = By.XPath(".//*[@id='FindACourseForm']/div[2]/div[2]/div[2]/div/div[1]/ul[2]/li[5]/span[2]");
+        
 
         internal FindACourseSearchResultsPage CheckNullResults()
         {
@@ -112,13 +113,41 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.Pages
             return new FindACourseSearchResultsPage(webDriver);
         }
 
-        internal FindACourseSearchResultsPage SelectFirstCourse()
+        internal FindACourseSearchResultsPage SelectFirstCourseAndStoreData()
         {
+            //add information to sceanrio context to use on page 3
             ScenarioContext.Current["CourseTitle"] = webDriver.FindElement(courseTitle).GetAttribute("innerText");
-            Console.WriteLine("course title: " + ScenarioContext.Current["CourseTitle"]);
+
+            if (PageInteractionHelper.IsElementPresent(startDate))
+            {
+                ScenarioContext.Current["StartDate"] = webDriver.FindElement(startDate).GetAttribute("innerText");
+            }
+
+            if (PageInteractionHelper.IsElementPresent(duration))
+            {
+                ScenarioContext.Current["Duration"] = webDriver.FindElement(duration).GetAttribute("innerText");
+            }
+
+            if (PageInteractionHelper.IsElementPresent(studyMode))
+            {
+                ScenarioContext.Current["StudyMode"] = webDriver.FindElement(studyMode).GetAttribute("innerText");
+            }
+
+            if (PageInteractionHelper.IsElementPresent(attendancePattern))
+            {
+                string[] attPattern = webDriver.FindElement(attendancePattern).GetAttribute("innerText").Split('|');
+                ScenarioContext.Current["AttendancePattern"] = attPattern[1].TrimStart();
+            }
+
+            if (PageInteractionHelper.IsElementPresent(attendanceMode))
+            {
+                string[] attMode = webDriver.FindElement(attendanceMode).GetAttribute("innerText").Split('|');
+                ScenarioContext.Current["AttendanceMode"] = attMode[1].TrimStart().TrimEnd();
+            }
+                
             FormCompletionHelper.ClickElement(courseTitle);
             return new FindACourseSearchResultsPage(webDriver);
-
         }
+
     }
 }
