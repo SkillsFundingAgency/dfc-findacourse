@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Moq;
 
-namespace Dfc.FindACourse.Web.UnitTest
+namespace Dfc.FindACourse.Web.UnitTests
 {
     public class BaseTests
     {
@@ -107,6 +107,20 @@ namespace Dfc.FindACourse.Web.UnitTest
                 // mock.Setup(x => x.GetAll()).Returns(StoriesAll);
                 _fileHelperMock = mock;
                 return _fileHelperMock;
+            }
+        }
+
+        private Mock<ICourseDirectoryHelper> _courseDirectoryHelper;
+        public Mock<ICourseDirectoryHelper> MockCourseDirectoryHelper
+        {
+            get
+            {
+                if (_courseDirectoryHelper != null) return _courseDirectoryHelper;
+
+                var mock = new Mock<ICourseDirectoryHelper>();
+                // mock.Setup(x => x.GetAll()).Returns(StoriesAll);
+                _courseDirectoryHelper = mock;
+                return _courseDirectoryHelper;
             }
         }
     }

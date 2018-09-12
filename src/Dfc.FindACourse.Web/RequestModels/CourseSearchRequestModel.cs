@@ -1,8 +1,9 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using Dfc.FindACourse.Web.Interfaces;
 
 namespace Dfc.FindACourse.Web.RequestModels
 {
-    public class CourseSearchRequestModel
+    public class CourseSearchRequestModel : ICourseSearchRequestModel
     {
         [Display(Name = "Course name")]
         [Required]

@@ -59,6 +59,7 @@ namespace Dfc.FindACourse.Web
             services.AddScoped<ITelemetryClient, MyTelemetryClient>();
             services.AddScoped<ICourseDirectory, CourseDirectory>();
             services.AddScoped<IFileHelper, FileHelper>();
+            services.AddScoped<ICourseDirectoryHelper, CourseDirectoryHelper>();
 
             services.AddScoped<ICourseDirectoryService, CourseDirectoryService>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);

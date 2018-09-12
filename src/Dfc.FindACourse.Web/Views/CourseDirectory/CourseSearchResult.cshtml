@@ -1,4 +1,5 @@
 ﻿@using Dfc.FindACourse.Common;
+@using Microsoft.AspNetCore.Http;
 @using Dfc.FindACourse.Web.HtmlHelpers;
 @using Dfc.FindACourse.Web.ViewModels.CourseDirectory;
 @model Dfc.FindACourse.Web.ViewModels.CourseDirectory.CourseSearchResultViewModel;
@@ -6,8 +7,8 @@
 @{
     ViewData["Title"] = "CourseSearchResult";
 }
-<form id="FindACourseForm" 
-      name="FindACourseForm"  
+<form id="FindACourseForm"
+      name="FindACourseForm"
       action="/" method="post">
     <div class="grid-row">
         <div class="column-full">
@@ -97,8 +98,8 @@
                         {
                             <div class="search-result-item">
                                 <h3>
-                                    <a asp-action="CourseDetails" asp-route-id="@item.Id">@item.CourseTitle</a> 
-                                    
+                                    <a asp-action="CourseDetails" asp-route-id="@item.Id" asp-route-distance="@item.Distance">@item.CourseTitle</a>
+
                                 </h3>
                                 <div class="result-item-qualification-level">@item.QualificationLevel.GetDisplayName()</div>
                                 <ul class="result-item-course-attendence-study-mode-info">
@@ -152,6 +153,21 @@
                                 </ul>
                             </div>
                         }
+
+                        <div class="pagination">
+                            <a href="" class="pagination-item pagination-previous">previous</a>
+                            <a href="" class="pagination-item">1</a>
+                            <a href="" class="pagination-item">2</a>
+                            <a href="" class="pagination-item">3</a>
+                            <a href="" class="pagination-item">4</a>
+                            <a href="" class="pagination-item">5</a>
+                            <a href="" class="pagination-item">6</a>
+                            <a href="" class="pagination-item">7</a>
+                            <a href="" class="pagination-item">8</a>
+                            <a href="" class="pagination-item">9</a>
+                            <a href="" class="pagination-item">10</a>
+                            <a href="" class="pagination-item pagination-next">next</a>
+                        </div>
                     }
                     else
                     {

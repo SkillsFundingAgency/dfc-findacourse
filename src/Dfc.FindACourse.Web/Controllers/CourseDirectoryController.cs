@@ -3,18 +3,14 @@ using Dfc.FindACourse.Common.Models;
 using Dfc.FindACourse.Services.Interfaces;
 using Dfc.FindACourse.Web.RequestModels;
 using Dfc.FindACourse.Web.ViewModels.CourseDirectory;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using System;
 using System.Linq;
-using System.Xml;
-using Dfc.FindACourse.Common.Interfaces;
 using Microsoft.Extensions.Options;
 using Dfc.FindACourse.Common.Settings;
 using Dfc.FindACourse.Web.Interfaces;
-using Newtonsoft.Json;
 
 namespace Dfc.FindACourse.Web.Controllers
 {
@@ -27,11 +23,12 @@ namespace Dfc.FindACourse.Web.Controllers
         public IOptions<App> Settings { get; }
         public ICourseDirectory CourseDirectory { get; }
         public IFileHelper Files { get; }
+        public ICourseDirectoryHelper CourseDirectoryHelper { get; }
 
 
         public CourseDirectoryController(IConfiguration configuration, ICourseDirectoryService courseDirectoryService
             , IMemoryCache memoryCache, ITelemetryClient telemetryClient, IOptions<App> appSettings,
-            ICourseDirectory courseDirectory, IFileHelper fileHelper)
+            ICourseDirectory courseDirectory, IFileHelper fileHelper, ICourseDirectoryHelper requestModelHelper)
         {
             Configuration = configuration;
             Service = courseDirectoryService;
@@ -40,6 +37,7 @@ namespace Dfc.FindACourse.Web.Controllers
             Settings = appSettings;
             CourseDirectory = courseDirectory;
             Files = fileHelper;
+            CourseDirectoryHelper = requestModelHelper;
         }
 
         // GET: CourseDirectory
@@ -57,7 +55,7 @@ namespace Dfc.FindACourse.Web.Controllers
 
         // GET: CourseDirectory
         // ASB TODO - Should we not be returning OK objects? rather than empty Views if something goes wrong?
-        public ActionResult CourseSearchResult([FromQuery] CourseSearchRequestModel requestModel)
+        public ActionResult CourseSearchResult([FromQuery]  CourseSearchRequestModel requestModel)
         {
             var dtStart = DateTime.Now;
             if (!ModelState.IsValid)
@@ -73,15 +71,16 @@ namespace Dfc.FindACourse.Web.Controllers
 
             //DEBUG_FIX - Add the flush to see if working straightaway
             //ASB TODO Why are we flushing here? We may not end up here due to higher up returns.
+            //So that we could test the telemetry, a la the DEBUG_FIX
             Telemetry.Flush();
 
-            return View(new CourseSearchResultViewModel(result) { SubjectKeyword = requestModel.SubjectKeyword, Location = requestModel.Location });
+            return View(new CourseSearchResultViewModel(result) { SubjectKeyword = requestModel.SubjectKeyword, Location = requestModel.Location, DefaultRadiusDistance = (RadiusDistance)requestModel.LocationRadius });
             
         }
 
 
         // GET: CourseDirectory/Details/5
-        public IActionResult CourseDetails(int? id)
+        public IActionResult CourseDetails(int? id, string distance)
         {
             //Parmeters
             var dtStart = DateTime.Now;
@@ -92,14 +91,14 @@ namespace Dfc.FindACourse.Web.Controllers
                 return View();
             }
 
-            var result = Service.CourseDetails(id);
+            var result = Service.CourseItemDetail(id);
 
             if (!CourseDirectory.IsSuccessfulResult(result, Telemetry, "Course Detail", id.Value.ToString(), dtStart)) return View();
 
             //DEBUG_FIX - Add the flush to see if working straightaway ASB TODO AGain is this correct as wont get called if ModelState is Invalid
             Telemetry.Flush();
 
-            return View(new CourseDetailViewModel(result.Value) { });
+            return View(new CourseDetailViewModel(result.Value, !string.IsNullOrEmpty(distance) ? distance: string.Empty) { });
         }
 
 

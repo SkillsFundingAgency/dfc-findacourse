@@ -17,12 +17,12 @@
         </ol>
     </div>
 
-    <a class="link-back mt" href="course-search">Back to results</a>
+    <a class="link-back mt" href="javascript:history.go(-1)">Back to results</a>
 
     <div class="govuk-grid-row">
         <div class="govuk-grid-column-two-thirds">
             <h1 class="govuk-heading-l" style="padding-top: 20px;">
-                City & Guilds Intermediate Diploma in Plumbing
+                @Model.CourseTitle
             </h1>
             <section id="1">
 
@@ -30,42 +30,55 @@
                     <tbody class="govuk-table__body">
                         <tr class="govuk-table__row">
                             <td class="govuk-table__cell">Qualification name</td>
-                            <td class="govuk-table__cell">Level 2 Diploma in Plumbing Studies</td>
+                            <td class="govuk-table__cell">@Model.CourseTitle</td>
                         </tr>
                         <tr class="govuk-table__row">
                             <td class="govuk-table__cell">Entry requirements</td>
                             <td class="govuk-table__cell">
-                                Plumbing L1, or working in the trade, or previous experience.
+                                @Model.EntryRequirements
 
                             </td>
                         </tr>
                         <tr class="govuk-table__row">
                             <td class="govuk-table__cell">Cost</td>
-                            <td class="govuk-table__cell">The course fee is £1275 (Plus £125 Exam Fee).<!-- <br>For those aged 16 to 18, courses are government funded--><br><a href="https://www.gov.uk/advanced-learner-loan/overview" target="_blank">Advanced Learner Loans maybe available</a></td>
+                            <td class="govuk-table__cell">
+                                @if (!string.IsNullOrWhiteSpace(@Model.Opportunity.Price))
+                                {
+                                    @Model.Opportunity.Price
+                                }
+                                @if (!string.IsNullOrWhiteSpace(@Model.Opportunity.PriceDescription))
+                                {
+                                    @Model.Opportunity.PriceDescription
+                                }
+                                @if (Model.Provider.TFPlusLoansSpecified && Model.Provider.TFPlusLoans)
+                                {
+                                    <br><a href="https://www.gov.uk/advanced-learner-loan/overview" target="_blank">Advanced Learner Loans maybe available</a>
+                                }
+                            </td>
                         </tr>
                         <tr class="govuk-table__row">
                             <td class="govuk-table__cell">Start date</td>
-                            <td class="govuk-table__cell">10 September 2018</td>
+                            <td class="govuk-table__cell">@Model.StartDate</td>
                         </tr>
                         <tr class="govuk-table__row">
                             <td class="govuk-table__cell">Duration</td>
-                            <td class="govuk-table__cell">35 weeks </td>
+                            <td class="govuk-table__cell">@Model.Duration</td>
                         </tr>
                         <tr class="govuk-table__row">
                             <td class="govuk-table__cell">Full-time or part-time</td>
-                            <td class="govuk-table__cell">Part-time</td>
+                            <td class="govuk-table__cell">@Model.StudyMode.GetDisplayName()</td>
                         </tr>
                         <tr class="govuk-table__row">
                             <td class="govuk-table__cell">Day, night or weekend</td>
-                            <td class="govuk-table__cell">Normal working hours</td>
+                            <td class="govuk-table__cell">@Model.AttendencePattern.GetDisplayName()</td>
                         </tr>
                         <tr class="govuk-table__row">
                             <td class="govuk-table__cell">Classroom or online</td>
-                            <td class="govuk-table__cell">Classroom-based</td>
+                            <td class="govuk-table__cell">@Model.AttendanceMode.GetDisplayName()</td>
                         </tr>
                     </tbody>
                 </table>
-                <a target="_blank" href="https://www.newham.ac.uk/course-listing/city-guilds-intermediate-diploma-in-plumbing.html" role="button" class="govuk-button govuk-button--start">
+                <a target="_blank" href=@Model.BookingURL role="button" class="govuk-button govuk-button--start">
                     Enrol now
                 </a>
                 <p class="enrol-text">on the provider’s website</p>
@@ -74,17 +87,23 @@
             <section id="2">
                 <h2 class="govuk-heading-m">Course description</h2>
                 <p class="govuk-body govuk-!-font-size-19">
-                    The qualification covers many areas within plumbing and domestic heating, such as hot and cold water supplies, sanitation and understanding health and safety within Building Services Engineering. Candidates will be assessed by on-demand multiple choice tests (available through the City & Guilds assessment platform e-volve) and practical assignments.
+                    @Model.CourseSummary
                 </p>
-                <p class="govuk-heading-s">What you’ll need to bring</p>
-                <p class="govuk-body govuk-!-font-size-19">
-                    No equipment required
-                </p>
-                <p class="govuk-heading-s">How you’ll be assessed</p>
-                <p class="govuk-body govuk-!-font-size-19">
-                    Exam & Course work based
-                </p>
-            </section>
+                @if (!string.IsNullOrWhiteSpace(@Model.EquipmentRequired))
+                {
+                    <p class="govuk-heading-s">What you’ll need to bring</p>
+                    <p class="govuk-body govuk-!-font-size-19">
+                        @Model.EquipmentRequired
+                    </p>
+                }
+                @if (!string.IsNullOrWhiteSpace(@Model.AssessmentMethod))
+                {
+                    <p class="govuk-heading-s">How you’ll be assessed</p>
+                    <p class="govuk-body govuk-!-font-size-19">
+                        @Model.AssessmentMethod
+                    </p>
+                }
+             </section>
 
             <div class="icons-buttons" style="margin-top: 80px">
                 <h3 class="govuk-heading-m">Share this page</h3>
@@ -112,23 +131,32 @@
             <section id="6">
                 <aside class="govuk-related-items" role="complementary">
                     <h2 class="govuk-heading-s" style="margin-top: 10px">Provider</h2>
-                    <p class="govuk-body-s">Newham College of Further Education</p>
+                    <p class="govuk-body-s">@Model.ProviderName</p>
                     <hr>
                     <h2 class="govuk-heading-s" style="margin-top: 10px;padding-top: 10px">Venue</h2>
                     <table class="govuk-table" role="presentation">
                         <tbody class="govuk-table__body">
                             <tr class="govuk-table__row">
                                 <td class="govuk-table__cell govuk-body-s">Name</td>
-                                <td class="govuk-table__cell govuk-body-s"> Stratford campus</td>
+                                <td class="govuk-table__cell govuk-body-s">@Model.Venue.Name</td>
                             </tr>
                             <tr class="govuk-table__row">
                                 <td class="govuk-table__cell govuk-body-s" style="border-bottom: none">Address</td>
                                 <td class="govuk-table__cell govuk-body-s" style="border-bottom: none">
-                                    Welfare Road<br>
-                                    Stratford<br>
-                                    Greater London<br>
-                                    E15 4HT<br>
-                                    <a class="govuk-link" target="_blank" href="https://www.google.com/maps?q=51.540288,0.009541">Find on Google maps</a>
+                                    @if (!string.IsNullOrEmpty(@Model.Venue.Address.Line1))
+                                    {@Model.Venue.Address.Line1 <br>}
+                                    @if (!string.IsNullOrEmpty(@Model.Venue.Address.Line2))
+                                    {@Model.Venue.Address.Line2 <br>}
+                                    @if (!string.IsNullOrEmpty(@Model.Venue.Address.Town))
+                                    {@Model.Venue.Address.Town <br>}
+                                    @if (!string.IsNullOrEmpty(@Model.Venue.Address.County))
+                                    {@Model.Venue.Address.County <br>}
+                                    @if (!string.IsNullOrEmpty(@Model.Venue.Address.Postcode))
+                                    {@Model.Venue.Address.Postcode <br>}
+
+
+
+                                    <a class="govuk-link" target="_blank" href="https://www.google.com/maps?q=@Model.Venue.Address.Latitude,@Model.Venue.Address.Longitude">Find on Google maps</a>
                                 </td>
                             </tr>
                             <tr class="govuk-table__row">
@@ -152,17 +180,24 @@
                             <tr class="govuk-table__row">
                                 <td class="govuk-table__cell govuk-body-s">Website</td>
                                 <td class="govuk-table__cell">
-                                    <a class="govuk-link govuk-body-s" target="_blank" href="http://www.newham.ac.uk" style="word-break: break-all;">http://www.newham.ac.uk</a>
+                                    <a class="govuk-link govuk-body-s" target="_blank" href="@Model.URL" style="word-break: break-all;">@Model.URL</a>
                                 </td>
                             </tr>
-                            <tr class="govuk-table__row">
-                                <td class="govuk-table__cell govuk-body-s">Email</td>
-                                <td class="govuk-table__cell govuk-body-s"><a href="mailto: externalenquiries@newham.ac.uk" style="word-break: break-all;"> externalenquiries@newham.ac.uk</a> </td>
-                            </tr>
-                            <tr class="govuk-table__row">
-                                <td class="govuk-table__cell govuk-body-s">Phone</td>
-                                <td class="govuk-table__cell govuk-body-s">020 8257 4446</td>
-                            </tr>
+                            @if (!string.IsNullOrWhiteSpace(@Model.Provider.Email))
+                            {
+                                <tr class="govuk-table__row">
+                                    <td class="govuk-table__cell govuk-body-s">Email</td>
+                                    <td class="govuk-table__cell govuk-body-s"><a href="mailto: @Model.Provider.Email" style="word-break: break-all;"> @Model.Provider.Email</a> </td>
+
+                                </tr>
+                            }
+                            @if (!string.IsNullOrWhiteSpace(@Model.Provider.Phone))
+                            {
+                                <tr class="govuk-table__row">
+                                    <td class="govuk-table__cell govuk-body-s">Phone</td>
+                                    <td class="govuk-table__cell govuk-body-s">@Model.Provider.Phone</td>
+                                </tr>
+                            }
                         </tbody>
                     </table>
                     <details>
@@ -209,65 +244,3 @@
 
 
 
-
-
-<!-- DO: here ends static code  -->
-
-
-    <br /><br /><br /><br /><br /><br /><br />
-
-
-
-<h2>CourseDetails</h2>
-<div class="column-full">
-    <div class="search-result-item">
-        <div class="result-item-qualification-level">@Model.QualificationLevel.GetDisplayName()</div>
-        <ul class="result-item-course-attendence-study-mode-info">
-            @if (Model.IsDisplayble(Model.StudyMode))
-            {
-            <li>@Model.StudyMode.GetDisplayName()</li>
-            }
-            @if (Model.IsDisplayble(Model.AttendanceMode) && Model.IsDisplayble(Model.StudyMode))
-            {
-            <li> | @Model.AttendanceMode.GetDisplayName() </li>
-            }
-            else if (Model.IsDisplayble(Model.AttendanceMode))
-            {
-            <li>@Model.AttendanceMode.GetDisplayName()</li>
-            }
-            @if (Model.IsDisplayble(Model.AttendencePattern) && Model.IsDisplayble(Model.AttendanceMode))
-            {
-            <li> | @Model.AttendencePattern.GetDisplayName() </li>
-            }
-            else if (Model.IsDisplayble(Model.AttendencePattern))
-            {
-            <li>@Model.AttendencePattern.GetDisplayName()</li>
-            }
-        </ul>
-        <ul class="result-item-course-info">
-            <li>
-                <span class="label">Provider:</span>
-                <span class="value">@Model.ProviderName</span>
-            </li>
-            <li>
-                <span class="label">Location:</span>
-                <span class="value">@Model.Location</span>
-            </li>
-            @if (!string.IsNullOrWhiteSpace(Model.Location))
-            {
-            <li>
-                <span class="label">Distance:</span>
-                <span class="value">@Model.Distance miles</span>
-            </li>
-            }
-            <li>
-                <span class="label">Start date:</span>
-                <span class="value">@Model.StartDate</span>
-            </li>
-            <li>
-                <span class="label">Duration:</span>
-                <span class="value">@Model.Duration</span>
-            </li>
-        </ul>
-    </div>
-</div>

@@ -16,7 +16,7 @@ using Moq;
 using Newtonsoft.Json;
 using Remotion.Linq.Parsing.Structure.IntermediateModel;
 
-namespace Dfc.FindACourse.Web.UnitTest
+namespace Dfc.FindACourse.Web.UnitTests
 {
     [TestClass]
     public class ControllerTests : BaseTests
@@ -39,7 +39,8 @@ namespace Dfc.FindACourse.Web.UnitTest
                 MockTelemetryClient.Object,
                 MockAppSettings.Object,
                 MockCourseDirectory.Object,
-                MockFileHelper.Object
+                MockFileHelper.Object,
+                MockCourseDirectoryHelper.Object
             );
             Assert.IsNotNull(Controller.Configuration, "Configuration");
             Assert.IsNotNull(Controller.Service, "Service");
@@ -48,6 +49,7 @@ namespace Dfc.FindACourse.Web.UnitTest
             Assert.IsNotNull(Controller.Settings, "Settings");
             Assert.IsNotNull(Controller.Files, "Settings");
             Assert.IsNotNull(Controller.CourseDirectory);
+            Assert.IsNotNull(Controller.CourseDirectoryHelper);
         }
 
         [TestMethod]
@@ -114,7 +116,7 @@ namespace Dfc.FindACourse.Web.UnitTest
             Controller.ModelState.AddModelError("test", "test");
             MockTelemetryClient.Setup(x => x.TrackEvent(It.IsAny<string>(), null, null)).Verifiable();
 
-            var result = Controller.CourseDetails(5) as ViewResult;
+            var result = Controller.CourseDetails(5, "0") as ViewResult;
             MockTelemetryClient.Verify();
             AssertDefaultView(result);
         }
@@ -124,16 +126,16 @@ namespace Dfc.FindACourse.Web.UnitTest
         {
             var courseDetailsResult = CreateCourseDetailsResult();
 
-            MockCourseDirectoryService.Setup(x => x.CourseDetails(It.IsAny<int>())).Returns(courseDetailsResult);
-            MockCourseDirectory.Setup(x => x.IsSuccessfulResult<CourseItem>(
-                It.IsAny<IResult<CourseItem>>(), It.IsAny<ITelemetryClient>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<DateTime>()
+            MockCourseDirectoryService.Setup(x => x.CourseItemDetail(It.IsAny<int>())).Returns(courseDetailsResult);
+            MockCourseDirectory.Setup(x => x.IsSuccessfulResult(
+                It.IsAny<IResult<CourseItemDetail>>(), It.IsAny<ITelemetryClient>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<DateTime>()
             )).Returns(true);
             MockTelemetryClient.Setup(x => x.TrackEvent(It.IsAny<string>(), null, null)).Verifiable();
             MockTelemetryClient.Setup(x => x.Flush()).Verifiable();
 
-            var expected = new CourseDetailViewModel(courseDetailsResult.Value);
+            var expected = new CourseDetailViewModel(courseDetailsResult.Value, "0");
 
-            var result = Controller.CourseDetails(5) as ViewResult;
+            var result = Controller.CourseDetails(5, "0") as ViewResult;
 
             MockTelemetryClient.Verify(x => x.TrackEvent(It.IsAny<string>(), null, null), (Times.Never()));
             MockTelemetryClient.Verify(x => x.Flush(), (Times.Exactly(1)));
@@ -155,25 +157,25 @@ namespace Dfc.FindACourse.Web.UnitTest
         {
             var courseDetailsResult = CreateCourseDetailsResult();
 
-            MockCourseDirectoryService.Setup(x => x.CourseDetails(It.IsAny<int>())).Returns(courseDetailsResult);
-            MockCourseDirectory.Setup(x => x.IsSuccessfulResult<CourseItem>(
-                It.IsAny<IResult<CourseItem>>(), It.IsAny<ITelemetryClient>(), It.IsAny<string>(), It.IsAny<string>(),
+            MockCourseDirectoryService.Setup(x => x.CourseItemDetail(It.IsAny<int>())).Returns(courseDetailsResult);
+            MockCourseDirectory.Setup(x => x.IsSuccessfulResult(
+                It.IsAny<IResult<CourseItemDetail>>(), It.IsAny<ITelemetryClient>(), It.IsAny<string>(), It.IsAny<string>(),
                 It.IsAny<DateTime>()
             )).Returns(false);
             MockTelemetryClient.Setup(x => x.TrackEvent(It.IsAny<string>(), null, null)).Verifiable();
             MockTelemetryClient.Setup(x => x.Flush()).Verifiable();
 
-            var result = Controller.CourseDetails(5) as ViewResult;
+            var result = Controller.CourseDetails(5, "0") as ViewResult;
             MockTelemetryClient.Verify(x => x.TrackEvent(It.IsAny<string>(), null, null), (Times.Never()));
             MockTelemetryClient.Verify(x => x.Flush(), (Times.Never()));
             AssertDefaultView(result);
         }
 
-        private static Result<CourseItem> CreateCourseDetailsResult()
+        private static Result<CourseItemDetail> CreateCourseDetailsResult()
         {
             var descriptionDate = new DescriptionDate(DateTime.Now);
             var venue = new Venue("v", new Address("L1", "L2", "L3", "L4", "L5", 10, 10), 10);
-            var course = new Course(1, "test", QualificationLevel.Level2);
+            var course = new CourseDetails(1, "test", string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
             var duration = new Duration("desc");
             var opportunity = new Opportunity(
                 1,
@@ -184,8 +186,9 @@ namespace Dfc.FindACourse.Web.UnitTest
                 venue,
                 "region",
                 duration);
+
             var provider = new Provider(1, "provider");
-            var courseItem = new CourseItem(course, opportunity, provider);
+            var courseItem = new CourseItemDetail(course, opportunity, provider, venue);
             var courseDetailsResult = Result.Ok(courseItem);
             return courseDetailsResult;
         }
@@ -210,10 +213,11 @@ namespace Dfc.FindACourse.Web.UnitTest
             var expected = new CourseSearchResultViewModel(courseSearchResult)
             { SubjectKeyword = fromQuery.SubjectKeyword, Location = fromQuery.Location };
 
+
             MockTelemetryClient.Setup(x => x.TrackEvent(It.IsAny<string>(), null, null)).Verifiable();
             MockTelemetryClient.Setup(x => x.Flush()).Verifiable();
             MockCourseDirectory.Setup(x => x.CreateCourseSearchCriteria(fromQuery)).Returns(criteria);
-            MockCourseDirectory.Setup(x => x.IsSuccessfulResult<CourseSearchResult>(
+            MockCourseDirectory.Setup(x => x.IsSuccessfulResult(
                 It.IsAny<IResult<CourseSearchResult>>(), It.IsAny<ITelemetryClient>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<DateTime>()
                 )).Returns(true);
             MockCourseDirectoryService.Setup(x => x.CourseSearch(criteria, It.IsAny<PagingOptions>())).Returns(courseSearchResult);

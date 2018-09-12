@@ -270,3 +270,5 @@ __pycache__/
 /src/Dfc.FindACourse.Web/Properties/PublishProfiles/DfcFindACourseWeb - Web Deploy1.pubxml
 /automatedtests/ESFA.UI.Specflow.Framework/Project/Screenshots
 /src/Dfc.FindACourse.Web/Services/DataService - Copy.cs
+
+**/*.DS_Store
