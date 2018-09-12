@@ -3211,7 +3211,7 @@ input[type="search"]::-webkit-search-decoration {
   width: 28em;
 }
 
-#content-container {
+#content-container.index-page {
   background: #207e77;
   color: #fff;
 }
@@ -3219,6 +3219,21 @@ input[type="search"]::-webkit-search-decoration {
 a.white, .white {
   color: #fff;
   font-size: 18px;
+}
+
+.index-page .form-label {
+  color: #fff;
+  font-size: 24px;
+}
+
+.index-page .form-hint, .index-page .form-hint a {
+  color: #fff;
+  font-size: 16px;
+  padding-bottom: 10px;
+}
+
+.index-page .button {
+  background: #000;
 }
 
 .pagination {

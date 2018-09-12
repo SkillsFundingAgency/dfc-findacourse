@@ -1,4 +1,4 @@
-﻿#content-container {
+﻿#content-container.index-page  {
     background: $careers-turquoise;
     color: $white;
 }
@@ -8,3 +8,16 @@ a.white,.white {
     font-size:18px;
 }
 
+.index-page .form-label {
+    color: $white;
+    font-size: 24px;
+}
+.index-page .form-hint, .index-page .form-hint a {
+    color: $white;
+    font-size: 16px;
+    padding-bottom: 10px
+}
+
+.index-page .button {
+    background: #000;
+}

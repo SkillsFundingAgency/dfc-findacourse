@@ -9,7 +9,19 @@ namespace Dfc.FindACourse.Common.Models
         public string Name { get; }
         public IAddress Address { get; }
         public double? Distance { get; }
-
+        public Venue(Provider provider)
+        {
+            Name = provider.Name;
+            Address = provider.ProviderAddress;
+            Distance = null;
+        }
+        /// <summary>
+        /// Added to compensate for a NULL Venue being set to a course, which in theiory is not possible
+        /// But was also item 12 on the Tribal developements, that was not opted for, or is configurbale
+        /// </summary>
+        /// <param name="name"></param>
+        /// <param name="address"></param>
+        /// <param name="distance"></param>
         public Venue(string name, IAddress address, double? distance = null)
         {
             if (string.IsNullOrWhiteSpace(name))
@@ -19,7 +31,7 @@ namespace Dfc.FindACourse.Common.Models
             if (distance.HasValue && distance.Value < 0)
                 throw new ArgumentOutOfRangeException(nameof(distance));
 
-            Name = name;
+            Name = name.ToSentenceCase();
             Address = address;
             Distance = distance;
         }
