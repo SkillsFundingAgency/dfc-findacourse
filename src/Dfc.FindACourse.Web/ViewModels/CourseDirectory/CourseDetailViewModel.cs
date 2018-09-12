@@ -49,6 +49,7 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
             SkillsForLifeTypeDesc = value.Coursedetails.SkillsForLifeTypeDesc;
             Venue = (Venue)value.Venue;
             Provider = (Provider)value.Provider;
+            Opportunity = (Opportunity)value.Opportunity;
 
 
         }
@@ -108,6 +109,7 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
 
         public Venue Venue { get; set; }
         public Provider Provider { get; set; }
+        public Opportunity Opportunity { get; set; }
 
         public bool IsDisplayble(StudyMode studyMode)
         {

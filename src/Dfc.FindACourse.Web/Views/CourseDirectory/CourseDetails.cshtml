@@ -41,7 +41,20 @@
                         </tr>
                         <tr class="govuk-table__row">
                             <td class="govuk-table__cell">Cost</td>
-                            <td class="govuk-table__cell">The course fee is £1275 (Plus £125 Exam Fee).<!-- <br>For those aged 16 to 18, courses are government funded--><br><a href="https://www.gov.uk/advanced-learner-loan/overview" target="_blank">Advanced Learner Loans maybe available</a></td>
+                            <td class="govuk-table__cell">
+                                @if (!string.IsNullOrWhiteSpace(@Model.Opportunity.Price))
+                                {
+                                    @Model.Opportunity.Price
+                                }
+                                @if (!string.IsNullOrWhiteSpace(@Model.Opportunity.PriceDescription))
+                                {
+                                    @Model.Opportunity.PriceDescription
+                                }
+                                @if (Model.Provider.TFPlusLoansSpecified && Model.Provider.TFPlusLoans)
+                                {
+                                    <br><a href="https://www.gov.uk/advanced-learner-loan/overview" target="_blank">Advanced Learner Loans maybe available</a>
+                                }
+                            </td>
                         </tr>
                         <tr class="govuk-table__row">
                             <td class="govuk-table__cell">Start date</td>
