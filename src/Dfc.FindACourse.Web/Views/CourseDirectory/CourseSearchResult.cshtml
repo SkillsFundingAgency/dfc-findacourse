@@ -80,7 +80,7 @@
                         </div>
                     </div>
                     <a href="#">Print or download these search results </a>
-                    <span>Showing 1-10 of @Model.NoOfRecords results</span>
+                    <span>Showing @Model.ShowingFrom() - @Model.ShowingTo() of @Model.NoOfRecords results</span>
                     <div class="form-group">
                         <label class="form-label" for="SortBy">Sort by:</label>
                         <dfc-select id="SortBy"

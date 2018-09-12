@@ -74,7 +74,9 @@ namespace Dfc.FindACourse.Web.Controllers
             //So that we could test the telemetry, a la the DEBUG_FIX
             Telemetry.Flush();
 
-            return View(new CourseSearchResultViewModel(result) { SubjectKeyword = requestModel.SubjectKeyword, Location = requestModel.Location, DefaultRadiusDistance = (RadiusDistance)requestModel.LocationRadius });
+            int perPage = int.TryParse(Configuration["Tribal:PerPage"], out perPage) ? perPage : 0;
+
+            return View(new CourseSearchResultViewModel(result) { SubjectKeyword = requestModel.SubjectKeyword, Location = requestModel.Location, DefaultRadiusDistance = (RadiusDistance)requestModel.LocationRadius, PerPage = perPage });
             
         }
 

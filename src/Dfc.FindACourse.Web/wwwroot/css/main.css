@@ -3220,3 +3220,21 @@ a.white, .white {
   color: #fff;
   font-size: 18px;
 }
+
+.pagination {
+  display: block;
+  margin-top: 1em;
+  margin-bottom: 1em;
+}
+
+.pagination .pagination-item {
+  display: inline-block;
+  margin-left: 3px;
+  margin-right: 3px;
+}
+
+.pagination .pagination-item.current {
+  text-decoration: none;
+  color: #0b0c0c;
+  cursor: default;
+}
