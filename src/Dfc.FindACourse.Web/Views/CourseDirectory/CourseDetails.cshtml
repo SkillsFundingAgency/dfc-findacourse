@@ -78,9 +78,20 @@
                         </tr>
                     </tbody>
                 </table>
-                <a target="_blank" href=@Model.BookingURL role="button" class="govuk-button govuk-button--start">
-                    Enrol now
-                </a>
+                @if ((!string.IsNullOrWhiteSpace(Model.BookingURL)) && (Model.BookingURL != Model.Provider.Website))
+                {
+                    <a target="_blank" href=@Model.BookingURL role="button" class="govuk-button govuk-button--start">
+                        Enrol now
+                    </a>
+                }
+                else if (!string.IsNullOrWhiteSpace(Model.Provider.Website))
+                {
+                    <a target="_blank" href=@Model.Provider.Website role="button" class="govuk-button govuk-button--start">
+                        More Information
+                    </a>
+                }
+
+
                 <p class="enrol-text">on the provider’s website</p>
             </section>
 
