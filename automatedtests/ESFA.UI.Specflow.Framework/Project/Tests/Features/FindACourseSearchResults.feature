@@ -83,10 +83,10 @@
 		And the attendance mode <AttendanceMode> is displayed
 
   Examples:
-    | CourseName                                  | AttendanceMode           |
-    | science                                     | Classroom-based          |
-    | General Data Protection Regulation (ONLINE) | Online/Distance Learning |
-    | Motor Vehicle Accident Repair (Paint)       | Work based               |
+    | CourseName                                                                       | AttendanceMode           |
+    | science                                                                          | Classroom-based          |
+    | General Data Protection Regulation (ONLINE)                                      | Online/Distance Learning |
+    | Motor Vehicle Maintenance and Repair Apprenticeship at Level 2 (IMI Awards Ltd)) | Work based               |
 
 @DFC-3900
  Scenario Outline: DFC3900 View Search Results By Course Name displays Attendance Pattern
