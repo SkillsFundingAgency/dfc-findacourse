@@ -5,7 +5,7 @@ using Dfc.FindACourse.Web.Services;
 using Microsoft.ApplicationInsights;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Dfc.FindACourse.Web.UnitTest
+namespace Dfc.FindACourse.Web.UnitTests
 {
     [TestClass]
     public class MyTelemetryClientTests
@@ -35,8 +35,8 @@ namespace Dfc.FindACourse.Web.UnitTest
         public void TestTrackEvent()
         {
             Service.TrackEvent("test");
-            var properties = new Dictionary<string, string> {{"key1", "value1"}, {"key2", "value2"}};
-            var metrics = new Dictionary<string, double> {{"key3", 3}, {"key4", 4}};
+            var properties = new Dictionary<string, string> { { "key1", "value1" }, { "key2", "value2" } };
+            var metrics = new Dictionary<string, double> { { "key3", 3 }, { "key4", 4 } };
             Service.TrackEvent("test1", properties);
             Service.TrackEvent("test1", null, metrics);
             Service.TrackEvent("test1", properties, metrics);
