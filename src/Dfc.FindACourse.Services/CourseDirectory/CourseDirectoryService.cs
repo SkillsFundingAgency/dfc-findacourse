@@ -137,9 +137,10 @@ namespace Dfc.FindACourse.Services.CourseDirectory
 
                 //This will create a new CourseItemDetail model, that contains the Coursedetail, Opportunity, Provider and Venue
                 //Password back to calling controller function, and ViewModel contructor
+                //DFC - 4372
                 var courseDetails = taskResult.CourseDetails
                     .Select(x => new CourseItemDetail(
-                        x.Course.ToCourseDetail(), x.Opportunity[0].ToOpportunity(), x.Provider.ToProvider(), x.Venue[0].ToVenueInfo()
+                        x.Course.ToCourseDetail(), x.Opportunity[0].ToOpportunity(), x.Provider.ToProvider(),(null != x.Venue && null != x.Venue[0]) ? x.Venue[0].ToVenueInfo() : new Venue(x.Provider.ToProvider())
                        )).FirstOrDefault();
 
                 return Result.Ok<CourseItemDetail>(courseDetails);

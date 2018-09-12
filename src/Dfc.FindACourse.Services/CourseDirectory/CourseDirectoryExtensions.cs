@@ -326,7 +326,10 @@ namespace Dfc.FindACourse.Services.CourseDirectory
             try
             {
                 int id = int.TryParse(providerDetail.ProviderID, out id) ? id : 0;
-                Provider provider = new Provider(id, providerDetail.ProviderName);
+
+                IAddress address = providerDetail.ProviderAddress.ToAddess();
+
+                Provider provider = new Provider(id, providerDetail.ProviderName, address);
                 provider.UKPRN = providerDetail.UKPRN;
                 provider.UPIN = providerDetail.UPIN;
                 provider.TFPlusLoans = providerDetail.TFPlusLoans;
