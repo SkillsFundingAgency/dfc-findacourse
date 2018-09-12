@@ -1,11 +1,12 @@
 ﻿// main
 // ====
-@import "partials/_typo.scss";
+
 // imports dependencies
 @import "_govuk_frontend_toolkit.scss";
 @import "_govuk-elements-sass.scss";
 
 // import partials
+@import "partials/_typo.scss";
 @import "partials/_colours.scss";
 @import "partials/_basics.scss";
 @import "partials/_forms.scss";
@@ -14,3 +15,4 @@
 @import "partials/_auto-complete.scss";
 @import "partials/_accordion-plugin.scss";
 @import "partials/_search-result-item.scss";
+@import "partials/_home.scss";
