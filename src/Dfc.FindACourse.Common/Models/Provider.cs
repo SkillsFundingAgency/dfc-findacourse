@@ -12,6 +12,7 @@ namespace Dfc.FindACourse.Common.Models
         public int Id  { get; }
         public string Name  { get; }
         public string ProviderName  { get; set; }
+        public IAddress ProviderAddress { get; set; }
         public string UKPRN { get; set; }
         public string UPIN { get; set; }
         public bool TFPlusLoans { get; set; }
@@ -38,7 +39,22 @@ namespace Dfc.FindACourse.Common.Models
 
             Id = id;
             Name = NameFormatting(name);
+
         }
+        public Provider(int id, string name, IAddress address)
+        {
+            if (id < 0)
+                throw new ArgumentOutOfRangeException(nameof(id));
+            if (string.IsNullOrWhiteSpace(name))
+                throw new ArgumentException($"{nameof(name)} cannot be null, empty or only whitespace.");
+            if(null == address)
+                throw new ArgumentNullException(nameof(address));
+            Id = id;
+            Name = NameFormatting(name);
+            ProviderAddress = address;
+
+        }
+
 
         internal static string NameFormatting(string name)
         {
