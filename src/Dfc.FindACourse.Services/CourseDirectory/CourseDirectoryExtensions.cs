@@ -1,7 +1,9 @@
 ﻿using Dfc.FindACourse.Common;
+using Dfc.FindACourse.Common.Enums;
 using Dfc.FindACourse.Common.Interfaces;
 using Dfc.FindACourse.Common.Models;
 using System;
+using System.Linq;
 using Tribal;
 
 namespace Dfc.FindACourse.Services.CourseDirectory
@@ -184,6 +186,19 @@ namespace Dfc.FindACourse.Services.CourseDirectory
             return DescriptionDate.Default;
         }
 
+        public static ApplicationAcceptedThroughoutYear ToAppAcceptedThroughout(this OpportunityDetailApplicationAcceptedThroughoutYear oppDetAppAccThroughoutYear)
+        {
+            if (oppDetAppAccThroughoutYear == OpportunityDetailApplicationAcceptedThroughoutYear.Y)
+                return ApplicationAcceptedThroughoutYear.Y;
+            else
+                return ApplicationAcceptedThroughoutYear.N;
+        }
+        private static ItemChoice[] ToItemsChoice(this ItemsChoiceType[] itemChoiceTypes)
+        {
+            return itemChoiceTypes.Cast<ItemChoice>().ToArray();
+
+        }
+
         public static Opportunity ToOpportunity(this OpportunityInfo opportunityInfo)
         {
             int id = int.TryParse(opportunityInfo.OpportunityId, out id) ? id : 0;
@@ -218,19 +233,16 @@ namespace Dfc.FindACourse.Services.CourseDirectory
                 region,
                 opportunityInfo.Duration.ToDuration());
         }
-
         public static Opportunity ToOpportunity(this OpportunityDetail opportunityDetail)
         {
             int id = int.TryParse(opportunityDetail.OpportunityId, out id) ? id : 0;
-            DateTime? startDate = DateTime.TryParse(opportunityDetail.StartDate.Item, out DateTime dt) ? dt : default(DateTime?);
 
             Venue venue = null;
             string region = null;
 
-            //DEBUG FIX
             //try
             //{
-            //    venue = ((VenueInfo)opportunityDetail).ToVenue();
+            //    venue = ((VenueInfo)opportunityDetail.Item).ToVenue();
             //}
             //catch (InvalidCastException)
             //{
@@ -249,14 +261,34 @@ namespace Dfc.FindACourse.Services.CourseDirectory
                 opportunityDetail.StudyMode.ToStudyMode(),
                 opportunityDetail.AttendanceMode.ToAttendanceMode(),
                 opportunityDetail.AttendancePattern.ToAttendancePattern(),
-                //DEBUG FIX
-                false,
+                false, //NOT Set in oppinfo
                 opportunityDetail.StartDate.ToDescriptionDate(),
                 venue,
                 region,
-                opportunityDetail.Duration.ToDuration());
-        }
+                opportunityDetail.Duration.ToDuration(), 
+                //OppDetails
+                opportunityDetail.Price,
+                opportunityDetail.PriceDesc,
+                opportunityDetail.EndDate,
+                opportunityDetail.Timetable,
+                opportunityDetail.LanguageOfAssessment,
+                opportunityDetail.LanguageOfInstruction,
+                opportunityDetail.PlacesAvailable,
+                opportunityDetail.EnquireTo,
+                opportunityDetail.ApplyTo,
+                opportunityDetail.ApplyFromDate,
+                opportunityDetail.ApplyUntilDate,
+                opportunityDetail.ApplyUntilDesc,
+                opportunityDetail.URL,
+                opportunityDetail.A10,
+                opportunityDetail.Items,
+                opportunityDetail.ItemsElementName.ToItemsChoice(),
+                opportunityDetail.ApplicationAcceptedThroughoutYear.ToAppAcceptedThroughout(),
+                opportunityDetail.ApplicationAcceptedThroughoutYearSpecified
 
+                );
+        }
+       
         public static Provider ToProvider(this ProviderInfo providerInfo)
         {
             try

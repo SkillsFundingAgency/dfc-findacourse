@@ -2312,6 +2312,43 @@ input[type=number] {
   text-align: center;
 }
 
+@font-face {
+  font-family: "nta";
+  src: url("../../fonts/light-2c037cf7e1-v1.eot");
+  src: url("../../fonts/light-2c037cf7e1-v1.eot?#iefix") format("embedded-opentype"), url("../../fonts/light-f38ad40456-v1.woff2") format("woff2"), url("../../fonts/light-458f8ea81c-v1.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: fallback;
+}
+
+@font-face {
+  font-family: "nta";
+  src: url("../../fonts/bold-fb2676462a-v1.eot");
+  src: url("../../fonts/bold-fb2676462a-v1.eot?#iefix") format("embedded-opentype"), url("../../fonts/bold-a2452cb66f-v1.woff2") format("woff2"), url("../../fonts/bold-f38c792ac2-v1.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+  font-display: fallback;
+}
+
+@font-face {
+  font-family: "ntatabularnumbers";
+  src: url("../../fonts/light-tabular-498ea8ffe2-v1.eot");
+  src: url("../../fonts/light-tabular-498ea8ffe2-v1.eot?#iefix") format("embedded-opentype"), url("../../fonts/light-tabular-851b10ccdd-v1.woff2") format("woff2"), url("../../fonts/light-tabular-62cc6f0a28-v1.woff") format("woff");
+  font-weight: normal;
+  font-style: normal;
+  font-display: fallback;
+}
+
+@font-face {
+  font-family: "ntatabularnumbers";
+  src: url("../../fonts/bold-tabular-357fdfbcc3-v1.eot");
+  src: url("../../fonts/bold-tabular-357fdfbcc3-v1.eot?#iefix") format("embedded-opentype"), url("../../fonts/bold-tabular-b89238d840-v1.woff2") format("woff2"), url("../../fonts/bold-tabular-784c21afb8-v1.woff") format("woff");
+  font-weight: bold;
+  font-style: normal;
+  font-display: fallback;
+}
+
+/*Defines the main homepage colour for the site*/
 @-ms-viewport {
   width: device-width;
 }
@@ -3174,20 +3211,12 @@ input[type="search"]::-webkit-search-decoration {
   width: 28em;
 }
 
-.pagination {
-  display: block;
-  margin-top: 1em;
-  margin-bottom: 1em;
+#content-container {
+  background: #207e77;
+  color: #fff;
 }
 
-.pagination .pagination-item {
-  display: inline-block;
-  margin-left: 3px;
-  margin-right: 3px;
-}
-
-.pagination .pagination-item.current {
-  text-decoration: none;
-  color: #0b0c0c;
-  cursor: default;
+a.white, .white {
+  color: #fff;
+  font-size: 18px;
 }

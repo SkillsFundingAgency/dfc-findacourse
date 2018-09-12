@@ -228,7 +228,7 @@ namespace ESFA.UI.Specflow.Framework.FindACourse.Project.Tests.Features
         [NUnit.Framework.CategoryAttribute("DFC-3900")]
         [NUnit.Framework.TestCaseAttribute("science", "Classroom-based", null)]
         [NUnit.Framework.TestCaseAttribute("General Data Protection Regulation (ONLINE)", "Online/Distance Learning", null)]
-        [NUnit.Framework.TestCaseAttribute("Motor Vehicle Accident Repair (Paint)", "Work based", null)]
+        [NUnit.Framework.TestCaseAttribute("Motor Vehicle Maintenance and Repair Apprenticeship at Level 2 (IMI Awards Ltd))", "Work based", null)]
         public virtual void DFC3900ViewSearchResultsByCourseNameDisplaysAttendanceMode(string courseName, string attendanceMode, string[] exampleTags)
         {
             string[] @__tags = new string[] {

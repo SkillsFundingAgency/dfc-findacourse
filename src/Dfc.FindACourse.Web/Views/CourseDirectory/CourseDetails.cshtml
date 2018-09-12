@@ -41,7 +41,20 @@
                         </tr>
                         <tr class="govuk-table__row">
                             <td class="govuk-table__cell">Cost</td>
-                            <td class="govuk-table__cell">The course fee is £1275 (Plus £125 Exam Fee).<!-- <br>For those aged 16 to 18, courses are government funded--><br><a href="https://www.gov.uk/advanced-learner-loan/overview" target="_blank">Advanced Learner Loans maybe available</a></td>
+                            <td class="govuk-table__cell">
+                                @if (!string.IsNullOrWhiteSpace(@Model.Opportunity.Price))
+                                {
+                                    @Model.Opportunity.Price
+                                }
+                                @if (!string.IsNullOrWhiteSpace(@Model.Opportunity.PriceDescription))
+                                {
+                                    @Model.Opportunity.PriceDescription
+                                }
+                                @if (Model.Provider.TFPlusLoansSpecified && Model.Provider.TFPlusLoans)
+                                {
+                                    <br><a href="https://www.gov.uk/advanced-learner-loan/overview" target="_blank">Advanced Learner Loans maybe available</a>
+                                }
+                            </td>
                         </tr>
                         <tr class="govuk-table__row">
                             <td class="govuk-table__cell">Start date</td>
@@ -65,9 +78,20 @@
                         </tr>
                     </tbody>
                 </table>
-                <a target="_blank" href=@Model.BookingURL role="button" class="govuk-button govuk-button--start">
-                    Enrol now
-                </a>
+                @if ((!string.IsNullOrWhiteSpace(Model.BookingURL)) && (Model.BookingURL != Model.Provider.Website))
+                {
+                    <a target="_blank" href=@Model.BookingURL role="button" class="govuk-button govuk-button--start">
+                        Enrol now
+                    </a>
+                }
+                else if (!string.IsNullOrWhiteSpace(Model.Provider.Website))
+                {
+                    <a target="_blank" href=@Model.Provider.Website role="button" class="govuk-button govuk-button--start">
+                        More Information
+                    </a>
+                }
+
+
                 <p class="enrol-text">on the provider’s website</p>
             </section>
 

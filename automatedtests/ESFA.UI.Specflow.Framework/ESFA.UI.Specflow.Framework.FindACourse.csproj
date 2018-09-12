@@ -183,6 +183,11 @@
     <Compile Include="Project\Framework\Helpers\SqlDatabaseConnectionHelper.cs" />
     <Compile Include="Project\Framework\Helpers\FileSystemHelper.cs" />
     <Compile Include="Project\Framework\Helpers\WindowHelper.cs" />
+    <Compile Include="Project\Tests\Features\FindACourseCourseDetails.feature.cs">
+      <DependentUpon>FindACourseCourseDetails.feature</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Project\Tests\Features\FindACourse.feature.cs">
       <DependentUpon>FindACourse.feature</DependentUpon>
       <AutoGen>True</AutoGen>
@@ -193,10 +198,14 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>FindACourseSearchResults.feature</DependentUpon>
     </Compile>
+    <Compile Include="Project\Tests\Pages\AdvancedLearnerLoansPage.cs" />
+    <Compile Include="Project\Tests\Pages\FindACourseCourseDetailsPage.cs" />
     <Compile Include="Project\Tests\Pages\WhatQualificationLevelsMeanPage.cs" />
     <Compile Include="Project\Tests\Pages\ContactUsPage.cs" />
     <Compile Include="Project\Tests\Pages\FindACourseSearchResultsPage.cs" />
     <Compile Include="Project\Tests\Pages\FindACoursePage.cs" />
+    <Compile Include="Project\Tests\StepDefinitions\AdvancedLearnerSteps.cs" />
+    <Compile Include="Project\Tests\StepDefinitions\CourseDetailsSteps.cs" />
     <Compile Include="Project\Tests\StepDefinitions\WhatQualificationLevelsMeanSteps.cs" />
     <Compile Include="Project\Tests\StepDefinitions\ContactUsSteps.cs" />
     <Compile Include="Project\Tests\StepDefinitions\SearchResultsSteps.cs" />
@@ -287,6 +296,10 @@
     </None>
     <None Include="license" />
     <None Include="packages.config" />
+    <None Include="Project\Tests\Features\FindACourseCourseDetails.feature">
+      <Generator>SpecFlowSingleFileGenerator</Generator>
+      <LastGenOutput>FindACourseCourseDetails.feature.cs</LastGenOutput>
+    </None>
     <None Include="Project\Tests\Features\FindACourse.feature">
       <Generator>SpecFlowSingleFileGenerator</Generator>
       <LastGenOutput>FindACourse.feature.cs</LastGenOutput>
