@@ -11,17 +11,15 @@ namespace Dfc.FindACourse.Web.Services
     {
         public List<QualLevel> QualificationLevels(ICourseSearchRequestModel requestModel, IFileHelper files)
         {
-            var qualificationLevel = GetQualificationLevel(requestModel.QualificationLevel);
-
-
+            var qualificationLevel = -1;
             var parmQualLevels = new List<QualLevel>();
-
+            if (!string.IsNullOrEmpty(requestModel.QualificationLevel)) int.TryParse(requestModel.QualificationLevel, out qualificationLevel);
             //Pass in the Qual Level from Query on first page and check model from second page
             if (qualificationLevel > -1 ||
                 (requestModel.QualificationLevels != null && requestModel.QualificationLevels.Length > 0))
             {
                 var allQualLevels = files.LoadQualificationLevels();
-                requestModel.QualificationLevels = new int[] {qualificationLevel};
+                requestModel.QualificationLevels = new int[] { qualificationLevel };
                 //Now Populate parmQualLevels values from int array
                 requestModel.QualificationLevels.ToList().ForEach(
                     q => parmQualLevels.Add(
