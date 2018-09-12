@@ -207,7 +207,7 @@ namespace Dfc.FindACourse.Web.UnitTests
         [TestMethod]
         public void TestCourseSearchResultWithValidModelState()
         {
-            var fromQuery = new CourseSearchRequestModel() { SubjectKeyword = "TestSubjectKeyword", LocationRadius = 20 };
+            var fromQuery = new CourseSearchRequestModel() { SubjectKeyword = "TestSubjectKeyword", LocationRadius = 10 };
             var criteria = new CourseSearchCriteria("test");
             var courseSearchResult = Result.Ok(new CourseSearchResult(1, 1, 1, new CourseItem[] { }));
             var expected = new CourseSearchResultViewModel(courseSearchResult)
