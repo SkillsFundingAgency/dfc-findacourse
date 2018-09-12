@@ -16,7 +16,7 @@ using Moq;
 using Newtonsoft.Json;
 using Remotion.Linq.Parsing.Structure.IntermediateModel;
 
-namespace Dfc.FindACourse.Web.UnitTest
+namespace Dfc.FindACourse.Web.UnitTests
 {
     [TestClass]
     public class ControllerTests : BaseTests
@@ -217,7 +217,7 @@ namespace Dfc.FindACourse.Web.UnitTest
             MockTelemetryClient.Setup(x => x.TrackEvent(It.IsAny<string>(), null, null)).Verifiable();
             MockTelemetryClient.Setup(x => x.Flush()).Verifiable();
             MockCourseDirectory.Setup(x => x.CreateCourseSearchCriteria(fromQuery)).Returns(criteria);
-            MockCourseDirectory.Setup(x => x.IsSuccessfulResult<CourseSearchResult>(
+            MockCourseDirectory.Setup(x => x.IsSuccessfulResult(
                 It.IsAny<IResult<CourseSearchResult>>(), It.IsAny<ITelemetryClient>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<DateTime>()
                 )).Returns(true);
             MockCourseDirectoryService.Setup(x => x.CourseSearch(criteria, It.IsAny<PagingOptions>())).Returns(courseSearchResult);

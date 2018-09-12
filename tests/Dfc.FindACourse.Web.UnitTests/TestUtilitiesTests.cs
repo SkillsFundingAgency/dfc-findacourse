@@ -2,7 +2,7 @@
 using Dfc.FindACourse.TestUtilities.TestUtilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-namespace Dfc.FindACourse.Web.UnitTest
+namespace Dfc.FindACourse.Web.UnitTests
 {
     [TestClass]
     public class TestUtilitiesTests
