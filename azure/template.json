@@ -57,7 +57,7 @@
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-          "uri": "https://raw.githubusercontent.com/SkillsFundingAgency/das-platform-building-blocks/master/templates/application-insights.json",
+          "uri": "https://raw.githubusercontent.com/SkillsFundingAgency/das-platform-building-blocks/DASD-3104_appid/templates/application-insights.json",
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
@@ -217,6 +217,10 @@
     "appInsightInstrumentationKey": {
       "type": "string",
       "value": "[reference('primaryUIAppInsights').outputs.InstrumentationKey.value]"
+    },
+    "appInsightAppId": {
+      "type": "string",
+      "value": "[reference('primaryUIAppInsights').outputs.AppId.value]"
     }
   }
 }
