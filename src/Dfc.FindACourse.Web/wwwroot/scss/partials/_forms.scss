@@ -55,3 +55,11 @@
 .auto-complete-container ul  {
     height: auto;
 }
+
+.form-group {
+    margin-bottom: 0;
+
+    .multiple-choice {
+        margin-bottom: 15px
+    }
+}
