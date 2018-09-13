@@ -88,84 +88,94 @@
                             <input class="button" type="submit" id="Search" name="Search" value="Search" />
                         </div>
                     </div>
-                    <a href="#">Print or download these search results </a>
-                    <span>Showing @Model.ShowingFrom() - @Model.ShowingTo() of @Model.NoOfRecords results</span>
-                    <div class="form-group">
-                        <label class="form-label" for="SortBy">Sort by:</label>
+                    <div class="download-link">
+                        <a href="#">Print or download these search results</a>
+                    </div>
+                    <div class="margin-bottom-05em">
+                        Showing @Model.ShowingFrom() - @Model.ShowingTo() of @Model.NoOfRecords results
+                    </div>
+                    <div class="form-group margin-bottom-0">
+                        <label class="form-label inline" for="SortBy">Sort by:</label>
                         <dfc-select id="SortBy"
                                     name="SortBy"
                                     class="form-control form-control-1-4"
                                     dfc-items="Html.GetEnumSelectList<SortBy>()">
                         </dfc-select>
+                        <dfc-pagination dfc-pagination-no-of-pages="@Model.NoOfPages"
+                                        dfc-pagination-url="@Context.Request.GetDisplayUrl()"
+                                        dfc-pagination-param-name="@nameof(Model.PageNo)"
+                                        dfc-pagination-display-no-of-pages="10"></dfc-pagination>
+
                     </div>
-                    <hr />
+                    <hr class="bold-line" />
                 </div>
             </div>
             <div class="grid-row">
                 <div class="column-full">
                     @if (Model.Items.Any())
                     {
-                        @foreach (var item in Model.Items)
-                        {
-                            <div class="search-result-item">
-                                <h3>
-                                    <a asp-action="CourseDetails" asp-route-id="@item.Id" asp-route-distance="@item.Distance">@item.CourseTitle</a>
+                        <div class="search-results">
+                            @foreach (var item in Model.Items)
+                            {
+                                <div class="search-result-item">
+                                    <h3>
+                                        <a asp-action="CourseDetails" asp-route-id="@item.Id" asp-route-distance="@item.Distance">@item.CourseTitle</a>
+                                    </h3>
+                                    <div class="result-item-qualification-level">@item.QualificationLevel.GetDisplayName()</div>
+                                    <ul class="result-item-course-attendence-study-mode-info">
+                                        @if (item.IsDisplayble(item.StudyMode))
+                                        {
+                                            <li>@item.StudyMode.GetDisplayName()</li>
+                                        }
 
-                                </h3>
-                                <div class="result-item-qualification-level">@item.QualificationLevel.GetDisplayName()</div>
-                                <ul class="result-item-course-attendence-study-mode-info">
-                                    @if (item.IsDisplayble(item.StudyMode))
-                                    {
-                                        <li>@item.StudyMode.GetDisplayName()</li>
-                                    }
+                                        @if (item.IsDisplayble(item.AttendanceMode) && item.IsDisplayble(item.StudyMode))
+                                        {
+                                            <li> | @item.AttendanceMode.GetDisplayName() </li>
+                                        }
+                                        else if (item.IsDisplayble(item.AttendanceMode))
+                                        {
+                                            <li>@item.AttendanceMode.GetDisplayName()</li>
+                                        }
 
-                                    @if (item.IsDisplayble(item.AttendanceMode) && item.IsDisplayble(item.StudyMode))
-                                    {
-                                        <li> | @item.AttendanceMode.GetDisplayName() </li>
-                                    }
-                                    else if (item.IsDisplayble(item.AttendanceMode))
-                                    {
-                                        <li>@item.AttendanceMode.GetDisplayName()</li>
-                                    }
-
-                                    @if (item.IsDisplayble(item.AttendencePattern) && item.IsDisplayble(item.AttendanceMode))
-                                    {
-                                        <li> | @item.AttendencePattern.GetDisplayName() </li>
-                                    }
-                                    else if (item.IsDisplayble(item.AttendencePattern))
-                                    {
-                                        <li>@item.AttendencePattern.GetDisplayName()</li>
-                                    }
-                                </ul>
-                                <ul class="result-item-course-info">
-                                    <li>
-                                        <span class="label">Provider:</span>
-                                        <span class="value">@item.ProviderName</span>
-                                    </li>
-                                    <li>
-                                        <span class="label">Location:</span>
-                                        <span class="value">@item.Location</span>
-                                    </li>
-                                    @if (!string.IsNullOrWhiteSpace(Model.Location))
-                                    {
+                                        @if (item.IsDisplayble(item.AttendencePattern) && item.IsDisplayble(item.AttendanceMode))
+                                        {
+                                            <li> | @item.AttendencePattern.GetDisplayName() </li>
+                                        }
+                                        else if (item.IsDisplayble(item.AttendencePattern))
+                                        {
+                                            <li>@item.AttendencePattern.GetDisplayName()</li>
+                                        }
+                                    </ul>
+                                    <ul class="result-item-course-info">
                                         <li>
-                                            <span class="label">Distance:</span>
-                                            <span class="value">@item.Distance miles</span>
+                                            <span class="label">Provider:</span>
+                                            <span class="value">@item.ProviderName</span>
                                         </li>
-                                    }
-                                    <li>
-                                        <span class="label">Start date:</span>
-                                        <span class="value">@item.StartDate</span>
-                                    </li>
-                                    <li>
-                                        <span class="label">Duration:</span>
-                                        <span class="value">@item.Duration</span>
-                                    </li>
-                                </ul>
-                            </div>
-                        }
+                                        <li>
+                                            <span class="label">Location:</span>
+                                            <span class="value">@item.Location</span>
+                                        </li>
+                                        @if (!string.IsNullOrWhiteSpace(Model.Location))
+                                        {
+                                            <li>
+                                                <span class="label">Distance:</span>
+                                                <span class="value">@item.Distance miles</span>
+                                            </li>
+                                        }
+                                        <li>
+                                            <span class="label">Start date:</span>
+                                            <span class="value">@item.StartDate</span>
+                                        </li>
+                                        <li>
+                                            <span class="label">Duration:</span>
+                                            <span class="value">@item.Duration</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            }
+                        </div>
 
-                            <div class="pagination">
+                            @*<div class="pagination">
                                 <a href="" class="pagination-item pagination-previous">previous</a>
 
                                 @for (var i = 1; i <= Model.NoOfPages; i++)
@@ -186,7 +196,12 @@
                                 }
 
                                 <a href="" class="pagination-item pagination-next">next</a>
-                            </div>
+                            </div>*@
+
+                            <dfc-pagination dfc-pagination-no-of-pages="@Model.NoOfPages"
+                                            dfc-pagination-url="@Context.Request.GetDisplayUrl()"
+                                            dfc-pagination-param-name="@nameof(Model.PageNo)"
+                                            dfc-pagination-display-no-of-pages="10"></dfc-pagination>
                     }
                     else
                     {

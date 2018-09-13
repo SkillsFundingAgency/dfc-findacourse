@@ -2513,6 +2513,31 @@ input[type="search"]::-webkit-search-decoration {
   -webkit-appearance: none;
 }
 
+.bold-line {
+  border: 0;
+  height: 0;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  border-bottom: 3px solid #0b0c0c;
+}
+
+.inline {
+  display: inline;
+}
+
+.margin-bottom-0 {
+  margin-bottom: 0;
+}
+
+.margin-bottom-05em {
+  margin-bottom: 0.5em;
+}
+
+.download-link {
+  text-align: right;
+  margin-bottom: 0.5em;
+}
+
 .form-control-1-1 {
   width: 100%;
   border-color: #efefef;
@@ -3210,6 +3235,16 @@ input[type="search"]::-webkit-search-decoration {
   border-bottom: 4px solid transparent;
 }
 
+.search-result-item {
+  border-bottom: 1px solid #bfc1c3;
+  margin-top: 1.5em;
+  padding-bottom: 1.5em;
+}
+
+.search-result-item:last-child {
+  border-bottom: 3px solid #0b0c0c;
+}
+
 .search-result-item h3 {
   font-size: 1.17em;
   font-weight: bold;
@@ -3232,7 +3267,6 @@ input[type="search"]::-webkit-search-decoration {
 
 .search-result-item .result-item-course-info {
   list-style-type: none;
-  margin-bottom: 2em;
 }
 
 .search-result-item .result-item-course-info .label {
@@ -3278,15 +3312,17 @@ a.white, .white {
 }
 
 .pagination {
-  display: block;
-  margin-top: 1em;
-  margin-bottom: 1em;
+  display: inline-block;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+  float: right;
 }
 
 .pagination .pagination-item {
   display: inline-block;
-  margin-left: 3px;
-  margin-right: 3px;
+  margin-left: 5px;
+  margin-right: 5px;
+  text-decoration: underline;
 }
 
 .pagination .pagination-item.current {
