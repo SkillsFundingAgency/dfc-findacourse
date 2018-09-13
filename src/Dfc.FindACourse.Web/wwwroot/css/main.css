@@ -2514,6 +2514,9 @@ input[type="search"]::-webkit-search-decoration {
 
 .form-control-1-1 {
   width: 100%;
+  border-color: #efefef;
+  padding: 5px;
+  height: 40px;
 }
 
 @media (min-width: 641px) {
@@ -2541,6 +2544,25 @@ input[type="search"]::-webkit-search-decoration {
     border-left: 5px solid #b10e1e;
     padding-left: 15px;
   }
+}
+
+.form-control-1-1:focus, .form-control:focus, .auto-complete-container ul:focus {
+  outline: 3px solid #FFBF47;
+}
+
+.input-layout {
+  width: 80%;
+}
+
+.form-control, .auto-complete-container ul {
+  border-color: #efefef;
+  padding: 5px;
+  height: 40px;
+}
+
+#LocationRadius {
+  position: relative;
+  left: -10px;
 }
 
 #global-header {
@@ -3209,6 +3231,10 @@ input[type="search"]::-webkit-search-decoration {
 .search-result-item .result-item-course-info .value {
   display: inline-block;
   width: 28em;
+}
+
+#FindACourseForm {
+  padding-top: 50px;
 }
 
 #content-container.index-page {
