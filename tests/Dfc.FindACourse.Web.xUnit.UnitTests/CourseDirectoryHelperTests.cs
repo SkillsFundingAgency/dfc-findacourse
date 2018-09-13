@@ -1,46 +1,25 @@
-using System;
 using System.Collections.Generic;
-using Dfc.FindACourse.Common;
-using Dfc.FindACourse.Common.Interfaces;
 using Dfc.FindACourse.Common.Models;
 using Dfc.FindACourse.TestUtilities.TestUtilities;
-using Dfc.FindACourse.Web.Controllers;
-using Dfc.FindACourse.Web.Interfaces;
 using Dfc.FindACourse.Web.RequestModels;
 using Dfc.FindACourse.Web.Services;
-using Dfc.FindACourse.Web.ViewModels.CourseDirectory;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Moq;
+using Xunit;
 
-namespace Dfc.FindACourse.Web.UnitTests
+namespace Dfc.FindACourse.Web.xUnit.UnitTests
 {
     [TestClass]
     public class CourseDirectoryHelperTests : BaseTests
     {
         public CourseDirectoryHelper Helper { get; private set; }
 
-        [TestInitialize]
-        public void Init()
-        {
-            BuildHelper();
-        }
-
-        public void BuildHelper()
+        public CourseDirectoryHelperTests()
         {
             Helper = new CourseDirectoryHelper();
         }
 
-        [TestMethod]
-        public void TestConstruction()
-        {
-            BuildHelper();
-        }
-
         // Tests the Starting View.
-        [TestMethod]
+        [Fact]
         public void TestQualificationLevelsAAAAAA()
         {
             // Arrange
@@ -56,7 +35,7 @@ namespace Dfc.FindACourse.Web.UnitTests
             // Assert
         }
 
-        [TestMethod]
+        [Fact]
         public void TestQualificationLevels()
         {
             // Arrange
@@ -72,7 +51,7 @@ namespace Dfc.FindACourse.Web.UnitTests
             // Assert
         }
 
-        [TestMethod]
+        [Fact]
         public void TestGetQualificationLevelGivenNullString()
         {
             string level = null;
@@ -82,7 +61,7 @@ namespace Dfc.FindACourse.Web.UnitTests
             expected.IsSame(actual);
         }
 
-        [TestMethod]
+        [Fact]
         public void TestGetQualificationLevelGivenEmptyString()
         {
             var level = string.Empty;
@@ -92,7 +71,7 @@ namespace Dfc.FindACourse.Web.UnitTests
             expected.IsSame(actual);
         }
 
-        [TestMethod]
+        [Fact]
         public void TestGetQualificationLevelGivenValidString()
         {
             var level = "12";

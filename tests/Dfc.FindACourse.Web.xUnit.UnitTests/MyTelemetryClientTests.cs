@@ -1,37 +1,22 @@
 ﻿using System;
 using System.Collections.Generic;
-using Dfc.FindACourse.TestUtilities.TestUtilities;
 using Dfc.FindACourse.Web.Services;
 using Microsoft.ApplicationInsights;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
-namespace Dfc.FindACourse.Web.UnitTests
+namespace Dfc.FindACourse.Web.xUnit.UnitTests
 {
-    [TestClass]
     public class MyTelemetryClientTests
     {
         private MyTelemetryClient Service { get; set; }
-
-        [TestInitialize]
-        public void Init()
-        {
-            BuildServiceClass();
-        }
-
-        public void BuildServiceClass()
+        public MyTelemetryClientTests()
         {
             Service = new MyTelemetryClient(new TelemetryClient());
 
-            Assert.IsNotNull(Service.TelemetryClient);
+            Assert.NotNull(Service.TelemetryClient);
         }
 
-        [TestMethod]
-        public void TestConstruction()
-        {
-            BuildServiceClass();
-        }
-
-        [TestMethod]
+        [Fact]
         public void TestTrackEvent()
         {
             Service.TrackEvent("test");
@@ -42,13 +27,13 @@ namespace Dfc.FindACourse.Web.UnitTests
             Service.TrackEvent("test1", properties, metrics);
         }
 
-        [TestMethod]
+        [Fact]
         public void TestFlush()
         {
             Service.Flush();
         }
 
-        [TestMethod]
+        [Fact]
         public void TestTrackException()
         {
             var ex = new Exception("test");
