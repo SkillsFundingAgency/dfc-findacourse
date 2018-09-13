@@ -39,23 +39,28 @@
 
                             </td>
                         </tr>
-                        <tr class="govuk-table__row">
-                            <td class="govuk-table__cell">Cost</td>
-                            <td class="govuk-table__cell">
-                                @if (!string.IsNullOrWhiteSpace(@Model.Opportunity.Price))
-                                {
-                                    @Model.Opportunity.Price
-                                }
-                                @if (!string.IsNullOrWhiteSpace(@Model.Opportunity.PriceDescription))
-                                {
-                                    @Model.Opportunity.PriceDescription
-                                }
-                                @if (Model.Provider.TFPlusLoansSpecified && Model.Provider.TFPlusLoans)
-                                {
-                                    <br><a href="https://www.gov.uk/advanced-learner-loan/overview" target="_blank">Advanced Learner Loans maybe available</a>
-                                }
-                            </td>
-                        </tr>
+                        @if (!string.IsNullOrWhiteSpace(@Model.Opportunity.Price)
+                            || !string.IsNullOrWhiteSpace(@Model.Opportunity.PriceDescription)
+                                || (Model.Provider.TFPlusLoansSpecified && Model.Provider.TFPlusLoans))
+                        { 
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell">Cost</td>
+                                <td class="govuk-table__cell">
+                                    @if (!string.IsNullOrWhiteSpace(@Model.Opportunity.Price))
+                                    {
+                                        @Model.Opportunity.Price
+                                    }
+                                    @if (!string.IsNullOrWhiteSpace(@Model.Opportunity.PriceDescription))
+                                    {
+                                        @Model.Opportunity.PriceDescription
+                                    }
+                                    @if (Model.Provider.TFPlusLoansSpecified && Model.Provider.TFPlusLoans)
+                                    {
+                                        <br><a href="https://www.gov.uk/advanced-learner-loan/overview" target="_blank">Advanced Learner Loans maybe available</a>
+                                    }
+                                </td>
+                            </tr>
+                         }
                         <tr class="govuk-table__row">
                             <td class="govuk-table__cell">Start date</td>
                             <td class="govuk-table__cell">@Model.StartDate</td>
