@@ -30,7 +30,16 @@
                     <tbody class="govuk-table__body">
                         <tr class="govuk-table__row">
                             <td class="govuk-table__cell">Qualification name</td>
-                            <td class="govuk-table__cell">@Model.QualificationTitle</td>
+                            <td class="govuk-table__cell">
+                                @if(!string.IsNullOrWhiteSpace(Model.QualificationTitle))
+                                {
+                                    @Model.QualificationTitle
+                                }
+                                else
+                                {
+                                    @Model.CourseTitle
+                                }
+                            </td>
                         </tr>
                         <tr class="govuk-table__row">
                             <td class="govuk-table__cell">Entry requirements</td>
