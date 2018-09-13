@@ -2514,6 +2514,9 @@ input[type="search"]::-webkit-search-decoration {
 
 .form-control-1-1 {
   width: 100%;
+  border-color: #efefef;
+  padding: 5px;
+  height: 40px;
 }
 
 @media (min-width: 641px) {
@@ -2541,6 +2544,10 @@ input[type="search"]::-webkit-search-decoration {
     border-left: 5px solid #b10e1e;
     padding-left: 15px;
   }
+}
+
+.form-control-1-1:focus {
+  outline: 3px solid #FFBF47;
 }
 
 #global-header {
