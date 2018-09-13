@@ -2570,6 +2570,14 @@ input[type="search"]::-webkit-search-decoration {
   height: auto;
 }
 
+.form-group {
+  margin-bottom: 0;
+}
+
+.form-group .multiple-choice {
+  margin-bottom: 15px;
+}
+
 #global-header {
   background-color: #0b0c0c;
   width: 100%;
@@ -3246,6 +3254,7 @@ input[type="search"]::-webkit-search-decoration {
 #content-container.index-page {
   background: #207e77;
   color: #fff;
+  padding-top: 25px;
 }
 
 a.white, .white {
