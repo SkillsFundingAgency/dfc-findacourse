@@ -33,5 +33,21 @@
     }
 }
 
-.form-control-1-1:focus {
-    outline: 3px solid #FFBF47;}
+.form-control-1-1:focus, .form-control:focus {
+    outline: 3px solid #FFBF47;
+}
+
+.input-layout{
+    width:80%
+
+}
+
+.form-control {
+    border-color: #efefef;
+    padding: 5px;
+    height: 40px;
+}
+#LocationRadius {
+    position: relative;
+    left: -10px;
+}
