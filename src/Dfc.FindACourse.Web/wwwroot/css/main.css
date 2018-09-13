@@ -3254,6 +3254,7 @@ input[type="search"]::-webkit-search-decoration {
 #content-container.index-page {
   background: #207e77;
   color: #fff;
+  padding-top: 25px;
 }
 
 a.white, .white {
