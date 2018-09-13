@@ -89,11 +89,13 @@
                         <td class="govuk-table__cell">Classroom or online</td>
                         <td class="govuk-table__cell">@Model.AttendanceMode.GetDisplayName()</td>
                     </tr>
-                    <tr class="govuk-table__row">
-                        <td class="govuk-table__cell">Day, night or weekend</td>
-                        <td class="govuk-table__cell">@Model.AttendencePattern.GetDisplayName()</td>
-                    </tr>
-
+                    @if(Model.AttendencePattern != AttendancePattern.Customised)
+                    { 
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell">Day, night or weekend</td>
+                            <td class="govuk-table__cell">@Model.AttendencePattern.GetDisplayName()</td>
+                        </tr>
+                    }
                 </tbody>
             </table>
             @if ((!string.IsNullOrWhiteSpace(Model.BookingURL)) && (Model.BookingURL != Model.Provider.Website))
