@@ -3135,6 +3135,7 @@ input[type="search"]::-webkit-search-decoration {
 
 .auto-complete-container ul li {
   padding: 5px 4px 4px;
+  color: #0b0c0c;
 }
 
 .auto-complete-container ul li:hover, .auto-complete-container ul li.item-hover {
