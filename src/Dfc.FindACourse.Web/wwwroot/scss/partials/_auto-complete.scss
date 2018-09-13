@@ -21,8 +21,8 @@
 
         li {
             padding: 5px 4px 4px;
-
-            &:hover, &.item-hover {
+            color: #0b0c0c;
+             &:hover, &.item-hover {
                 background-color: $hover-background-color;
                 color: $hover-color;
             }
