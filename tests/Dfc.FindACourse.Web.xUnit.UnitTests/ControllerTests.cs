@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Moq;
 using Xunit;
 
-namespace Dfc.FindACourse.Web.UnitTests
+namespace Dfc.FindACourse.Web.xUnit.UnitTests
 {
     public class ControllerTests : BaseTests
     {

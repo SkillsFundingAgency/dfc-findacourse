@@ -6,7 +6,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using Moq;
 
-namespace Dfc.FindACourse.Web.UnitTests
+namespace Dfc.FindACourse.Web.xUnit.UnitTests
 {
     public class BaseTests
     {

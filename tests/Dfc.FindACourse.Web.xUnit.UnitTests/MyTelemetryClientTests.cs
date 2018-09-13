@@ -4,7 +4,7 @@ using Dfc.FindACourse.Web.Services;
 using Microsoft.ApplicationInsights;
 using Xunit;
 
-namespace Dfc.FindACourse.Web.UnitTests
+namespace Dfc.FindACourse.Web.xUnit.UnitTests
 {
     public class MyTelemetryClientTests
     {
