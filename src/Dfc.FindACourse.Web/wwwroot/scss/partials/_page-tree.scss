@@ -70,22 +70,6 @@ hr {
     background-color: #ffbf47;
 }
 
-.govuk-link:link, a:link {
-    color: #005ea5;
-}
-
-.govuk-link:visited, a:visited {
-    color: #4c2c92;
-}
-
-.govuk-link:hover, a:hover {
-    color: #2b8cc4;
-}
-
-.govuk-link:active, a:active {
-    color: #2b8cc4;
-}
-
 @media print {
     .govuk-link[href^="/"]::after, a[href^="/"]::after, .govuk-link[href^="http://"]::after, a[href^="http://"]::after, .govuk-link[href^="https://"]::after, a[href^="https://"]::after {
         content: " (" attr(href) ")";
