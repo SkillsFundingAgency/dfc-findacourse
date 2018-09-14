@@ -1,8 +1,15 @@
 ﻿.pagination {
     display: inline-block;
-    margin-top: 0.5em;
-    margin-bottom: 0.5em;
     float: right;
+
+    &.page-top {
+        margin: 0;
+    }
+
+    &.page-bottom {
+        margin-top: 0.5em;
+        margin-bottom: 0.5em;
+    }
 
     .pagination-item {
         display: inline-block;
