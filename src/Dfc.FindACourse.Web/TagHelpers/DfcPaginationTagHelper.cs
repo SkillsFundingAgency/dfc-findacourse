@@ -42,7 +42,7 @@ namespace Dfc.FindACourse.Web.TagHelpers
             var currentPageNo = GetAndSetPageNoFromUrl(url, paramName, out setUrl);
             var sb = new StringBuilder();
             var startNumber = 1;
-            var displayNumber = displayNoOfPages;
+            var displayNumber = noOfPages < displayNoOfPages ? noOfPages : displayNoOfPages;
 
             if (currentPageNo > 1)
             {
