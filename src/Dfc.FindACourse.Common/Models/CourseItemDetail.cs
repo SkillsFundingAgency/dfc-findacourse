@@ -16,12 +16,13 @@ namespace Dfc.FindACourse.Common.Models
             ICourseDetails courseDetails,
             IOpportunity opportunity,
             IProvider provider, 
-            IVenue  venue)
+            IVenue venue)
         {
             Coursedetails = courseDetails ?? throw new ArgumentNullException(nameof(courseDetails));
             Opportunity = opportunity ?? throw new ArgumentNullException(nameof(opportunity));
             Provider = provider ?? throw new ArgumentNullException(nameof(provider));
-            Venue = venue ?? throw new ArgumentNullException(nameof(venue));
+            //Venue is now nullable since it could be a distance course with a Region
+            Venue = venue;
         }
 
       

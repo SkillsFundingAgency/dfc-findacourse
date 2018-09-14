@@ -60,10 +60,11 @@ namespace Dfc.FindACourse.Common.UnitTests.Models
             // arrange
             var name = "Name";
             var address = new Mock<IAddress>();
+            var website = "website";
             double? distance = null;
 
             // act
-            var actual = new Venue(name, address.Object, distance);
+            var actual = new Venue(name, address.Object, website, distance);
 
             // assert
             Assert.Null(actual.Distance);
@@ -75,10 +76,11 @@ namespace Dfc.FindACourse.Common.UnitTests.Models
             // arrange
             var name = "Name";
             var address = new Mock<IAddress>();
+            var website = "website";
             double? distance = -0.1;
 
             // act & assert
-            Assert.Throws<ArgumentOutOfRangeException>(() => new Venue(name, address.Object, distance));
+            Assert.Throws<ArgumentOutOfRangeException>(() => new Venue(name, address.Object, website, distance));
         }
 
         [Fact]
@@ -87,10 +89,11 @@ namespace Dfc.FindACourse.Common.UnitTests.Models
             // arrange
             var name = "Name";
             var address = new Mock<IAddress>();
+            var website = "website";
             double? distance = 0;
 
             // act
-            var actual = new Venue(name, address.Object, distance);
+            var actual = new Venue(name, address.Object, website, distance);
 
             // assert
             Assert.Equal(distance, actual.Distance);
@@ -102,10 +105,11 @@ namespace Dfc.FindACourse.Common.UnitTests.Models
             // arrange
             var name = "Name";
             var address = new Mock<IAddress>();
+            var website = "website";
             double? distance = 0.1;
 
             // act
-            var actual = new Venue(name, address.Object, distance);
+            var actual = new Venue(name, address.Object, website, distance);
 
             // assert
             Assert.Equal(distance, actual.Distance);
@@ -132,10 +136,11 @@ namespace Dfc.FindACourse.Common.UnitTests.Models
             // arrange
             var name = "Name";
             var address = new Mock<IAddress>();
+            var website = "website";
             double? distance = 0.1;
 
             // act
-            var actual = new Venue(name, address.Object, distance);
+            var actual = new Venue(name, address.Object, website, distance);
 
             // assert
             Assert.Equal(name, actual.Name);
@@ -149,10 +154,11 @@ namespace Dfc.FindACourse.Common.UnitTests.Models
             // arrange
             var name = "Name";
             var address = new Mock<IAddress>();
+            var website = "website";
             double? distance = 0.1;
             
-            var a = new Venue(name, address.Object, distance);
-            var b = new Venue(name, address.Object, distance);
+            var a = new Venue(name, address.Object, website, distance);
+            var b = new Venue(name, address.Object, website, distance);
 
             // act & assert
             Assert.True(a.Equals(b));
@@ -164,10 +170,11 @@ namespace Dfc.FindACourse.Common.UnitTests.Models
             // arrange
             var name = "Name";
             var address = new Mock<IAddress>();
+            var website = "website";
             double? distance = 0.1;
 
-            var a = new Venue(name, address.Object, distance);
-            var b = new Venue($"{name} X", address.Object, distance);
+            var a = new Venue(name, address.Object, website, distance);
+            var b = new Venue($"{name} X", address.Object, website, distance);
 
             // act & assert
             Assert.False(a.Equals(b));
