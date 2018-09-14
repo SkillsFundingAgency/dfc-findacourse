@@ -98,7 +98,7 @@
                     }
                 </tbody>
             </table>
-            @if ((!string.IsNullOrWhiteSpace(Model.BookingURL)) && (Model.BookingURL != Model.Provider.Website))
+            @if (!string.IsNullOrWhiteSpace(Model.BookingURL))
             {
                 <a target="_blank" href=@Model.BookingURL role="button" class="govuk-button govuk-button--start">
                     Enrol now
@@ -238,8 +238,18 @@
                 }
                 <table class="govuk-table" role="presentation">
                     <tbody class="govuk-table__body">
-                        
-                        @if (!string.IsNullOrWhiteSpace(@Model.Opportunity.URL))
+                        <!-- In order this should display: Venue Website, Opportunity URL, Provider URL-->
+
+                        @if (!string.IsNullOrWhiteSpace(@Model.Venue.Website))
+                        {
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell govuk-body-s">Website</td>
+                                <td class="govuk-table__cell">
+                                    <a class="govuk-link govuk-body-s" target="_blank" href="@Model.Venue.Website" style="word-break: break-all;">@Model.Venue.Website</a>
+                                </td>
+                            </tr>
+                        }
+                        @*else if (!string.IsNullOrWhiteSpace(@Model.Opportunity.URL))
                         {
                             <tr class="govuk-table__row">
                                 <td class="govuk-table__cell govuk-body-s">Website</td>
@@ -248,6 +258,16 @@
                                 </td>
                             </tr>
                         }
+                        else if (!string.IsNullOrWhiteSpace(@Model.Provider.Website))
+                        {
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell govuk-body-s">Website</td>
+                                <td class="govuk-table__cell">
+                                    <a class="govuk-link govuk-body-s" target="_blank" href="@Model.Provider.Website" style="word-break: break-all;">@Model.Provider.Website</a>
+                                </td>
+                            </tr>
+                        }*@
+
                         @if (!string.IsNullOrWhiteSpace(@Model.Provider.Email))
                         {
                             <tr class="govuk-table__row">

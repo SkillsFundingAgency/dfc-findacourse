@@ -104,9 +104,17 @@ namespace Dfc.FindACourse.Services.CourseDirectory
             return new Venue(
                 venueInfo.VenueName,
                 venueInfo.VenueAddress.ToAddess(),
+                string.Empty, //Not available in Venueinfo
                 distance);
         }
-
+        public static Venue ToVenue(this VenueDetail venueDetail)
+        {
+            return new Venue(
+                venueDetail.VenueName,
+                venueDetail.VenueAddress.ToAddess(),
+                venueDetail.Website,
+                0.0f);
+        }
         public static Course ToCourse(this CourseInfo courseInfo)
         {
             int id = int.TryParse(courseInfo.CourseID, out id) ? id : 0;
@@ -350,13 +358,6 @@ namespace Dfc.FindACourse.Services.CourseDirectory
                 return new Provider(1, "test");
             }
         }
-        public static Venue ToVenueInfo(this VenueDetail venue)
-        {
-            string name = venue.VenueName;
-            IAddress address = venue.VenueAddress.ToAddess();
-            double? distance = 0.0f;
-
-            return new Venue(name, address, distance);
-        }
+        
     }
 }

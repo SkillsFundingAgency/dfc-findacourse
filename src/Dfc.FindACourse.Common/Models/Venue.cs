@@ -9,9 +9,9 @@ namespace Dfc.FindACourse.Common.Models
         public string Name { get; }
         public IAddress Address { get; }
         public double? Distance { get; }
-       
+        public string Website { get; }
         /// <summary>
-        /// Not used at the moment since replaces by NULL and direct use of Provider Details
+        /// Not used at the moment since replaced by NULL and direct use of Provider Details
         /// </summary>
         /// <param name="provider"></param>
         public Venue(Provider provider)
@@ -30,7 +30,7 @@ namespace Dfc.FindACourse.Common.Models
         /// <param name="name"></param>
         /// <param name="address"></param>
         /// <param name="distance"></param>
-        public Venue(string name, IAddress address, double? distance = null)
+        public Venue(string name, IAddress address, string website, double? distance = null)
         {
             if (string.IsNullOrWhiteSpace(name))
                 throw new ArgumentException($"{nameof(name)} cannot be null, empty or only whitespace.");
@@ -40,7 +40,7 @@ namespace Dfc.FindACourse.Common.Models
             Name = name.ToSentenceCase();
             Address = address ?? throw new ArgumentNullException(nameof(address));
             Distance = distance;
-           
+            Website = website;
         }
 
         protected override IEnumerable<object> GetEqualityComponents()

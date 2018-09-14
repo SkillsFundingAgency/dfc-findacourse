@@ -143,7 +143,7 @@ namespace Dfc.FindACourse.Services.CourseDirectory
                         x.Course.ToCourseDetail(), 
                             x.Opportunity[0].ToOpportunity(), 
                                 x.Provider.ToProvider(),
-                                    (null != x.Venue && null != x.Venue[0]) ? x.Venue[0].ToVenueInfo() : null
+                                    (null != x.Venue && null != x.Venue[0]) ? x.Venue[0].ToVenue() : null
                        )).FirstOrDefault();
 
                 return Result.Ok<CourseItemDetail>(courseDetails);
