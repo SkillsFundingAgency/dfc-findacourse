@@ -92,14 +92,16 @@
                     <div class="download-link">
                         <a href="#">Print or download these search results</a>
                     </div>
-                    <div class="margin-bottom-05em">
+                    <div class="showing-container">
                         Showing @Model.ShowingFrom() - @Model.ShowingTo() of @Model.NoOfRecords results
+                    </div>
+                    <div class="pagination-container">
                         @if (Model.Items.Any() && Model.NoOfPages > 1)
                         {
                             <dfc-pagination dfc-pagination-no-of-pages="@Model.NoOfPages"
                                             dfc-pagination-url="@Context.Request.GetDisplayUrl()"
                                             dfc-pagination-param-name="@nameof(Model.PageNo)"
-                                            dfc-pagination-display-no-of-pages="@Model.PerPage"
+                                            dfc-pagination-display-no-of-pages="5"
                                             class="pagination page-top"></dfc-pagination>
                         }
                     </div>
@@ -207,7 +209,7 @@
                             <dfc-pagination dfc-pagination-no-of-pages="@Model.NoOfPages"
                                             dfc-pagination-url="@Context.Request.GetDisplayUrl()"
                                             dfc-pagination-param-name="@nameof(Model.PageNo)"
-                                            dfc-pagination-display-no-of-pages="@Model.PerPage"
+                                            dfc-pagination-display-no-of-pages="10"
                                             class="pagination page-bottom"></dfc-pagination>
                         }
                     }
