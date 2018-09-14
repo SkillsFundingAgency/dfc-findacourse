@@ -7,39 +7,25 @@ using Dfc.FindACourse.TestUtilities.TestUtilities;
 using Dfc.FindACourse.Web.Interfaces;
 using Dfc.FindACourse.Web.RequestModels;
 using Dfc.FindACourse.Web.Services;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using Xunit;
 
-namespace Dfc.FindACourse.Web.UnitTests
+namespace Dfc.FindACourse.Web.xUnit.UnitTests
 {
-    [TestClass]
     public class CourseDirectoryTests : BaseTests
     {
         private CourseDirectory CourseDirectory { get; set; }
 
-        [TestInitialize]
-        public void Init()
-        {
-            BuildServiceClass();
-        }
-
-        public void BuildServiceClass()
+        public CourseDirectoryTests()
         {
             CourseDirectory = new CourseDirectory(MockFileHelper.Object, MockCourseDirectoryHelper.Object);
 
-            Assert.IsNotNull(CourseDirectory.Files);
-            Assert.IsNotNull(CourseDirectory.CourseDirectoryHelper);
+            Assert.NotNull(CourseDirectory.Files);
+            Assert.NotNull(CourseDirectory.CourseDirectoryHelper);
         }
 
-        [TestMethod]
-        public void TestConstruction()
-        {
-            BuildServiceClass();
-        }
-
-        [TestMethod]
+        [Fact]
         public void TestGetQualificationLevels()
         {
             var list = new List<QualLevel>
@@ -62,7 +48,7 @@ namespace Dfc.FindACourse.Web.UnitTests
 
         }
 
-        [TestMethod]
+        [Fact]
         public void TestAutoSuggestCourseNameWithMissSpellings()
         {
             var doc = CreateTestSynonymsDoc();
@@ -80,7 +66,7 @@ namespace Dfc.FindACourse.Web.UnitTests
         }
 
 
-        [TestMethod]
+        [Fact]
         public void TestAutoSuggestCourseNameWithoutMissSpellings()
         {
             var doc = CreateTestSynonymsDoc();
@@ -108,7 +94,7 @@ namespace Dfc.FindACourse.Web.UnitTests
             return doc;
         }
 
-        [TestMethod]
+        [Fact]
         public void TestCreateCourseSearchCriteria()
         {
             var requestModel = new CourseSearchRequestModel
@@ -146,7 +132,7 @@ namespace Dfc.FindACourse.Web.UnitTests
             expected.IsSame(actual);
         }
 
-        [TestMethod]
+        [Fact]
         public void TestIsSuccessfulResultPass()
         {
             MockTelemetryClient.Setup(x => x.TrackEvent(It.IsAny<string>(), null, null)).Verifiable();
@@ -156,10 +142,10 @@ namespace Dfc.FindACourse.Web.UnitTests
             var actual = CourseDirectory.IsSuccessfulResult(result, MockTelemetryClient.Object, "test", "test", DateTime.Now);
             MockTelemetryClient.Verify();
 
-            Assert.IsTrue(actual == expected);
+            Assert.True(actual == expected);
         }
 
-        [TestMethod]
+        [Fact]
         public void TestIsSuccessfulResultFail()
         {
             MockTelemetryClient.Setup(x => x.TrackEvent(It.IsAny<string>(), null, null)).Verifiable();
@@ -169,7 +155,7 @@ namespace Dfc.FindACourse.Web.UnitTests
             var actual = CourseDirectory.IsSuccessfulResult(result, MockTelemetryClient.Object, "test", "test", DateTime.Now);
             MockTelemetryClient.Verify();
 
-            Assert.IsTrue(actual == expected);
+            Assert.True(actual == expected);
         }
     }
 }

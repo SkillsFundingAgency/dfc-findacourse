@@ -257,7 +257,6 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
             }
         }
 
-
         public static void TakeScreenshotOnFailure()
         {
             if (ScenarioContext.Current.TestError != null)
@@ -351,6 +350,22 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
             capability.SetCapability("realMobile", ConfigurationManager.AppSettings["realMobile"]);
             capability.SetCapability("name", ConfigurationManager.AppSettings["name"]);
             capability.SetCapability("os_version", ConfigurationManager.AppSettings["os_version"]);
+
+            //String username = Environment.GetEnvironmentVariable("BROWSERSTACK_USERNAME");
+            //if (username == null)
+            //{
+            //    username = ConfigurationManager.AppSettings.Get("user");
+            //}
+
+            //String accesskey = Environment.GetEnvironmentVariable("BROWSERSTACK_ACCESS_KEY");
+            //if (accesskey == null)
+            //{
+            //    accesskey = ConfigurationManager.AppSettings.Get("key");
+            //}
+
+            //capability.SetCapability("browserstack.user", username);
+            //capability.SetCapability("browserstack.key", accesskey);
+
             capability.SetCapability("browserstack.user", ConfigurationManager.AppSettings["user"]);
             capability.SetCapability("browserstack.key", ConfigurationManager.AppSettings["key"]);
 

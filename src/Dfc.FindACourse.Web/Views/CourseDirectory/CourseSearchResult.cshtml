@@ -138,7 +138,7 @@
                                             <li>@item.AttendanceMode.GetDisplayName()</li>
                                         }
 
-                                        @if (item.IsDisplayble(item.AttendencePattern) && item.IsDisplayble(item.AttendanceMode))
+                                        @if (item.IsDisplayble(item.AttendencePattern) && (item.IsDisplayble(item.AttendanceMode) || item.IsDisplayble(item.StudyMode))) 
                                         {
                                             <li> | @item.AttendencePattern.GetDisplayName() </li>
                                         }

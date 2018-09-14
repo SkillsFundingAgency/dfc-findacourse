@@ -259,3 +259,15 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+/src/Dfc.FindACourse.Web/gulpfile.js
+/src/Dfc.FindACourse.Web/Data/Temp
+/src/Dfc.FindACourse.Web/package-lock.json
+/src/Dfc.FindACourse.Web/parameters.xml
+/src/Dfc.FindACourse.Web/Properties/PublishProfiles/DfcFindACourseWeb - Web Deploy.pubxml
+/automatedtests/ESFA.UI.Specflow.Framework/Project/Reports
+/automatedtests/ESFA.UI.Specflow.Framework/Project/Screenshots
+/src/Dfc.FindACourse.Web/Properties/PublishProfiles/DfcFindACourseWeb - Web Deploy1.pubxml
+/src/Dfc.FindACourse.Web/Services/DataService - Copy.cs
+/automatedtests/ESFA.UI.Specflow.Framework/App.config
+
+**/*.DS_Store
