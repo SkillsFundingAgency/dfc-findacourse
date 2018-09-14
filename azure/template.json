@@ -57,7 +57,7 @@
       "properties": {
         "mode": "Incremental",
         "templateLink": {
-          "uri": "https://raw.githubusercontent.com/SkillsFundingAgency/das-platform-building-blocks/DASD-3104_appid/templates/application-insights.json",
+          "uri": "[concat(variables('deploymentUrlBase'),'application-insights.json')]",
           "contentVersion": "1.0.0.0"
         },
         "parameters": {
