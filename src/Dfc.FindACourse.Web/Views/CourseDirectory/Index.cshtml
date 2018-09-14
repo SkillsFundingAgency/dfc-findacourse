@@ -32,7 +32,8 @@
                     <input asp-for="SubjectKeyword"
                            class="form-control form-control-1-1"
                            autocomplete="off"
-                           placeholder="Enter a course name or subject" />
+                           placeholder="Enter a course name or subject" 
+                           autofocus />
                     <ul id="course-list"></ul>
                 </div>
             </div>
@@ -48,7 +49,7 @@
                         dfc-ignored-item-values="@(new Enum[] { QualificationLevel.Level9, QualificationLevel.LevelNa })">
                         <option value="">Select level</option>
                     </dfc-select>*@
-                <select class="form-control form-control-1-1" id="QualificationLevel" name="QualificationLevel">
+                <select class="form-control form-control-1-1 input-layout" id="QualificationLevel" name="QualificationLevel">
                     @foreach (var item in Model.QualificationLevels)
                     {
 

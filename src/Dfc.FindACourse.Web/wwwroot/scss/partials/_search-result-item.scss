@@ -1,4 +1,12 @@
 ﻿.search-result-item {
+    border-bottom: 1px solid $grey-2;
+    margin-top: 1.5em;
+    padding-bottom: 1.5em;
+
+    &:last-child {
+        border-bottom: 3px solid $black;
+    }
+
     h3 {
         font-size: 1.17em;
         font-weight: bold;
@@ -9,7 +17,7 @@
             background-color: $yellow;
         }
     }
-       
+
     .result-item-course-attendence-study-mode-info {
         list-style-type: none;
         margin-bottom: 1em;
@@ -21,7 +29,6 @@
 
     .result-item-course-info {
         list-style-type: none;
-        margin-bottom: 2em;
 
         .label {
             color: $grey-1;
@@ -35,4 +42,8 @@
             width: 28em;
         }
     }
+}
+
+#FindACourseForm {
+    padding-top: 50px;
 }

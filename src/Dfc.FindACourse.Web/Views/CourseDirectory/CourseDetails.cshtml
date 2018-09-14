@@ -9,36 +9,49 @@
 
 <link rel='stylesheet' href='/css/course-directory.css' type='text/css' media='all' />
 
-    <div class="govuk-breadcrumbs">
-        <ol class="govuk-breadcrumbs__list">
-            <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/">Home</a></li>
-            <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="index">Find a course</a></li>
+<div class="govuk-breadcrumbs">
+    <ol class="govuk-breadcrumbs__list">
+        <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/">Home</a></li>
+        <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/">Find a course</a></li>
 
-        </ol>
-    </div>
+    </ol>
+</div>
 
-    <a class="link-back mt" href="javascript:history.go(-1)">Back to results</a>
+<a class="link-back mt" href="javascript:history.go(-1)">Back to results</a>
 
-    <div class="govuk-grid-row">
-        <div class="govuk-grid-column-two-thirds">
-            <h1 class="govuk-heading-l" style="padding-top: 20px;">
-                @Model.CourseTitle
-            </h1>
-            <section id="1">
+<div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+        <h1 class="govuk-heading-l" style="padding-top: 20px;">
+            @Model.CourseTitle
+        </h1>
+        <section id="1">
 
-                <table class="govuk-table" role="presentation">
-                    <tbody class="govuk-table__body">
-                        <tr class="govuk-table__row">
-                            <td class="govuk-table__cell">Qualification name</td>
-                            <td class="govuk-table__cell">@Model.CourseTitle</td>
-                        </tr>
-                        <tr class="govuk-table__row">
-                            <td class="govuk-table__cell">Entry requirements</td>
-                            <td class="govuk-table__cell">
-                                @Model.EntryRequirements
+            <table class="govuk-table" role="presentation">
+                <tbody class="govuk-table__body">
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell">Qualification name</td>
+                        <td class="govuk-table__cell">
+                            @if (!string.IsNullOrWhiteSpace(Model.QualificationTitle))
+                            {
+                                @Model.QualificationTitle
+                            }
+                            else
+                            {
+                                @Model.CourseTitle
+                            }
+                        </td>
+                    </tr>
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell">Entry requirements</td>
+                        <td class="govuk-table__cell">
+                            @Model.EntryRequirements
 
-                            </td>
-                        </tr>
+                        </td>
+                    </tr>
+                    @if (!string.IsNullOrWhiteSpace(@Model.Opportunity.Price)
+                      || !string.IsNullOrWhiteSpace(@Model.Opportunity.PriceDescription)
+                          || (Model.Provider.TFPlusLoansSpecified && Model.Provider.TFPlusLoans))
+                    {
                         <tr class="govuk-table__row">
                             <td class="govuk-table__cell">Cost</td>
                             <td class="govuk-table__cell">
@@ -56,202 +69,211 @@
                                 }
                             </td>
                         </tr>
-                        <tr class="govuk-table__row">
-                            <td class="govuk-table__cell">Start date</td>
-                            <td class="govuk-table__cell">@Model.StartDate</td>
-                        </tr>
-                        <tr class="govuk-table__row">
-                            <td class="govuk-table__cell">Duration</td>
-                            <td class="govuk-table__cell">@Model.Duration</td>
-                        </tr>
+                    }
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell">Start date</td>
+                        <td class="govuk-table__cell">@Model.StartDate</td>
+                    </tr>
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell">Duration</td>
+                        <td class="govuk-table__cell">@Model.Duration</td>
+                    </tr>
+                    @if (Model.StudyMode != StudyMode.PartTimeOfAFullTimeProgram)
+                    {
                         <tr class="govuk-table__row">
                             <td class="govuk-table__cell">Full-time or part-time</td>
                             <td class="govuk-table__cell">@Model.StudyMode.GetDisplayName()</td>
                         </tr>
+                    }
+                    <tr class="govuk-table__row">
+                        <td class="govuk-table__cell">Classroom or online</td>
+                        <td class="govuk-table__cell">@Model.AttendanceMode.GetDisplayName()</td>
+                    </tr>
+                    @if(Model.AttendencePattern != AttendancePattern.Customised)
+                    { 
                         <tr class="govuk-table__row">
                             <td class="govuk-table__cell">Day, night or weekend</td>
                             <td class="govuk-table__cell">@Model.AttendencePattern.GetDisplayName()</td>
                         </tr>
+                    }
+                </tbody>
+            </table>
+            @if ((!string.IsNullOrWhiteSpace(Model.BookingURL)) && (Model.BookingURL != Model.Provider.Website))
+            {
+                <a target="_blank" href=@Model.BookingURL role="button" class="govuk-button govuk-button--start">
+                    Enrol now
+                </a>
+            }
+            else if (!string.IsNullOrWhiteSpace(Model.Provider.Website))
+            {
+                <a target="_blank" href=@Model.Provider.Website role="button" class="govuk-button govuk-button--start">
+                    More Information
+                </a>
+            }
+
+
+            <p class="enrol-text">on the provider’s website</p>
+        </section>
+
+        <section id="2">
+            <h2 class="govuk-heading-m">Course description</h2>
+            <p class="govuk-body govuk-!-font-size-19">
+                @Model.CourseSummary
+            </p>
+            @if (!string.IsNullOrWhiteSpace(@Model.EquipmentRequired))
+            {
+                <p class="govuk-heading-s">What you’ll need to bring</p>
+                <p class="govuk-body govuk-!-font-size-19">
+                    @Model.EquipmentRequired
+                </p>
+            }
+            @if (!string.IsNullOrWhiteSpace(@Model.AssessmentMethod))
+            {
+                <p class="govuk-heading-s">How you’ll be assessed</p>
+                <p class="govuk-body govuk-!-font-size-19">
+                    @Model.AssessmentMethod
+                </p>
+            }
+        </section>
+
+
+
+
+    </div>
+    <div class="govuk-grid-column-one-third">
+
+        <section id="6">
+            <aside class="govuk-related-items" role="complementary">
+                <h2 class="govuk-heading-s" style="margin-top: 10px">Provider</h2>
+                <p class="govuk-body-s">@Model.ProviderName</p>
+                <hr>
+                <h2 class="govuk-heading-s" style="margin-top: 10px;padding-top: 10px">Venue</h2>
+                <table class="govuk-table" role="presentation">
+                    <tbody class="govuk-table__body">
                         <tr class="govuk-table__row">
-                            <td class="govuk-table__cell">Classroom or online</td>
-                            <td class="govuk-table__cell">@Model.AttendanceMode.GetDisplayName()</td>
+                            <td class="govuk-table__cell govuk-body-s">Name</td>
+                            <td class="govuk-table__cell govuk-body-s">@Model.Venue.Name</td>
                         </tr>
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell govuk-body-s" style="border-bottom: none">Address</td>
+                            <td class="govuk-table__cell govuk-body-s" style="border-bottom: none">
+                                @if (!string.IsNullOrEmpty(@Model.Venue.Address.Line1))
+                                {@Model.Venue.Address.Line1 <br>}
+                                @if (!string.IsNullOrEmpty(@Model.Venue.Address.Line2))
+                                {@Model.Venue.Address.Line2 <br>}
+                                @if (!string.IsNullOrEmpty(@Model.Venue.Address.Town))
+                                {@Model.Venue.Address.Town <br>}
+                                @if (!string.IsNullOrEmpty(@Model.Venue.Address.County))
+                                {@Model.Venue.Address.County <br>}
+                                @if (!string.IsNullOrEmpty(@Model.Venue.Address.Postcode))
+                                {@Model.Venue.Address.Postcode <br>}
+
+
+
+                                <a class="govuk-link" target="_blank" href="https://www.google.com/maps?q=@Model.Venue.Address.Latitude,@Model.Venue.Address.Longitude">Find on Google maps</a>
+                            </td>
+                        </tr>
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell" colspan="2">
+                                <details>
+                                    <summary>
+                                        <span style="color:#005ea5"> Journey time</span>
+                                    </summary>
+                                    <div class="panel">
+                                        <select class="form-control valid select-mode" name="" aria-invalid="false">
+                                            <option value="TRANSIT" aria-live="polite">Bus/Train</option>
+                                            <option value="WALKING" aria-live="polite">Walking</option>
+                                            <option value="BICYCLING" aria-live="polite">Cycling</option>
+                                            <option value="DRIVING" aria-live="polite">Driving</option>
+                                        </select>
+                                        <span class="journey-time" aria-live="polite">5 mins</span>
+                                    </div>
+                                </details>
+                            </td>
+                        </tr>
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell govuk-body-s">Website</td>
+                            <td class="govuk-table__cell">
+                                <a class="govuk-link govuk-body-s" target="_blank" href="@Model.URL" style="word-break: break-all;">@Model.URL</a>
+                            </td>
+                        </tr>
+                        @if (!string.IsNullOrWhiteSpace(@Model.Provider.Email))
+                        {
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell govuk-body-s">Email</td>
+                                <td class="govuk-table__cell govuk-body-s"><a href="mailto: @Model.Provider.Email" style="word-break: break-all;"> @Model.Provider.Email</a> </td>
+
+                            </tr>
+                        }
+                        @if (!string.IsNullOrWhiteSpace(@Model.Provider.Phone))
+                        {
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell govuk-body-s">Phone</td>
+                                <td class="govuk-table__cell govuk-body-s">@Model.Provider.Phone</td>
+                            </tr>
+                        }
                     </tbody>
                 </table>
-                @if ((!string.IsNullOrWhiteSpace(Model.BookingURL)) && (Model.BookingURL != Model.Provider.Website))
-                {
-                    <a target="_blank" href=@Model.BookingURL role="button" class="govuk-button govuk-button--start">
-                        Enrol now
-                    </a>
-                }
-                else if (!string.IsNullOrWhiteSpace(Model.Provider.Website))
-                {
-                    <a target="_blank" href=@Model.Provider.Website role="button" class="govuk-button govuk-button--start">
-                        More Information
-                    </a>
-                }
-
-
-                <p class="enrol-text">on the provider’s website</p>
-            </section>
-
-            <section id="2">
-                <h2 class="govuk-heading-m">Course description</h2>
-                <p class="govuk-body govuk-!-font-size-19">
-                    @Model.CourseSummary
-                </p>
-                @if (!string.IsNullOrWhiteSpace(@Model.EquipmentRequired))
-                {
-                    <p class="govuk-heading-s">What you’ll need to bring</p>
-                    <p class="govuk-body govuk-!-font-size-19">
-                        @Model.EquipmentRequired
-                    </p>
-                }
-                @if (!string.IsNullOrWhiteSpace(@Model.AssessmentMethod))
-                {
-                    <p class="govuk-heading-s">How you’ll be assessed</p>
-                    <p class="govuk-body govuk-!-font-size-19">
-                        @Model.AssessmentMethod
-                    </p>
-                }
-             </section>
-
-            <div class="icons-buttons" style="margin-top: 80px">
-                <h3 class="govuk-heading-m">Share this page</h3>
-                <ul class="share-links">
-                    <li>
-                        <a target="_blank" href="https://twitter.com/intent/tweet?original_referer&amp;url=https%3A%2F%2Finsidegovuk.blog.gov.uk%2F2014%2F02%2F20%2Fgov-uk-social-sharing-buttons-the-first-10-weeks%2F&amp;text=GOV.UK+social+sharing+buttons%3A+the+first+10+weeks" class="twitter">Twitter</a>
-                    </li>
-                    <li>
-                        <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Finsidegovuk.blog.gov.uk%2F2014%2F02%2F20%2Fgov-uk-social-sharing-buttons-the-first-10-weeks%2F" class="facebook">Facebook</a>
-                    </li>
-                    <li>
-                        <a target="_blank" href="https://www.linkedin.com/shareArticle?url=https%3A%2F%2Finsidegovuk.blog.gov.uk%2F2014%2F02%2F20%2Fgov-uk-social-sharing-buttons-the-first-10-weeks%2F" class="linkedin">LinkedIn</a>
-                    </li>
-                    <li>
-                        <a href="mailto:?subject=I wanted to share this post with you from Inside GOV.UK&amp;body=GOV.UK social sharing buttons: the first 10 weeks https://insidegovuk.blog.gov.uk/2014/02/20/gov-uk-social-sharing-buttons-the-first-10-weeks/" class="email">Email</a>
-                    </li>
-                </ul>
-                <div class="clearfix"></div>
-            </div>
-
-
-        </div>
-        <div class="govuk-grid-column-one-third">
-
-            <section id="6">
-                <aside class="govuk-related-items" role="complementary">
-                    <h2 class="govuk-heading-s" style="margin-top: 10px">Provider</h2>
-                    <p class="govuk-body-s">@Model.ProviderName</p>
-                    <hr>
-                    <h2 class="govuk-heading-s" style="margin-top: 10px;padding-top: 10px">Venue</h2>
-                    <table class="govuk-table" role="presentation">
-                        <tbody class="govuk-table__body">
-                            <tr class="govuk-table__row">
-                                <td class="govuk-table__cell govuk-body-s">Name</td>
-                                <td class="govuk-table__cell govuk-body-s">@Model.Venue.Name</td>
-                            </tr>
-                            <tr class="govuk-table__row">
-                                <td class="govuk-table__cell govuk-body-s" style="border-bottom: none">Address</td>
-                                <td class="govuk-table__cell govuk-body-s" style="border-bottom: none">
-                                    @if (!string.IsNullOrEmpty(@Model.Venue.Address.Line1))
-                                    {@Model.Venue.Address.Line1 <br>}
-                                    @if (!string.IsNullOrEmpty(@Model.Venue.Address.Line2))
-                                    {@Model.Venue.Address.Line2 <br>}
-                                    @if (!string.IsNullOrEmpty(@Model.Venue.Address.Town))
-                                    {@Model.Venue.Address.Town <br>}
-                                    @if (!string.IsNullOrEmpty(@Model.Venue.Address.County))
-                                    {@Model.Venue.Address.County <br>}
-                                    @if (!string.IsNullOrEmpty(@Model.Venue.Address.Postcode))
-                                    {@Model.Venue.Address.Postcode <br>}
-
-
-
-                                    <a class="govuk-link" target="_blank" href="https://www.google.com/maps?q=@Model.Venue.Address.Latitude,@Model.Venue.Address.Longitude">Find on Google maps</a>
-                                </td>
-                            </tr>
-                            <tr class="govuk-table__row">
-                                <td class="govuk-table__cell" colspan="2">
-                                    <details>
-                                        <summary>
-                                            <span style="color:#005ea5"> Journey time</span>
-                                        </summary>
-                                        <div class="panel">
-                                            <select class="form-control valid select-mode" name="" aria-invalid="false">
-                                                <option value="TRANSIT" aria-live="polite">Bus/Train</option>
-                                                <option value="WALKING" aria-live="polite">Walking</option>
-                                                <option value="BICYCLING" aria-live="polite">Cycling</option>
-                                                <option value="DRIVING" aria-live="polite">Driving</option>
-                                            </select>
-                                            <span class="journey-time" aria-live="polite">5 mins</span>
-                                        </div>
-                                    </details>
-                                </td>
-                            </tr>
-                            <tr class="govuk-table__row">
-                                <td class="govuk-table__cell govuk-body-s">Website</td>
-                                <td class="govuk-table__cell">
-                                    <a class="govuk-link govuk-body-s" target="_blank" href="@Model.URL" style="word-break: break-all;">@Model.URL</a>
-                                </td>
-                            </tr>
-                            @if (!string.IsNullOrWhiteSpace(@Model.Provider.Email))
-                            {
+                <details>
+                    <summary style="position: relative;top:-10px">
+                        <span style="color:#005ea5;">Other dates and venues</span>
+                    </summary>
+                    <div class="panel">
+                        <table class="govuk-table">
+                            <thead class="govuk-table__head">
                                 <tr class="govuk-table__row">
-                                    <td class="govuk-table__cell govuk-body-s">Email</td>
-                                    <td class="govuk-table__cell govuk-body-s"><a href="mailto: @Model.Provider.Email" style="word-break: break-all;"> @Model.Provider.Email</a> </td>
-
+                                    <td class="govuk-table__header govuk-body-s" scope="col">Venue</td>
+                                    <td class="govuk-table__header govuk-body-s" scope="col">Start date</td>
+                                    <td class="govuk-table__header govuk-body-s" scope="col">Options</td>
                                 </tr>
-                            }
-                            @if (!string.IsNullOrWhiteSpace(@Model.Provider.Phone))
-                            {
+                            </thead>
+                            <tbody>
                                 <tr class="govuk-table__row">
-                                    <td class="govuk-table__cell govuk-body-s">Phone</td>
-                                    <td class="govuk-table__cell govuk-body-s">@Model.Provider.Phone</td>
+                                    <td class="govuk-table__cell govuk-body-s">Clarence Street</td>
+                                    <td class="govuk-table__cell govuk-body-s">Variable</td>
+                                    <td class="govuk-table__cell govuk-body-s">
+                                        <a href="#">View course</a>
+                                    </td>
                                 </tr>
-                            }
-                        </tbody>
-                    </table>
-                    <details>
-                        <summary style="position: relative;top:-10px">
-                            <span style="color:#005ea5;">Other dates and venues</span>
-                        </summary>
-                        <div class="panel">
-                            <table class="govuk-table">
-                                <thead class="govuk-table__head">
-                                    <tr class="govuk-table__row">
-                                        <td class="govuk-table__header govuk-body-s" scope="col">Venue</td>
-                                        <td class="govuk-table__header govuk-body-s" scope="col">Start date</td>
-                                        <td class="govuk-table__header govuk-body-s" scope="col">Options</td>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr class="govuk-table__row">
-                                        <td class="govuk-table__cell govuk-body-s">Clarence Street</td>
-                                        <td class="govuk-table__cell govuk-body-s">Variable</td>
-                                        <td class="govuk-table__cell govuk-body-s">
-                                            <a href="#">View course</a>
-                                        </td>
-                                    </tr>
-                                    <tr class="govuk-table__row">
-                                        <td class="govuk-table__cell govuk-body-s" style="border-bottom: none">Boswall Street</td>
-                                        <td class="govuk-table__cell govuk-body-s" style="border-bottom: none">Variable</td>
-                                        <td class="govuk-table__cell govuk-body-s" style="border-bottom: none">
-                                            <a href="#">View course</a>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </details>
+                                <tr class="govuk-table__row">
+                                    <td class="govuk-table__cell govuk-body-s" style="border-bottom: none">Boswall Street</td>
+                                    <td class="govuk-table__cell govuk-body-s" style="border-bottom: none">Variable</td>
+                                    <td class="govuk-table__cell govuk-body-s" style="border-bottom: none">
+                                        <a href="#">View course</a>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </details>
 
-                    <hr>
+                <hr>
 
-                </aside>
-            </section>
+            </aside>
+        </section>
 
 
-        </div>
     </div>
+
+</div>
+<div class="icons-buttons" style="margin-top: 80px">
+    <h3 class="govuk-heading-m">Share this page</h3>
+    <ul class="share-links">
+        <li>
+            <a target="_blank" href="https://twitter.com/intent/tweet?original_referer&amp;url=https%3A%2F%2Finsidegovuk.blog.gov.uk%2F2014%2F02%2F20%2Fgov-uk-social-sharing-buttons-the-first-10-weeks%2F&amp;text=GOV.UK+social+sharing+buttons%3A+the+first+10+weeks" class="twitter">Twitter</a>
+        </li>
+        <li>
+            <a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Finsidegovuk.blog.gov.uk%2F2014%2F02%2F20%2Fgov-uk-social-sharing-buttons-the-first-10-weeks%2F" class="facebook">Facebook</a>
+        </li>
+        <li>
+            <a target="_blank" href="https://www.linkedin.com/shareArticle?url=https%3A%2F%2Finsidegovuk.blog.gov.uk%2F2014%2F02%2F20%2Fgov-uk-social-sharing-buttons-the-first-10-weeks%2F" class="linkedin">LinkedIn</a>
+        </li>
+        <li>
+            <a href="mailto:?subject=I wanted to share this post with you from Inside GOV.UK&amp;body=GOV.UK social sharing buttons: the first 10 weeks https://insidegovuk.blog.gov.uk/2014/02/20/gov-uk-social-sharing-buttons-the-first-10-weeks/" class="email">Email</a>
+        </li>
+    </ul>
+    <div class="clearfix"></div>
+</div>
 
 
 

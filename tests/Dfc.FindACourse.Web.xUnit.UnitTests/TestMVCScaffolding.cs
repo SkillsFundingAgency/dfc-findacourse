@@ -1,21 +1,16 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Reflection;
-using Dfc.FindACourse.TestUtilities.TestUtilities;
-using Dfc.FindACourse.Web.Controllers;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
+using Xunit;
 
-namespace Dfc.FindACourse.Web.UnitTests
+namespace Dfc.FindACourse.Web.xUnit.UnitTests
 {
-    [TestClass]
     public class TestMVCScaffolding
     {
-        //[TestMethod]
+        //[Fact]
         public void ConfigureServices_RegistersDependenciesCorrectly()
         {
             //  Arrange
@@ -45,7 +40,7 @@ namespace Dfc.FindACourse.Web.UnitTests
             var serviceProvider = services.BuildServiceProvider();
 
             var controller = serviceProvider.GetService<TestController>();
-            Assert.IsNotNull(controller);
+            Assert.NotNull(controller);
         }
     }
 

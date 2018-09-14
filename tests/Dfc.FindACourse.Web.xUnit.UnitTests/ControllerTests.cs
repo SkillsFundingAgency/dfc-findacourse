@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Dfc.FindACourse.Common;
 using Dfc.FindACourse.Common.Interfaces;
 using Dfc.FindACourse.Common.Models;
@@ -11,25 +10,16 @@ using Dfc.FindACourse.Web.RequestModels;
 using Dfc.FindACourse.Web.ViewModels.CourseDirectory;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
-using Newtonsoft.Json;
-using Remotion.Linq.Parsing.Structure.IntermediateModel;
+using Xunit;
 
-namespace Dfc.FindACourse.Web.UnitTests
+namespace Dfc.FindACourse.Web.xUnit.UnitTests
 {
-    [TestClass]
     public class ControllerTests : BaseTests
     {
         public CourseDirectoryController Controller { get; private set; }
 
-        [TestInitialize]
-        public void Init()
-        {
-            BuildController();
-        }
-
-        public void BuildController()
+        public ControllerTests()
         {
             Controller = new CourseDirectoryController
             (
@@ -42,24 +32,20 @@ namespace Dfc.FindACourse.Web.UnitTests
                 MockFileHelper.Object,
                 MockCourseDirectoryHelper.Object
             );
-            Assert.IsNotNull(Controller.Configuration, "Configuration");
-            Assert.IsNotNull(Controller.Service, "Service");
-            Assert.IsNotNull(Controller.Cache, "Cache");
-            Assert.IsNotNull(Controller.Telemetry, "Telemetry");
-            Assert.IsNotNull(Controller.Settings, "Settings");
-            Assert.IsNotNull(Controller.Files, "Settings");
-            Assert.IsNotNull(Controller.CourseDirectory);
-            Assert.IsNotNull(Controller.CourseDirectoryHelper);
+            
+            Assert.NotNull(Controller.Configuration);
+            Assert.NotNull(Controller.Service);
+            Assert.NotNull(Controller.Cache);
+            Assert.NotNull(Controller.Telemetry);
+            Assert.NotNull(Controller.Settings);
+            Assert.NotNull(Controller.Files);
+            Assert.NotNull(Controller.CourseDirectory);
+            Assert.NotNull(Controller.CourseDirectoryHelper);
         }
 
-        [TestMethod]
-        public void TestConstruction()
-        {
-            BuildController();
-        }
 
         // Tests the Starting View.
-        [TestMethod]
+        [Fact]
         public void TestIndex()
         {
             // Arrange
@@ -72,10 +58,10 @@ namespace Dfc.FindACourse.Web.UnitTests
             // Assert
             MockCourseDirectory.Verify();
             MockTelemetryClient.Verify();
-            Assert.IsNotNull(result);
+            Assert.NotNull(result);
         }
 
-        [TestMethod]
+        [Fact]
         public void TestAutocomplete()
         {
             //Arrange
@@ -90,27 +76,27 @@ namespace Dfc.FindACourse.Web.UnitTests
             var result = json.Value as List<string>;
 
             //Assert
-            Assert.IsTrue(result != null);
-            Assert.IsTrue(result.Count == 7);
-            Assert.IsTrue(result[0] == "ANIMAL");
-            Assert.IsTrue(result[1] == "ANIMAL BEHAVIOR");
-            Assert.IsTrue(result[2] == "ANIMAL CARE");
-            Assert.IsTrue(result[3] == "ANIMAL KEEPER");
-            Assert.IsTrue(result[4] == "BAKER");
-            Assert.IsTrue(result[5] == "BAKER ASSISTANT");
-            Assert.IsTrue(result[6] == "BAKER CLEANER");
+            Assert.True(result != null);
+            Assert.True(result.Count == 7);
+            Assert.True(result[0] == "ANIMAL");
+            Assert.True(result[1] == "ANIMAL BEHAVIOR");
+            Assert.True(result[2] == "ANIMAL CARE");
+            Assert.True(result[3] == "ANIMAL KEEPER");
+            Assert.True(result[4] == "BAKER");
+            Assert.True(result[5] == "BAKER ASSISTANT");
+            Assert.True(result[6] == "BAKER CLEANER");
         }
 
-        [TestMethod]
+        [Fact]
         public void TestAutocompleteNoInput()
         {
             var json = Controller.Autocomplete(null) as JsonResult;
 
-            Assert.IsNull(json.Value);
+            Assert.Null(json.Value);
         }
 
 
-        [TestMethod]
+        [Fact]
         public void TestCourseDetailsInvalidModelState()
         {
             Controller.ModelState.AddModelError("test", "test");
@@ -121,7 +107,7 @@ namespace Dfc.FindACourse.Web.UnitTests
             AssertDefaultView(result);
         }
 
-        [TestMethod]
+        [Fact]
         public void TestCourseDetailsResultWithValidModelState()
         {
             var courseDetailsResult = CreateCourseDetailsResult();
@@ -139,20 +125,20 @@ namespace Dfc.FindACourse.Web.UnitTests
 
             MockTelemetryClient.Verify(x => x.TrackEvent(It.IsAny<string>(), null, null), (Times.Never()));
             MockTelemetryClient.Verify(x => x.Flush(), (Times.Exactly(1)));
-            Assert.IsNotNull(result);
-            Assert.IsNotNull(result);
-            Assert.IsNotNull(result.Model);
+            Assert.NotNull(result);
+            Assert.NotNull(result);
+            Assert.NotNull(result.Model);
             expected.IsSame(result.Model);
-            Assert.IsNull(result.ContentType);
-            Assert.IsNull(result.StatusCode);
-            Assert.IsNull(result.TempData);
-            Assert.IsNull(result.ViewEngine);
-            Assert.IsNull(result.ViewName);
-            Assert.IsTrue(result.ViewData.Count == 0);
+            Assert.Null(result.ContentType);
+            Assert.Null(result.StatusCode);
+            Assert.Null(result.TempData);
+            Assert.Null(result.ViewEngine);
+            Assert.Null(result.ViewName);
+            Assert.True(result.ViewData.Count == 0);
         }
 
 
-        [TestMethod]
+        [Fact]
         public void TestCourseDetailsResultWithValidModelStateAndInvalidSearchResult()
         {
             var courseDetailsResult = CreateCourseDetailsResult();
@@ -193,7 +179,7 @@ namespace Dfc.FindACourse.Web.UnitTests
             return courseDetailsResult;
         }
 
-        [TestMethod]
+        [Fact]
         public void TestCourseSearchResultInvalidModelState()
         {
             Controller.ModelState.AddModelError("test", "test");
@@ -204,7 +190,7 @@ namespace Dfc.FindACourse.Web.UnitTests
             AssertDefaultView(result);
         }
 
-        [TestMethod]
+        [Fact]
         public void TestCourseSearchResultWithValidModelState()
         {
             var fromQuery = new CourseSearchRequestModel() { SubjectKeyword = "TestSubjectKeyword", LocationRadius = 10 };
@@ -225,31 +211,31 @@ namespace Dfc.FindACourse.Web.UnitTests
             var result = Controller.CourseSearchResult(fromQuery) as ViewResult;
             MockTelemetryClient.Verify(x=>x.TrackEvent(It.IsAny<string>(), null, null),(Times.Never()));
             MockTelemetryClient.Verify(x => x.Flush(), (Times.Exactly(1)));
-            Assert.IsNotNull(result);
-            Assert.IsNotNull(result);
-            Assert.IsNotNull(result.Model);
+            Assert.NotNull(result);
+            Assert.NotNull(result);
+            Assert.NotNull(result.Model);
             expected.IsSame(result.Model);
-            Assert.IsNull(result.ContentType);
-            Assert.IsNull(result.StatusCode);
-            Assert.IsNull(result.TempData);
-            Assert.IsNull(result.ViewEngine);
-            Assert.IsNull(result.ViewName);
-            Assert.IsTrue(result.ViewData.Count == 0);
+            Assert.Null(result.ContentType);
+            Assert.Null(result.StatusCode);
+            Assert.Null(result.TempData);
+            Assert.Null(result.ViewEngine);
+            Assert.Null(result.ViewName);
+            Assert.True(result.ViewData.Count == 0);
         }
 
         private void AssertDefaultView(ViewResult result)
         {
-            Assert.IsNotNull(result);
-            Assert.IsNull(result.Model);
-            Assert.IsNull(result.ContentType);
-            Assert.IsNull(result.StatusCode);
-            Assert.IsNull(result.TempData);
-            Assert.IsNull(result.ViewEngine);
-            Assert.IsNull(result.ViewName);
-            Assert.IsTrue(result.ViewData.Count == 0);
+            Assert.NotNull(result);
+            Assert.Null(result.Model);
+            Assert.Null(result.ContentType);
+            Assert.Null(result.StatusCode);
+            Assert.Null(result.TempData);
+            Assert.Null(result.ViewEngine);
+            Assert.Null(result.ViewName);
+            Assert.True(result.ViewData.Count == 0);
         }
 
-        [TestMethod]
+        [Fact]
         public void TestCourseSearchResultWithValidModelStateAndInvalidSearchResult()
         {
             var fromQuery = new CourseSearchRequestModel() { SubjectKeyword = "TestSubjectKeyword", LocationRadius = 20 };

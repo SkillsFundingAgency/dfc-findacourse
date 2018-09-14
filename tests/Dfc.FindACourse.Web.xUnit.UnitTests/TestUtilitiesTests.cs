@@ -1,21 +1,19 @@
 ﻿using System;
 using Dfc.FindACourse.TestUtilities.TestUtilities;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Xunit;
 
-namespace Dfc.FindACourse.Web.UnitTests
+namespace Dfc.FindACourse.Web.xUnit.UnitTests
 {
     [TestClass]
     public class TestUtilitiesTests
     {
-        [TestMethod]
+        [Fact]
         public void TestExceptionAsExpected()
         {
             var action = new Action(DoWorkWithException);
             ComparisonsExtensions.Exception<Exception>(action, "expected");
         }
-
-
-
 
         public static void DoWorkWithException()
         {
