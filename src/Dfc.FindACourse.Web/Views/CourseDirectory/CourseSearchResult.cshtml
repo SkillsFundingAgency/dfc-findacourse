@@ -181,29 +181,6 @@
                             }
                         </div>
 
-                        @*<div class="pagination">
-                            <a href="" class="pagination-item pagination-previous">previous</a>
-
-                            @for (var i = 1; i <= Model.NoOfPages; i++)
-                            {
-                                var ub = new UriBuilder(Context.Request.GetDisplayUrl());
-                                var qs = HttpUtility.ParseQueryString(ub.Query);
-                                qs.Set(nameof(Model.PageNo), i.ToString());
-                                ub.Query = qs.ToString();
-
-                                if (i == Model.PageNo)
-                                {
-                                    <a href="@ub.ToString()" class="pagination-item current">@i</a>
-                                }
-                                else
-                                {
-                                    <a href="@ub.ToString()" class="pagination-item">@i</a>
-                                }
-                            }
-
-                            <a href="" class="pagination-item pagination-next">next</a>
-                        </div>*@
-
                         if (Model.Items.Any() && Model.NoOfPages > 1)
                         {
                             <dfc-pagination dfc-pagination-no-of-pages="@Model.NoOfPages"
