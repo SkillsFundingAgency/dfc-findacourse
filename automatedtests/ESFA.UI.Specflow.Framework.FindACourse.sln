@@ -10,6 +10,7 @@ Global
 		AndroidChrome|Any CPU = AndroidChrome|Any CPU
 		AndroidNative|Any CPU = AndroidNative|Any CPU
 		bsCreds|Any CPU = bsCreds|Any CPU
+		CITests|Any CPU = CITests|Any CPU
 		iOSChrome|Any CPU = iOSChrome|Any CPU
 		iOSFirefox|Any CPU = iOSFirefox|Any CPU
 		iOSSafari|Any CPU = iOSSafari|Any CPU
@@ -31,6 +32,8 @@ Global
 		{AFFF6638-BD32-41D3-8CB6-9D10139575D5}.AndroidNative|Any CPU.Build.0 = Debug|Any CPU
 		{AFFF6638-BD32-41D3-8CB6-9D10139575D5}.bsCreds|Any CPU.ActiveCfg = Debug|Any CPU
 		{AFFF6638-BD32-41D3-8CB6-9D10139575D5}.bsCreds|Any CPU.Build.0 = Debug|Any CPU
+		{AFFF6638-BD32-41D3-8CB6-9D10139575D5}.CITests|Any CPU.ActiveCfg = CITests|Any CPU
+		{AFFF6638-BD32-41D3-8CB6-9D10139575D5}.CITests|Any CPU.Build.0 = CITests|Any CPU
 		{AFFF6638-BD32-41D3-8CB6-9D10139575D5}.iOSChrome|Any CPU.ActiveCfg = iOSChrome|Any CPU
 		{AFFF6638-BD32-41D3-8CB6-9D10139575D5}.iOSChrome|Any CPU.Build.0 = iOSChrome|Any CPU
 		{AFFF6638-BD32-41D3-8CB6-9D10139575D5}.iOSFirefox|Any CPU.ActiveCfg = iOSFirefox|Any CPU
