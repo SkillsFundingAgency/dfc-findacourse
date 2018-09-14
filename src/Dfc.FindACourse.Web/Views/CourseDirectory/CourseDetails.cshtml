@@ -49,8 +49,8 @@
                         </td>
                     </tr>
                     @if (!string.IsNullOrWhiteSpace(@Model.Opportunity.Price)
-                      || !string.IsNullOrWhiteSpace(@Model.Opportunity.PriceDescription)
-                          || (Model.Provider.TFPlusLoansSpecified && Model.Provider.TFPlusLoans))
+                   || !string.IsNullOrWhiteSpace(@Model.Opportunity.PriceDescription)
+                       || (Model.Provider.TFPlusLoansSpecified && Model.Provider.TFPlusLoans))
                     {
                         <tr class="govuk-table__row">
                             <td class="govuk-table__cell">Cost</td>
@@ -89,8 +89,8 @@
                         <td class="govuk-table__cell">Classroom or online</td>
                         <td class="govuk-table__cell">@Model.AttendanceMode.GetDisplayName()</td>
                     </tr>
-                    @if(Model.AttendencePattern != AttendancePattern.Customised)
-                    { 
+                    @if (Model.AttendencePattern != AttendancePattern.Customised)
+                    {
                         <tr class="govuk-table__row">
                             <td class="govuk-table__cell">Day, night or weekend</td>
                             <td class="govuk-table__cell">@Model.AttendencePattern.GetDisplayName()</td>
@@ -103,16 +103,24 @@
                 <a target="_blank" href=@Model.BookingURL role="button" class="govuk-button govuk-button--start">
                     Enrol now
                 </a>
+                <p class="enrol-text">on the provider’s website</p>
             }
             else if (!string.IsNullOrWhiteSpace(Model.Provider.Website))
             {
                 <a target="_blank" href=@Model.Provider.Website role="button" class="govuk-button govuk-button--start">
                     More Information
                 </a>
+                <p class="enrol-text">on the provider’s website</p>
+            }
+            else if (!string.IsNullOrWhiteSpace(Model.Venue.Website))
+            {
+                <a target="_blank" href=@Model.Venue.Website role="button" class="govuk-button govuk-button--start">
+                    More Information
+                </a>
+                <p class="enrol-text">on the provider’s website</p>
             }
 
 
-            <p class="enrol-text">on the provider’s website</p>
         </section>
 
         <section id="2">
@@ -286,6 +294,7 @@
                     </tbody>
                 </table>
                 <details>
+                    
                     <summary style="position: relative;top:-10px">
                         <span style="color:#005ea5;">Other dates and venues</span>
                     </summary>
