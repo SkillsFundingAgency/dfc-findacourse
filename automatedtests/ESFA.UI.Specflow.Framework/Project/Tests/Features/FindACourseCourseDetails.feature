@@ -89,9 +89,9 @@ Scenario Outline: DFC-3973 View Course Details display Cost
 	And Cost Details <Cost> are displayed
 
   Examples:
-    | CourseName | Location | Cost                    |
-    | Gardening  | b14 7en  | The course fee is £1275 |
-    | Electrical | b14 7en  | The course fee is £1275 |
+    | CourseName | Location | Cost                                  |
+    | Gardening  | b14 7en  | Tbc                                   |
+    | Electrical | b14 7en  | Concessions May Apply. Please Enquire |
 
 
 

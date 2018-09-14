@@ -188,8 +188,8 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("DFC-3973 View Course Details display Cost")]
         [NUnit.Framework.CategoryAttribute("DFC-3973")]
-        [NUnit.Framework.TestCaseAttribute("Gardening", "b14 7en", "The course fee is £1275", null)]
-        [NUnit.Framework.TestCaseAttribute("Electrical", "b14 7en", "The course fee is £1275", null)]
+        [NUnit.Framework.TestCaseAttribute("Gardening", "b14 7en", "Tbc", null)]
+        [NUnit.Framework.TestCaseAttribute("Electrical", "b14 7en", "Concessions May Apply. Please Enquire", null)]
         public virtual void DFC_3973ViewCourseDetailsDisplayCost(string courseName, string location, string cost, string[] exampleTags)
         {
             string[] @__tags = new string[] {
