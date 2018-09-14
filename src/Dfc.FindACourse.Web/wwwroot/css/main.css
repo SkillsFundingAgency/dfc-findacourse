@@ -3313,9 +3313,16 @@ a.white, .white {
 
 .pagination {
   display: inline-block;
+  float: right;
+}
+
+.pagination.page-top {
+  margin: 0;
+}
+
+.pagination.page-bottom {
   margin-top: 0.5em;
   margin-bottom: 0.5em;
-  float: right;
 }
 
 .pagination .pagination-item {

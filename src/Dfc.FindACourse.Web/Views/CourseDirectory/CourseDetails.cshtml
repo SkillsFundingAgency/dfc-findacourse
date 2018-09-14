@@ -49,8 +49,8 @@
                         </td>
                     </tr>
                     @if (!string.IsNullOrWhiteSpace(@Model.Opportunity.Price)
-                      || !string.IsNullOrWhiteSpace(@Model.Opportunity.PriceDescription)
-                          || (Model.Provider.TFPlusLoansSpecified && Model.Provider.TFPlusLoans))
+                   || !string.IsNullOrWhiteSpace(@Model.Opportunity.PriceDescription)
+                       || (Model.Provider.TFPlusLoansSpecified && Model.Provider.TFPlusLoans))
                     {
                         <tr class="govuk-table__row">
                             <td class="govuk-table__cell">Cost</td>
@@ -89,8 +89,8 @@
                         <td class="govuk-table__cell">Classroom or online</td>
                         <td class="govuk-table__cell">@Model.AttendanceMode.GetDisplayName()</td>
                     </tr>
-                    @if(Model.AttendencePattern != AttendancePattern.Customised)
-                    { 
+                    @if (Model.AttendencePattern != AttendancePattern.Customised)
+                    {
                         <tr class="govuk-table__row">
                             <td class="govuk-table__cell">Day, night or weekend</td>
                             <td class="govuk-table__cell">@Model.AttendencePattern.GetDisplayName()</td>
@@ -98,21 +98,29 @@
                     }
                 </tbody>
             </table>
-            @if ((!string.IsNullOrWhiteSpace(Model.BookingURL)) && (Model.BookingURL != Model.Provider.Website))
+            @if (!string.IsNullOrWhiteSpace(Model.BookingURL))
             {
                 <a target="_blank" href=@Model.BookingURL role="button" class="govuk-button govuk-button--start">
                     Enrol now
                 </a>
+                <p class="enrol-text">on the provider’s website</p>
             }
             else if (!string.IsNullOrWhiteSpace(Model.Provider.Website))
             {
                 <a target="_blank" href=@Model.Provider.Website role="button" class="govuk-button govuk-button--start">
                     More Information
                 </a>
+                <p class="enrol-text">on the provider’s website</p>
+            }
+            else if (!string.IsNullOrWhiteSpace(Model.Venue.Website))
+            {
+                <a target="_blank" href=@Model.Venue.Website role="button" class="govuk-button govuk-button--start">
+                    More Information
+                </a>
+                <p class="enrol-text">on the provider’s website</p>
             }
 
 
-            <p class="enrol-text">on the provider’s website</p>
         </section>
 
         <section id="2">
@@ -146,57 +154,128 @@
             <aside class="govuk-related-items" role="complementary">
                 <h2 class="govuk-heading-s" style="margin-top: 10px">Provider</h2>
                 <p class="govuk-body-s">@Model.ProviderName</p>
-                <hr>
-                <h2 class="govuk-heading-s" style="margin-top: 10px;padding-top: 10px">Venue</h2>
+                @if (null != Model.Venue)
+                {
+                    <hr>
+
+                    <h2 class="govuk-heading-s" style="margin-top: 10px;padding-top: 10px">Venue</h2>
+                    <table class="govuk-table" role="presentation">
+                        <tbody class="govuk-table__body">
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell govuk-body-s">Name</td>
+                                <td class="govuk-table__cell govuk-body-s">@Model.Venue.Name</td>
+                            </tr>
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell govuk-body-s" style="border-bottom: none">Address</td>
+                                <td class="govuk-table__cell govuk-body-s" style="border-bottom: none">
+                                    @if (!string.IsNullOrEmpty(@Model.Venue.Address.Line1))
+                                    {@Model.Venue.Address.Line1 <br>}
+                                    @if (!string.IsNullOrEmpty(@Model.Venue.Address.Line2))
+                                    {@Model.Venue.Address.Line2 <br>}
+                                    @if (!string.IsNullOrEmpty(@Model.Venue.Address.Town))
+                                    {@Model.Venue.Address.Town <br>}
+                                    @if (!string.IsNullOrEmpty(@Model.Venue.Address.County))
+                                    {@Model.Venue.Address.County <br>}
+                                    @if (!string.IsNullOrEmpty(@Model.Venue.Address.Postcode))
+                                    {@Model.Venue.Address.Postcode <br>}
+
+
+
+                                    <a class="govuk-link" target="_blank" href="https://www.google.com/maps?q=@Model.Venue.Address.Latitude,@Model.Venue.Address.Longitude">Find on Google maps</a>
+                                </td>
+                            </tr>
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell" colspan="2">
+                                    <details>
+                                        <summary>
+                                            <span style="color:#005ea5"> Journey time</span>
+                                        </summary>
+                                        <div class="panel">
+                                            <select class="form-control valid select-mode" name="" aria-invalid="false">
+                                                <option value="TRANSIT" aria-live="polite">Bus/Train</option>
+                                                <option value="WALKING" aria-live="polite">Walking</option>
+                                                <option value="BICYCLING" aria-live="polite">Cycling</option>
+                                                <option value="DRIVING" aria-live="polite">Driving</option>
+                                            </select>
+                                            <span class="journey-time" aria-live="polite">5 mins</span>
+                                        </div>
+                                    </details>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                }
+                else
+                {
+
+                    <table class="govuk-table" role="presentation">
+                        <tbody class="govuk-table__body">
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell govuk-body-s" style="border-bottom: none">Address</td>
+                                <td class="govuk-table__cell govuk-body-s" style="border-bottom: none">
+                                    @if (!string.IsNullOrEmpty(@Model.Provider.ProviderAddress.Line1))
+                                    {@Model.Provider.ProviderAddress.Line1 <br>}
+                                    @if (!string.IsNullOrEmpty(@Model.Provider.ProviderAddress.Line2))
+                                    {@Model.Provider.ProviderAddress.Line2 <br>}
+                                    @if (!string.IsNullOrEmpty(@Model.Provider.ProviderAddress.Town))
+                                    {@Model.Provider.ProviderAddress.Town <br>}
+                                    @if (!string.IsNullOrEmpty(@Model.Provider.ProviderAddress.County))
+                                    {@Model.Provider.ProviderAddress.County <br>}
+                                    @if (!string.IsNullOrEmpty(@Model.Provider.ProviderAddress.Postcode))
+                                    {@Model.Provider.ProviderAddress.Postcode <br>}
+
+
+
+
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                    <hr>
+                    <h2 class="govuk-heading-s" style="margin-top: 10px;padding-top: 10px">Venue</h2>
+                    <table class="govuk-table" role="presentation">
+                        <tbody class="govuk-table__body">
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell govuk-body-s" style="border-bottom: none">Lodation</td>
+                                <td class="govuk-table__cell govuk-body-s" style="border-bottom: none">@Model.Opportunity.Region</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <hr>
+                }
                 <table class="govuk-table" role="presentation">
                     <tbody class="govuk-table__body">
-                        <tr class="govuk-table__row">
-                            <td class="govuk-table__cell govuk-body-s">Name</td>
-                            <td class="govuk-table__cell govuk-body-s">@Model.Venue.Name</td>
-                        </tr>
-                        <tr class="govuk-table__row">
-                            <td class="govuk-table__cell govuk-body-s" style="border-bottom: none">Address</td>
-                            <td class="govuk-table__cell govuk-body-s" style="border-bottom: none">
-                                @if (!string.IsNullOrEmpty(@Model.Venue.Address.Line1))
-                                {@Model.Venue.Address.Line1 <br>}
-                                @if (!string.IsNullOrEmpty(@Model.Venue.Address.Line2))
-                                {@Model.Venue.Address.Line2 <br>}
-                                @if (!string.IsNullOrEmpty(@Model.Venue.Address.Town))
-                                {@Model.Venue.Address.Town <br>}
-                                @if (!string.IsNullOrEmpty(@Model.Venue.Address.County))
-                                {@Model.Venue.Address.County <br>}
-                                @if (!string.IsNullOrEmpty(@Model.Venue.Address.Postcode))
-                                {@Model.Venue.Address.Postcode <br>}
+                        <!-- In order this should display: Venue Website, Opportunity URL, Provider URL-->
 
+                        @if (!string.IsNullOrWhiteSpace(@Model.Venue.Website))
+                        {
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell govuk-body-s">Website</td>
+                                <td class="govuk-table__cell">
+                                    <a class="govuk-link govuk-body-s" target="_blank" href="@Model.Venue.Website" style="word-break: break-all;">@Model.Venue.Website</a>
+                                </td>
+                            </tr>
+                        }
+                        @*else if (!string.IsNullOrWhiteSpace(@Model.Opportunity.URL))
+                        {
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell govuk-body-s">Website</td>
+                                <td class="govuk-table__cell">
+                                    <a class="govuk-link govuk-body-s" target="_blank" href="@Model.Opportunity.URL" style="word-break: break-all;">@Model.Opportunity.URL</a>
+                                </td>
+                            </tr>
+                        }
+                        else if (!string.IsNullOrWhiteSpace(@Model.Provider.Website))
+                        {
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell govuk-body-s">Website</td>
+                                <td class="govuk-table__cell">
+                                    <a class="govuk-link govuk-body-s" target="_blank" href="@Model.Provider.Website" style="word-break: break-all;">@Model.Provider.Website</a>
+                                </td>
+                            </tr>
+                        }*@
 
-
-                                <a class="govuk-link" target="_blank" href="https://www.google.com/maps?q=@Model.Venue.Address.Latitude,@Model.Venue.Address.Longitude">Find on Google maps</a>
-                            </td>
-                        </tr>
-                        <tr class="govuk-table__row">
-                            <td class="govuk-table__cell" colspan="2">
-                                <details>
-                                    <summary>
-                                        <span style="color:#005ea5"> Journey time</span>
-                                    </summary>
-                                    <div class="panel">
-                                        <select class="form-control valid select-mode" name="" aria-invalid="false">
-                                            <option value="TRANSIT" aria-live="polite">Bus/Train</option>
-                                            <option value="WALKING" aria-live="polite">Walking</option>
-                                            <option value="BICYCLING" aria-live="polite">Cycling</option>
-                                            <option value="DRIVING" aria-live="polite">Driving</option>
-                                        </select>
-                                        <span class="journey-time" aria-live="polite">5 mins</span>
-                                    </div>
-                                </details>
-                            </td>
-                        </tr>
-                        <tr class="govuk-table__row">
-                            <td class="govuk-table__cell govuk-body-s">Website</td>
-                            <td class="govuk-table__cell">
-                                <a class="govuk-link govuk-body-s" target="_blank" href="@Model.URL" style="word-break: break-all;">@Model.URL</a>
-                            </td>
-                        </tr>
                         @if (!string.IsNullOrWhiteSpace(@Model.Provider.Email))
                         {
                             <tr class="govuk-table__row">
@@ -215,6 +294,7 @@
                     </tbody>
                 </table>
                 <details>
+                    
                     <summary style="position: relative;top:-10px">
                         <span style="color:#005ea5;">Other dates and venues</span>
                     </summary>
