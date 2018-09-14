@@ -64,8 +64,9 @@
                     Location (Optional)
                     <span class="form-hint">Enter a full postcode. For example, S1 1WB</span>
                 </label>
-                <span asp-validation-for="Location"></span>
-                <input asp-for="Location"
+                @*<span asp-validation-for="Location"></span>*@
+                <input id="Location"
+                       name="Location"
                        class="form-control"
                        placeholder="Postcode or town"
                        autocomplete="off"
