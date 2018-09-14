@@ -24,7 +24,9 @@
             }
         };
 
-        $('#FindACourseForm input:text[data-val=true]').on('focusout keyup', function () {
+        //$('#Location').removeAttr('data-val');
+
+        $('#FindACourseForm input:text[data-val=true]').on('focusout', function () {
             toggleFormGroupValidationError($('#FindACourseForm'), this);
         });
 
