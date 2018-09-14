@@ -94,11 +94,14 @@
                     </div>
                     <div class="margin-bottom-05em">
                         Showing @Model.ShowingFrom() - @Model.ShowingTo() of @Model.NoOfRecords results
-                        <dfc-pagination dfc-pagination-no-of-pages="@Model.NoOfPages"
-                                        dfc-pagination-url="@Context.Request.GetDisplayUrl()"
-                                        dfc-pagination-param-name="@nameof(Model.PageNo)"
-                                        dfc-pagination-display-no-of-pages="10"
-                                        class="pagination page-top"></dfc-pagination>
+                        @if (Model.Items.Any())
+                        {
+                            <dfc-pagination dfc-pagination-no-of-pages="@Model.NoOfPages"
+                                            dfc-pagination-url="@Context.Request.GetDisplayUrl()"
+                                            dfc-pagination-param-name="@nameof(Model.PageNo)"
+                                            dfc-pagination-display-no-of-pages="10"
+                                            class="pagination page-top"></dfc-pagination>
+                        }
                     </div>
                     <div class="form-group margin-bottom-0">
                         <label class="form-label inline" for="SortBy">Sort by:</label>

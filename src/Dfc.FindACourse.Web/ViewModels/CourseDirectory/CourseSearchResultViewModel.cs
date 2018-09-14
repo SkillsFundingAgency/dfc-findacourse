@@ -22,7 +22,10 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
 
         public string ShowingFrom()
         {
-            if (PageNo <= 1)
+            if (PageNo == 1 && NoOfRecords == 0)
+                return 0.ToString();
+
+            if (PageNo == 1)
                 return 1.ToString();
 
             var from = (PageNo - 1) * PerPage + 1;
