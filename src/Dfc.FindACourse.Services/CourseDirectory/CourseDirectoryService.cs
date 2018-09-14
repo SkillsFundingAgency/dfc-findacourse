@@ -140,7 +140,10 @@ namespace Dfc.FindACourse.Services.CourseDirectory
                 //DFC - 4372
                 var courseDetails = taskResult.CourseDetails
                     .Select(x => new CourseItemDetail(
-                        x.Course.ToCourseDetail(), x.Opportunity[0].ToOpportunity(), x.Provider.ToProvider(),(null != x.Venue && null != x.Venue[0]) ? x.Venue[0].ToVenueInfo() : new Venue(x.Provider.ToProvider())
+                        x.Course.ToCourseDetail(), 
+                            x.Opportunity[0].ToOpportunity(), 
+                                x.Provider.ToProvider(),
+                                    (null != x.Venue && null != x.Venue[0]) ? x.Venue[0].ToVenueInfo() : null
                        )).FirstOrDefault();
 
                 return Result.Ok<CourseItemDetail>(courseDetails);

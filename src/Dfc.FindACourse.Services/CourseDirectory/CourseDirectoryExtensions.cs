@@ -240,22 +240,16 @@ namespace Dfc.FindACourse.Services.CourseDirectory
             Venue venue = null;
             string region = null;
 
-            //try
-            //{
-            //    venue = ((VenueInfo)opportunityDetail.Item).ToVenue();
-            //}
-            //catch (InvalidCastException)
-            //{
-            //    try
-            //    {
-            //        region = opportunityInfo.Item.ToString();
-            //    }
-            //    catch (InvalidCastException)
-            //    {
-            //        // Unbale to cast to a Venue or a Region
-            //    }
-            //}
-
+           
+                try
+                {
+                    region = opportunityDetail.Items[0].ToString();
+                }
+                catch (InvalidCastException)
+                {
+                    // Unbale to cast to a Venue or a Region
+                }
+           
             return new Opportunity(
                 id,
                 opportunityDetail.StudyMode.ToStudyMode(),
