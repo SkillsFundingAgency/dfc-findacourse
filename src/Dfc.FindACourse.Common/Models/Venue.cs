@@ -42,6 +42,18 @@ namespace Dfc.FindACourse.Common.Models
             Distance = distance;
             Website = website;
         }
+        public Venue(string name, IAddress address, double? distance = null)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                throw new ArgumentException($"{nameof(name)} cannot be null, empty or only whitespace.");
+            if (distance.HasValue && distance.Value < 0)
+                throw new ArgumentOutOfRangeException(nameof(distance));
+
+            Name = name.ToSentenceCase();
+            Address = address ?? throw new ArgumentNullException(nameof(address));
+            Distance = distance;
+           
+        }
 
         protected override IEnumerable<object> GetEqualityComponents()
         {
