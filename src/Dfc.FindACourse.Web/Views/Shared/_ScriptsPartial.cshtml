@@ -31,11 +31,4 @@
 <script src="~/vendor/js/govuk_frontend_toolkit/govuk_toolkit.js"></script>
 <script src="~/dist/js/site.min.js" asp-append-version="true"></script>
 
-<script>
-    function initLocationAutoComplete() {
-        Dfe.FindACourse.initGoogleMapsLocationAutoComplete();
-    }
-</script>
-@*<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCn1x_WJWXTzZ9XVSYh7TymeE9LM7_wb8s&libraries=places&callback=initLocationAutoComplete"></script>*@
-
 @Html.Raw(JavaScriptSnippet.FullScript)

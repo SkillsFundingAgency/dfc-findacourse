@@ -1,6 +1,8 @@
 ﻿using Dfc.FindACourse.Common;
 using Dfc.FindACourse.Common.Interfaces;
 using Dfc.FindACourse.Common.Models;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
 {
@@ -19,14 +21,14 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
             CourseTitle = value.Coursedetails.CourseTitle;
             CourseSummary = value.Coursedetails.CourseSummary;
             //QualificationLevel = value.Coursedetails.Le.QualificationLevel;
-            StudyMode = value.Opportunity.StudyMode;
-            AttendanceMode = value.Opportunity.AttendanceMode;
-            AttendencePattern = value.Opportunity.AttendancePattern;
+            StudyMode = value.Opportunities[0].StudyMode;
+            AttendanceMode = value.Opportunities[0].AttendanceMode;
+            AttendencePattern = value.Opportunities[0].AttendancePattern;
             ProviderName = value.Provider.Name;
-            Location = (value.Opportunity.HasVenue) ? value.Opportunity.Venue.Address.ToString() : value.Opportunity.Region;
-            Distance = (value.Opportunity.HasVenue && value.Opportunity.Venue.Distance.HasValue) ? value.Opportunity.Venue.Distance.Value.ToString("0.0") : distance;
-            StartDate = value.Opportunity.StartDate.ToString();
-            Duration = value.Opportunity.Duration.ToString();
+            Location = (value.Opportunities[0].HasVenue) ? value.Opportunities[0].Venue.Address.ToString() : value.Opportunities[0].Region;
+            Distance = (value.Opportunities[0].HasVenue && value.Opportunities[0].Venue.Distance.HasValue) ? value.Opportunities[0].Venue.Distance.Value.ToString("0.0") : distance;
+            StartDate = value.Opportunities[0].StartDate.ToString();
+            Duration = value.Opportunities[0].Duration.ToString();
             AwardingBody = value.Coursedetails.AwardingBody;
             EntryRequirements = value.Coursedetails.EntryRequirements;
             AssessmentMethod = value.Coursedetails.AssessmentMethod;
@@ -49,7 +51,7 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
             SkillsForLifeTypeDesc = value.Coursedetails.SkillsForLifeTypeDesc;
             Venue = (Venue)value.Venue;
             Provider = (Provider)value.Provider;
-            Opportunity = (Opportunity)value.Opportunity;
+            Opportunities = value.Opportunities.AsEnumerable().Cast<Opportunity>().ToList();
 
 
         }
@@ -109,9 +111,9 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
 
         public Venue Venue { get; set; }
         public Provider Provider { get; set; }
-        public Opportunity Opportunity { get; set; }
+        public List<Opportunity> Opportunities { get; set; }
 
-        public bool IsDisplayble(StudyMode studyMode)
+        public bool IsDisplayable(StudyMode studyMode)
         {
             switch (studyMode)
             {
@@ -124,7 +126,7 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
             }
         }
 
-        public bool IsDisplayble(AttendanceMode attendanceMode)
+        public bool IsDisplayable(AttendanceMode attendanceMode)
         {
             switch (attendanceMode)
             {
@@ -137,7 +139,7 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
             }
         }
 
-        public bool IsDisplayble(AttendancePattern attendancePattern)
+        public bool IsDisplayable(AttendancePattern attendancePattern)
         {
             switch (attendancePattern)
             {

@@ -81,7 +81,6 @@ namespace Dfc.FindACourse.Web.Controllers
         }
 
 
-        // GET: CourseDirectory/Details/5
         public IActionResult CourseDetails(int? id, string distance)
         {
             //Parmeters
@@ -93,7 +92,7 @@ namespace Dfc.FindACourse.Web.Controllers
                 return View();
             }
 
-            var result = Service.CourseItemDetail(id);
+            var result = Service.CourseItemDetail(id, null);
 
             if (!CourseDirectory.IsSuccessfulResult(result, Telemetry, "Course Detail", id.Value.ToString(), dtStart)) return View();
 
@@ -102,7 +101,27 @@ namespace Dfc.FindACourse.Web.Controllers
 
             return View(new CourseDetailViewModel(result.Value, !string.IsNullOrEmpty(distance) ? distance: string.Empty) { });
         }
+      
+        public IActionResult OpportunityDetails(int? id, string distance, int? oppid)
+        {
+            //Parmeters
+            var dtStart = DateTime.Now;
 
+            if (!ModelState.IsValid)
+            {
+                Telemetry.TrackEvent($"CourseSearch: ModelState Invalid.");
+                return View();
+            }
+
+            var result = Service.CourseItemDetail(id, oppid);
+
+            if (!CourseDirectory.IsSuccessfulResult(result, Telemetry, "Course Detail", id.Value.ToString(), dtStart)) return View();
+
+            //DEBUG_FIX - Add the flush to see if working straightaway ASB TODO AGain is this correct as wont get called if ModelState is Invalid
+            Telemetry.Flush();
+
+            return View(nameof(CourseDetails), new CourseDetailViewModel(result.Value, !string.IsNullOrEmpty(distance) ? distance : string.Empty) { });
+        }
 
 
         /// <summary>

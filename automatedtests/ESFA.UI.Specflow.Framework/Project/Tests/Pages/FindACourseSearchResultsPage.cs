@@ -21,19 +21,19 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.Pages
         }
 
         private readonly By noResultsErrorMsg = By.XPath(".//*[@id='FindACourseForm']");
-        private readonly By courseTitle = By.XPath(".//*[@id='FindACourseForm']/div[2]/div[2]/div[2]/div/div[1]/h3/a");
-        private readonly By courseLevel = By.XPath(".//*[@id='FindACourseForm']/div[2]/div[2]/div[2]/div/div[1]/div");
+        private readonly By courseTitle = By.XPath(".//*[@id='FindACourseForm']/div[2]/div[2]/div[2]/div/div/div[1]/h3/a");
+        private readonly By courseLevel = By.XPath(".//*[@id='FindACourseForm']/div[2]/div[2]/div[2]/div/div/div[1]/div");
         private readonly By location = By.Name("Location");
-        private readonly By studyMode = By.XPath(".//*[@id='FindACourseForm']/div[2]/div[2]/div[2]/div/div[1]/ul[1]/li[1]");
+        private readonly By studyMode = By.XPath(".//*[@id='FindACourseForm']/div[2]/div[2]/div[2]/div/div/div[1]/ul[1]/li[1]");
         private readonly string errorString = "There are no courses matching that name. Make sure that you've spelled it correctly, or use a broader description of the course.";
-        private readonly By attendanceMode = By.XPath(".//*[@id='FindACourseForm']/div[2]/div[2]/div[2]/div/div[1]/ul[1]/li[2]");
-        private readonly By attendancePattern = By.XPath(".//*[@id='FindACourseForm']/div[2]/div[2]/div[2]/div/div[1]/ul[1]/li[3]");
-        private readonly By provider = By.XPath(".//*[@id='FindACourseForm']/div[2]/div[2]/div[2]/div/div[1]/ul[2]/li[1]/span[2]");
-        private readonly By courseLocation = By.XPath(".//*[@id='FindACourseForm']/div[2]/div[2]/div[2]/div/div[1]/ul[2]/li[2]/span[2]");
-        private readonly By distance = By.XPath(".//*[@id='FindACourseForm']/div[2]/div[2]/div[2]/div/div[1]/ul[2]/li[3]/span[2]");
-        private readonly By startDate = By.XPath(".//*[@id='FindACourseForm']/div[2]/div[2]/div[2]/div/div[1]/ul[2]/li[4]/span[2]");
-        private readonly By duration = By.XPath(".//*[@id='FindACourseForm']/div[2]/div[2]/div[2]/div/div[1]/ul[2]/li[5]/span[2]");
-        
+        private readonly By attendanceMode = By.XPath(".//*[@id='FindACourseForm']/div[2]/div[2]/div[2]/div/div/div[1]/ul[1]/li[2]");
+        private readonly By attendancePattern = By.XPath(".//*[@id='FindACourseForm']/div[2]/div[2]/div[2]/div/div/div[1]/ul[1]/li[3]");
+        private readonly By provider = By.XPath(".//*[@id='FindACourseForm']/div[2]/div[2]/div[2]/div/div/div[1]/ul[2]/li[1]/span[2]");
+        private readonly By courseLocation = By.XPath(".//*[@id='FindACourseForm']/div[2]/div[2]/div[2]/div/div/div[1]/ul[2]/li[2]/span[2]");
+        private readonly By distance = By.XPath(".//*[@id='FindACourseForm']/div[2]/div[2]/div[2]/div/div/div[1]/ul[2]/li[3]/span[2]");
+        private readonly By startDate = By.XPath(".//*[@id='FindACourseForm']/div[2]/div[2]/div[2]/div/div/div[1]/ul[2]/li[4]/span[2]");
+        private readonly By duration = By.XPath(".//*[@id='FindACourseForm']/div[2]/div[2]/div[2]/div/div/div[1]/ul[2]/li[5]/span[2]");
+
 
         internal FindACourseSearchResultsPage CheckNullResults()
         {

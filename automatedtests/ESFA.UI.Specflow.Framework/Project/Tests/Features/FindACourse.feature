@@ -232,12 +232,12 @@ Scenario Outline: DFC-4090 Search for Courses By Location & Distance Null Result
 		Then I will be on Contact us page
 
 
-
-@DFC-3887
-	Scenario: DFC-3887 View Qualification Level Help Text
-		Given I navigate to Find a Course home page
-		When I click What qualification levels mean link
-		Then I will be on What qualification levels mean page
+#BUG
+#@DFC-3887
+#	Scenario: DFC-3887 View Qualification Level Help Text
+#		Given I navigate to Find a Course home page
+#		When I click What qualification levels mean link
+#		Then I will be on What qualification levels mean page
 
 
 

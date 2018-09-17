@@ -111,7 +111,7 @@ namespace Dfc.FindACourse.Services.CourseDirectory
                 return Result.Fail<CourseSearchResult>(e.Message);
             }
         }
-        public IResult<Common.Models.CourseItemDetail> CourseItemDetail(int? courseDetailsId)
+        public IResult<Common.Models.CourseItemDetail> CourseItemDetail(int? courseDetailsId, int? opportunityId)
         {
             if (courseDetailsId == null)
                 throw new ArgumentNullException(nameof(courseDetailsId));
@@ -141,7 +141,7 @@ namespace Dfc.FindACourse.Services.CourseDirectory
                 var courseDetails = taskResult.CourseDetails
                     .Select(x => new CourseItemDetail(
                         x.Course.ToCourseDetail(), 
-                            x.Opportunity[0].ToOpportunity(), 
+                            x.Opportunity.ToOpportunities(opportunityId).ToList(), 
                                 x.Provider.ToProvider(),
                                     (null != x.Venue && null != x.Venue[0]) ? x.Venue[0].ToVenue() : null
                        )).FirstOrDefault();
