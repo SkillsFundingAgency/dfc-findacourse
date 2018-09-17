@@ -3322,7 +3322,12 @@ p.white {
 
 #LocationRadius {
   top: -1px;
-  left: -150px;
+}
+
+@media only screen and (min-width: 946px) {
+  #LocationRadius {
+    left: -150px;
+  }
 }
 
 .showing-container {
