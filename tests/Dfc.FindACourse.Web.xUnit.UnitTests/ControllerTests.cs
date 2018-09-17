@@ -171,7 +171,7 @@ namespace Dfc.FindACourse.Web.xUnit.UnitTests
             Assert.Null(result.StatusCode);
             Assert.Null(result.TempData);
             Assert.Null(result.ViewEngine);
-            Assert.Null(result.ViewName);
+            Assert.NotNull(result.ViewName);
             Assert.True(result.ViewData.Count == 0);
         }
 

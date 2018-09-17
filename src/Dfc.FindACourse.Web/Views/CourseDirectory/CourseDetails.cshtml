@@ -316,7 +316,7 @@
                                         <td class="govuk-table__header govuk-body-s" scope="col">Options</td>
                                     </tr>
                                 </thead>
-                                @foreach (var item in Model.Opportunities)
+                                @foreach (var item in Model.Opportunities.Take(5))
                                 {
                                     <tbody>
                                         <tr class="govuk-table__row">
