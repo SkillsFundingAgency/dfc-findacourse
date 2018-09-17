@@ -38,7 +38,7 @@ namespace Dfc.FindACourse.Common.Models
         public string[] Items { get; }
         public ItemChoice[] ItemsElementName { get; }
         public ApplicationAcceptedThroughoutYear ApplicationAcceptedThroughoutYear { get; }
-        public bool applicationAcceptedThroughoutYearSpecified { get; }
+        public bool ApplicationAcceptedThroughoutYearSpecified { get; }
 
 
         public Opportunity(
@@ -137,7 +137,7 @@ namespace Dfc.FindACourse.Common.Models
             Items = items;
             ItemsElementName =  itemsElementName;
             ApplicationAcceptedThroughoutYear = applicationAcceptedThroughout;
-            applicationAcceptedThroughoutYearSpecified = applicationAcceptedThroughoutSpecified;
+            ApplicationAcceptedThroughoutYearSpecified = applicationAcceptedThroughoutSpecified;
 
         }
     }
