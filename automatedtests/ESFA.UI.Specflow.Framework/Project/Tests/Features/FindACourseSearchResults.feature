@@ -53,7 +53,7 @@
     | Chemistry                                       | Level 6     |
     | ASTROPHYSICS                                    | Level 3     |
     | DENTISTRY                                       | Level 2     |
-    | ADULT LITERACY                                  | Level 1     |
+    | Diploma Level 1 Plumbing Studies                | Level 1     |
     | Pharmacy Clinical Services Professional Diploma | Level 4     |
     | SQA HND Marine Engineering Direct Entry         | Level 5     |
     | Integrated Masters Equine Science MSci          | Level 7     |
