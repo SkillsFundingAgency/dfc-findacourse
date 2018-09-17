@@ -51,7 +51,8 @@ namespace Dfc.FindACourse.Web
             services.AddSingleton(typeof(ICourseDirectoryServiceConfiguration), 
                 new CourseDirectoryServiceConfiguration(
                     Configuration["Tribal:ApiKey"],
-                    tribalPerPage));
+                    tribalPerPage,
+                    Configuration["Tribal:APIAddress"]));
 
             services.AddSingleton<IConfiguration>(Configuration);
             services.Configure<App>(Configuration.GetSection("App"));
