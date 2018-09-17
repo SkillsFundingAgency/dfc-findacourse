@@ -1,14 +1,59 @@
-﻿.pagination {
-    display: inline-block;
-    float: right;
+﻿.showing-container {
+    font-size: 0.9em;
+    margin-bottom: 0.5em;
+
+    @media only screen and (min-width : 946px) {
+        display: inline-block;
+    }
+
+    @media only screen and (min-width : 641px) and (max-width: 945px) {
+        display: block;
+    }
+
+    @media only screen and (min-width : 533px) and (max-width: 640px) {
+        display: inline-block;
+    }
+
+    @media only screen and (max-width : 532px) {
+        display: block;
+    }
+}
+
+.pagination-container {
+    text-align: right;
+    font-size: 0.9em;
+
+    @media only screen and (min-width : 946px) {
+        display: inline-block;
+        float: right;
+    }
+
+    @media only screen and (min-width : 641px) and (max-width: 945px) {
+        display: block;
+    }
+
+    @media only screen and (min-width : 533px) and (max-width: 640px) {
+        display: inline-block;
+        float: right;
+    }
+
+    @media only screen and (max-width : 532px) {
+        display: block;
+    }
+}
+
+.pagination {
+    text-align: right;
 
     &.page-top {
-        margin: 0;
+        margin-bottom: 0.5em;
+        display: inline-block;
     }
 
     &.page-bottom {
         margin-top: 0.5em;
         margin-bottom: 0.5em;
+        display: block;
     }
 
     .pagination-item {

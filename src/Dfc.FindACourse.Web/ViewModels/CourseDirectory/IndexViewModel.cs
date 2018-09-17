@@ -16,7 +16,7 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
         [Required(ErrorMessage = "Enter a course name")]
         public string SubjectKeyword { get; set; }
         [Display(Name = "Postcode")]
-        [RegularExpression("([a-zA-Z][0-1]|[a-zA-Z][0-9][0-9]|[a-zA-Z][a-zA-Z][0-9]|[a-zA-Z][a-zA-Z][0-9][0-9]|[a-zA-Z][0-9][a-zA-Z]|[a-zA-Z][a-zA-Z][0-9][a-zA-Z])\\s?([0-9][abcdefghjlnpqrstuwxyzABDEFGHJLNPQRSTUWXYZ][abcdefghjlnpqrstuwxyzABDEFGHJLNPQRSTUWXYZ])", ErrorMessage = "Invalid postcode")]
+        [RegularExpression(@"([a-zA-Z][0-9]|[a-zA-Z][0-9][0-9]|[a-zA-Z][a-zA-Z][0-9]|[a-zA-Z][a-zA-Z][0-9][0-9]|[a-zA-Z][0-9][a-zA-Z]|[a-zA-Z][a-zA-Z][0-9][a-zA-Z]) ([0-9][abdefghjklmnpqrstuwxyzABDEFGHJLMNPQRSTUWXYZ][abdefghjklmnpqrstuwxyzABDEFGHJLMNPQRSTUWXYZ])", ErrorMessage = "Invalid postcode")]
         public string Location { get; set; }
         public IEnumerable<SelectListItem> QualificationLevels { get; set; }
 

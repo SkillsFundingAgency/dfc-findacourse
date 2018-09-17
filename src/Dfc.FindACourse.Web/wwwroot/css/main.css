@@ -2535,6 +2535,7 @@ input[type="search"]::-webkit-search-decoration {
 
 .download-link {
   text-align: right;
+  margin-top: 0.5em;
   margin-bottom: 0.5em;
 }
 
@@ -3311,18 +3312,79 @@ a.white, .white {
   background: #000;
 }
 
+.showing-container {
+  font-size: 0.9em;
+  margin-bottom: 0.5em;
+}
+
+@media only screen and (min-width: 946px) {
+  .showing-container {
+    display: inline-block;
+  }
+}
+
+@media only screen and (min-width: 641px) and (max-width: 945px) {
+  .showing-container {
+    display: block;
+  }
+}
+
+@media only screen and (min-width: 533px) and (max-width: 640px) {
+  .showing-container {
+    display: inline-block;
+  }
+}
+
+@media only screen and (max-width: 532px) {
+  .showing-container {
+    display: block;
+  }
+}
+
+.pagination-container {
+  text-align: right;
+  font-size: 0.9em;
+}
+
+@media only screen and (min-width: 946px) {
+  .pagination-container {
+    display: inline-block;
+    float: right;
+  }
+}
+
+@media only screen and (min-width: 641px) and (max-width: 945px) {
+  .pagination-container {
+    display: block;
+  }
+}
+
+@media only screen and (min-width: 533px) and (max-width: 640px) {
+  .pagination-container {
+    display: inline-block;
+    float: right;
+  }
+}
+
+@media only screen and (max-width: 532px) {
+  .pagination-container {
+    display: block;
+  }
+}
+
 .pagination {
-  display: inline-block;
-  float: right;
+  text-align: right;
 }
 
 .pagination.page-top {
-  margin: 0;
+  margin-bottom: 0.5em;
+  display: inline-block;
 }
 
 .pagination.page-bottom {
   margin-top: 0.5em;
   margin-bottom: 0.5em;
+  display: block;
 }
 
 .pagination .pagination-item {

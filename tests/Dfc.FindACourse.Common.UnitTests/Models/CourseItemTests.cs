@@ -15,7 +15,7 @@ namespace Dfc.FindACourse.Common.UnitTests.Models
         {
             // arrange
             ICourse course = null;
-            var opportunity = new Mock<IOpportunity>();
+            var opportunity = new Mock<Interfaces.IOpportunity>();
             var provider = new Mock<IProvider>();
 
             // act & assert
@@ -27,7 +27,7 @@ namespace Dfc.FindACourse.Common.UnitTests.Models
         {
             // arrange
             var course = new Mock<ICourse>();
-            IOpportunity opportunity = null;
+            Interfaces.IOpportunity opportunity = null;
             var provider = new Mock<IProvider>();
 
             // act & assert
@@ -39,7 +39,7 @@ namespace Dfc.FindACourse.Common.UnitTests.Models
         {
             // arrange
             var course = new Mock<ICourse>();
-            var opportunity = new Mock<IOpportunity>();
+            var opportunity = new Mock<Interfaces.IOpportunity>();
             IProvider provider = null;
 
             // act & assert
@@ -51,7 +51,7 @@ namespace Dfc.FindACourse.Common.UnitTests.Models
         {
             // arrange
             var course = new Mock<ICourse>();
-            var opportunity = new Mock<IOpportunity>();
+            var opportunity = new Mock<Interfaces.IOpportunity>();
             var provider = new Mock<IProvider>();
 
             // act

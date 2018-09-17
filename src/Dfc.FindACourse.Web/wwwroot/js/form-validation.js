@@ -6,35 +6,35 @@
 (function () {
     $(function () {
 
-        var toggleFormGroupValidationError = function (formElement, inputElement) {
-            var formGroup = $(inputElement).closest('.form-group');
+        var defaultOptions = {
+            highlight: function (element, errorClass) {
+                var formGroup = $(element).closest('.form-group');
 
-            if (!$(formElement).valid()) {
                 if (formGroup) {
-                    if (!formGroup.hasClass('error')) {
-                        formGroup.addClass('error');
+                    if (!formGroup.hasClass(errorClass)) {
+                        formGroup.addClass(errorClass);
                     }
                 }
-            } else {
+            },
+            unhighlight: function (element, errorClass) {
+                var formGroup = $(element).closest('.form-group');
+
                 if (formGroup) {
-                    if (formGroup.hasClass('error')) {
-                        formGroup.removeClass('error');
+                    if (formGroup.hasClass(errorClass)) {
+                        formGroup.removeClass(errorClass);
                     }
                 }
             }
         };
 
-        //$('#Location').removeAttr('data-val');
+        $.validator.setDefaults(defaultOptions);
 
-        $('#FindACourseForm input:text[data-val=true]').on('focusout', function () {
-            toggleFormGroupValidationError($('#FindACourseForm'), this);
-        });
-
-        $('#FindACourseForm').on('submit', function () {
-            var formElement = this;
-            $('#FindACourseForm .input-validation-error').each(function (index, element) {
-                toggleFormGroupValidationError(formElement, element);
-            });
+        $('#FindACourseForm input').on('focusout keyup', function () {
+            if ($(this).hasClass('input-validation-error')) {
+                $.validator.defaults.highlight($(this), $.validator.defaults.errorClass);
+            } else {
+                $.validator.defaults.unhighlight($(this), $.validator.defaults.errorClass);
+            }
         });
 
     });

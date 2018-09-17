@@ -21,7 +21,7 @@ namespace Dfc.FindACourse.Web.xUnit.UnitTests
         {
             CourseDirectory = new CourseDirectory(MockFileHelper.Object, MockCourseDirectoryHelper.Object);
 
-            Assert.NotNull(CourseDirectory.Files);
+            Assert.NotNull(CourseDirectory.FileHelper);
             Assert.NotNull(CourseDirectory.CourseDirectoryHelper);
         }
 
@@ -125,7 +125,7 @@ namespace Dfc.FindACourse.Web.xUnit.UnitTests
             );
 
             MockCourseDirectoryHelper.Setup(x => x.StudyModes(It.IsAny<ICourseSearchRequestModel>())).Returns(modes);
-            MockCourseDirectoryHelper.Setup(x => x.QualificationLevels(It.IsAny<ICourseSearchRequestModel>(), It.IsAny<IFileHelper>())).Returns(quals);
+            MockCourseDirectoryHelper.Setup(x => x.QualificationLevels(It.IsAny<ICourseSearchRequestModel>())).Returns(quals);
 
             var actual = CourseDirectory.CreateCourseSearchCriteria(requestModel);
 

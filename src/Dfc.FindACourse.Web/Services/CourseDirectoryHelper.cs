@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Xml;
 using Dfc.FindACourse.Common;
@@ -9,32 +10,39 @@ namespace Dfc.FindACourse.Web.Services
 {
     public class CourseDirectoryHelper : ICourseDirectoryHelper
     {
-        public List<QualLevel> QualificationLevels(ICourseSearchRequestModel requestModel, IFileHelper files)
-        {
-            var qualificationLevel = -1;
-            var parmQualLevels = new List<QualLevel>();
-            if (!string.IsNullOrEmpty(requestModel.QualificationLevel)) int.TryParse(requestModel.QualificationLevel, out qualificationLevel);
-            //Pass in the Qual Level from Query on first page and check model from second page
-            if (qualificationLevel > -1 ||
-                (requestModel.QualificationLevels != null && requestModel.QualificationLevels.Length > 0))
-            {
-                var allQualLevels = files.LoadQualificationLevels();
-                requestModel.QualificationLevels = new int[] { qualificationLevel };
-                //Now Populate parmQualLevels values from int array
-                requestModel.QualificationLevels.ToList().ForEach(
-                    q => parmQualLevels.Add(
-                        allQualLevels.Where(x => x.Key == q.ToString()).FirstOrDefault()));
-            }
+        public IFileHelper FileHelper { get; }
 
-            return parmQualLevels;
+        public CourseDirectoryHelper(IFileHelper fileHelper)
+        {
+            FileHelper = fileHelper;
         }
 
-        public int GetQualificationLevel(string qualificationLevel)
+        public List<QualLevel> QualificationLevels(ICourseSearchRequestModel requestModel)
         {
-            var level = -1;
-            if (!string.IsNullOrEmpty(qualificationLevel))
-                int.TryParse(qualificationLevel, out level);
-            return level;
+            var qualificationLevels = new List<QualLevel>();
+
+            if (!HasQualificationLevels(requestModel)) return qualificationLevels;
+
+            var levelsFromFile = FileHelper.LoadQualificationLevels();
+
+            requestModel.QualificationLevels.ToList()
+                .ForEach(
+                    x =>
+                    {
+                        var m = levelsFromFile.FirstOrDefault(y => y.Key.ToString() == x.ToString());
+                        if (m != null)
+                        {
+                            qualificationLevels.Add(m);
+                        }
+                    }
+                );
+
+            return qualificationLevels;
+        }
+
+        public bool HasQualificationLevels(ICourseSearchRequestModel requestModel)
+        {
+            return requestModel.QualificationLevels != null && requestModel.QualificationLevels.Length > 0;
         }
 
         public List<StudyModeExt> StudyModes (ICourseSearchRequestModel requestModel)
@@ -42,68 +50,85 @@ namespace Dfc.FindACourse.Web.Services
             var paramStudyModes = new List<StudyModeExt>();
             
             //If we have study modes int array in the model then create the List<StudyModes> 
-            if (requestModel.StudyModes != null && requestModel.StudyModes.Length > 0)
-            {
-                var allStudyModes = new StudyModes().StudyModesList;
-                //Now Populate StudyModes values from int array
-                requestModel.StudyModes.ToList().ForEach(
-                    q => paramStudyModes.Add(allStudyModes.
-                        Where(x => x.Key.ToString() == q.ToString()).FirstOrDefault()));
-            }
+            if (requestModel.StudyModes == null || requestModel.StudyModes.Length <= 0) return paramStudyModes;
+
+            var allStudyModes = new StudyModes().StudyModesList;
+
+            requestModel.StudyModes.ToList()
+                .ForEach(
+                    x =>
+                    {
+                        var m = allStudyModes.FirstOrDefault(y => y.Key.ToString() == x.ToString());
+                        if (m != null)
+                        {
+                            paramStudyModes.Add(m);
+                        }
+                    }
+                );
 
             return paramStudyModes;
         }
 
-        public IEnumerable<string> GetMissSpellings(string search, XmlDocument searchTerms, XmlNodeList expnData)
+        public IEnumerable<string> GetMissSpellings(string search, XmlDocument searchTerms, XmlNodeList expansionNodes)
         {
-            bool found;
+            if (searchTerms == null)
+                throw new ArgumentException($"{nameof(searchTerms)} cannot be null.");
+            if (expansionNodes == null)
+                throw new ArgumentException($"{nameof(expansionNodes)} cannot be null.");
+
             //now check for common misspellings
-            foreach (XmlNode nRepData in searchTerms.GetElementsByTagName("replacement"))
+            foreach (XmlNode replacement in searchTerms.GetElementsByTagName("replacement"))
             {
-                foreach (XmlNode nPatdata in nRepData.SelectNodes(".//pat"))
+                foreach (XmlNode pat in replacement.SelectNodes(".//pat"))
                 {
                     //if the pat node has the search text return all sub nodes
-                    if (nPatdata.InnerText.ToUpper().Contains(search))
+                    if (pat.InnerText.Contains(search))
                     {
-                        foreach (XmlNode nSubRepdata in nRepData.SelectNodes(".//sub"))
+                        foreach (XmlNode replacementSub in replacement.SelectNodes(".//sub"))
                         {
-                            yield return nSubRepdata.InnerText;
-                            foreach (XmlNode nData in expnData)
-                            {
-                                XmlNodeList oNode = nData.SelectNodes(".//sub");
+                            yield return replacementSub.InnerText;
+                            foreach (var p in GetMatches(replacementSub.InnerText, expansionNodes)) yield return p;
 
-                                found = false;
-                                foreach (XmlNode nChilddata in oNode)
+                            /*foreach (XmlNode expansion in expansionNodes)
+                            {
+                                var expansionSubs = expansion.SelectNodes(".//sub");
+
+                                var found = false;
+                                foreach (XmlNode expansionSub in expansionSubs)
                                     //if the child node has the search text then break out and add all elements of the expansion to the results too
-                                    if (nChilddata.InnerText.Contains(nSubRepdata.InnerText))
+                                    if (expansionSub.InnerText.Contains(replacementSub.InnerText))
                                         found = true;
 
                                 if (found)
-                                    foreach (XmlNode nChilddata in oNode)
-                                        yield return nChilddata.InnerText;
-                            }
+                                    foreach (XmlNode expansionSub in expansionSubs)
+                                        yield return expansionSub.InnerText;
+                            }*/
                         }
                     }
                 }
             }
         }
 
-        public IEnumerable<string> GetMatches(string search, XmlNodeList expnData)
+        public IEnumerable<string> GetMatches(string search, XmlNodeList expansionNodes)
         {
-            bool found;
-            foreach (XmlNode nData in expnData)
-            {
-                XmlNodeList oNode = nData.SelectNodes(".//sub");
+            if (expansionNodes == null)
+                throw new ArgumentException($"{nameof(expansionNodes)} cannot be null.");
 
-                found = false;
-                foreach (XmlNode nChilddata in oNode)
+            foreach (XmlNode expansion in expansionNodes)
+            {
+                var subs = expansion.SelectNodes(".//sub");
+
+                var found = false;
+                foreach (XmlNode sub in subs)
                     //if the child node has the search text then break out and add all elements of the expansion to the results
-                    if (nChilddata.InnerText.Contains(search))
+                    if (sub.InnerText.Contains(search))
                         found = true;
 
-                if (found)
-                    foreach (XmlNode nChilddata in oNode)
-                        yield return nChilddata.InnerText;
+                if (!found) continue;
+                {
+                    foreach (XmlNode sub in subs)
+                        yield return sub.InnerText;
+                }
             }
         }
 

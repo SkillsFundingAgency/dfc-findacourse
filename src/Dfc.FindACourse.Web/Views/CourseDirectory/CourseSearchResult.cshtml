@@ -92,14 +92,16 @@
                     <div class="download-link">
                         <a href="#">Print or download these search results</a>
                     </div>
-                    <div class="margin-bottom-05em">
+                    <div class="showing-container">
                         Showing @Model.ShowingFrom() - @Model.ShowingTo() of @Model.NoOfRecords results
+                    </div>
+                    <div class="pagination-container">
                         @if (Model.Items.Any() && Model.NoOfPages > 1)
                         {
                             <dfc-pagination dfc-pagination-no-of-pages="@Model.NoOfPages"
                                             dfc-pagination-url="@Context.Request.GetDisplayUrl()"
                                             dfc-pagination-param-name="@nameof(Model.PageNo)"
-                                            dfc-pagination-display-no-of-pages="@Model.PerPage"
+                                            dfc-pagination-display-no-of-pages="5"
                                             class="pagination page-top"></dfc-pagination>
                         }
                     </div>
@@ -127,25 +129,25 @@
                                     </h3>
                                     <div class="result-item-qualification-level">@item.QualificationLevel.GetDisplayName()</div>
                                     <ul class="result-item-course-attendence-study-mode-info">
-                                        @if (item.IsDisplayble(item.StudyMode))
+                                        @if (item.IsDisplayable(item.StudyMode))
                                         {
                                             <li>@item.StudyMode.GetDisplayName()</li>
                                         }
 
-                                        @if (item.IsDisplayble(item.AttendanceMode) && item.IsDisplayble(item.StudyMode))
+                                        @if (item.IsDisplayable(item.AttendanceMode) && item.IsDisplayable(item.StudyMode))
                                         {
                                             <li> | @item.AttendanceMode.GetDisplayName() </li>
                                         }
-                                        else if (item.IsDisplayble(item.AttendanceMode))
+                                        else if (item.IsDisplayable(item.AttendanceMode))
                                         {
                                             <li>@item.AttendanceMode.GetDisplayName()</li>
                                         }
 
-                                        @if (item.IsDisplayble(item.AttendencePattern) && (item.IsDisplayble(item.AttendanceMode) || item.IsDisplayble(item.StudyMode)))
+                                        @if (item.IsDisplayable(item.AttendencePattern) && (item.IsDisplayable(item.AttendanceMode) || item.IsDisplayable(item.StudyMode)))
                                         {
                                             <li> | @item.AttendencePattern.GetDisplayName() </li>
                                         }
-                                        else if (item.IsDisplayble(item.AttendencePattern))
+                                        else if (item.IsDisplayable(item.AttendencePattern))
                                         {
                                             <li>@item.AttendencePattern.GetDisplayName()</li>
                                         }
@@ -179,35 +181,12 @@
                             }
                         </div>
 
-                        @*<div class="pagination">
-                            <a href="" class="pagination-item pagination-previous">previous</a>
-
-                            @for (var i = 1; i <= Model.NoOfPages; i++)
-                            {
-                                var ub = new UriBuilder(Context.Request.GetDisplayUrl());
-                                var qs = HttpUtility.ParseQueryString(ub.Query);
-                                qs.Set(nameof(Model.PageNo), i.ToString());
-                                ub.Query = qs.ToString();
-
-                                if (i == Model.PageNo)
-                                {
-                                    <a href="@ub.ToString()" class="pagination-item current">@i</a>
-                                }
-                                else
-                                {
-                                    <a href="@ub.ToString()" class="pagination-item">@i</a>
-                                }
-                            }
-
-                            <a href="" class="pagination-item pagination-next">next</a>
-                        </div>*@
-
                         if (Model.Items.Any() && Model.NoOfPages > 1)
                         {
                             <dfc-pagination dfc-pagination-no-of-pages="@Model.NoOfPages"
                                             dfc-pagination-url="@Context.Request.GetDisplayUrl()"
                                             dfc-pagination-param-name="@nameof(Model.PageNo)"
-                                            dfc-pagination-display-no-of-pages="@Model.PerPage"
+                                            dfc-pagination-display-no-of-pages="10"
                                             class="pagination page-bottom"></dfc-pagination>
                         }
                     }
