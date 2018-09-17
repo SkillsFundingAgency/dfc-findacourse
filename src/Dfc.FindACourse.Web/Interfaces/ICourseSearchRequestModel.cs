@@ -11,6 +11,5 @@
         bool? IsDfe1619Funded { get; set; }
         string LocationCoordinates { get; set; }
         int LocationRadius { get; set; }
-        string QualificationLevel { get; set; }
     }
 }
