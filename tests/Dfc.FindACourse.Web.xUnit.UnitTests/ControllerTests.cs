@@ -226,8 +226,10 @@ namespace Dfc.FindACourse.Web.xUnit.UnitTests
                 venue,
                 "region",
                 duration);
-            var listOpps = new List<IOpportunity>();
-            listOpps.Add(opportunity);
+            var listOpps = new List<IOpportunity>
+            {
+                opportunity
+            };
             var provider = new Provider(1, "provider");
             var courseItem = new CourseItemDetail(course, listOpps, provider, venue);
             var courseDetailsResult = Result.Ok(courseItem);
