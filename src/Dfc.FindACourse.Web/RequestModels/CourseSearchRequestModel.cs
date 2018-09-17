@@ -16,7 +16,6 @@ namespace Dfc.FindACourse.Web.RequestModels
         public bool? IsDfe1619Funded { get; set; }
         public string LocationCoordinates { get; set; }
         public int LocationRadius { get; set; }
-        public string QualificationLevel { get; set; }
         public int PageNo { get; set; }
     }
 }

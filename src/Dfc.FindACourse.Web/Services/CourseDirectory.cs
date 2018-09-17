@@ -13,18 +13,18 @@ namespace Dfc.FindACourse.Web.Services
 {
     public class CourseDirectory : ICourseDirectory
     {
-        public IFileHelper Files { get; }
+        public IFileHelper FileHelper { get; }
         public ICourseDirectoryHelper CourseDirectoryHelper { get; }
 
         public CourseDirectory(IFileHelper fileHelper, ICourseDirectoryHelper courseDirectoryHelper)
         {
-            Files = fileHelper;
+            FileHelper = fileHelper;
             CourseDirectoryHelper = courseDirectoryHelper;
         }
 
         public IEnumerable<SelectListItem> GetQualificationLevels()
         {
-            var searchTerms = Files.LoadQualificationLevels();
+            var searchTerms = FileHelper.LoadQualificationLevels();
             var roles = searchTerms
                 .Where(y => y.Display)
                 .Select(x =>
@@ -47,7 +47,7 @@ namespace Dfc.FindACourse.Web.Services
         /// <returns></returns>
         public IEnumerable<string> AutoSuggestCourseName(string search)
         {
-            var searchTerms = Files.LoadSynonyms();
+            var searchTerms = FileHelper.LoadSynonyms();
             var expansionNodes = searchTerms.GetElementsByTagName("expansion");
 
             foreach (var p in CourseDirectoryHelper.GetMatches(search, expansionNodes)) yield return p;
@@ -60,9 +60,9 @@ namespace Dfc.FindACourse.Web.Services
 
         public ICourseSearchCriteria CreateCourseSearchCriteria(ICourseSearchRequestModel requestModel)
         {
-            return new CourseSearchCriteria(
+            return new CourseSearchCriteria (
                 requestModel.SubjectKeyword,
-                CourseDirectoryHelper.QualificationLevels(requestModel, Files),
+                CourseDirectoryHelper.QualificationLevels(requestModel),
                 requestModel.Location,
                 requestModel.LocationRadius,
                 requestModel.IsDfe1619Funded,
