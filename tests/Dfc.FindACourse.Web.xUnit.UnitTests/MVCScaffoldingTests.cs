@@ -8,7 +8,7 @@ using Xunit;
 
 namespace Dfc.FindACourse.Web.xUnit.UnitTests
 {
-    public class TestMVCScaffolding
+    public class MvcScaffoldingTests
     {
         //[Fact]
         public void ConfigureServices_RegistersDependenciesCorrectly()
