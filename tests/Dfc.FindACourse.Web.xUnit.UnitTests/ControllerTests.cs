@@ -112,7 +112,7 @@ namespace Dfc.FindACourse.Web.xUnit.UnitTests
         {
             var courseDetailsResult = CreateCourseDetailsResult();
 
-            MockCourseDirectoryService.Setup(x => x.CourseItemDetail(It.IsAny<int>())).Returns(courseDetailsResult);
+            MockCourseDirectoryService.Setup(x => x.CourseItemDetail(It.IsAny<int>(), It.IsAny<int>())).Returns(courseDetailsResult);
             MockCourseDirectory.Setup(x => x.IsSuccessfulResult(
                 It.IsAny<IResult<CourseItemDetail>>(), It.IsAny<ITelemetryClient>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<DateTime>()
             )).Returns(true);
@@ -143,7 +143,7 @@ namespace Dfc.FindACourse.Web.xUnit.UnitTests
         {
             var courseDetailsResult = CreateCourseDetailsResult();
 
-            MockCourseDirectoryService.Setup(x => x.CourseItemDetail(It.IsAny<int>())).Returns(courseDetailsResult);
+            MockCourseDirectoryService.Setup(x => x.CourseItemDetail(It.IsAny<int>(), It.IsAny<int>())).Returns(courseDetailsResult);
             MockCourseDirectory.Setup(x => x.IsSuccessfulResult(
                 It.IsAny<IResult<CourseItemDetail>>(), It.IsAny<ITelemetryClient>(), It.IsAny<string>(), It.IsAny<string>(),
                 It.IsAny<DateTime>()
@@ -172,9 +172,10 @@ namespace Dfc.FindACourse.Web.xUnit.UnitTests
                 venue,
                 "region",
                 duration);
-
+            var listOpps = new List<IOpportunity>();
+            listOpps.Add(opportunity);
             var provider = new Provider(1, "provider");
-            var courseItem = new CourseItemDetail(course, opportunity, provider, venue);
+            var courseItem = new CourseItemDetail(course, listOpps, provider, venue);
             var courseDetailsResult = Result.Ok(courseItem);
             return courseDetailsResult;
         }

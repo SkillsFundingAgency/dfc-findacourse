@@ -15,6 +15,7 @@ namespace Dfc.FindACourse.Web.xUnit.UnitTests
             ComparisonsExtensions.Exception<Exception>(action, "expected");
         }
 
+
         public static void DoWorkWithException()
         {
             throw new Exception("expected");

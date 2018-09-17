@@ -3,6 +3,7 @@ using Dfc.FindACourse.Common.Enums;
 using Dfc.FindACourse.Common.Interfaces;
 using Dfc.FindACourse.Common.Models;
 using System;
+    using System.Collections.Generic;
 using System.Linq;
 using Tribal;
 
@@ -133,7 +134,7 @@ namespace Dfc.FindACourse.Services.CourseDirectory
              courseDetail.CourseSummary,
              courseDetail.AwardingBody,
              courseDetail.EntryRequirements,
-             courseDetail.AssessmentMethod= string.Empty,
+             courseDetail.AssessmentMethod,
              courseDetail.EquipmentRequired,
              courseDetail.URL,
              courseDetail.BookingURL,
@@ -203,8 +204,10 @@ namespace Dfc.FindACourse.Services.CourseDirectory
         }
         private static ItemChoice[] ToItemsChoice(this ItemsChoiceType[] itemChoiceTypes)
         {
-            return itemChoiceTypes.Cast<ItemChoice>().ToArray();
-
+            if (null != itemChoiceTypes)
+                return itemChoiceTypes.Cast<ItemChoice>().ToArray();
+            else
+                return null;
         }
 
         public static Opportunity ToOpportunity(this OpportunityInfo opportunityInfo)
@@ -249,15 +252,16 @@ namespace Dfc.FindACourse.Services.CourseDirectory
             string region = null;
 
            
-                try
-                {
+            try
+            {
+                if (null != opportunityDetail.Items && null != opportunityDetail.Items[0])
                     region = opportunityDetail.Items[0].ToString();
-                }
-                catch (InvalidCastException)
-                {
-                    // Unbale to cast to a Venue or a Region
-                }
-           
+            }
+            catch (InvalidCastException)
+            {
+                // Unbale to cast to a Venue or a Region
+            }
+
             return new Opportunity(
                 id,
                 opportunityDetail.StudyMode.ToStudyMode(),
@@ -267,7 +271,7 @@ namespace Dfc.FindACourse.Services.CourseDirectory
                 opportunityDetail.StartDate.ToDescriptionDate(),
                 venue,
                 region,
-                opportunityDetail.Duration.ToDuration(), 
+                opportunityDetail.Duration.ToDuration(),
                 //OppDetails
                 opportunityDetail.Price,
                 opportunityDetail.PriceDesc,
@@ -290,7 +294,23 @@ namespace Dfc.FindACourse.Services.CourseDirectory
 
                 );
         }
-       
+        public static List<IOpportunity> ToOpportunities(this OpportunityDetail[] oppDetails, int? opportunityId = null)
+        {
+            var oppResults = new List<IOpportunity>();
+
+            foreach (OpportunityDetail oppDetail in oppDetails)
+            {
+                oppResults.Add(oppDetail.ToOpportunity());
+            }
+            //If we have an opportunityId then set that to the top of the list for display
+            if (null != opportunityId && opportunityId.HasValue && opportunityId.Value > 0)
+            {
+
+                oppResults = oppResults.OrderByDescending(x => x.Id == opportunityId.Value).ToList();
+            }
+            return oppResults;
+        }
+
         public static Provider ToProvider(this ProviderInfo providerInfo)
         {
             try

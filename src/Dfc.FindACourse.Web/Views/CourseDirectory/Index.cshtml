@@ -38,7 +38,7 @@
                 </div>
             </div>
             <div class="form-group">
-                <label class="form-label" for="QualificationLevel">
+                <label class="form-label" for="QualificationLevels">
                     @Html.Raw(appSettings.Value.Page1Text4)
                     <span class="form-hint">
                         <a target="_blank" href="@Html.Raw(appSettings.Value.ContentQualLink)">@Html.Raw(appSettings.Value.Page1Text5)</a>
@@ -49,7 +49,7 @@
                         dfc-ignored-item-values="@(new Enum[] { QualificationLevel.Level9, QualificationLevel.LevelNa })">
                         <option value="">Select level</option>
                     </dfc-select>*@
-                <select class="form-control form-control-1-1 input-layout" id="QualificationLevel" name="QualificationLevel">
+                <select class="form-control form-control-1-1 input-layout" id="QualificationLevel" name="QualificationLevels">
                     @foreach (var item in Model.QualificationLevels)
                     {
 

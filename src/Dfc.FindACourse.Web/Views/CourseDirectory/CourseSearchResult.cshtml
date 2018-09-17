@@ -129,25 +129,25 @@
                                     </h3>
                                     <div class="result-item-qualification-level">@item.QualificationLevel.GetDisplayName()</div>
                                     <ul class="result-item-course-attendence-study-mode-info">
-                                        @if (item.IsDisplayble(item.StudyMode))
+                                        @if (item.IsDisplayable(item.StudyMode))
                                         {
                                             <li>@item.StudyMode.GetDisplayName()</li>
                                         }
 
-                                        @if (item.IsDisplayble(item.AttendanceMode) && item.IsDisplayble(item.StudyMode))
+                                        @if (item.IsDisplayable(item.AttendanceMode) && item.IsDisplayable(item.StudyMode))
                                         {
                                             <li> | @item.AttendanceMode.GetDisplayName() </li>
                                         }
-                                        else if (item.IsDisplayble(item.AttendanceMode))
+                                        else if (item.IsDisplayable(item.AttendanceMode))
                                         {
                                             <li>@item.AttendanceMode.GetDisplayName()</li>
                                         }
 
-                                        @if (item.IsDisplayble(item.AttendencePattern) && (item.IsDisplayble(item.AttendanceMode) || item.IsDisplayble(item.StudyMode)))
+                                        @if (item.IsDisplayable(item.AttendencePattern) && (item.IsDisplayable(item.AttendanceMode) || item.IsDisplayable(item.StudyMode)))
                                         {
                                             <li> | @item.AttendencePattern.GetDisplayName() </li>
                                         }
-                                        else if (item.IsDisplayble(item.AttendencePattern))
+                                        else if (item.IsDisplayable(item.AttendencePattern))
                                         {
                                             <li>@item.AttendencePattern.GetDisplayName()</li>
                                         }
