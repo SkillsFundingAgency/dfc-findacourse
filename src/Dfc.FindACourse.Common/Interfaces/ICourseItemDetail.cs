@@ -7,7 +7,7 @@ namespace Dfc.FindACourse.Common.Interfaces
     public interface ICourseItemDetail
     {
         ICourseDetails Coursedetails { get; }
-        IOpportunity Opportunity { get; }
+        List<IOpportunity> Opportunities { get; }
         IProvider Provider { get; }
         IVenue Venue { get; }
     }

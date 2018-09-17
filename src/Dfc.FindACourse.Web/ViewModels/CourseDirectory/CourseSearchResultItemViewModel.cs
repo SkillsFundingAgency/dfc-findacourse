@@ -37,7 +37,7 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
         public string StartDate { get; set; }
         public string Duration { get; set; }
 
-        public bool IsDisplayble(StudyMode studyMode)
+        public bool IsDisplayable(StudyMode studyMode)
         {
             switch (studyMode)
             {
@@ -50,7 +50,7 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
             }
         }
 
-        public bool IsDisplayble(AttendanceMode attendanceMode)
+        public bool IsDisplayable(AttendanceMode attendanceMode)
         {
             switch (attendanceMode)
             {
@@ -63,7 +63,7 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
             }
         }
 
-        public bool IsDisplayble(AttendancePattern attendancePattern)
+        public bool IsDisplayable(AttendancePattern attendancePattern)
         {
             switch (attendancePattern)
             {
