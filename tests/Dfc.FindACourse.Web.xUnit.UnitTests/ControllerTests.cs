@@ -112,7 +112,7 @@ namespace Dfc.FindACourse.Web.xUnit.UnitTests
         {
             var courseDetailsResult = CreateCourseDetailsResult();
 
-            MockCourseDirectoryService.Setup(x => x.CourseItemDetail(It.IsAny<int>(), It.IsAny<int>())).Returns(courseDetailsResult);
+            MockCourseDirectoryService.Setup(x => x.CourseItemDetail(It.IsAny<int?>(), It.IsAny<int?>())).Returns(courseDetailsResult);
             MockCourseDirectory.Setup(x => x.IsSuccessfulResult(
                 It.IsAny<IResult<CourseItemDetail>>(), It.IsAny<ITelemetryClient>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<DateTime>()
             )).Returns(true);
