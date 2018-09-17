@@ -3320,6 +3320,11 @@ p.white {
   margin-bottom: 0;
 }
 
+#LocationRadius {
+  top: -1px;
+  left: -150px;
+}
+
 .showing-container {
   font-size: 0.9em;
   margin-bottom: 0.5em;
