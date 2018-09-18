@@ -24,11 +24,12 @@ namespace Dfc.FindACourse.Web.Controllers
         public ICourseDirectory CourseDirectory { get; }
         public IFileHelper Files { get; }
         public ICourseDirectoryHelper CourseDirectoryHelper { get; }
+        public IPostcodeService PostcodeService { get; }
 
 
         public CourseDirectoryController(IConfiguration configuration, ICourseDirectoryService courseDirectoryService
             , IMemoryCache memoryCache, ITelemetryClient telemetryClient, IOptions<App> appSettings,
-            ICourseDirectory courseDirectory, IFileHelper fileHelper, ICourseDirectoryHelper requestModelHelper)
+            ICourseDirectory courseDirectory, IFileHelper fileHelper, ICourseDirectoryHelper requestModelHelper, IPostcodeService postcodeService)
         {
             Configuration = configuration;
             Service = courseDirectoryService;
@@ -38,14 +39,19 @@ namespace Dfc.FindACourse.Web.Controllers
             CourseDirectory = courseDirectory;
             Files = fileHelper;
             CourseDirectoryHelper = requestModelHelper;
+            PostcodeService = postcodeService;
         }
 
         // GET: CourseDirectory
         public ActionResult Index()
         {
+            var isPostcodeInvalid = (TempData["Location_IsInvalid"] != null && (bool)TempData["Location_IsInvalid"] == true);
+
             var indViewModel = new IndexViewModel
             {
-                QualificationLevels = CourseDirectory.GetQualificationLevels()
+                QualificationLevels = CourseDirectory.GetQualificationLevels(),
+                LocationError = (isPostcodeInvalid) ? "Invalid postcode" : default(string),
+                Location = (TempData["Location_Postcode"] != null && !string.IsNullOrWhiteSpace((string)TempData["Location_Postcode"])) ? (string)TempData["Location_Postcode"] : default(string)
             };
 
             Telemetry.TrackEvent("Find A Course Start page");
@@ -63,6 +69,18 @@ namespace Dfc.FindACourse.Web.Controllers
                 Telemetry.TrackEvent($"CourseSearch: ModelState Invalid.");
                 return View();
             }
+
+            if (!string.IsNullOrWhiteSpace(requestModel.Location))
+            {
+                var postcodeResult = PostcodeService.IsValidAsync(requestModel.Location).Result;
+                if (postcodeResult.IsFailure)
+                {
+                    TempData["Location_IsInvalid"] = true;
+                    TempData["Location_Postcode"] = requestModel.Location;
+                    return RedirectToAction(nameof(Index));
+                }
+            }
+
 
             var criteria = CourseDirectory.CreateCourseSearchCriteria(requestModel);
             var result = Service.CourseSearch(criteria, new PagingOptions(SortBy.Relevance, requestModel.PageNo));

@@ -19,6 +19,7 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
         [RegularExpression(@"([a-zA-Z][0-9]|[a-zA-Z][0-9][0-9]|[a-zA-Z][a-zA-Z][0-9]|[a-zA-Z][a-zA-Z][0-9][0-9]|[a-zA-Z][0-9][a-zA-Z]|[a-zA-Z][a-zA-Z][0-9][a-zA-Z]) ([0-9][abdefghjklmnpqrstuwxyzABDEFGHJLMNPQRSTUWXYZ][abdefghjklmnpqrstuwxyzABDEFGHJLMNPQRSTUWXYZ])", ErrorMessage = "Invalid postcode")]
         public string Location { get; set; }
         public IEnumerable<SelectListItem> QualificationLevels { get; set; }
-
+        public bool LocationHasError => !string.IsNullOrWhiteSpace(LocationError);
+        public string LocationError { get; set; }
     }
 }
