@@ -2589,7 +2589,6 @@ input[type="search"]::-webkit-search-decoration {
 
 #LocationRadius {
   position: relative;
-  left: -10px;
 }
 
 .auto-complete-container ul {
