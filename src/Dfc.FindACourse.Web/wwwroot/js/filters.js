@@ -12,5 +12,7 @@
         $('#StudyModeFilter').accordion();
 
         $('#AttendanceModeFilter').accordion();
+
+        $('#AttendancePatternFilter').accordion();
     });
 })();
