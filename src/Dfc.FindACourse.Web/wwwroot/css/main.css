@@ -3418,6 +3418,15 @@ p.white {
   cursor: default;
 }
 
+.form-spacer {
+  border-top: 1px solid black;
+  padding-top: 7px;
+}
+
+.form-spacer label {
+  font-size: 17px;
+}
+
 .enrol-text {
   position: relative;
   top: -25px;
