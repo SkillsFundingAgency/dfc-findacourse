@@ -55,8 +55,4 @@
             });
         });
     }
-
-    $(function () {
-        $('.accordion').accordion();
-    });
 })();
