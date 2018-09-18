@@ -74,11 +74,11 @@ namespace ESFA.UI.Specflow.Framework.FindACourse.Project.Tests.Features
         [NUnit.Framework.CategoryAttribute("DFC-3885")]
         [NUnit.Framework.TestCaseAttribute("Chemistry", "b13 9da", "1 Mile", null)]
         [NUnit.Framework.TestCaseAttribute("Bricklaying", "B13 9DA", "3 Miles", null)]
-        [NUnit.Framework.TestCaseAttribute("Maths", "London", "5 Miles", null)]
-        [NUnit.Framework.TestCaseAttribute("English", "Birmingham", "10 Miles", null)]
-        [NUnit.Framework.TestCaseAttribute("Plumbing", "London", "15 Miles", null)]
-        [NUnit.Framework.TestCaseAttribute("Electronic", "London", "20 Miles", null)]
-        [NUnit.Framework.TestCaseAttribute("Medicine", "Birmingham", "National", null)]
+        [NUnit.Framework.TestCaseAttribute("Maths", "b13 9da", "5 Miles", null)]
+        [NUnit.Framework.TestCaseAttribute("English", "b13 9da", "10 Miles", null)]
+        [NUnit.Framework.TestCaseAttribute("Plumbing", "b13 9da", "15 Miles", null)]
+        [NUnit.Framework.TestCaseAttribute("Electronic", "b13 9da", "20 Miles", null)]
+        [NUnit.Framework.TestCaseAttribute("Medicine", "b13 9da", "National", null)]
         public virtual void DFC_3885SelectLocationAndDistance(string courseName, string location, string distance, string[] exampleTags)
         {
             string[] @__tags = new string[] {

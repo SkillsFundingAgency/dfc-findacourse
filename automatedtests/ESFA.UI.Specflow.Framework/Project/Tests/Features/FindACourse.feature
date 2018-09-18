@@ -13,11 +13,11 @@
     | CourseName  | Location   | Distance |
     | Chemistry   | b13 9da    | 1 Mile   |
     | Bricklaying | B13 9DA    | 3 Miles  |
-    | Maths       | London     | 5 Miles  |
-    | English     | Birmingham | 10 Miles |
-    | Plumbing    | London     | 15 Miles |
-    | Electronic  | London     | 20 Miles |
-    | Medicine    | Birmingham | National |  
+    | Maths       | b13 9da      | 5 Miles  |
+    | English     | b13 9da  | 10 Miles |
+    | Plumbing    | b13 9da      | 15 Miles |
+    | Electronic  | b13 9da      | 20 Miles |
+    | Medicine    | b13 9da  | National |  
 
 
 
