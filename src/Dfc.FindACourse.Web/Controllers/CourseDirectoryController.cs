@@ -94,7 +94,7 @@ namespace Dfc.FindACourse.Web.Controllers
             var result = Service.CourseSearch(criteria, new PagingOptions(SortBy.Relevance, requestModel.PageNo));
 
             if (!CourseDirectory.IsSuccessfulResult(result, Telemetry, "Course Search", requestModel.SubjectKeyword, dtStart))
-                return View(nameof(Error), new Models.ErrorViewModel() { RequestId = "Course Search: " + requestModel.SubjectKeyword.ToString() + ". " + result.Error });
+                return View(nameof(Error), new Models.ErrorViewModel() { RequestId = "Course Search: " + requestModel.SubjectKeyword.ToString() + ". " + (null != result ? result.Error : string.Empty) });
 
             //DEBUG_FIX - Add the flush to see if working straightaway
             //ASB TODO Why are we flushing here? We may not end up here due to higher up returns.
@@ -122,7 +122,7 @@ namespace Dfc.FindACourse.Web.Controllers
             var result = Service.CourseItemDetail(id, null);
 
             if (!CourseDirectory.IsSuccessfulResult(result, Telemetry, "Course Detail", id.Value.ToString(), dtStart))
-                return View(nameof(Error), new Models.ErrorViewModel() { RequestId = "Course Detail: " + id.Value.ToString() + ". " + result.Error });
+                return View(nameof(Error), new Models.ErrorViewModel() { RequestId = "Course Detail: " + id.Value.ToString() + ". " + (null != result ? result.Error:string.Empty) });
 
             //DEBUG_FIX - Add the flush to see if working straightaway ASB TODO AGain is this correct as wont get called if ModelState is Invalid
             Telemetry.Flush();
@@ -144,7 +144,7 @@ namespace Dfc.FindACourse.Web.Controllers
             var result = Service.CourseItemDetail(id, oppid);
 
             if (!CourseDirectory.IsSuccessfulResult(result, Telemetry, "Course Detail", id.Value.ToString(), dtStart))
-                return View(nameof(Error), new Models.ErrorViewModel() { RequestId = "OpportunityDetails: " + id.Value.ToString() + ". " + result.Error });
+                return View(nameof(Error), new Models.ErrorViewModel() { RequestId = "OpportunityDetails: " + id.Value.ToString() + ". " + (null != result ? result.Error : string.Empty) });
 
             //DEBUG_FIX - Add the flush to see if working straightaway ASB TODO AGain is this correct as wont get called if ModelState is Invalid
             Telemetry.Flush();

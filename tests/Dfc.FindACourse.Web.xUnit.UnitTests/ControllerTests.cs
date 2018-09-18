@@ -193,7 +193,7 @@ namespace Dfc.FindACourse.Web.xUnit.UnitTests
             var result = Controller.CourseDetails(5, "0") as ViewResult;
             MockTelemetryClient.Verify(x => x.TrackEvent(It.IsAny<string>(), null, null), (Times.Never()));
             MockTelemetryClient.Verify(x => x.Flush(), (Times.Never()));
-            AssertDefaultView(result);
+            AssertDefaultErrorView(result);
         }
         [Fact]
         public void TestOpportunityDetailsResultWithValidModelStateAndInvalidSearchResult()
@@ -211,7 +211,7 @@ namespace Dfc.FindACourse.Web.xUnit.UnitTests
             var result = Controller.OpportunityDetails(5, "0", 6) as ViewResult;
             MockTelemetryClient.Verify(x => x.TrackEvent(It.IsAny<string>(), null, null), (Times.Never()));
             MockTelemetryClient.Verify(x => x.Flush(), (Times.Never()));
-            AssertDefaultView(result);
+            AssertDefaultErrorView(result);
         }
         private static Result<CourseItemDetail> CreateCourseDetailsResult()
         {
@@ -293,7 +293,17 @@ namespace Dfc.FindACourse.Web.xUnit.UnitTests
             Assert.Null(result.ViewName);
             Assert.True(result.ViewData.Count == 0);
         }
-
+        private void AssertDefaultErrorView(ViewResult result)
+        {
+            Assert.NotNull(result);
+            Assert.NotNull(result.Model);
+            Assert.Null(result.ContentType);
+            Assert.Null(result.StatusCode);
+            Assert.Null(result.TempData);
+            Assert.Null(result.ViewEngine);
+            Assert.NotNull(result.ViewName);
+            Assert.True(result.ViewData.Count == 0);
+        }
         [Fact]
         public void TestCourseSearchResultWithValidModelStateAndInvalidSearchResult()
         {
@@ -316,7 +326,7 @@ namespace Dfc.FindACourse.Web.xUnit.UnitTests
             var result = Controller.CourseSearchResult(fromQuery) as ViewResult;
             MockTelemetryClient.Verify(x => x.TrackEvent(It.IsAny<string>(), null, null), (Times.Never()));
             MockTelemetryClient.Verify(x => x.Flush(), (Times.Never()));
-            AssertDefaultView(result);
+            AssertDefaultErrorView(result);
         }
     }
 }
