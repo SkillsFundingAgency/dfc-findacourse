@@ -11,6 +11,7 @@ using System.Linq;
 using Microsoft.Extensions.Options;
 using Dfc.FindACourse.Common.Settings;
 using Dfc.FindACourse.Web.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Dfc.FindACourse.Web.Controllers
 {
@@ -63,6 +64,7 @@ namespace Dfc.FindACourse.Web.Controllers
 
             Telemetry.TrackEvent("Find A Course Start page");
 
+           
             return View(indViewModel);
         }
 
@@ -91,7 +93,8 @@ namespace Dfc.FindACourse.Web.Controllers
             var criteria = CourseDirectory.CreateCourseSearchCriteria(requestModel);
             var result = Service.CourseSearch(criteria, new PagingOptions(SortBy.Relevance, requestModel.PageNo));
 
-            if (!CourseDirectory.IsSuccessfulResult(result, Telemetry, "Course Search", requestModel.SubjectKeyword, dtStart)) return View();
+            if (!CourseDirectory.IsSuccessfulResult(result, Telemetry, "Course Search", requestModel.SubjectKeyword, dtStart))
+                return View(nameof(Error), new Models.ErrorViewModel() { RequestId = "Course Search: " + requestModel.SubjectKeyword.ToString() + ". " + result.Error });
 
             //DEBUG_FIX - Add the flush to see if working straightaway
             //ASB TODO Why are we flushing here? We may not end up here due to higher up returns.
@@ -118,7 +121,8 @@ namespace Dfc.FindACourse.Web.Controllers
 
             var result = Service.CourseItemDetail(id, null);
 
-            if (!CourseDirectory.IsSuccessfulResult(result, Telemetry, "Course Detail", id.Value.ToString(), dtStart)) return View();
+            if (!CourseDirectory.IsSuccessfulResult(result, Telemetry, "Course Detail", id.Value.ToString(), dtStart))
+                return View(nameof(Error), new Models.ErrorViewModel() { RequestId = "Course Detail: " + id.Value.ToString() + ". " + result.Error });
 
             //DEBUG_FIX - Add the flush to see if working straightaway ASB TODO AGain is this correct as wont get called if ModelState is Invalid
             Telemetry.Flush();
@@ -139,7 +143,8 @@ namespace Dfc.FindACourse.Web.Controllers
 
             var result = Service.CourseItemDetail(id, oppid);
 
-            if (!CourseDirectory.IsSuccessfulResult(result, Telemetry, "Course Detail", id.Value.ToString(), dtStart)) return View();
+            if (!CourseDirectory.IsSuccessfulResult(result, Telemetry, "Course Detail", id.Value.ToString(), dtStart))
+                return View(nameof(Error), new Models.ErrorViewModel() { RequestId = "OpportunityDetails: " + id.Value.ToString() + ". " + result.Error });
 
             //DEBUG_FIX - Add the flush to see if working straightaway ASB TODO AGain is this correct as wont get called if ModelState is Invalid
             Telemetry.Flush();
@@ -166,7 +171,11 @@ namespace Dfc.FindACourse.Web.Controllers
 
             return Json(result);
         }
-
+        [AllowAnonymous]
+        public IActionResult Error()
+        {
+            return View(new Dfc.FindACourse.Web.Models.ErrorViewModel { RequestId = "error" });
+        }
 
     }
 }

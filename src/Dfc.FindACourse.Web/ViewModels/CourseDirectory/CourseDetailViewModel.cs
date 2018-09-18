@@ -17,41 +17,44 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
         /// <param name="value"></param>
         public CourseDetailViewModel(ICourseItemDetail value, string distance)
         {
-            CourseId = value.Coursedetails.CourseId;// Opportunity.Id;   
-            CourseTitle = value.Coursedetails.CourseTitle;
-            CourseSummary = value.Coursedetails.CourseSummary;
-            //QualificationLevel = value.Coursedetails.Le.QualificationLevel;
-            StudyMode = value.Opportunities[0].StudyMode;
-            AttendanceMode = value.Opportunities[0].AttendanceMode;
-            AttendencePattern = value.Opportunities[0].AttendancePattern;
-            ProviderName = value.Provider.Name;
-            Location = (value.Opportunities[0].HasVenue) ? value.Opportunities[0].Venue.Address.ToString() : value.Opportunities[0].Region;
-            Distance = (value.Opportunities[0].HasVenue && value.Opportunities[0].Venue.Distance.HasValue) ? value.Opportunities[0].Venue.Distance.Value.ToString("0.0") : distance;
-            StartDate = value.Opportunities[0].StartDate.ToString();
-            Duration = value.Opportunities[0].Duration.ToString();
-            AwardingBody = value.Coursedetails.AwardingBody;
-            EntryRequirements = value.Coursedetails.EntryRequirements;
-            AssessmentMethod = value.Coursedetails.AssessmentMethod;
-            EquipmentRequired = value.Coursedetails.EquipmentRequired;
-            URL = value.Coursedetails.URL;
-            BookingURL = value.Coursedetails.BookingURL;
-            TariffRequired = value.Coursedetails.TariffRequired;
-            LADID = value.Coursedetails.LADID;
-            QualificationReferenceAuthority = value.Coursedetails.QualificationReferenceAuthority;
-            QualificationReference = value.Coursedetails.QualificationReference;
-            QualificationTitle = value.Coursedetails.QualificationTitle;
-            Level2EntitlementCategoryDesc = value.Coursedetails.Level2EntitlementCategoryDesc;
-            Level3EntitlementCategoryDesc = value.Coursedetails.Level3EntitlementCategoryDesc;
-            SectorLeadBodyDesc = value.Coursedetails.SectorLeadBodyDesc;
-            AccreditationStartDate = value.Coursedetails.AccreditationStartDate;
-            AccreditationEndDate = value.Coursedetails.AccreditationEndDate;
-            CertificationEndDate = value.Coursedetails.CertificationEndDate;
-            CreditValue = value.Coursedetails.CreditValue;
-            QCAGuidedLearningHours = value.Coursedetails.QCAGuidedLearningHours;
-            SkillsForLifeTypeDesc = value.Coursedetails.SkillsForLifeTypeDesc;
-            Venue = (Venue)value.Venue;
-            Provider = (Provider)value.Provider;
-            Opportunities = value.Opportunities.AsEnumerable().Cast<Opportunity>().ToList();
+            if (value != null)
+            {
+                CourseId = value.Coursedetails.CourseId;// Opportunity.Id;   
+                CourseTitle = value.Coursedetails.CourseTitle;
+                CourseSummary = value.Coursedetails.CourseSummary;
+                //QualificationLevel = value.Coursedetails.Le.QualificationLevel;
+                StudyMode = value.Opportunities[0].StudyMode;
+                AttendanceMode = value.Opportunities[0].AttendanceMode;
+                AttendencePattern = value.Opportunities[0].AttendancePattern;
+                ProviderName = value.Provider.Name;
+                Location = (value.Opportunities[0].HasVenue) ? value.Opportunities[0].Venue.Address.ToString() : value.Opportunities[0].Region;
+                Distance = (value.Opportunities[0].HasVenue && value.Opportunities[0].Venue.Distance.HasValue) ? value.Opportunities[0].Venue.Distance.Value.ToString("0.0") : distance;
+                StartDate = value.Opportunities[0].StartDate.ToString();
+                Duration = value.Opportunities[0].Duration.ToString();
+                AwardingBody = value.Coursedetails.AwardingBody;
+                EntryRequirements = value.Coursedetails.EntryRequirements;
+                AssessmentMethod = value.Coursedetails.AssessmentMethod;
+                EquipmentRequired = value.Coursedetails.EquipmentRequired;
+                URL = value.Coursedetails.URL;
+                BookingURL = value.Coursedetails.BookingURL;
+                TariffRequired = value.Coursedetails.TariffRequired;
+                LADID = value.Coursedetails.LADID;
+                QualificationReferenceAuthority = value.Coursedetails.QualificationReferenceAuthority;
+                QualificationReference = value.Coursedetails.QualificationReference;
+                QualificationTitle = value.Coursedetails.QualificationTitle;
+                Level2EntitlementCategoryDesc = value.Coursedetails.Level2EntitlementCategoryDesc;
+                Level3EntitlementCategoryDesc = value.Coursedetails.Level3EntitlementCategoryDesc;
+                SectorLeadBodyDesc = value.Coursedetails.SectorLeadBodyDesc;
+                AccreditationStartDate = value.Coursedetails.AccreditationStartDate;
+                AccreditationEndDate = value.Coursedetails.AccreditationEndDate;
+                CertificationEndDate = value.Coursedetails.CertificationEndDate;
+                CreditValue = value.Coursedetails.CreditValue;
+                QCAGuidedLearningHours = value.Coursedetails.QCAGuidedLearningHours;
+                SkillsForLifeTypeDesc = value.Coursedetails.SkillsForLifeTypeDesc;
+                Venue = (Venue)value.Venue;
+                Provider = (Provider)value.Provider;
+                Opportunities = value.Opportunities.AsEnumerable().Cast<Opportunity>().ToList();
+            }
 
 
         }
