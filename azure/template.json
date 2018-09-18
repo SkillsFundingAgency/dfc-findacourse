@@ -19,6 +19,12 @@
       "metadata": {
         "description": "Resource group the app service plan is in"
       }
+    },
+    "tribalAPIAddress": {
+      "type": "string",
+      "metadata": {
+        "description": "Tribal (course search) API"
+      }
     }
   },
   "variables": {
@@ -161,7 +167,7 @@
               },
               {
                 "name": "App__Page1Text1",
-                "value": "Search for training and learning opportunities at all levels. We'll show you courses from colleges, training providers and local education authorities. <a target='_blank' href='https://nationalcareersservice.direct.gov.uk/contact-us/home'>Contact an adviser</a> if you need help finding the right course for you."
+                "value": "Search for training and learning opportunities at all levels. We'll show you courses from colleges, training providers and local education authorities. <a target='_blank' href='https://nationalcareersservice.direct.gov.uk/contact-us/home' class='white'>Contact an adviser</a> if you need help finding the right course for you."
               },
               {
                 "name": "App__Page1Text2",
@@ -194,6 +200,14 @@
               {
                 "name": "Tribal__PerPage",
                 "value": "20"
+              },
+              {
+                "name": "Tribal__APIAddress",
+                "value": "[parameters('tribalAPIAddress')]"
+              },
+              {
+                "name": "Postcodes.Io__ApiBaseUrl",
+                "value": "http://api.postcodes.io"
               }
             ]
           }

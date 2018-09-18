@@ -4,5 +4,6 @@
     {
         string ApiKey { get; }
         int PerPage { get; }
+        string ApiAddress { get; }
     }
 }

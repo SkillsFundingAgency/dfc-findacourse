@@ -39,9 +39,63 @@
             </div>
             <div class="grid-row">
                 <div class="column-full">
-                    <div class="accordion">
+                    <div class="accordion" id="LocationRadiusFilter">
                         <div class="accordion-header">
-                            <div class="accordion-heading">Age suitability</div>
+                            <div class="accordion-heading">Distance</div>
+                            <span class="accordion-header-icon"></span>
+                        </div>
+                        <div class="accordion-panel">
+                            <div class="form-group">
+                                <ul>
+                                    <li>
+                                        <div class="multiple-choice">
+                                            <input type="radio" name="LocationRadius" id="LocationRadius1Mile" value="1" />
+                                            <label for="LocationRadius1Mile">1 mile</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="multiple-choice">
+                                            <input type="radio" name="LocationRadius" id="LocationRadius3Miles" value="3" />
+                                            <label for="LocationRadius3Miles">3 miles</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="multiple-choice">
+                                            <input type="radio" name="LocationRadius" id="LocationRadius5Miles" value="5" />
+                                            <label for="LocationRadius5Miles">5 miles</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="multiple-choice">
+                                            <input type="radio" name="LocationRadius" id="LocationRadius10Miles" value="10" />
+                                            <label for="LocationRadius10Miles">10 miles</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="multiple-choice">
+                                            <input type="radio" name="LocationRadius" id="LocationRadius15Miles" value="15" />
+                                            <label for="LocationRadius15Miles">15 miles</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="multiple-choice">
+                                            <input type="radio" name="LocationRadius" id="LocationRadius20Miles" value="20" />
+                                            <label for="LocationRadius20Miles">20 miles</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="multiple-choice">
+                                            <input type="radio" name="LocationRadius" id="LocationRadiusNational" value="1000" />
+                                            <label for="LocationRadiusNational">National</label>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion" id="StudyModeFilter">
+                        <div class="accordion-header">
+                            <div class="accordion-heading">Full-time or part-time</div>
                             <a href="http://www.google.co.uk">Some link going some where</a>
                             <div class="accordion-subheading">888 selected</div>
                             <span class="accordion-header-icon"></span>
@@ -51,21 +105,26 @@
                                 <ul>
                                     <li>
                                         <div class="multiple-choice">
-                                            <input type="radio" name="DfeFunded" id="DfeFundedAll" value="All" />
-                                            <label for="DfeFundedAll">All ages</label>
-                                        </div> 
-                                    </li>
-                                    <li>
-                                        <div class="multiple-choice">
-                                            <input type="radio" name="DfeFunded" id="DfeFunded1619" value="1619" />
-                                            <label for="DfeFunded1619">16 to 19 year-olds</label>
+                                            <input type="checkbox" name="StudyModeAll" id="StudyModeAll" value="all" />
+                                            <label for="StudyModeAll">Show all</label>
                                         </div>
                                     </li>
-
                                     <li>
                                         <div class="multiple-choice">
-                                            <input type="radio" name="DfeFunded" id="DfeFunded19Plus" value="19Plus" />
-                                            <label for="DfeFunded19Plus">19+ year-olds</label>
+                                            <input type="checkbox" name="StudyModeFullTime" id="StudyModeFullTime" value="1" />
+                                            <label for="StudyModeFullTime">Full Time</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="multiple-choice">
+                                            <input type="checkbox" name="StudyModePartTime" id="StudyModePartTime" value="2" />
+                                            <label for="StudyModePartTime">Part Time</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="multiple-choice">
+                                            <input type="checkbox" name="StudyModeFlexible" id="StudyModeFlexible" value="4" />
+                                            <label for="StudyModeFlexible">Part Time</label>
                                         </div>
                                     </li>
                                 </ul>
@@ -105,7 +164,7 @@
                                             class="pagination page-top"></dfc-pagination>
                         }
                     </div>
-                    <div class="form-group margin-bottom-0">
+                    <div class="form-group margin-bottom-0 form-spacer">
                         <label class="form-label inline" for="SortBy">Sort by:</label>
                         <dfc-select id="SortBy"
                                     name="SortBy"

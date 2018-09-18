@@ -14,10 +14,15 @@ namespace Dfc.FindACourse.Services.CourseDirectory
     public class CourseDirectoryService : ICourseDirectoryService
     {
         private ICourseDirectoryServiceConfiguration _configuration;
+        private ServiceInterfaceClient _client;
+        private Tribal.ServiceInterfaceClient.EndpointConfiguration _endpointConfiguration;
+
 
         public CourseDirectoryService(ICourseDirectoryServiceConfiguration configuration)
         {
             _configuration = configuration;
+            _endpointConfiguration = new ServiceInterfaceClient.EndpointConfiguration();
+            _client = new ServiceInterfaceClient(_endpointConfiguration, _configuration.ApiAddress);
         }
 
         public IResult<CourseSearchResult> CourseSearch(ICourseSearchCriteria criteria, IPagingOptions options)
@@ -29,7 +34,7 @@ namespace Dfc.FindACourse.Services.CourseDirectory
 
             try
             {
-                var client = new ServiceInterfaceClient();
+                //var _client = new ServiceInterfaceClient();
 
                 var searchCriteria = new SearchCriteriaStructure()
                 {
@@ -73,7 +78,7 @@ namespace Dfc.FindACourse.Services.CourseDirectory
                     RecordsPerPage = _configuration.PerPage.ToString()
                 };
 
-                var task = client.CourseListAsync(request);
+                var task = _client.CourseListAsync(request);
                 Task.WaitAll(task);
                 var taskResult = task.Result;
 
@@ -117,7 +122,7 @@ namespace Dfc.FindACourse.Services.CourseDirectory
                 throw new ArgumentNullException(nameof(courseDetailsId));
             try
             {
-                var client = new ServiceInterfaceClient();
+                
                 var request = new CourseDetailInput()
                 {
                     APIKey = _configuration.ApiKey,
@@ -125,7 +130,7 @@ namespace Dfc.FindACourse.Services.CourseDirectory
 
 
                 };
-                var task = client.CourseDetailAsync(request);
+                var task = _client.CourseDetailAsync(request);
                 Task.WaitAll(task);
                 var taskResult = task.Result;
 

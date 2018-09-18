@@ -123,5 +123,19 @@ namespace Dfc.FindACourse.Web.xUnit.UnitTests
                 return _courseDirectoryHelper;
             }
         }
+
+        private Mock<IPostcodeService> _postcodeService;
+        public Mock<IPostcodeService> MockPostcodeService
+        {
+            get
+            {
+                if (_postcodeService != null) return _postcodeService;
+
+                var mock = new Mock<IPostcodeService>();
+                // mock.Setup(x => x.GetAll()).Returns(StoriesAll);
+                _postcodeService = mock;
+                return _postcodeService;
+            }
+        }
     }
 }
