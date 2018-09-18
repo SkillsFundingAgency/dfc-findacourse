@@ -78,9 +78,9 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
         public static void SetUp()
         {
             String browser = Configurator.GetConfiguratorInstance().GetBrowser();
-            switch(browser)
+            switch (browser)
             {
-                case "debug" :
+                case "debug":
                     webDriver = new ChromeDriver();
                     webDriver.Manage().Window.Maximize();
                     break;
@@ -168,7 +168,7 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
             //webDriver.Manage().Cookies.DeleteAllCookies();
             //String currentWindow = webDriver.CurrentWindowHandle;
             //webDriver.SwitchTo().Window(currentWindow);
-            
+
             PageInteractionHelper.SetDriver(webDriver);
 
         }

@@ -126,10 +126,10 @@
 		And the location <Location> is dispalyed
 	
   Examples:
-    | CourseName                                                     | Location                                  |
-    | Biology                                                        | Clarence Street, Liverpool, L3 5TP        |
-    | Chemistry                                                      | Central Avenue, Chatham Maritime, ME4 4TB |
-    | Certificate/Diploma for Entry to the Uniformed Public Services | United Kingdom                            |
+    | CourseName                                                     | Location |
+    | Biology                                                        | L3 5TP   |
+    | Chemistry                                                      | ME4 4TB  |
+    | Certificate/Diploma for Entry to the Uniformed Public Services | United Kingdom  |
 
 
 @DFC-3900
@@ -143,7 +143,7 @@
 	
   Examples:
     | CourseName | Location | Distance |
-    | geography  | london   | 0.0      |
+    | geography  | EC1A 1BB   | 6.9     |
 
 
 
@@ -161,5 +161,5 @@
 
      Examples:
     | CourseName | Location | Distance | StartDate         | Duration |
-    | geography  | london   | 0.0      | 10 September 2018 | 2 Years  |
+    | geography  | EC1A 1BB   | 6.9      | 1 September 2018 | 2 Years  |
 
