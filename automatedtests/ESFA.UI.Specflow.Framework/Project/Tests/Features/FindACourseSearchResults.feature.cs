@@ -321,8 +321,8 @@ namespace ESFA.UI.Specflow.Framework.FindACourse.Project.Tests.Features
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("DFC3900 View Search Results By Course Name displays Location")]
         [NUnit.Framework.CategoryAttribute("DFC-3900")]
-        [NUnit.Framework.TestCaseAttribute("Biology", "Clarence Street, Liverpool, L3 5TP", null)]
-        [NUnit.Framework.TestCaseAttribute("Chemistry", "Central Avenue, Chatham Maritime, ME4 4TB", null)]
+        [NUnit.Framework.TestCaseAttribute("Biology", "L3 5TP", null)]
+        [NUnit.Framework.TestCaseAttribute("Chemistry", "ME4 4TB", null)]
         [NUnit.Framework.TestCaseAttribute("Certificate/Diploma for Entry to the Uniformed Public Services", "United Kingdom", null)]
         public virtual void DFC3900ViewSearchResultsByCourseNameDisplaysLocation(string courseName, string location, string[] exampleTags)
         {
@@ -353,7 +353,7 @@ namespace ESFA.UI.Specflow.Framework.FindACourse.Project.Tests.Features
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("DFC3900 View Search Results By Course Name displays Distance")]
         [NUnit.Framework.CategoryAttribute("DFC-3900")]
-        [NUnit.Framework.TestCaseAttribute("geography", "london", "0.0", null)]
+        [NUnit.Framework.TestCaseAttribute("geography", "EC1A 1BB", "6.9", null)]
         public virtual void DFC3900ViewSearchResultsByCourseNameDisplaysDistance(string courseName, string location, string distance, string[] exampleTags)
         {
             string[] @__tags = new string[] {
@@ -385,7 +385,7 @@ namespace ESFA.UI.Specflow.Framework.FindACourse.Project.Tests.Features
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("DFC3900 View Search Results By Course Name displays Start Date and Duration")]
         [NUnit.Framework.CategoryAttribute("DFC-3900")]
-        [NUnit.Framework.TestCaseAttribute("geography", "london", "0.0", "10 September 2018", "2 Years", null)]
+        [NUnit.Framework.TestCaseAttribute("geography", "EC1A 1BB", "6.9", "1 September 2018", "2 Years", null)]
         public virtual void DFC3900ViewSearchResultsByCourseNameDisplaysStartDateAndDuration(string courseName, string location, string distance, string startDate, string duration, string[] exampleTags)
         {
             string[] @__tags = new string[] {

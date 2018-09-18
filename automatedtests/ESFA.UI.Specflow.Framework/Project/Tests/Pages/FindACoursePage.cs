@@ -22,13 +22,14 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.Pages
 
         private readonly By courseName = By.Name("SubjectKeyword");
         private readonly By courseList = By.CssSelector("#course-list");
-        private readonly By qualificationLevel = By.Name("QualificationLevel");
+        private readonly By qualificationLevel = By.Name("QualificationLevels");
 		private readonly By location = By.Name("Location");
 		private readonly By distance = By.Name("LocationRadius");
 		private readonly By searchBtn = By.Name("Search");
 		private readonly By advisorLnk = By.LinkText("Contact an adviser");
+        private readonly By postcodeValidation = By.XPath(".//*[@id='FindACourseForm']/div[3]/span");
 
-		internal FindACoursePage EnterCourseName(String courseTxt)
+        internal FindACoursePage EnterCourseName(String courseTxt)
 		{
             FormCompletionHelper.EnterText(courseName, courseTxt);
             return new FindACoursePage(webDriver);
@@ -89,6 +90,12 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.Pages
         {
             IList<IWebElement> all = webDriver.FindElements(courseList);
             FormCompletionHelper.CheckDropDownOptions(all, autopopulateList);
+            return new FindACoursePage(webDriver);
+        }
+
+        internal FindACoursePage PostCodeValidation()
+        {
+            FormCompletionHelper.IsElementDisplayed(postcodeValidation);
             return new FindACoursePage(webDriver);
         }
     }

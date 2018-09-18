@@ -18,7 +18,7 @@ Scenario Outline: DFC-4194 View Course Details
 
 Examples:
 | CourseName        | QualificationLevel                                   | Location   | Distance | 
-| English           | Level 3 - A level/Access to higher education diploma | Birmingham | 10 Miles |
+| English           | Level 3 - A level/Access to higher education diploma | B13 9da | 10 Miles |
 | BUILDING SERVICES | Level 3 - A level/Access to higher education diploma | B13 9DA    | 3 Miles  |  
 
 
@@ -126,7 +126,7 @@ Scenario Outline: DFC-3973 View Course Details display Start Date
 
   Examples:
     | CourseName | Location |
-    | Gardening  | London   |
+    | Gardening  | EC1a 1BB   |
 
 
 
