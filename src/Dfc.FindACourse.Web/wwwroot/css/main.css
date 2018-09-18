@@ -2608,6 +2608,39 @@ input[type="search"]::-webkit-search-decoration {
   margin-bottom: 30px;
 }
 
+.form-result-page #Search {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  height: 37px;
+  width: 40px;
+  cursor: pointer;
+  overflow: hidden;
+  text-indent: 50000px;
+  background: #0b0c0c;
+  background-image: url("../../images/icon-search-2x.png");
+  background-repeat: no-repeat;
+  background-position: 60% 50%;
+  background-size: 24px;
+  float: left;
+  padding: 6px;
+  border: 0;
+  color: #fff;
+  z-index: 900;
+  position: relative;
+}
+
+.form-control-1-1 {
+  width: 93%;
+  float: left;
+}
+
+.postcode-search {
+  float: left;
+  height: 34px;
+  margin-bottom: 20px;
+}
+
 #global-header {
   background-color: #0b0c0c;
   width: 100%;
@@ -3187,6 +3220,7 @@ input[type="search"]::-webkit-search-decoration {
 
 .accordion {
   border: 2px solid #bfc1c3;
+  margin-bottom: 1em;
 }
 
 .accordion .accordion-header {
@@ -3203,7 +3237,7 @@ input[type="search"]::-webkit-search-decoration {
 .accordion .accordion-header .accordion-header-icon {
   position: absolute;
   right: 1em;
-  top: 1.3em;
+  top: 0.7em;
   width: 0;
   height: 0;
   border-color: #0b0c0c;
@@ -3416,6 +3450,15 @@ p.white {
   text-decoration: none;
   color: #0b0c0c;
   cursor: default;
+}
+
+.form-spacer {
+  border-top: 1px solid black;
+  padding-top: 7px;
+}
+
+.form-spacer label {
+  font-size: 17px;
 }
 
 .enrol-text {

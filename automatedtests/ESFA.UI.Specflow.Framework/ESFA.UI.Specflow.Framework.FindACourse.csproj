@@ -242,6 +242,7 @@
     <None Include="App.CITests.config">
       <DependentUpon>App.config</DependentUpon>
       <IsTransformFile>true</IsTransformFile>
+      <SubType>Designer</SubType>
     </None>
     <None Include="App.iOSChrome.config">
       <DependentUpon>App.config</DependentUpon>

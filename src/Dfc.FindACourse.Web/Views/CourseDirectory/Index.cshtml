@@ -32,7 +32,7 @@
                     <input asp-for="SubjectKeyword"
                            class="form-control form-control-1-1"
                            autocomplete="off"
-                           placeholder="Enter a course name or subject" 
+                           placeholder="Enter a course name or subject"
                            autofocus />
                     <ul id="course-list"></ul>
                 </div>
@@ -45,15 +45,19 @@
                     </span>
                 </label>
                 @*<dfc-select class="form-control form-control-1-1" id="QualificationLevel" name="QualificationLevel"
-                        dfc-items="Html.GetEnumSelectList<QualificationLevel>()"
-                        dfc-ignored-item-values="@(new Enum[] { QualificationLevel.Level9, QualificationLevel.LevelNa })">
-                        <option value="">Select level</option>
-                    </dfc-select>*@
-                <select class="form-control form-control-1-1 input-layout" asp-for="QualificationLevels" asp-items="@Model.QualificationLevels" > 
-
-                </select>
+                dfc-items="Html.GetEnumSelectList<QualificationLevel>()"
+                dfc-ignored-item-values="@(new Enum[] { QualificationLevel.Level9, QualificationLevel.LevelNa })">
+                <option value="">Select level</option>
+            </dfc-select>*@
+                <select class="form-control form-control-1-1 input-layout" asp-for="QualificationLevels" asp-items="@Model.QualificationLevels"></select>
             </div>
-            <div class="form-group">    
+
+            @{
+                var inputValidationErrorCssClass = (Model.LocationHasError) ? "input-validation-error" : string.Empty;
+                var formGroupErrorCssClass = (Model.LocationHasError) ? "error" : string.Empty;
+            }            
+            
+            <div class="form-group @formGroupErrorCssClass">
                 <label class="form-label" for="Location">
                     Location (Optional)
                     <span class="form-hint">Enter a full postcode. For example, S1 1WB</span>
@@ -66,10 +70,6 @@
                 else
                 {
                     <span asp-validation-for="Location"></span>
-                }
-
-                @{
-                    var inputValidationErrorCssClass = (Model.LocationHasError) ? "input-validation-error" : string.Empty;
                 }
 
                 <input asp-for="Location"

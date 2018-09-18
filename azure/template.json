@@ -204,6 +204,10 @@
               {
                 "name": "Tribal__APIAddress",
                 "value": "[parameters('tribalAPIAddress')]"
+              },
+              {
+                "name": "Postcodes.Io__ApiBaseUrl",
+                "value": "http://api.postcodes.io"
               }
             ]
           }
