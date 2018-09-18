@@ -57,7 +57,7 @@ namespace Dfc.FindACourse.Web.Controllers
             var indViewModel = new IndexViewModel
             {
                 QualificationLevels = CourseDirectory.GetQualificationLevels().ToList(),
-                LocationError = (isPostcodeInvalid) ? "Invalid postcode" : default(string),
+                LocationHasError = isPostcodeInvalid,
                 Location = location
             };
 
