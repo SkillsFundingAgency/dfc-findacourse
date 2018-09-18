@@ -10,5 +10,7 @@
         });
 
         $('#StudyModeFilter').accordion();
+
+        $('#AttendanceModeFilter').accordion();
     });
 })();
