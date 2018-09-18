@@ -2634,6 +2634,12 @@ input[type="search"]::-webkit-search-decoration {
   float: left;
 }
 
+@media only screen and (max-width: 946px) {
+  .form-control-1-1 {
+    width: 89%;
+  }
+}
+
 .postcode-search {
   float: left;
   height: 34px;

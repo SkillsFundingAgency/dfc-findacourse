@@ -90,6 +90,10 @@
 .form-control-1-1 {
     width: 93%;
     float: left;
+
+    @media only screen and (max-width : 946px) {
+        width: 89%;
+    }
 }
 
 .postcode-search {
