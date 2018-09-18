@@ -37,5 +37,10 @@
             }
         });
 
+        $(function () {
+            $("select").removeAttr("multiple");
+        });
+
     });
+
 })();

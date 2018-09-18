@@ -24,8 +24,8 @@ namespace Dfc.FindACourse.Web.Services
 
         public IEnumerable<SelectListItem> GetQualificationLevels()
         {
-            var searchTerms = FileHelper.LoadQualificationLevels();
-            var roles = searchTerms
+            var allQuals = FileHelper.LoadQualificationLevels();
+            var quals = allQuals
                 .Where(y => y.Display)
                 .Select(x =>
                     new SelectListItem
@@ -35,7 +35,7 @@ namespace Dfc.FindACourse.Web.Services
                     }
                 );
 
-            return new SelectList(roles, "Value", "Text");
+            return new SelectList(quals, "Value", "Text");
         }
 
         /// <summary>
