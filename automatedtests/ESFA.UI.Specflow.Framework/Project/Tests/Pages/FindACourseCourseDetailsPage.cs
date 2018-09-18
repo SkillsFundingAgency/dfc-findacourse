@@ -31,8 +31,8 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.Pages
         private readonly By startDate = By.XPath(".//*[@id='1']/table/tbody/tr[4]/td[2]");
         private readonly By duration = By.XPath(".//*[@id='1']/table/tbody/tr[5]/td[2]");
         private readonly By studyMode = By.XPath(".//*[@id='1']/table/tbody/tr[6]/td[2]");
-        private readonly By attendancePattern = By.XPath(".//*[@id='1']/table/tbody/tr[7]/td[2]");
-        private readonly By attendanceMode = By.XPath(".//*[@id='1']/table/tbody/tr[8]/td[2]");
+        private readonly By attendanceMode = By.XPath(".//*[@id='1']/table/tbody/tr[7]/td[2]");
+        private readonly By attendancePattern = By.XPath(".//*[@id='1']/table/tbody/tr[8]/td[2]");
 
 
         internal FindACourseCourseDetailsPage CheckNullResults()

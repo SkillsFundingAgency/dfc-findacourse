@@ -250,16 +250,19 @@
 
                         </tbody>
                     </table>
-                    <hr>
-                    <h2 class="govuk-heading-s" style="margin-top: 10px;padding-top: 10px">Venue</h2>
-                    <table class="govuk-table" role="presentation">
-                        <tbody class="govuk-table__body">
-                            <tr class="govuk-table__row">
-                                <td class="govuk-table__cell govuk-body-s" style="border-bottom: none">Lodation</td>
-                                <td class="govuk-table__cell govuk-body-s" style="border-bottom: none">@Model.Opportunities[0].Region</td>
-                            </tr>
-                        </tbody>
-                    </table>
+                    @if(null != @Model.Opportunities && null != @Model.Opportunities[0].Region)
+                    { 
+                        <hr>
+                        <h2 class="govuk-heading-s" style="margin-top: 10px;padding-top: 10px">Venue</h2>
+                        <table class="govuk-table" role="presentation">
+                            <tbody class="govuk-table__body">
+                                <tr class="govuk-table__row">
+                                    <td class="govuk-table__cell govuk-body-s" style="border-bottom: none">Location</td>
+                                    <td class="govuk-table__cell govuk-body-s" style="border-bottom: none;">@Model.Opportunities[0].Region</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    }
                     <hr>
                 }
                 <table class="govuk-table" role="presentation">
@@ -313,7 +316,7 @@
                                         <td class="govuk-table__header govuk-body-s" scope="col">Options</td>
                                     </tr>
                                 </thead>
-                                @foreach (var item in Model.Opportunities)
+                                @foreach (var item in Model.Opportunities.Take(5))
                                 {
                                     <tbody>
                                         <tr class="govuk-table__row">

@@ -316,27 +316,29 @@ namespace Dfc.FindACourse.Services.CourseDirectory
             try
             { 
             int id = int.TryParse(providerInfo.ProviderID, out id) ? id : 0;
-            Provider provider = new Provider(id, providerInfo.ProviderName);
-            provider.UKPRN = providerInfo.UKPRN;
-            provider.UPIN = providerInfo.UPIN;
-            provider.TFPlusLoans = providerInfo.TFPlusLoans;
-            provider.TFPlusLoansSpecified = providerInfo.TFPlusLoansSpecified;
-            provider.DFE1619Funded = providerInfo.DFE1619Funded;
-            provider.DFE1619FundedSpecified = providerInfo.DFE1619FundedSpecified;
-            provider.FEChoices_LearnerDestination = providerInfo.FEChoices_LearnerDestination;
-            provider.FEChoices_LearnerDestinationSpecified = providerInfo.FEChoices_LearnerDestinationSpecified;
-            provider.FEChoices_LearnerSatisfaction = providerInfo.FEChoices_LearnerSatisfaction;
-            provider.FEChoices_LearnerSatisfactionSpecified = providerInfo.FEChoices_LearnerSatisfactionSpecified;
-            provider.FEChoices_EmployerSatisfaction = providerInfo.FEChoices_EmployerSatisfaction;
-            provider.FEChoices_EmployerSatisfactionSpecified = providerInfo.FEChoices_EmployerSatisfactionSpecified;
-            //provider.Website = providerInfo.Website;
-            //provider.Email = providerInfo.Email;
-            //provider.Phone = providerInfo.Phone;
-            //provider.UKPRN = providerInfo.Fax;
-            //provider.UKPRN = providerInfo.UKPRN;
+                Provider provider = new Provider(id, providerInfo.ProviderName)
+                {
+                    UKPRN = providerInfo.UKPRN,
+                    UPIN = providerInfo.UPIN,
+                    TFPlusLoans = providerInfo.TFPlusLoans,
+                    TFPlusLoansSpecified = providerInfo.TFPlusLoansSpecified,
+                    DFE1619Funded = providerInfo.DFE1619Funded,
+                    DFE1619FundedSpecified = providerInfo.DFE1619FundedSpecified,
+                    FEChoices_LearnerDestination = providerInfo.FEChoices_LearnerDestination,
+                    FEChoices_LearnerDestinationSpecified = providerInfo.FEChoices_LearnerDestinationSpecified,
+                    FEChoices_LearnerSatisfaction = providerInfo.FEChoices_LearnerSatisfaction,
+                    FEChoices_LearnerSatisfactionSpecified = providerInfo.FEChoices_LearnerSatisfactionSpecified,
+                    FEChoices_EmployerSatisfaction = providerInfo.FEChoices_EmployerSatisfaction,
+                    FEChoices_EmployerSatisfactionSpecified = providerInfo.FEChoices_EmployerSatisfactionSpecified
+                };
+                //provider.Website = providerInfo.Website;
+                //provider.Email = providerInfo.Email;
+                //provider.Phone = providerInfo.Phone;
+                //provider.UKPRN = providerInfo.Fax;
+                //provider.UKPRN = providerInfo.UKPRN;
 
 
-            return provider;
+                return provider;
             }
             catch
             {

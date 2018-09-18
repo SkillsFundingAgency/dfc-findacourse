@@ -161,7 +161,7 @@ namespace ESFA.UI.Specflow.Framework.FindACourse.Project.Tests.Features
         [NUnit.Framework.TestCaseAttribute("Chemistry", "Level 6", null)]
         [NUnit.Framework.TestCaseAttribute("ASTROPHYSICS", "Level 3", null)]
         [NUnit.Framework.TestCaseAttribute("DENTISTRY", "Level 2", null)]
-        [NUnit.Framework.TestCaseAttribute("ADULT LITERACY", "Level 1", null)]
+        [NUnit.Framework.TestCaseAttribute("Diploma Level 1 Plumbing Studies", "Level 1", null)]
         [NUnit.Framework.TestCaseAttribute("Pharmacy Clinical Services Professional Diploma", "Level 4", null)]
         [NUnit.Framework.TestCaseAttribute("SQA HND Marine Engineering Direct Entry", "Level 5", null)]
         [NUnit.Framework.TestCaseAttribute("Integrated Masters Equine Science MSci", "Level 7", null)]

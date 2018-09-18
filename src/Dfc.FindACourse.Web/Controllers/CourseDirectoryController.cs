@@ -49,7 +49,7 @@ namespace Dfc.FindACourse.Web.Controllers
 
             var indViewModel = new IndexViewModel
             {
-                QualificationLevels = CourseDirectory.GetQualificationLevels(),
+                QualificationLevels = CourseDirectory.GetQualificationLevels().ToList(),
                 LocationError = (isPostcodeInvalid) ? "Invalid postcode" : default(string),
                 Location = (TempData["Location_Postcode"] != null && !string.IsNullOrWhiteSpace((string)TempData["Location_Postcode"])) ? (string)TempData["Location_Postcode"] : default(string)
             };
@@ -64,11 +64,11 @@ namespace Dfc.FindACourse.Web.Controllers
         public ActionResult CourseSearchResult([FromQuery]  CourseSearchRequestModel requestModel)
         {
             var dtStart = DateTime.Now;
-            if (!ModelState.IsValid)
-            {
-                Telemetry.TrackEvent($"CourseSearch: ModelState Invalid.");
-                return View();
-            }
+            //if (!ModelState.IsValid)
+            //{
+            //    Telemetry.TrackEvent($"CourseSearch: ModelState Invalid.");
+            //    return View();
+            //}
 
             if (!string.IsNullOrWhiteSpace(requestModel.Location))
             {
@@ -80,7 +80,6 @@ namespace Dfc.FindACourse.Web.Controllers
                     return RedirectToAction(nameof(Index));
                 }
             }
-
 
             var criteria = CourseDirectory.CreateCourseSearchCriteria(requestModel);
             var result = Service.CourseSearch(criteria, new PagingOptions(SortBy.Relevance, requestModel.PageNo));
