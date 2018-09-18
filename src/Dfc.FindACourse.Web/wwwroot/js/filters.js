@@ -14,5 +14,7 @@
         $('#AttendanceModeFilter').accordion();
 
         $('#AttendancePatternFilter').accordion();
+
+        $('#QualificationLevelFilter').accordion();
     });
 })();
