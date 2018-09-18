@@ -236,16 +236,16 @@ namespace Dfc.FindACourse.Web.xUnit.UnitTests
             return courseDetailsResult;
         }
 
-        [Fact]
-        public void TestCourseSearchResultInvalidModelState()
-        {
-            Controller.ModelState.AddModelError("test", "test");
-            MockTelemetryClient.Setup(x => x.TrackEvent(It.IsAny<string>(), null, null)).Verifiable();
+        //[Fact]
+        //public void TestCourseSearchResultInvalidModelState()
+        //{
+        //    Controller.ModelState.AddModelError("test", "test");
+        //    MockTelemetryClient.Setup(x => x.TrackEvent(It.IsAny<string>(), null, null)).Verifiable();
 
-            var result = Controller.CourseSearchResult(new CourseSearchRequestModel()) as ViewResult;
-            MockTelemetryClient.Verify();
-            AssertDefaultView(result);
-        }
+        //    var result = Controller.CourseSearchResult(new CourseSearchRequestModel()) as ViewResult;
+        //    MockTelemetryClient.Verify();
+        //    AssertDefaultView(result);
+        //}
 
         [Fact]
         public void TestCourseSearchResultWithValidModelState()
