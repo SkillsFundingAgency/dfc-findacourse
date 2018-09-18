@@ -2638,6 +2638,7 @@ input[type="search"]::-webkit-search-decoration {
 .postcode-search {
   float: left;
   height: 34px;
+  margin-bottom: 20px;
 }
 
 #global-header {
