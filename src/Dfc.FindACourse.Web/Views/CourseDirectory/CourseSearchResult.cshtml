@@ -12,7 +12,7 @@
 
 <form id="FindACourseForm"
       name="FindACourseForm"
-      action="/" method="post">
+      action="/" method="post" class="form-result-page">
     <div class="grid-row">
         <div class="column-full">
             <h1 class="heading-xlarge visuallyhidden">Search results for</h1>
@@ -23,11 +23,12 @@
             <div class="grid-row">
                 <div class="column-full">
                     <div class="form-group">
-                        <input asp-for="Location"
+                        <input class="postcode-search" asp-for="Location"
                                class="form-control form-control-2-3"
                                placeholder="Postcode or town"
                                autocomplete="off"
                                type="text" />
+                        <input class="button" type="submit" id="Search" name="Search" value="Search">
                         <dfc-select id="LocationRadius"
                                     name="LocationRadius"
                                     class="form-control form-control-1-3"

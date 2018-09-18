@@ -2608,6 +2608,38 @@ input[type="search"]::-webkit-search-decoration {
   margin-bottom: 30px;
 }
 
+.form-result-page #Search {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  height: 37px;
+  width: 40px;
+  cursor: pointer;
+  overflow: hidden;
+  text-indent: 50000px;
+  background: #0b0c0c;
+  background-image: url("../../images/icon-search-2x.png");
+  background-repeat: no-repeat;
+  background-position: 60% 50%;
+  background-size: 24px;
+  float: left;
+  padding: 6px;
+  border: 0;
+  color: #fff;
+  z-index: 900;
+  position: relative;
+}
+
+.form-control-1-1 {
+  width: 93%;
+  float: left;
+}
+
+.postcode-search {
+  float: left;
+  height: 34px;
+}
+
 #global-header {
   background-color: #0b0c0c;
   width: 100%;

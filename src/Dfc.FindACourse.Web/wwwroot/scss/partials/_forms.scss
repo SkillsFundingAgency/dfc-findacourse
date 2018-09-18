@@ -67,3 +67,33 @@
 .index-page .form-group {
     margin-bottom: 30px;
 }
+
+.form-result-page #Search {
+    @include box-sizing(border-box);
+    height: 37px;
+    width: 40px;
+    cursor: pointer;
+    overflow: hidden;
+    text-indent: 50000px;
+    background: $black;
+    background-image: url("../../images/icon-search-2x.png");
+    background-repeat: no-repeat;
+    background-position: 60% 50%;
+    background-size: 24px;
+    float: left;
+    padding: 6px;
+    border: 0;
+    color: $white;
+    z-index: 900;
+    position: relative;
+}
+
+.form-control-1-1 {
+    width: 93%;
+    float: left;
+}
+
+.postcode-search {
+    float: left;
+    height: 34px;
+}
