@@ -45,13 +45,20 @@ namespace Dfc.FindACourse.Web.Controllers
         // GET: CourseDirectory
         public ActionResult Index()
         {
-            var isPostcodeInvalid = (TempData["Location_IsInvalid"] != null && (bool)TempData["Location_IsInvalid"] == true);
+            var isPostcodeInvalid = false;
+            var location = default(string);
+
+            if (TempData != null)
+            {
+                isPostcodeInvalid = (TempData["Location_IsInvalid"] != null && (bool)TempData["Location_IsInvalid"] == true);
+                location = (TempData["Location_Postcode"] != null && !string.IsNullOrWhiteSpace((string)TempData["Location_Postcode"])) ? (string)TempData["Location_Postcode"] : default(string);
+            }
 
             var indViewModel = new IndexViewModel
             {
                 QualificationLevels = CourseDirectory.GetQualificationLevels().ToList(),
                 LocationError = (isPostcodeInvalid) ? "Invalid postcode" : default(string),
-                Location = (TempData["Location_Postcode"] != null && !string.IsNullOrWhiteSpace((string)TempData["Location_Postcode"])) ? (string)TempData["Location_Postcode"] : default(string)
+                Location = location
             };
 
             Telemetry.TrackEvent("Find A Course Start page");
