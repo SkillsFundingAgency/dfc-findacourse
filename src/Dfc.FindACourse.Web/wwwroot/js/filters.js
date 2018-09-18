@@ -16,5 +16,7 @@
         $('#AttendancePatternFilter').accordion();
 
         $('#QualificationLevelFilter').accordion();
+
+        $('#Dfe1619FundedFilter').accordion();
     });
 })();
