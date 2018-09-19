@@ -39,6 +39,8 @@
   <ItemGroup>
     <ProjectReference Include="..\Dfc.FindACourse.Common\Dfc.FindACourse.Common.csproj" />
     <ProjectReference Include="..\Dfc.FindACourse.Services\Dfc.FindACourse.Services.csproj" />
+  </ItemGroup> 
+  <ItemGroup>
+    <Folder Include="Data\temp\" />
   </ItemGroup>
-
 </Project>
