@@ -1,5 +1,6 @@
 ﻿.accordion {
     border: 2px solid $grey-2;
+    margin-bottom: 1em;
 
     .accordion-header {
         position: relative;
@@ -14,7 +15,7 @@
         .accordion-header-icon {
             position: absolute;
             right: 1em;
-            top: 1.3em;
+            top: 0.7em;
             width: 0;
             height: 0;
             border-color: $black;

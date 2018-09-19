@@ -24,8 +24,8 @@ namespace Dfc.FindACourse.Web.Services
 
         public IEnumerable<SelectListItem> GetQualificationLevels()
         {
-            var searchTerms = FileHelper.LoadQualificationLevels();
-            var roles = searchTerms
+            var allQuals = FileHelper.LoadQualificationLevels();
+            var quals = allQuals
                 .Where(y => y.Display)
                 .Select(x =>
                     new SelectListItem
@@ -35,7 +35,7 @@ namespace Dfc.FindACourse.Web.Services
                     }
                 );
 
-            return new SelectList(roles, "Value", "Text");
+            return new SelectList(quals, "Value", "Text");
         }
 
         /// <summary>
@@ -50,11 +50,12 @@ namespace Dfc.FindACourse.Web.Services
             var searchTerms = FileHelper.LoadSynonyms();
             var expansionNodes = searchTerms.GetElementsByTagName("expansion");
 
-            foreach (var p in CourseDirectoryHelper.GetMatches(search, expansionNodes)) yield return p;
+            foreach (var p in CourseDirectoryHelper.GetMatches(search, expansionNodes))
+                yield return p;
 
             if (search.Length <= 2) yield break;
-
-            foreach (var p1 in CourseDirectoryHelper.GetMissSpellings(search, searchTerms, expansionNodes)) yield return p1;
+                foreach (var p1 in CourseDirectoryHelper.GetMissSpellings(search, searchTerms, expansionNodes))
+                    yield return p1;
         }
 
 

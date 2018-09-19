@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Threading.Tasks;
 using Dfc.FindACourse.Common.Settings;
 using Dfc.FindACourse.Services.CourseDirectory;
 using Dfc.FindACourse.Services.Interfaces;
+using Dfc.FindACourse.Services.Postcode;
 using Dfc.FindACourse.Web.Interfaces;
 using Dfc.FindACourse.Web.Services;
 using Microsoft.ApplicationInsights;
@@ -59,6 +61,8 @@ namespace Dfc.FindACourse.Web
 
             services.AddSingleton<IConfiguration>(Configuration);
             services.Configure<App>(Configuration.GetSection("App"));
+            services.AddSingleton(typeof(IPostcodeServiceConfiguration),
+                new PostcodeServiceConfiguration(Configuration["Postcodes.Io:ApiBaseUrl"]));
 
             services.AddScoped<ITelemetryClient, MyTelemetryClient>();
             services.AddScoped<ICourseDirectory, CourseDirectory>();
@@ -68,6 +72,8 @@ namespace Dfc.FindACourse.Web
             services.AddScoped<ICourseDirectoryHelper, CourseDirectoryHelper>();
 
             services.AddScoped<ICourseDirectoryService, CourseDirectoryService>();
+            services.AddSingleton<HttpClientHandler>(new HttpClientHandler());
+            services.AddScoped<IPostcodeService, PostcodeService>();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddMemoryCache();
             services.AddApplicationInsightsTelemetry();
@@ -84,13 +90,14 @@ namespace Dfc.FindACourse.Web
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Shared/Error");
                 app.UseHsts();
             }
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseCookiePolicy();
+            app.UseStatusCodePages();
+
 
             app.UseMvc(routes =>
             {
@@ -98,6 +105,9 @@ namespace Dfc.FindACourse.Web
                     name: "default",
                     template: "{controller=CourseDirectory}/{action=Index}/{id?}");
             });
+
+            app.UseCookiePolicy();
+
             //Now download the configuration from storage and cache
             DownloadConfig(cache, telemetryClient).Wait();
         }

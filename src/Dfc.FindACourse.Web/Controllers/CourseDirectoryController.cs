@@ -11,6 +11,7 @@ using System.Linq;
 using Microsoft.Extensions.Options;
 using Dfc.FindACourse.Common.Settings;
 using Dfc.FindACourse.Web.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Dfc.FindACourse.Web.Controllers
 {
@@ -24,11 +25,12 @@ namespace Dfc.FindACourse.Web.Controllers
         public ICourseDirectory CourseDirectory { get; }
         public IFileHelper Files { get; }
         public ICourseDirectoryHelper CourseDirectoryHelper { get; }
+        public IPostcodeService PostcodeService { get; }
 
 
         public CourseDirectoryController(IConfiguration configuration, ICourseDirectoryService courseDirectoryService
             , IMemoryCache memoryCache, ITelemetryClient telemetryClient, IOptions<App> appSettings,
-            ICourseDirectory courseDirectory, IFileHelper fileHelper, ICourseDirectoryHelper requestModelHelper)
+            ICourseDirectory courseDirectory, IFileHelper fileHelper, ICourseDirectoryHelper requestModelHelper, IPostcodeService postcodeService)
         {
             Configuration = configuration;
             Service = courseDirectoryService;
@@ -38,18 +40,31 @@ namespace Dfc.FindACourse.Web.Controllers
             CourseDirectory = courseDirectory;
             Files = fileHelper;
             CourseDirectoryHelper = requestModelHelper;
+            PostcodeService = postcodeService;
         }
 
         // GET: CourseDirectory
         public ActionResult Index()
         {
+            var isPostcodeInvalid = false;
+            var location = default(string);
+
+            if (TempData != null)
+            {
+                isPostcodeInvalid = (TempData["Location_IsInvalid"] != null && (bool)TempData["Location_IsInvalid"] == true);
+                location = (TempData["Location_Postcode"] != null && !string.IsNullOrWhiteSpace((string)TempData["Location_Postcode"])) ? (string)TempData["Location_Postcode"] : default(string);
+            }
+
             var indViewModel = new IndexViewModel
             {
-                QualificationLevels = CourseDirectory.GetQualificationLevels()
+                QualificationLevels = CourseDirectory.GetQualificationLevels().ToList(),
+                LocationHasError = isPostcodeInvalid,
+                Location = location
             };
 
             Telemetry.TrackEvent("Find A Course Start page");
 
+           
             return View(indViewModel);
         }
 
@@ -58,16 +73,28 @@ namespace Dfc.FindACourse.Web.Controllers
         public ActionResult CourseSearchResult([FromQuery]  CourseSearchRequestModel requestModel)
         {
             var dtStart = DateTime.Now;
-            if (!ModelState.IsValid)
+            //if (!ModelState.IsValid)
+            //{
+            //    Telemetry.TrackEvent($"CourseSearch: ModelState Invalid.");
+            //    return View();
+            //}
+
+            if (!string.IsNullOrWhiteSpace(requestModel.Location))
             {
-                Telemetry.TrackEvent($"CourseSearch: ModelState Invalid.");
-                return View();
+                var postcodeResult = PostcodeService.IsValidAsync(requestModel.Location).Result;
+                if (postcodeResult.IsFailure)
+                {
+                    TempData["Location_IsInvalid"] = true;
+                    TempData["Location_Postcode"] = requestModel.Location;
+                    return RedirectToAction(nameof(Index));
+                }
             }
 
             var criteria = CourseDirectory.CreateCourseSearchCriteria(requestModel);
             var result = Service.CourseDirectorySearch(criteria, new PagingOptions(SortBy.Relevance, requestModel.PageNo));
 
-            if (!CourseDirectory.IsSuccessfulResult(result, Telemetry, "Course Search", requestModel.SubjectKeyword, dtStart)) return View();
+            if (!CourseDirectory.IsSuccessfulResult(result, Telemetry, "Course Search", requestModel.SubjectKeyword, dtStart))
+                return View(nameof(Error), new Models.ErrorViewModel() { RequestId = "Course Search: " + requestModel.SubjectKeyword.ToString() + ". " + (null != result ? result.Error : string.Empty) });
 
             //DEBUG_FIX - Add the flush to see if working straightaway
             //ASB TODO Why are we flushing here? We may not end up here due to higher up returns.
@@ -94,7 +121,8 @@ namespace Dfc.FindACourse.Web.Controllers
 
             var result = Service.CourseItemDetail(id, null);
 
-            if (!CourseDirectory.IsSuccessfulResult(result, Telemetry, "Course Detail", id.Value.ToString(), dtStart)) return View();
+            if (!CourseDirectory.IsSuccessfulResult(result, Telemetry, "Course Detail", id.Value.ToString(), dtStart))
+                return View(nameof(Error), new Models.ErrorViewModel() { RequestId = "Course Detail: " + id.Value.ToString() + ". " + (null != result ? result.Error:string.Empty) });
 
             //DEBUG_FIX - Add the flush to see if working straightaway ASB TODO AGain is this correct as wont get called if ModelState is Invalid
             Telemetry.Flush();
@@ -115,7 +143,8 @@ namespace Dfc.FindACourse.Web.Controllers
 
             var result = Service.CourseItemDetail(id, oppid);
 
-            if (!CourseDirectory.IsSuccessfulResult(result, Telemetry, "Course Detail", id.Value.ToString(), dtStart)) return View();
+            if (!CourseDirectory.IsSuccessfulResult(result, Telemetry, "Course Detail", id.Value.ToString(), dtStart))
+                return View(nameof(Error), new Models.ErrorViewModel() { RequestId = "OpportunityDetails: " + id.Value.ToString() + ". " + (null != result ? result.Error : string.Empty) });
 
             //DEBUG_FIX - Add the flush to see if working straightaway ASB TODO AGain is this correct as wont get called if ModelState is Invalid
             Telemetry.Flush();
@@ -142,7 +171,11 @@ namespace Dfc.FindACourse.Web.Controllers
 
             return Json(result);
         }
-
+        [AllowAnonymous]
+        public IActionResult Error()
+        {
+            return View(new Dfc.FindACourse.Web.Models.ErrorViewModel { RequestId = "error" });
+        }
 
     }
 }

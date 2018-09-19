@@ -87,22 +87,10 @@ namespace Dfc.FindACourse.Web.Services
                         foreach (XmlNode replacementSub in replacement.SelectNodes(".//sub"))
                         {
                             yield return replacementSub.InnerText;
-                            foreach (var p in GetMatches(replacementSub.InnerText, expansionNodes)) yield return p;
+                            foreach (var p in GetMatches(replacementSub.InnerText, expansionNodes))
+                                yield return p;
 
-                            /*foreach (XmlNode expansion in expansionNodes)
-                            {
-                                var expansionSubs = expansion.SelectNodes(".//sub");
-
-                                var found = false;
-                                foreach (XmlNode expansionSub in expansionSubs)
-                                    //if the child node has the search text then break out and add all elements of the expansion to the results too
-                                    if (expansionSub.InnerText.Contains(replacementSub.InnerText))
-                                        found = true;
-
-                                if (found)
-                                    foreach (XmlNode expansionSub in expansionSubs)
-                                        yield return expansionSub.InnerText;
-                            }*/
+                           
                         }
                     }
                 }

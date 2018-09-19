@@ -72,7 +72,7 @@ namespace ESFA.UI.Specflow.Framework.FindACourse.Project.Tests.Features
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("DFC-4194 View Course Details")]
         [NUnit.Framework.CategoryAttribute("DFC-4194")]
-        [NUnit.Framework.TestCaseAttribute("English", "Level 3 - A level/Access to higher education diploma", "Birmingham", "10 Miles", null)]
+        [NUnit.Framework.TestCaseAttribute("English", "Level 3 - A level/Access to higher education diploma", "B13 9da", "10 Miles", null)]
         [NUnit.Framework.TestCaseAttribute("BUILDING SERVICES", "Level 3 - A level/Access to higher education diploma", "B13 9DA", "3 Miles", null)]
         public virtual void DFC_4194ViewCourseDetails(string courseName, string qualificationLevel, string location, string distance, string[] exampleTags)
         {
@@ -263,7 +263,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("DFC-3973 View Course Details display Start Date")]
         [NUnit.Framework.CategoryAttribute("DFC-3973")]
-        [NUnit.Framework.TestCaseAttribute("Gardening", "London", null)]
+        [NUnit.Framework.TestCaseAttribute("Gardening", "EC1a 1BB", null)]
         public virtual void DFC_3973ViewCourseDetailsDisplayStartDate(string courseName, string location, string[] exampleTags)
         {
             string[] @__tags = new string[] {

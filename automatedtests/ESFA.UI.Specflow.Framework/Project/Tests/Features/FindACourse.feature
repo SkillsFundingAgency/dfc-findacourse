@@ -13,11 +13,11 @@
     | CourseName  | Location   | Distance |
     | Chemistry   | b13 9da    | 1 Mile   |
     | Bricklaying | B13 9DA    | 3 Miles  |
-    | Maths       | London     | 5 Miles  |
-    | English     | Birmingham | 10 Miles |
-    | Plumbing    | London     | 15 Miles |
-    | Electronic  | London     | 20 Miles |
-    | Medicine    | Birmingham | National |  
+    | Maths       | b13 9da      | 5 Miles  |
+    | English     | b13 9da  | 10 Miles |
+    | Plumbing    | b13 9da      | 15 Miles |
+    | Electronic  | b13 9da      | 20 Miles |
+    | Medicine    | b13 9da  | National |  
 
 
 
@@ -32,14 +32,14 @@
 		And Search <Location> displayed in location field
 
   Examples:
-    | CourseName  | Location      | Distance |
-    | Chemistry   | b13 9da       | 1 Mile   |
-    | Bricklaying | B13 9DA       | 3 Miles  |
-    | Maths       | west midlands | 5 Miles  |
-    | English     | Birmingham    | 10 Miles |
-    | Plumbing    | London        | 15 Miles |
-    | Electronic  | moseley       | 20 Miles |
-    | Medicine    | sandford rd   | National |
+    | CourseName  | Location | Distance |
+    | Chemistry   | b13 9da  | 1 Mile   |
+    | Bricklaying | B13 9DA  | 3 Miles  |
+    | Maths       | B14 7EN  | 5 Miles  |
+    | English     | b14 7rn  | 10 Miles |
+    | Plumbing    | b14 7rz  | 15 Miles |
+    | Electronic  | b13 8py  | 20 Miles |
+    | Medicine    | b13 9ah  | National |
 
 
 
@@ -50,8 +50,7 @@
 		And I enter location <Location> 
 		And I select distance <Distance>
 		And I click Search
-		Then I should be on Search Results for page
-		And no results found message is displayed
+		Then postcode validation failure message is displayed
 
   Examples:
     | CourseName  | Location           | Distance |
@@ -161,16 +160,16 @@ Scenario Outline: DFC-4090 Search for Courses By Location & Distance Null Result
 		Then I should be on Search Results for page
 
   Examples:
-    | CourseName  | QualificationLevel                                   | Location   | Distance |
-    | Chemistry   | Entry level - Skills for Life                        | Birmingham | 1 Mile   |
-    | Bricklaying | Level 1 - First certificate                          | London     | 3 Miles  |
-    | Maths       | Level 2 - GCSE/O level                               | London     | 5 Miles  |
-    | English     | Level 3 - A level/Access to higher education diploma | Birmingham | 10 Miles |
-    | Plumbing    | Level 4 - Certificate of higher education/HNC        | London     | 15 Miles |
-    | Electronic  | Level 5 - Foundation degree/HND                      | London     | 20 Miles |
-    | Medicine    | Level 6 - Degree/Graduate diploma                    | Birmingham | National |
-    | Biology     | Level 7 - Masters Degree/Postgraduate diploma        | London     | 3 Miles  |
-    | Physics     | Level 8 - Doctorate/PhD                              | London     | 5 Miles  |
+    | CourseName  | QualificationLevel                                   | Location | Distance |
+    | Chemistry   | Entry level - Skills for Life                        | AB1 0AA  | 1 Mile   |
+    | Bricklaying | Level 1 - First certificate                          | BB1 1AB  | 3 Miles  |
+    | Maths       | Level 2 - GCSE/O level                               | CM0 7AE  | 5 Miles  |
+    | English     | Level 3 - A level/Access to higher education diploma | G1 1AB   | 10 Miles |
+    | Plumbing    | Level 4 - Certificate of higher education/HNC        | LS1 1AA  | 15 Miles |
+    | Electronic  | Level 5 - Foundation degree/HND                      | ZE1 0AD  | 20 Miles |
+    | Medicine    | Level 6 - Degree/Graduate diploma                    | SW10 0AA | National |
+    | Biology     | Level 7 - Masters Degree/Postgraduate diploma        | b13 8py  | 3 Miles  |
+    | Physics     | Level 8 - Doctorate/PhD                              | n1 0aj   | 5 Miles  |
 
 
 
@@ -233,31 +232,10 @@ Scenario Outline: DFC-4090 Search for Courses By Location & Distance Null Result
 
 
 #BUG
-#@DFC-3887
-#	Scenario: DFC-3887 View Qualification Level Help Text
-#		Given I navigate to Find a Course home page
-#		When I click What qualification levels mean link
-#		Then I will be on What qualification levels mean page
+@DFC-3887
+	Scenario: DFC-3887 View Qualification Level Help Text
+		Given I navigate to Find a Course home page
+		When I click What qualification levels mean link
+		Then I will be on What qualification levels mean page
 
 
-
-#@BrowserStack
-#Scenario Outline: BrowserStack Test Find a Course
-#  Given I am on Find a Course for <profile> and <environment>
-#		When I enter course <CourseName>
-#		And  I select qualification <QualificationLevel>
-#		And I enter location <Location> 
-#		And I select distance <Distance>
-#		And I click Search
-#		Then I should be on Search Results for page
-#
-#  Examples:
-#        | profile  | environment   | CourseName  | QualificationLevel            | Location   | Distance |
-#        | single   | chrome        | Chemistry   | Entry level - Skills for Life | Birmingham | 1 Mile   |
-#        | parallel | safari        | Bricklaying | Level 1 - First certificate   | London     | 3 Miles  |
-#        | parallel | chrome        | Bricklaying | Level 1 - First certificate   | London     | 3 Miles  |
-#        | parallel | firefox       | Bricklaying | Level 1 - First certificate   | London     | 3 Miles  |
-#        | parallel | ie            | Bricklaying | Level 1 - First certificate   | London     | 3 Miles  |
-#        | parallel | edge          | Bricklaying | Level 1 - First certificate   | London     | 3 Miles  |
-#        | parallel | chromeios     | Bricklaying | Level 1 - First certificate   | London     | 3 Miles  |
-#        | parallel | chromeandroid | Bricklaying | Level 1 - First certificate   | London     | 3 Miles  |

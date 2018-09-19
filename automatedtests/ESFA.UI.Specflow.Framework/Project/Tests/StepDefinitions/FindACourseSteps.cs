@@ -27,8 +27,8 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.StepDefinitions
         }
 
 
-        [Scope(Tag = "BrowserStack")]
-        [Given(@"I am on Find a Course for (.*) and (.*)")]
+      //  [Scope(Tag = "BrowserStack")]
+        [Given(@"I am on on Find a Course site using (.*) and (.*)")]
         public void BSNavigateToFindACourseHomePage(string profile, string environment)
         {
             _bsDriver = (BrowserStackDriver)ScenarioContext.Current["bsDriver"];
@@ -122,6 +122,15 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.StepDefinitions
             FindACoursePage findACoursePage = new FindACoursePage(webDriver);
             findACoursePage.SelectCourse(course);
         }
+
+        [Then(@"postcode validation failure message is displayed")]
+        public void ThenPostcodeValidationFailureMessageIsDisplayed()
+        {
+            FindACoursePage findACoursePage = new FindACoursePage(webDriver);
+            findACoursePage.PostCodeValidation();
+        }
+
+
 
     }
 }
