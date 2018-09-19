@@ -50,11 +50,12 @@ namespace Dfc.FindACourse.Web.Services
             var searchTerms = FileHelper.LoadSynonyms();
             var expansionNodes = searchTerms.GetElementsByTagName("expansion");
 
-            foreach (var p in CourseDirectoryHelper.GetMatches(search, expansionNodes)) yield return p;
+            foreach (var p in CourseDirectoryHelper.GetMatches(search, expansionNodes))
+                yield return p;
 
             if (search.Length <= 2) yield break;
-
-            foreach (var p1 in CourseDirectoryHelper.GetMissSpellings(search, searchTerms, expansionNodes)) yield return p1;
+                foreach (var p1 in CourseDirectoryHelper.GetMissSpellings(search, searchTerms, expansionNodes))
+                    yield return p1;
         }
 
 

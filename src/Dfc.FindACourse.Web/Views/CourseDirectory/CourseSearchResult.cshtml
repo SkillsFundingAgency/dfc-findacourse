@@ -12,7 +12,10 @@
 
 <form id="FindACourseForm"
       name="FindACourseForm"
-      action="/" method="post">
+      class="form-result-page"
+      method="get"
+      asp-controller="CourseDirectory"
+      asp-action="CourseSearchResult">
     <div class="grid-row">
         <div class="column-full">
             <h1 class="heading-xlarge visuallyhidden">Search results for</h1>
@@ -22,18 +25,28 @@
         <div class="column-one-third">
             <div class="grid-row">
                 <div class="column-full">
+                    @{
+                        var inputValidationErrorCssClass = (Model.LocationHasError) ? "input-validation-error" : string.Empty;
+                        var formGroupErrorCssClass = (Model.LocationHasError) ? "error" : string.Empty;
+                    }
+
                     <div class="form-group">
+                        @if (Model.LocationHasError)
+                        {
+                            <span asp-validation-for="Location" class="field-validation-error">@Model.LocationError</span>
+                        }
+                        else
+                        {
+                            <span asp-validation-for="Location"></span>
+                        }
+
                         <input asp-for="Location"
-                               class="form-control form-control-2-3"
-                               placeholder="Postcode or town"
+                               class="postcode-search @inputValidationErrorCssClass"
+                               placeholder="Postcode"
                                autocomplete="off"
-                               type="text" />
-                        <dfc-select id="LocationRadius"
-                                    name="LocationRadius"
-                                    class="form-control form-control-1-3"
-                                    dfc-items="Html.GetEnumSelectList<RadiusDistance>()"
-                                    dfc-selected-item="Html.GetEnumSelectListItem<CourseSearchResultViewModel, RadiusDistance>(Model.DefaultRadiusDistance)">
-                        </dfc-select>
+                               type="text"
+                               value="@Model.Location" />
+                        <input class="button" type="submit" id="Search" name="Search" value="Search">
                     </div>
                 </div>
             </div>
@@ -96,7 +109,80 @@
                     <div class="accordion" id="StudyModeFilter">
                         <div class="accordion-header">
                             <div class="accordion-heading">Full-time or part-time</div>
-                            <a href="http://www.google.co.uk">Some link going some where</a>
+                            <div class="accordion-subheading">8 selected</div>
+                            <span class="accordion-header-icon"></span>
+                        </div>
+                        <div class="accordion-panel">
+                            <div class="form-group">
+                                <ul>
+                                    <li>
+                                        <div class="multiple-choice">
+                                            <input type="checkbox" class="multiple-choice-all" name="StudyModeAll" id="StudyModeAll" value="all" />
+                                            <label for="StudyModeAll">Show all</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="multiple-choice">
+                                            <input type="checkbox" class="multiple-choice-item" name="StudyModeFullTime" id="StudyModeFullTime" value="1" />
+                                            <label for="StudyModeFullTime">Full Time</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="multiple-choice">
+                                            <input type="checkbox" class="multiple-choice-item" name="StudyModePartTime" id="StudyModePartTime" value="2" />
+                                            <label for="StudyModePartTime">Part Time</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="multiple-choice">
+                                            <input type="checkbox" class="multiple-choice-item" name="StudyModeFlexible" id="StudyModeFlexible" value="4" />
+                                            <label for="StudyModeFlexible">Flexible</label>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion" id="AttendanceModeFilter">
+                        <div class="accordion-header">
+                            <div class="accordion-heading">Classroom or online</div>
+                            <div class="accordion-subheading">8 selected</div>
+                            <span class="accordion-header-icon"></span>
+                        </div>
+                        <div class="accordion-panel">
+                            <div class="form-group">
+                                <ul>
+                                    <li>
+                                        <div class="multiple-choice">
+                                            <input type="checkbox" class="multiple-choice-all" name="AttendanceModeAll" id="AttendanceModeAll" value="all" />
+                                            <label for="AttendanceModeAll">Show all</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="multiple-choice">
+                                            <input type="checkbox" class="multiple-choice-item" name="AttendanceModeClassroom" id="AttendanceModeClassroom" value="Classroom" />
+                                            <label for="AttendanceModeClassroom">Classroom</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="multiple-choice">
+                                            <input type="checkbox" class="multiple-choice-item" name="AttendanceModeWorkbased" id="AttendanceModeWorkbased" value="Workbased" />
+                                            <label for="AttendanceModeWorkbased">Workbased</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="multiple-choice">
+                                            <input type="checkbox" class="multiple-choice-item" name="AttendanceModeOnlineDistanceLearning" id="AttendanceModeOnlineDistanceLearning" value="OnlineDistanceLearning" />
+                                            <label for="AttendanceModeOnlineDistanceLearning">Online/Distance learning</label>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion" id="AttendancePatternFilter">
+                        <div class="accordion-header">
+                            <div class="accordion-heading">Day, night or weekend</div>
                             <div class="accordion-subheading">888 selected</div>
                             <span class="accordion-header-icon"></span>
                         </div>
@@ -105,32 +191,137 @@
                                 <ul>
                                     <li>
                                         <div class="multiple-choice">
-                                            <input type="checkbox" name="StudyModeAll" id="StudyModeAll" value="all" />
-                                            <label for="StudyModeAll">Show all</label>
+                                            <input type="checkbox" class="multiple-choice-all" name="AttendancePatternAll" id="AttendancePatternAll" value="all" />
+                                            <label for="AttendancePatternAll">Show all</label>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="multiple-choice">
-                                            <input type="checkbox" name="StudyModeFullTime" id="StudyModeFullTime" value="1" />
-                                            <label for="StudyModeFullTime">Full Time</label>
+                                            <input type="checkbox" class="multiple-choice-item" name="AttendancePatternNormal" id="AttendancePatternNormal" value="Normal" />
+                                            <label for="AttendancePatternNormal">Normal working hours</label>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="multiple-choice">
-                                            <input type="checkbox" name="StudyModePartTime" id="StudyModePartTime" value="2" />
-                                            <label for="StudyModePartTime">Part Time</label>
+                                            <input type="checkbox" class="multiple-choice-item" name="AttendancePatternDayBlock" id="AttendancePatternDayBlock" value="DayBlock" />
+                                            <label for="AttendancePatternDayBlock">Day release/Block release</label>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="multiple-choice">
-                                            <input type="checkbox" name="StudyModeFlexible" id="StudyModeFlexible" value="4" />
-                                            <label for="StudyModeFlexible">Part Time</label>
+                                            <input type="checkbox" class="multiple-choice-item" name="AttendancePatternEveningWeekend" id="AttendancePatternEveningWeekend" value="EveningWeekend" />
+                                            <label for="AttendancePatternEveningWeekend">Evening/Weekend</label>
                                         </div>
                                     </li>
                                 </ul>
                             </div>
                         </div>
                     </div>
+                    <div class="accordion" id="QualificationLevelFilter">
+                        <div class="accordion-header">
+                            <div class="accordion-heading">Qualification level</div>
+                            <a href="https://www.gov.uk/what-different-qualification-levels-mean/list-of-qualification-levels"> What qualification levels mean</a>
+                            <div class="accordion-subheading">888 selected</div>
+                            <span class="accordion-header-icon"></span>
+                        </div>
+                        <div class="accordion-panel">
+                            <div class="form-group">
+                                <ul>
+                                    <li>
+                                        <div class="multiple-choice">
+                                            <input type="checkbox" class="multiple-choice-all" name="QualificationLevelAll" id="AttendancePatternAll" value="all" />
+                                            <label for="QualificationLevelAll">All</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="multiple-choice">
+                                            <input type="checkbox" class="multiple-choice-item" name="QualificationLevelEntryLevel" id="AttendancePatternEntryLevel" value="EntryLevel" />
+                                            <label for="QualificationLevelEntryLevel">Entry level</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="multiple-choice">
+                                            <input type="checkbox" class="multiple-choice-item" name="QualificationLevelLevel1" id="QualificationLevelLevel1" value="Level1" />
+                                            <label for="QualificationLevelLevel1">Level 1</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="multiple-choice">
+                                            <input type="checkbox" class="multiple-choice-item" name="QualificationLevelLevel2" id="QualificationLevelLevel2" value="Level2" />
+                                            <label for="QualificationLevelLevel2">Level 2</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="multiple-choice">
+                                            <input type="checkbox" class="multiple-choice-item" name="QualificationLevelLevel3" id="QualificationLevelLevel3" value="Level3" />
+                                            <label for="QualificationLevelLevel3">Level 3</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="multiple-choice">
+                                            <input type="checkbox" class="multiple-choice-item" name="QualificationLevelLevel4" id="QualificationLevelLevel4" value="Level4" />
+                                            <label for="QualificationLevelLevel4">Level 4</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="multiple-choice">
+                                            <input type="checkbox" class="multiple-choice-item" name="QualificationLevelLevel5" id="QualificationLevelLevel5" value="Level5" />
+                                            <label for="QualificationLevelLevel5">Level 5</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="multiple-choice">
+                                            <input type="checkbox" class="multiple-choice-item" name="QualificationLevelLevel6" id="QualificationLevelLevel6" value="Level6" />
+                                            <label for="QualificationLevelLevel6">Level 6</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="multiple-choice">
+                                            <input type="checkbox" class="multiple-choice-item" name="QualificationLevelLevel7" id="QualificationLevelLevel7" value="Level7" />
+                                            <label for="QualificationLevelLevel7">Level 7</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="multiple-choice">
+                                            <input type="checkbox" class="multiple-choice-item" name="QualificationLevelLevel8" id="QualificationLevelLevel8" value="Level8" />
+                                            <label for="QualificationLevelLevel8">Level 8</label>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion" id="Dfe1619FundedFilter">
+                        <div class="accordion-header">
+                            <div class="accordion-heading">Age suitability</div>
+                            <span class="accordion-header-icon"></span>
+                        </div>
+                        <div class="accordion-panel">
+                            <div class="form-group">
+                                <ul>
+                                    <li>
+                                        <div class="multiple-choice">
+                                            <input type="radio" name="Dfe1619Funded" id="Dfe1619FundedAll" value="all" />
+                                            <label for="Dfe1619FundedAll">All ages</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="multiple-choice">
+                                            <input type="radio" name="Dfe1619Funded" id="Dfe1619Funded16To19" value="16To19" />
+                                            <label for="Dfe1619Funded16To19">16 to 19 year-olds</label>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="multiple-choice">
+                                            <input type="radio" name="Dfe1619Funded" id="Dfe1619Funded19plus" value="19plus" />
+                                            <label for="Dfe1619Funded19plus">19+ year-olds</label>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <a href="#">Clear all filters</a>
                 </div>
             </div>
         </div>

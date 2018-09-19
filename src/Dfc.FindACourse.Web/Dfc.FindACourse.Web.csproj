@@ -41,8 +41,4 @@
     <ProjectReference Include="..\Dfc.FindACourse.Services\Dfc.FindACourse.Services.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Data\temp\" />
-  </ItemGroup>
-
 </Project>

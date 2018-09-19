@@ -85,12 +85,14 @@ namespace Dfc.FindACourse.Web
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/Shared/Error");
                 app.UseHsts();
             }
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseStatusCodePages();
+
 
             app.UseMvc(routes =>
             {
