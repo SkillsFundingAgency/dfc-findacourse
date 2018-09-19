@@ -5,9 +5,7 @@
 
 (function () {
     $(function () {
-        $('#LocationRadiusFilter').accordion({
-            startState: 'open'
-        });
+        $('#LocationRadiusFilter').accordion();
 
         $('#StudyModeFilter').accordion();
 
