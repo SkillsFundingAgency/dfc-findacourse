@@ -3385,6 +3385,10 @@ p.white {
   width: 90%;
 }
 
+.index-page #SubjectKeyword {
+  width: 100%;
+}
+
 .showing-container {
   font-size: 0.9em;
   margin-bottom: 0.5em;
