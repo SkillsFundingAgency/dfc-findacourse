@@ -207,6 +207,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>FindACourseSearchResults.feature</DependentUpon>
     </Compile>
+    <Compile Include="Project\Tests\Pages\GoogleMapsPage.cs" />
     <Compile Include="Project\Tests\Pages\AdvancedLearnerLoansPage.cs" />
     <Compile Include="Project\Tests\Pages\FindACourseCourseDetailsPage.cs" />
     <Compile Include="Project\Tests\Pages\WhatQualificationLevelsMeanPage.cs" />
@@ -214,6 +215,7 @@
     <Compile Include="Project\Tests\Pages\FindACourseSearchResultsPage.cs" />
     <Compile Include="Project\Tests\Pages\FindACoursePage.cs" />
     <Compile Include="Project\Tests\StepDefinitions\AdvancedLearnerSteps.cs" />
+    <Compile Include="Project\Tests\StepDefinitions\GoogleMapsSteps.cs" />
     <Compile Include="Project\Tests\StepDefinitions\CourseDetailsSteps.cs" />
     <Compile Include="Project\Tests\StepDefinitions\WhatQualificationLevelsMeanSteps.cs" />
     <Compile Include="Project\Tests\StepDefinitions\ContactUsSteps.cs" />

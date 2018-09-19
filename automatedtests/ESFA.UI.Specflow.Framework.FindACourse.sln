@@ -56,10 +56,10 @@ Global
 		{AFFF6638-BD32-41D3-8CB6-9D10139575D5}.Windows10Edge|Any CPU.Build.0 = Debug|Any CPU
 		{AFFF6638-BD32-41D3-8CB6-9D10139575D5}.Windows10Firefox|Any CPU.ActiveCfg = Debug|Any CPU
 		{AFFF6638-BD32-41D3-8CB6-9D10139575D5}.Windows10Firefox|Any CPU.Build.0 = Debug|Any CPU
-		{AFFF6638-BD32-41D3-8CB6-9D10139575D5}.Windows10IE|Any CPU.ActiveCfg = CITests|Any CPU
-		{AFFF6638-BD32-41D3-8CB6-9D10139575D5}.Windows10IE|Any CPU.Build.0 = CITests|Any CPU
-		{AFFF6638-BD32-41D3-8CB6-9D10139575D5}.zapProxyChrome|Any CPU.ActiveCfg = OSXHSSafari|Any CPU
-		{AFFF6638-BD32-41D3-8CB6-9D10139575D5}.zapProxyChrome|Any CPU.Build.0 = OSXHSSafari|Any CPU
+		{AFFF6638-BD32-41D3-8CB6-9D10139575D5}.Windows10IE|Any CPU.ActiveCfg = zapProxyChrome|Any CPU
+		{AFFF6638-BD32-41D3-8CB6-9D10139575D5}.Windows10IE|Any CPU.Build.0 = zapProxyChrome|Any CPU
+		{AFFF6638-BD32-41D3-8CB6-9D10139575D5}.zapProxyChrome|Any CPU.ActiveCfg = zapProxyChrome|Any CPU
+		{AFFF6638-BD32-41D3-8CB6-9D10139575D5}.zapProxyChrome|Any CPU.Build.0 = zapProxyChrome|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
