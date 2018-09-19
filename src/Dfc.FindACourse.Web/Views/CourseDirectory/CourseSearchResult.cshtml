@@ -12,7 +12,10 @@
 
 <form id="FindACourseForm"
       name="FindACourseForm"
-      action="/" method="post" class="form-result-page">
+      class="form-result-page"
+      method="get"
+      asp-controller="CourseDirectory"
+      asp-action="CourseSearchResult">
     <div class="grid-row">
         <div class="column-full">
             <h1 class="heading-xlarge visuallyhidden">Search results for</h1>
@@ -22,14 +25,28 @@
         <div class="column-one-third">
             <div class="grid-row">
                 <div class="column-full">
-                    <div class="form-group">
-                        <input class="postcode-search" asp-for="Location"
-                               class="form-control form-control-2-3"
-                               placeholder="Postcode or town"
-                               autocomplete="off"
-                               type="text" />
-                        <input class="button" type="submit" id="Search" name="Search" value="Search">
+                    @{
+                        var inputValidationErrorCssClass = (Model.LocationHasError) ? "input-validation-error" : string.Empty;
+                        var formGroupErrorCssClass = (Model.LocationHasError) ? "error" : string.Empty;
+                    }
 
+                    <div class="form-group">
+                        @if (Model.LocationHasError)
+                        {
+                            <span asp-validation-for="Location" class="field-validation-error">@Model.LocationError</span>
+                        }
+                        else
+                        {
+                            <span asp-validation-for="Location"></span>
+                        }
+
+                        <input asp-for="Location"
+                               class="postcode-search @inputValidationErrorCssClass"
+                               placeholder="Postcode"
+                               autocomplete="off"
+                               type="text"
+                               value="@Model.Location" />
+                        <input class="button" type="submit" id="Search" name="Search" value="Search">
                     </div>
                 </div>
             </div>
@@ -100,25 +117,25 @@
                                 <ul>
                                     <li>
                                         <div class="multiple-choice">
-                                            <input type="checkbox" name="StudyModeAll" id="StudyModeAll" value="all" />
+                                            <input type="checkbox" class="multiple-choice-all" name="StudyModeAll" id="StudyModeAll" value="all" />
                                             <label for="StudyModeAll">Show all</label>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="multiple-choice">
-                                            <input type="checkbox" name="StudyModeFullTime" id="StudyModeFullTime" value="1" />
+                                            <input type="checkbox" class="multiple-choice-item" name="StudyModeFullTime" id="StudyModeFullTime" value="1" />
                                             <label for="StudyModeFullTime">Full Time</label>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="multiple-choice">
-                                            <input type="checkbox" name="StudyModePartTime" id="StudyModePartTime" value="2" />
+                                            <input type="checkbox" class="multiple-choice-item" name="StudyModePartTime" id="StudyModePartTime" value="2" />
                                             <label for="StudyModePartTime">Part Time</label>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="multiple-choice">
-                                            <input type="checkbox" name="StudyModeFlexible" id="StudyModeFlexible" value="4" />
+                                            <input type="checkbox" class="multiple-choice-item" name="StudyModeFlexible" id="StudyModeFlexible" value="4" />
                                             <label for="StudyModeFlexible">Flexible</label>
                                         </div>
                                     </li>
@@ -137,25 +154,25 @@
                                 <ul>
                                     <li>
                                         <div class="multiple-choice">
-                                            <input type="checkbox" name="AttendanceModeAll" id="AttendanceModeAll" value="all" />
+                                            <input type="checkbox" class="multiple-choice-all" name="AttendanceModeAll" id="AttendanceModeAll" value="all" />
                                             <label for="AttendanceModeAll">Show all</label>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="multiple-choice">
-                                            <input type="checkbox" name="AttendanceModeClassroom" id="AttendanceModeClassroom" value="Classroom" />
+                                            <input type="checkbox" class="multiple-choice-item" name="AttendanceModeClassroom" id="AttendanceModeClassroom" value="Classroom" />
                                             <label for="AttendanceModeClassroom">Classroom</label>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="multiple-choice">
-                                            <input type="checkbox" name="AttendanceModeWorkbased" id="AttendanceModeWorkbased" value="Workbased" />
+                                            <input type="checkbox" class="multiple-choice-item" name="AttendanceModeWorkbased" id="AttendanceModeWorkbased" value="Workbased" />
                                             <label for="AttendanceModeWorkbased">Workbased</label>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="multiple-choice">
-                                            <input type="checkbox" name="AttendanceModeOnlineDistanceLearning" id="AttendanceModeOnlineDistanceLearning" value="OnlineDistanceLearning" />
+                                            <input type="checkbox" class="multiple-choice-item" name="AttendanceModeOnlineDistanceLearning" id="AttendanceModeOnlineDistanceLearning" value="OnlineDistanceLearning" />
                                             <label for="AttendanceModeOnlineDistanceLearning">Online/Distance learning</label>
                                         </div>
                                     </li>
@@ -174,25 +191,25 @@
                                 <ul>
                                     <li>
                                         <div class="multiple-choice">
-                                            <input type="checkbox" name="AttendancePatternAll" id="AttendancePatternAll" value="all" />
+                                            <input type="checkbox" class="multiple-choice-all" name="AttendancePatternAll" id="AttendancePatternAll" value="all" />
                                             <label for="AttendancePatternAll">Show all</label>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="multiple-choice">
-                                            <input type="checkbox" name="AttendancePatternNormal" id="AttendancePatternNormal" value="Normal" />
+                                            <input type="checkbox" class="multiple-choice-item" name="AttendancePatternNormal" id="AttendancePatternNormal" value="Normal" />
                                             <label for="AttendancePatternNormal">Normal working hours</label>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="multiple-choice">
-                                            <input type="checkbox" name="AttendancePatternDayBlock" id="AttendancePatternDayBlock" value="DayBlock" />
+                                            <input type="checkbox" class="multiple-choice-item" name="AttendancePatternDayBlock" id="AttendancePatternDayBlock" value="DayBlock" />
                                             <label for="AttendancePatternDayBlock">Day release/Block release</label>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="multiple-choice">
-                                            <input type="checkbox" name="AttendancePatternEveningWeekend" id="AttendancePatternEveningWeekend" value="EveningWeekend" />
+                                            <input type="checkbox" class="multiple-choice-item" name="AttendancePatternEveningWeekend" id="AttendancePatternEveningWeekend" value="EveningWeekend" />
                                             <label for="AttendancePatternEveningWeekend">Evening/Weekend</label>
                                         </div>
                                     </li>
@@ -212,61 +229,61 @@
                                 <ul>
                                     <li>
                                         <div class="multiple-choice">
-                                            <input type="checkbox" name="QualificationLevelAll" id="AttendancePatternAll" value="all" />
+                                            <input type="checkbox" class="multiple-choice-all" name="QualificationLevelAll" id="AttendancePatternAll" value="all" />
                                             <label for="QualificationLevelAll">All</label>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="multiple-choice">
-                                            <input type="checkbox" name="QualificationLevelEntryLevel" id="AttendancePatternEntryLevel" value="EntryLevel" />
+                                            <input type="checkbox" class="multiple-choice-item" name="QualificationLevelEntryLevel" id="AttendancePatternEntryLevel" value="EntryLevel" />
                                             <label for="QualificationLevelEntryLevel">Entry level</label>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="multiple-choice">
-                                            <input type="checkbox" name="QualificationLevelLevel1" id="QualificationLevelLevel1" value="Level1" />
+                                            <input type="checkbox" class="multiple-choice-item" name="QualificationLevelLevel1" id="QualificationLevelLevel1" value="Level1" />
                                             <label for="QualificationLevelLevel1">Level 1</label>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="multiple-choice">
-                                            <input type="checkbox" name="QualificationLevelLevel2" id="QualificationLevelLevel2" value="Level2" />
+                                            <input type="checkbox" class="multiple-choice-item" name="QualificationLevelLevel2" id="QualificationLevelLevel2" value="Level2" />
                                             <label for="QualificationLevelLevel2">Level 2</label>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="multiple-choice">
-                                            <input type="checkbox" name="QualificationLevelLevel3" id="QualificationLevelLevel3" value="Level3" />
+                                            <input type="checkbox" class="multiple-choice-item" name="QualificationLevelLevel3" id="QualificationLevelLevel3" value="Level3" />
                                             <label for="QualificationLevelLevel3">Level 3</label>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="multiple-choice">
-                                            <input type="checkbox" name="QualificationLevelLevel4" id="QualificationLevelLevel4" value="Level4" />
+                                            <input type="checkbox" class="multiple-choice-item" name="QualificationLevelLevel4" id="QualificationLevelLevel4" value="Level4" />
                                             <label for="QualificationLevelLevel4">Level 4</label>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="multiple-choice">
-                                            <input type="checkbox" name="QualificationLevelLevel5" id="QualificationLevelLevel5" value="Level5" />
+                                            <input type="checkbox" class="multiple-choice-item" name="QualificationLevelLevel5" id="QualificationLevelLevel5" value="Level5" />
                                             <label for="QualificationLevelLevel5">Level 5</label>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="multiple-choice">
-                                            <input type="checkbox" name="QualificationLevelLevel6" id="QualificationLevelLevel6" value="Level6" />
+                                            <input type="checkbox" class="multiple-choice-item" name="QualificationLevelLevel6" id="QualificationLevelLevel6" value="Level6" />
                                             <label for="QualificationLevelLevel6">Level 6</label>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="multiple-choice">
-                                            <input type="checkbox" name="QualificationLevelLevel7" id="QualificationLevelLevel7" value="Level7" />
+                                            <input type="checkbox" class="multiple-choice-item" name="QualificationLevelLevel7" id="QualificationLevelLevel7" value="Level7" />
                                             <label for="QualificationLevelLevel7">Level 7</label>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="multiple-choice">
-                                            <input type="checkbox" name="QualificationLevelLevel8" id="QualificationLevelLevel8" value="Level8" />
+                                            <input type="checkbox" class="multiple-choice-item" name="QualificationLevelLevel8" id="QualificationLevelLevel8" value="Level8" />
                                             <label for="QualificationLevelLevel8">Level 8</label>
                                         </div>
                                     </li>

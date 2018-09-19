@@ -20,7 +20,6 @@
     | Medicine    | b13 9da  | National |  
 
 
-
 @DFC-4090
 	Scenario Outline: DFC-4090 Search for Courses By Location & Distance
 		Given I navigate to Find a Course home page
@@ -40,7 +39,6 @@
     | Plumbing    | b14 7rz  | 15 Miles |
     | Electronic  | b13 8py  | 20 Miles |
     | Medicine    | b13 9ah  | National |
-
 
 
 @DFC-4090
@@ -63,7 +61,6 @@
     | Medicine    | nowhere            | National | 	
 
 
-
 @DFC-4090
 Scenario Outline: DFC-4090 Search for Courses By Location & Distance Null Results
 		Given I navigate to Find a Course home page
@@ -78,7 +75,6 @@ Scenario Outline: DFC-4090 Search for Courses By Location & Distance Null Result
     | CourseName | Location | Distance |
     | ARCHAEOLOGIST   | PO30 1DN  | 1 Mile   |
  
-
 
 @DFC-3884
 	Scenario Outline: DFC-3884 Select Qualification Level
@@ -99,7 +95,6 @@ Scenario Outline: DFC-4090 Search for Courses By Location & Distance Null Result
     | Physics     | Level 8 - Doctorate/PhD                              | 
 
 
-
 @DFC-3884
 	Scenario Outline: DFC-3884 Select Qualification Level Default Value
 		Given I navigate to Find a Course home page
@@ -109,7 +104,6 @@ Scenario Outline: DFC-4090 Search for Courses By Location & Distance Null Result
   Examples:
     | CourseName  | QualificationLevel                                   |
     | Chemistry   | Entry level - Skills for Life                        | 
-
 
 
 @DFC-4091
@@ -133,7 +127,6 @@ Scenario Outline: DFC-4090 Search for Courses By Location & Distance Null Result
     | Physics     | Level 8 - Doctorate/PhD                              | 
 
 
-
 @DFC-4091
 	Scenario Outline: DFC-4091 Search for Courses By Qualification Level Null Results
 		Given I navigate to Find a Course home page
@@ -146,7 +139,6 @@ Scenario Outline: DFC-4090 Search for Courses By Location & Distance Null Result
   Examples:
     | CourseName | QualificationLevel            |
     | ARCHEOLOGY | Entry level - Skills for Life |
-
 
 	
 @DFC-3888
@@ -172,7 +164,6 @@ Scenario Outline: DFC-4090 Search for Courses By Location & Distance Null Result
     | Physics     | Level 8 - Doctorate/PhD                              | n1 0aj   | 5 Miles  |
 
 
-
 @DFC-3888
 	Scenario Outline: DFC-3888 Search for Courses By Course Name Only
 		Given I navigate to Find a Course home page
@@ -193,7 +184,6 @@ Scenario Outline: DFC-4090 Search for Courses By Location & Distance Null Result
     | Physics     | 
 
 
-
 @DFC-3888
 	Scenario Outline: DFC-3888 Search for Courses By Course Name Null Results
 		Given I navigate to Find a Course home page
@@ -205,7 +195,6 @@ Scenario Outline: DFC-4090 Search for Courses By Location & Distance Null Result
   Examples:
     | CourseName  | 
     | bbbbbbbbb   | 
-
 
 
 @DFC-3883
@@ -223,7 +212,6 @@ Scenario Outline: DFC-4090 Search for Courses By Location & Distance Null Result
     | builder    | BUILDER,BUILDING,BUILDING MAINTENANCE,BUILDING SERVICES,BUILDING SERVICES ENGINEERING,BUILDING SURVEYING,CONSTRUCTION |
 	
 
-
 @DFC-4094
 	Scenario: DFC-4094 Contact Adviser
 		Given I navigate to Find a Course home page
@@ -231,11 +219,8 @@ Scenario Outline: DFC-4090 Search for Courses By Location & Distance Null Result
 		Then I will be on Contact us page
 
 
-#BUG
 @DFC-3887
 	Scenario: DFC-3887 View Qualification Level Help Text
 		Given I navigate to Find a Course home page
 		When I click What qualification levels mean link
 		Then I will be on What qualification levels mean page
-
-

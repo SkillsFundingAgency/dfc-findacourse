@@ -11,6 +11,8 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
 {
     public class CourseSearchResultViewModel
     {
+        private const string _locationError = "Enter a full and valid postcode";
+
         public CourseSearchResultViewModel(IResult<CourseSearchResult> result)
         {
             NoOfRecords = result.Value.NoOfRecords;
@@ -49,9 +51,14 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
         }
 
         [Display(Name = "Course name")]
-        [Required]
+        [Required(ErrorMessage = "Enter a course name")]
         public string SubjectKeyword { get; set; }
+        [Display(Name = "Postcode")]
+        [RegularExpression(@"([a-zA-Z][0-9]|[a-zA-Z][0-9][0-9]|[a-zA-Z][a-zA-Z][0-9]|[a-zA-Z][a-zA-Z][0-9][0-9]|[a-zA-Z][0-9][a-zA-Z]|[a-zA-Z][a-zA-Z][0-9][a-zA-Z]) ([0-9][abdefghjklmnpqrstuwxyzABDEFGHJLMNPQRSTUWXYZ][abdefghjklmnpqrstuwxyzABDEFGHJLMNPQRSTUWXYZ])", ErrorMessage = _locationError)]
         public string Location { get; set; }
+        public bool LocationHasError { get; set; }
+        public string LocationError => _locationError;
+
         public RadiusDistance DefaultRadiusDistance { get; set; }
         public string SortyBy { get; set; }
         public int StartNo { get; set; }

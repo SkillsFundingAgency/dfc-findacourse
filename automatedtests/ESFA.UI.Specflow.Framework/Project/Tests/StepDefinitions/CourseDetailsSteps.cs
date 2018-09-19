@@ -97,5 +97,13 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.StepDefinitions
             findACourseCourseDetailsPage.GetAttendanceMode();
         }
 
+        [Then(@"I click on the Google Maps link")]
+        public void TGoogleMapsLinkDisplayed()
+        {
+            FindACourseCourseDetailsPage findACourseCourseDetailsPage = new FindACourseCourseDetailsPage(webDriver);
+            findACourseCourseDetailsPage.ClickGoogleMaps();
+        }
+
+
     }
 }

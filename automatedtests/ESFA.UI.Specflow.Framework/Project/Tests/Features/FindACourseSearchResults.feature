@@ -39,7 +39,7 @@
     | Chemistry  | Chemi       |
 
 
-	@DFC-3900
+@DFC-3900
  Scenario Outline: DFC3900 View Search Results By Course Name display Course Level
  Given I navigate to Find a Course home page
 		When I enter course <CourseName>
@@ -87,6 +87,7 @@
     | science                                                                          | Classroom-based          |
     | General Data Protection Regulation (ONLINE)                                      | Online/Distance Learning |
     | Motor Vehicle Maintenance and Repair Apprenticeship at Level 2 (IMI Awards Ltd)) | Work based               |
+
 
 @DFC-3900
  Scenario Outline: DFC3900 View Search Results By Course Name displays Attendance Pattern
@@ -146,8 +147,6 @@
     | geography  | EC1A 1BB   | 6.9     |
 
 
-
-
 @DFC-3900
  Scenario Outline: DFC3900 View Search Results By Course Name displays Start Date and Duration
  Given I navigate to Find a Course home page
@@ -162,4 +161,3 @@
      Examples:
     | CourseName | Location | Distance | StartDate         | Duration |
     | geography  | EC1A 1BB   | 6.9      | 1 September 2018 | 2 Years  |
-

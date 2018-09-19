@@ -59,7 +59,7 @@
             
             <div class="form-group @formGroupErrorCssClass">
                 <label class="form-label" for="Location">
-                    Location (Optional)
+                    Location (optional)
                     <span class="form-hint">Enter a full postcode. For example, S1 1WB</span>
                 </label>
 
@@ -74,7 +74,7 @@
 
                 <input asp-for="Location"
                        class="form-control @inputValidationErrorCssClass"
-                       placeholder="Postcode or town"
+                       placeholder="Postcode"
                        autocomplete="off"
                        type="text"
                        value="@Model.Location" />

@@ -3385,6 +3385,10 @@ p.white {
   width: 90%;
 }
 
+.index-page #SubjectKeyword {
+  width: 100%;
+}
+
 .showing-container {
   font-size: 0.9em;
   margin-bottom: 0.5em;
@@ -3550,7 +3554,6 @@ hr {
 .govuk-link:focus, a:focus {
   outline: 3px solid #ffbf47;
   outline-offset: 0;
-  background-color: #ffbf47;
 }
 
 @media print {
@@ -9474,4 +9477,8 @@ span {
   .enrol-text {
     top: -10px;
   }
+}
+
+.govuk-related-items .govuk-table {
+  margin-bottom: 0;
 }

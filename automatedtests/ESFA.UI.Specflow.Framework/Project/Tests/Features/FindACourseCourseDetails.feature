@@ -41,20 +41,20 @@ Scenario Outline: DFC-3973 View Course Details display Course Title
 
 
 # BUG
-#@DFC-3973
-#Scenario Outline: DFC-3973 View Course Details display Qualification
-#	Given I navigate to Find a Course home page
-#	When I enter course <CourseName>
-#    And I enter location <Location>
-#	And I click Search
-#	Then I should be on Search Results for page
-#	When I select course title
-#	Then the View Course details page is displayed
-#	And Qualification information <Qualification> is displayed
-#
-#  Examples:
-#    | CourseName    | Location | Qualification|
-#    | Hair & Beauty | b14 7en  |Hair and Beauty - Introduction to the Hairdressing and Beauty Sector (Hair & Beauty Route) |
+@DFC-3973
+Scenario Outline: DFC-3973 View Course Details display Qualification
+	Given I navigate to Find a Course home page
+	When I enter course <CourseName>
+    And I enter location <Location>
+	And I click Search
+	Then I should be on Search Results for page
+	When I select course title
+	Then the View Course details page is displayed
+	And Qualification information <Qualification> is displayed
+
+  Examples:
+    | CourseName    | Location | Qualification|
+    | Hair & Beauty | b14 7en  |Diploma in Hair and Beauty Skills (VRQ)|
 
 
 
@@ -182,7 +182,7 @@ Scenario Outline: DFC-3973 View Course Details display Attendance Pattern
     | baker      | cv1 2nl  |
 
 
-	@DFC-3973
+@DFC-3973
 Scenario Outline: DFC-3973 View Course Details display Attendance Mode
 	Given I navigate to Find a Course home page
 	When I enter course <CourseName>
@@ -192,6 +192,23 @@ Scenario Outline: DFC-3973 View Course Details display Attendance Mode
 	When I select course title
 	Then the View Course details page is displayed
 	And Attendance Pattern Mode are displayed
+
+  Examples:
+    | CourseName | Location |
+    | baker      | cv1 2nl  |
+
+
+@DFC-4194
+Scenario Outline: DFC-4914 Venue on Google Maps
+	Given I navigate to Find a Course home page
+	When I enter course <CourseName>
+	And I enter location <Location>
+	And I click Search
+	Then I should be on Search Results for page
+	When I select course title
+	Then the View Course details page is displayed
+	And I click on the Google Maps link
+	Then I will be on Google Maps page
 
   Examples:
     | CourseName | Location |
