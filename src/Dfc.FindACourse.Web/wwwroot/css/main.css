@@ -3381,8 +3381,8 @@ p.white {
 
 .index-page .field-validation-error {
   background: white;
-  padding: 18px;
-  width: 27%;
+  padding: 9px;
+  width: 90%;
 }
 
 .showing-container {
