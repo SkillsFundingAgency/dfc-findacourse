@@ -23,14 +23,24 @@
         });
 
         $('.form-group .multiple-choice .multiple-choice-item').change(function () {
-            var allCheckboxes = $(this).closest('.form-group').find('.multiple-choice .multiple-choice-all');
-            var allItemCheckboxes = $(this).closest('.form-group').find('.multiple-choice .multiple-choice-item');
-            var checkedItemCheckboxes = $(this).closest('.form-group').find('.multiple-choice .multiple-choice-item:checked');
+            var subheading = $(this).nearest('.accordion-subheading');
+            var formGroup = $(this).closest('.form-group');
+            var allCheckboxes = formGroup.find('.multiple-choice .multiple-choice-all');
+            var allItemCheckboxes = formGroup.find('.multiple-choice .multiple-choice-item');
+            var checkedItemCheckboxes = formGroup.find('.multiple-choice .multiple-choice-item:checked');
+
+            console.log(subheading);
 
             if (checkedItemCheckboxes.length === allItemCheckboxes.length) {
                 allCheckboxes.prop('checked', $(this).is(':checked'));
             } else {
                 allCheckboxes.prop('checked', '');
+            }
+
+            if (checkedItemCheckboxes.length === 0) {
+                subheading.html('');
+            } else {
+                subheading.html(checkedItemCheckboxes.length + ' selected');
             }
         });
     });
