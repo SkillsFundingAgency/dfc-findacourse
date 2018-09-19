@@ -12,7 +12,10 @@
 
 <form id="FindACourseForm"
       name="FindACourseForm"
-      action="/" method="post" class="form-result-page">
+      class="form-result-page"
+      method="get"
+      asp-controller="CourseDirectory"
+      asp-action="CourseSearchResult">
     <div class="grid-row">
         <div class="column-full">
             <h1 class="heading-xlarge visuallyhidden">Search results for</h1>
@@ -22,14 +25,28 @@
         <div class="column-one-third">
             <div class="grid-row">
                 <div class="column-full">
-                    <div class="form-group">
-                        <input class="postcode-search" asp-for="Location"
-                               class="form-control form-control-2-3"
-                               placeholder="Postcode or town"
-                               autocomplete="off"
-                               type="text" />
-                        <input class="button" type="submit" id="Search" name="Search" value="Search">
+                    @{
+                        var inputValidationErrorCssClass = (Model.LocationHasError) ? "input-validation-error" : string.Empty;
+                        var formGroupErrorCssClass = (Model.LocationHasError) ? "error" : string.Empty;
+                    }
 
+                    <div class="form-group">
+                        @if (Model.LocationHasError)
+                        {
+                            <span asp-validation-for="Location" class="field-validation-error">@Model.LocationError</span>
+                        }
+                        else
+                        {
+                            <span asp-validation-for="Location"></span>
+                        }
+
+                        <input asp-for="Location"
+                               class="postcode-search @inputValidationErrorCssClass"
+                               placeholder="Postcode"
+                               autocomplete="off"
+                               type="text"
+                               value="@Model.Location" />
+                        <input class="button" type="submit" id="Search" name="Search" value="Search">
                     </div>
                 </div>
             </div>
