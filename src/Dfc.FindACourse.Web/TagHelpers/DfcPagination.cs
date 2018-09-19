@@ -44,7 +44,7 @@ namespace Dfc.FindACourse.Web.TagHelpers
         {
             var sb = new StringBuilder();
             sb.Append(PreviousAnchor());
-            sb.Append(Anchors());
+            sb.Append(Anchors(new PageBoundary(Slide, NoOfPages, DisplayNoOfPages, CurrentPageNo)));
             sb.Append(NextAnchor());
             return sb.ToString();
         }
@@ -62,11 +62,9 @@ namespace Dfc.FindACourse.Web.TagHelpers
         }
 
 
-        public string Anchors()
+        public string Anchors(PageBoundary pageBoundary)
         {
-            var html = string.Empty;
             var sb = new StringBuilder();
-            var pageBoundary = new PageBoundary(Slide, NoOfPages, DisplayNoOfPages, CurrentPageNo);
 
             for (var i = pageBoundary.StartNumber; i <= pageBoundary.DisplayNumber; i++)
             {
@@ -95,23 +93,7 @@ namespace Dfc.FindACourse.Web.TagHelpers
             return html;
         }
 
-
-
-        public int GetAndSetPageNoFromUrl(string url, string paramName, out string setUrl)
-        {
-            var ub = new UriBuilder(url);
-            var qs = HttpUtility.ParseQueryString(ub.Query);
-
-            int value = string.IsNullOrWhiteSpace(qs[paramName]) ? 1 : int.TryParse(qs[paramName], out value) ? value : 1;
-
-            qs.Set(paramName, value.ToString());
-            ub.Query = qs.ToString();
-            setUrl = ub.ToString();
-
-            return value;
-        }
-
-        internal string GetUrlWithPageNo(int pageNo)
+        public string GetUrlWithPageNo(int pageNo)
         {
             var uri = Uri;
             var qs = QueryString;

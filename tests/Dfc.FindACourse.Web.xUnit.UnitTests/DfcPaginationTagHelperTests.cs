@@ -79,11 +79,6 @@ namespace Dfc.FindACourse.Web.xUnit.UnitTests
 
         }
 
-        [Fact]
-        public void d()
-        {
-
-        }
 
     }
 

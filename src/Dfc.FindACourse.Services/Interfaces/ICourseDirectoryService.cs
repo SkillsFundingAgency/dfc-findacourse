@@ -5,7 +5,7 @@ namespace Dfc.FindACourse.Services.Interfaces
 {
     public interface ICourseDirectoryService
     {
-        IResult<CourseSearchResult> CourseSearch(ICourseSearchCriteria criteria, IPagingOptions options);
+        IResult<CourseSearchResult> CourseDirectorySearch(ICourseSearchCriteria criteria, IPagingOptions options);
 
         //According to the stub this result set contains
         // CourseDetailRequestStructure and CourseDetailStructure

@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Tribal;
 
 namespace Dfc.FindACourse.Web
 {
@@ -54,11 +55,15 @@ namespace Dfc.FindACourse.Web
                     tribalPerPage,
                     Configuration["Tribal:APIAddress"]));
 
+            services.AddSingleton<ServiceInterface>(new ServiceInterfaceClient(new ServiceInterfaceClient.EndpointConfiguration(), Configuration["Tribal:APIAddress"]));
+
             services.AddSingleton<IConfiguration>(Configuration);
             services.Configure<App>(Configuration.GetSection("App"));
 
             services.AddScoped<ITelemetryClient, MyTelemetryClient>();
             services.AddScoped<ICourseDirectory, CourseDirectory>();
+            services.AddScoped<ICourseSearch, CourseSearch>();
+            services.AddScoped<IServiceHelper, ServiceHelper>();
             services.AddScoped<IFileHelper, FileHelper>();
             services.AddScoped<ICourseDirectoryHelper, CourseDirectoryHelper>();
 

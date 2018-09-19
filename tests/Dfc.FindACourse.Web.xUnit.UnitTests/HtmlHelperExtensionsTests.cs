@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq.Expressions;
 using System.Text.Encodings.Web;
 using System.Threading.Tasks;
-using Dfc.FindACourse.Common;
 using Dfc.FindACourse.TestUtilities.TestUtilities;
 using Dfc.FindACourse.Web.HtmlHelpers;
 using Dfc.FindACourse.Web.ViewModels.CourseDirectory;
