@@ -9478,3 +9478,7 @@ span {
     top: -10px;
   }
 }
+
+.govuk-related-items .govuk-table {
+  margin-bottom: 0;
+}
