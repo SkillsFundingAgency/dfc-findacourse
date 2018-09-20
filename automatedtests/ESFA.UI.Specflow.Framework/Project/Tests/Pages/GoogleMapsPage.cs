@@ -5,19 +5,19 @@ using OpenQA.Selenium;
 
 namespace ESFA.UI.Specflow.Framework.Project.Tests.Pages
 {
-    class AdvancedLearnerLoansPage : BasePage
+    class GoogleMapsPage : BasePage
     {
-        private static String PAGE_TITLE = "Advanced Learner Loan";
+        private static String PAGE_TITLE = "Google Maps";
 
 
-        public AdvancedLearnerLoansPage(IWebDriver webDriver) : base(webDriver)
+        public GoogleMapsPage(IWebDriver webDriver) : base(webDriver)
         {
             SelfVerify();
         }
 
         protected override bool SelfVerify()
         {
-            return PageInteractionHelper.VerifyPageHeading(this.GetPageHeading(), PAGE_TITLE);
+           return PageInteractionHelper.VerifyPageTitle(this.webDriver.Title.ToString(), PAGE_TITLE);
 		}
     }
 }

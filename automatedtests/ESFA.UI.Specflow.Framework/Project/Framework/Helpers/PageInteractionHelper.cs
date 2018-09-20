@@ -26,6 +26,18 @@ namespace ESFA.UI.Specflow.Framework.Project.Framework.Helpers
                 + "\n Found: " + actual + " page");
         }
 
+        public static Boolean VerifyPageTitle(String actual, String expected)
+        {
+            if (actual.Contains(expected))
+            {
+                return true;
+            }
+
+            throw new Exception("Page verification failed:"
+                + "\n Expected: " + expected + " page"
+                + "\n Found: " + actual + " page");
+        }
+
         public static Boolean VerifyPageHeading(By locator, String expected)
         {
 			//km String actual = webDriver.FindElement(locator).Text;

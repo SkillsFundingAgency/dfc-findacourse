@@ -5,9 +5,7 @@
 
 (function () {
     $(function () {
-        $('#LocationRadiusFilter').accordion({
-            startState: 'open'
-        });
+        $('#LocationRadiusFilter').accordion();
 
         $('#StudyModeFilter').accordion();
 
@@ -18,5 +16,16 @@
         $('#QualificationLevelFilter').accordion();
 
         $('#Dfe1619FundedFilter').accordion();
+
+        $('#StudyModeFilter .form-group').multipleChoice();
+
+        $('#AttendanceModeFilter .form-group').multipleChoice();
+
+        $('#AttendancePatternFilter .form-group').multipleChoice();
+
+        $('#QualificationLevelFilter .form-group').multipleChoice();
+
+        $('#Dfe1619FundedFilter .form-group').multipleChoice();
+
     });
 })();

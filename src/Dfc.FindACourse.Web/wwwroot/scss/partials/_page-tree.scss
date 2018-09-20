@@ -67,8 +67,7 @@ hr {
 .govuk-link:focus, a:focus {
     outline: 3px solid #ffbf47;
     outline-offset: 0;
-    background-color: #ffbf47;
-}
+   }
 
 @media print {
     .govuk-link[href^="/"]::after, a[href^="/"]::after, .govuk-link[href^="http://"]::after, a[href^="http://"]::after, .govuk-link[href^="https://"]::after, a[href^="https://"]::after {
@@ -6007,4 +6006,8 @@ span {
     @media only screen and (max-width: 640px) {
         top: -10px;
     }
+}
+
+.govuk-related-items .govuk-table {
+    margin-bottom: 0
 }
