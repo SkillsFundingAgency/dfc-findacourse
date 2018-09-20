@@ -274,3 +274,17 @@
         margin-bottom: 0;
     }
 }
+
+#global-header .header-proposition #proposition-links .active a {
+    color: #2b8cc4;
+}
+#global-header-bar{display:none}
+
+#proposition-links{width:700px}
+
+.phase-tag {
+    margin: 0 0 0 4px;
+    top: -6px;
+    font-size: 10px;
+    position:relative;
+}
