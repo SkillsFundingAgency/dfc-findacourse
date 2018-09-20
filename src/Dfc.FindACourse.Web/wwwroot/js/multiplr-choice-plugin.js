@@ -13,8 +13,6 @@
             itemChange: function () {}
         }, $.fn.multipleChoice.defaults, options);
 
-        console.log(settings);
-
         return $(this).each(function () {
             var multipleChoice = $(this);
             var allCheckbox = multipleChoice.find('input:checkbox.multiple-choice-all');
