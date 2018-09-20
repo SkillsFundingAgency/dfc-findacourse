@@ -308,7 +308,7 @@ namespace Dfc.FindACourse.Services.xUnit.UnitTests
             expected.IsSame(actual);
         }
 
-       // [Fact]
+       /* [Fact]
         public void TestCourseItemsGivenOneCourseDetails()
         {
             var expected = new List<CourseItem>();
@@ -322,6 +322,7 @@ namespace Dfc.FindACourse.Services.xUnit.UnitTests
             };
             var actual = Helper.CourseItems(response).ToList();
             expected.IsSame(actual);
-        }
+        }*/
+        
     }
 }
