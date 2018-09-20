@@ -64,5 +64,20 @@
             itemChange: function (event) { itemChangeHandler('#Dfe1619FundedFilter .accordion-subheading', event); }
         });
 
+        $('#ClearAlFilters').clearAllFilters({
+            filters: [
+                "input[name='LocationRadius']",
+                "input[name^='StudyMode']",
+                "input[name^='AttendanceMode']",
+                "input[name^='AttendancePattern']",
+                "input[name^='QualificationLevel']",
+                "input[name='Dfe1619Funded']"
+            ],
+            defaultFilters: ['#LocationRadius10Miles'],
+            done: function () {
+                $('.accordion-subheading').html('');
+                $('#FindACourseForm').submit();
+            }
+        });
     });
 })();
