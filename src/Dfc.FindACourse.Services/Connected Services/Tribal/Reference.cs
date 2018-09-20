@@ -274,7 +274,7 @@ namespace Tribal
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(Namespace="http://schemas.imservices.gov.uk/alse/coursesearch/type/1.0", ConfigurationName="Tribal.ServiceInterface")]
-    internal interface ServiceInterface
+    public interface ServiceInterface
     {
         
         [System.ServiceModel.OperationContractAttribute(Action="urn:CourseBrowse", ReplyAction="http://schemas.imservices.gov.uk/alse/coursesearch/type/1.0/ServiceInterface/GetC" +
@@ -314,7 +314,7 @@ namespace Tribal
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
     [System.ServiceModel.MessageContractAttribute(WrapperName="SubjectBrowseRequest", WrapperNamespace="http://schemas.imservices.gov.uk/alse/coursesearch/subjectbrowse/1.0", IsWrapped=true)]
-    internal partial class SubjectBrowseInput
+    public partial class SubjectBrowseInput
     {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://schemas.imservices.gov.uk/alse/coursesearch/subjectbrowse/1.0", Order=0)]
@@ -334,7 +334,7 @@ namespace Tribal
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
     [System.ServiceModel.MessageContractAttribute(WrapperName="SubjectBrowseReponse", WrapperNamespace="http://schemas.imservices.gov.uk/alse/coursesearch/subjectbrowse/1.0", IsWrapped=true)]
-    internal partial class SubjectBrowseOutput
+    public partial class SubjectBrowseOutput
     {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://schemas.imservices.gov.uk/alse/coursesearch/subjectbrowse/1.0", Order=0)]
@@ -924,7 +924,7 @@ namespace Tribal
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
     [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
-    internal partial class ProviderSearchInput
+    public partial class ProviderSearchInput
     {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://schemas.imservices.gov.uk/alse/coursesearch/providersearch/1.0", Order=0)]
@@ -944,7 +944,7 @@ namespace Tribal
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
     [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
-    internal partial class ProviderSearchOutput
+    public partial class ProviderSearchOutput
     {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://schemas.imservices.gov.uk/alse/coursesearch/providersearch/1.0", Order=0)]
@@ -2850,7 +2850,7 @@ namespace Tribal
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
     [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
-    internal partial class CourseListInput
+    public partial class CourseListInput
     {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://schemas.imservices.gov.uk/alse/coursesearch/courselist/1.2", Order=0)]
@@ -2870,7 +2870,7 @@ namespace Tribal
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.0")]
     [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
     [System.ServiceModel.MessageContractAttribute(IsWrapped=false)]
-    internal partial class CourseListOutput
+    public partial class CourseListOutput
     {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://schemas.imservices.gov.uk/alse/coursesearch/courselist/1.2", Order=0)]
@@ -3574,7 +3574,7 @@ namespace Tribal
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.0")]
     [System.ServiceModel.MessageContractAttribute(WrapperName="CourseDetailRequest", WrapperNamespace="http://schemas.imservices.gov.uk/alse/coursesearch/coursedetail/1", IsWrapped=true)]
-    internal partial class CourseDetailInput
+    public partial class CourseDetailInput
     {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://schemas.imservices.gov.uk/alse/coursesearch/coursedetail/1", Order=0)]
@@ -3598,7 +3598,7 @@ namespace Tribal
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.0")]
     [System.ServiceModel.MessageContractAttribute(WrapperName="CourseDetailResponse", WrapperNamespace="http://schemas.imservices.gov.uk/alse/coursesearch/coursedetail/1", IsWrapped=true)]
-    internal partial class CourseDetailOutput
+    public partial class CourseDetailOutput
     {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://schemas.imservices.gov.uk/alse/coursesearch/coursedetail/1", Order=0)]
@@ -3662,7 +3662,7 @@ namespace Tribal
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.0")]
     [System.ServiceModel.MessageContractAttribute(WrapperName="ProviderDetailsRequest", WrapperNamespace="http://schemas.imservices.gov.uk/alse/coursesearch/providerdetails/1.0", IsWrapped=true)]
-    internal partial class ProviderDetailsInput
+    public partial class ProviderDetailsInput
     {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://schemas.imservices.gov.uk/alse/coursesearch/providerdetails/1.0", Order=0)]
@@ -3686,7 +3686,7 @@ namespace Tribal
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.0")]
     [System.ServiceModel.MessageContractAttribute(WrapperName="ProviderDetailsResponse", WrapperNamespace="http://schemas.imservices.gov.uk/alse/coursesearch/providerdetails/1.0", IsWrapped=true)]
-    internal partial class ProviderDetailsOutput
+    public partial class ProviderDetailsOutput
     {
         
         [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://schemas.imservices.gov.uk/alse/coursesearch/providerdetails/1.0", Order=0)]
@@ -3713,7 +3713,7 @@ namespace Tribal
     
     [System.Diagnostics.DebuggerStepThroughAttribute()]
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.0")]
-    internal partial class ServiceInterfaceClient : System.ServiceModel.ClientBase<Tribal.ServiceInterface>, Tribal.ServiceInterface
+    public partial class ServiceInterfaceClient : System.ServiceModel.ClientBase<Tribal.ServiceInterface>, Tribal.ServiceInterface
     {
         
     /// <summary>

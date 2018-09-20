@@ -3,29 +3,29 @@ using Dfc.FindACourse.Common.Interfaces;
 using Dfc.FindACourse.Common.Models;
 using Dfc.FindACourse.Services.Interfaces;
 using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Tribal;
 
 namespace Dfc.FindACourse.Services.CourseDirectory
 {
+
+
     public class CourseDirectoryService : ICourseDirectoryService
     {
-        private ICourseDirectoryServiceConfiguration _configuration;
-        private ServiceInterfaceClient _client;
-        private Tribal.ServiceInterfaceClient.EndpointConfiguration _endpointConfiguration;
+        public ICourseDirectoryServiceConfiguration Configuration { get; }
+        public ICourseSearch CourseSearch { get; }
+        public ServiceInterface ServiceClient { get; }
 
 
-        public CourseDirectoryService(ICourseDirectoryServiceConfiguration configuration)
+        public CourseDirectoryService(ICourseDirectoryServiceConfiguration configuration, ICourseSearch courseSearch, ServiceInterface serviceClient)
         {
-            _configuration = configuration;
-            _endpointConfiguration = new ServiceInterfaceClient.EndpointConfiguration();
-            _client = new ServiceInterfaceClient(_endpointConfiguration, _configuration.ApiAddress);
+            Configuration = configuration;
+            CourseSearch = courseSearch;
+            ServiceClient = serviceClient;
         }
 
-        public IResult<CourseSearchResult> CourseSearch(ICourseSearchCriteria criteria, IPagingOptions options)
+        public IResult<CourseSearchResult> CourseDirectorySearch(ICourseSearchCriteria criteria, IPagingOptions options)
         {
             if (criteria == null)
                 throw new ArgumentNullException(nameof(criteria));
@@ -34,88 +34,22 @@ namespace Dfc.FindACourse.Services.CourseDirectory
 
             try
             {
-                //var _client = new ServiceInterfaceClient();
-
-                var searchCriteria = new SearchCriteriaStructure()
-                {
-                    APIKey = _configuration.ApiKey,
-                    SubjectKeyword = criteria.SubjectKeyword
-
-
-                };
-                //Set up Qual Levels
-                if (criteria.QualificationLevels.Count > 0)
-                    searchCriteria.QualificationLevels = criteria.QualificationLevels.Select(x => x.Level).ToArray();
-                //Add Location
-                if (!string.IsNullOrEmpty(criteria.TownOrPostcode))
-                    searchCriteria.Location = criteria.TownOrPostcode;
-                //And then distance (Always set so add check on TownOrPostcode)
-                if (criteria.Distance.HasValue && !string.IsNullOrEmpty(criteria.TownOrPostcode))
-                    searchCriteria.Distance = criteria.Distance.Value;
-                //Add DFEFunded
-                if (criteria.IsDfe1619Funded.HasValue)
-                    searchCriteria.DFE1619Funded = criteria.IsDfe1619Funded.Value ? "Y" : "N";
-                //study modes
-                if (criteria.StudyModes.Count > 0)
-                    searchCriteria.StudyModes = criteria.StudyModes.Select(x => x.Value).ToArray();
-
-                if (criteria.Distance.HasValue && criteria.Distance.Value > 0)
-                {
-                    searchCriteria.Distance = criteria.Distance.Value;
-                    searchCriteria.DistanceSpecified = true;
-                }
-                else
-                {
-                    searchCriteria.DistanceSpecified = false;
-                }
-
-                var request = new CourseListRequestStructure()
-                {
-                    CourseSearchCriteria = searchCriteria,
-                    SortBy = options.SortBy.ToSortType(),
-                    SortBySpecified = true,
-                    PageNo = options.PageNo.ToString(),
-                    RecordsPerPage = _configuration.PerPage.ToString()
-                };
-
-                var task = _client.CourseListAsync(request);
+                var searchCriteria = CourseSearch.CreateSearchCriteriaStructure(criteria, Configuration.ApiKey);
+                var request = CourseSearch.CreateCourseListRequestStructure(options, searchCriteria, Configuration.PerPage.ToString());
+                var task = ServiceClient.CourseListAsync(new CourseListInput { CourseListRequest = request });
                 Task.WaitAll(task);
-                var taskResult = task.Result;
 
-                int noOfPages = int.TryParse(taskResult.CourseListResponse.ResultInfo.NoOfPages, out noOfPages) ? noOfPages : 0;
-                int noOfRecords = int.TryParse(taskResult.CourseListResponse.ResultInfo.NoOfRecords, out noOfRecords) ? noOfRecords : 0;
-                int pageNo = int.TryParse(taskResult.CourseListResponse.ResultInfo.PageNo, out pageNo) ? pageNo : 0;
-
-                if (taskResult.CourseListResponse.CourseDetails == null)
-                {
-                    var courseSearchResult = new CourseSearchResult(
-                        noOfPages,
-                        noOfRecords,
-                        pageNo,
-                        new CourseItem[] { });
-
-                    return Result.Ok(courseSearchResult);
-                }
-
-                var courseItems = taskResult
-                    .CourseListResponse
-                    .CourseDetails
-                    .Select(x => new CourseItem(
-                        x.Course.ToCourse(),
-                        x.Opportunity.ToOpportunity(),
-                        x.Provider.ToProvider()));
-
-                return Result.Ok(new CourseSearchResult(
-                    noOfPages,
-                    noOfRecords,
-                    pageNo,
-                    courseItems));
+                return Result.Ok(CourseSearch.CreateCourseSearchResult(task.Result.CourseListResponse));
             }
             catch (Exception e)
             {
                 return Result.Fail<CourseSearchResult>(e.Message);
             }
         }
+
+
+
+        //ASB TODO THIS NEEDS REFACTORING
         public IResult<Common.Models.CourseItemDetail> CourseItemDetail(int? courseDetailsId, int? opportunityId)
         {
             if (courseDetailsId == null)
@@ -125,12 +59,12 @@ namespace Dfc.FindACourse.Services.CourseDirectory
                 
                 var request = new CourseDetailInput()
                 {
-                    APIKey = _configuration.ApiKey,
+                    APIKey = Configuration.ApiKey,
                     CourseID = new string[] { courseDetailsId.Value.ToString() }
 
 
                 };
-                var task = _client.CourseDetailAsync(request);
+                var task = ServiceClient.CourseDetailAsync(request);
                 Task.WaitAll(task);
                 var taskResult = task.Result;
 
@@ -160,9 +94,7 @@ namespace Dfc.FindACourse.Services.CourseDirectory
 
             }
         }
-
-       
-
        
     }
+
 }
