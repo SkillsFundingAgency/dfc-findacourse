@@ -21,4 +21,10 @@
     <ProjectReference Include="..\Dfc.FindACourse.TestUtilities\Dfc.FindACourse.TestUtilities.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="CourseTitles.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
