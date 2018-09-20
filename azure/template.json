@@ -52,14 +52,7 @@
     "deploymentUrlBase": "https://raw.githubusercontent.com/SkillsFundingAgency/das-platform-building-blocks/master/templates/",
     "storageAccountName": "[concat('dfc',toLower(parameters('environmentName')),'facostr')]",
     "appServiceName": "[concat('dfc-',toLower(parameters('environmentName')),'-findacourse-web')]",
-    "appServiceDependsOn": [
-          "primaryUIAppInsights",
-          "primaryStorageAccount"
-    ],
-    "withCertificateDependsOn": [
-      "primaryCertficate"
-    ],
-    "withoutCertificateDependsOn": []
+    "appServiceDependsOn": "[if(greater(length(parameters('appHostName')),0),'primaryCertficate','primaryStorageAccount')]"
   },
   "resources": [
     {
@@ -136,7 +129,11 @@
       "apiVersion": "2017-05-10",
       "name": "primaryAppService",
       "type": "Microsoft.Resources/deployments",
-      "dependsOn": "[union(variables('appServiceDependsOn'),variables('withoutCertificateDependsOn'))]",
+      "dependsOn": [
+        "primaryUIAppInsights",
+        "primaryStorageAccount",
+        "[variables('appServiceDependsOn')]"
+      ],
       "properties": {
         "mode": "Incremental",
         "templateLink": {
