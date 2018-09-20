@@ -30,7 +30,13 @@
                 itemCheckboxes.prop('checked', $(this).is(':checked'));
 
                 if ($.isFunction(settings.allChange)) {
-                    settings.allChange.call(this, multipleChoice[0]);
+                    settings.allChange.call(this,
+                        {
+                            multipleChoiceElement: multipleChoice[0],
+                            allElement: this,
+                            itemElements: itemCheckboxes,
+                            targetElement: this 
+                        });
                 }
             });
 
@@ -44,7 +50,12 @@
                 }
 
                 if ($.isFunction(settings.itemChange)) {
-                    settings.itemChange.call(this, multipleChoice[0]);
+                    settings.itemChange.call(this, {
+                        multipleChoiceElement: multipleChoice[0],
+                        allElement: allCheckbox,
+                        itemElements: itemCheckboxes,
+                        targetElement: this
+                    });
                 }
             });
 
