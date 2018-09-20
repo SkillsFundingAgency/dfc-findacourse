@@ -82,7 +82,6 @@
                     scrollSuggestions('down');
                 }
             }
-
         };
 
         var scrollSuggestions = function (direction) {
@@ -115,6 +114,8 @@
                     scrollableList.find('li:last-child').addClass('item-hover');
                 }
             }
+            //Set the value in the search box
+            setSubjectValue();
         };
 
         $('#SubjectKeyword').on('keyup', function (e) {
@@ -127,6 +128,10 @@
 
                 if (keyCode !== 13) {
                     autoCompleteSuggestions($(this).val());
+                }
+                if (keyCode === 13) {
+                    //alert('Course List Enter');
+                    $('#course-list').trigger('click');
                 }
             }
 
@@ -141,7 +146,8 @@
             if (keyCode === 13) {
                 if ($('#course-list').is(':visible')) {
                     e.preventDefault();
-                    $('#course-list').trigger('click');
+                    $("#Search").focus().click();
+                 
                 }
             }
 
@@ -159,6 +165,13 @@
         });
 
         $('#course-list').on('click', function () {
+            setSubjectValue();
+
+            $(this).hide();
+            $('#SubjectKeyword').focus();
+        });
+
+        var setSubjectValue = function () {
             var hoverValue = $('#course-list li:hover').attr('data-value');
             var selectedValue = $('#course-list li.item-hover').attr('data-value');
 
@@ -167,10 +180,6 @@
             } else {
                 $('#SubjectKeyword').val(hoverValue);
             }
-
-            $(this).hide();
-            $('#SubjectKeyword').focus();
-        });
-
+        };
     });
 })();
