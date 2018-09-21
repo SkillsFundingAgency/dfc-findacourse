@@ -71,8 +71,8 @@ Scenario Outline: DFC-3973 View Course Details display Entry Requirements
 
   Examples:
     | CourseName    | Location | EntryRequirements                                      |
-    | Hair & Beauty | b14 7en  | There are no formal entry requirements                 |
-    | Electrical    | b14 7en  | City & Guilds 2365 Level 2.City & Guilds 2330 Level 2. |
+    | Hair & Beauty | b14 7en  | Successful interview            |
+    | Electrical    | b14 7en  | enter |
     | Gardening     | b14 7en  | There are no prerequisites for entry                   |
 
 
@@ -91,7 +91,7 @@ Scenario Outline: DFC-3973 View Course Details display Cost
   Examples:
     | CourseName | Location | Cost                                  |
     | Gardening  | b14 7en  | Tbc                                   |
-    | Electrical | b14 7en  | Concessions May Apply. Please Enquire |
+    | Electrical | b14 7en  | To Be Confirmed |
 
 
 
@@ -109,7 +109,7 @@ Scenario Outline: DFC-3973 View Course Details display Loans
 
   Examples:
     | CourseName |Location|
-    | Electrical |b14 7en   |
+    | health |b14 7en   |
 	
 	
 
@@ -144,7 +144,7 @@ Scenario Outline: DFC-3973 View Course Details display Duration
 
   Examples:
     | CourseName | Location |
-    | baker      | cv1 2nl   |
+    | baker      | M1 1AE   |
     | geology    | b14 7rn  |
 
 
@@ -162,7 +162,7 @@ Scenario Outline: DFC-3973 View Course Details display Study Mode
 
   Examples:
     | CourseName | Location |
-    | baker      | cv1 2nl  |
+    | baker      | M1 1AE  |
 
 
 
@@ -179,7 +179,7 @@ Scenario Outline: DFC-3973 View Course Details display Attendance Pattern
 
   Examples:
     | CourseName | Location |
-    | baker      | cv1 2nl  |
+    | baker      | M1 1AE  |
 
 
 @DFC-3973
@@ -195,7 +195,7 @@ Scenario Outline: DFC-3973 View Course Details display Attendance Mode
 
   Examples:
     | CourseName | Location |
-    | baker      | cv1 2nl  |
+    | baker      | M1 1AE  |
 
 
 @DFC-4194
@@ -212,4 +212,4 @@ Scenario Outline: DFC-4914 Venue on Google Maps
 
   Examples:
     | CourseName | Location |
-    | baker      | cv1 2nl  |
+    | baker      | M1 1AE  |

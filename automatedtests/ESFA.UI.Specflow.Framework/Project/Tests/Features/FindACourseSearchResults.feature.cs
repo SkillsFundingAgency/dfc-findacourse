@@ -158,10 +158,10 @@ namespace ESFA.UI.Specflow.Framework.FindACourse.Project.Tests.Features
         [NUnit.Framework.DescriptionAttribute("DFC3900 View Search Results By Course Name display Course Level")]
         [NUnit.Framework.CategoryAttribute("DFC-3900")]
         [NUnit.Framework.TestCaseAttribute("Biology", "", null)]
-        [NUnit.Framework.TestCaseAttribute("Chemistry", "Level 6", null)]
+        [NUnit.Framework.TestCaseAttribute("Diploma in Chemical Skin Peeling & Micro-needling", "Level 4", null)]
         [NUnit.Framework.TestCaseAttribute("ASTROPHYSICS", "Level 3", null)]
         [NUnit.Framework.TestCaseAttribute("DENTISTRY", "Level 2", null)]
-        [NUnit.Framework.TestCaseAttribute("Diploma Level 1 Plumbing Studies", "Level 1", null)]
+        [NUnit.Framework.TestCaseAttribute("C&G L1 AWARD IN INTRODUCTORY TUNGSTEN INERT GAS (TIG) WELDING", "Level 1", null)]
         [NUnit.Framework.TestCaseAttribute("Pharmacy Clinical Services Professional Diploma", "Level 4", null)]
         [NUnit.Framework.TestCaseAttribute("SQA HND Marine Engineering Direct Entry", "Level 5", null)]
         [NUnit.Framework.TestCaseAttribute("Integrated Masters Equine Science MSci", "Level 7", null)]
@@ -194,9 +194,9 @@ namespace ESFA.UI.Specflow.Framework.FindACourse.Project.Tests.Features
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("DFC3900 View Search Results By Course Name display Study Mode")]
         [NUnit.Framework.CategoryAttribute("DFC-3900")]
-        [NUnit.Framework.TestCaseAttribute("English", "Full Time", null)]
+        [NUnit.Framework.TestCaseAttribute("A-level Maths (Pure and Statistics)", "Full Time", null)]
         [NUnit.Framework.TestCaseAttribute("hair and beauty", "Part Time", null)]
-        [NUnit.Framework.TestCaseAttribute("Hair & Beauty Route", "Flexible", null)]
+        [NUnit.Framework.TestCaseAttribute("General Data Protection Regulation (ONLINE)", "Flexible", null)]
         public virtual void DFC3900ViewSearchResultsByCourseNameDisplayStudyMode(string courseName, string studyMode, string[] exampleTags)
         {
             string[] @__tags = new string[] {
@@ -226,9 +226,9 @@ namespace ESFA.UI.Specflow.Framework.FindACourse.Project.Tests.Features
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("DFC3900 View Search Results By Course Name displays Attendance Mode")]
         [NUnit.Framework.CategoryAttribute("DFC-3900")]
-        [NUnit.Framework.TestCaseAttribute("science", "Classroom-based", null)]
+        [NUnit.Framework.TestCaseAttribute("A Level Biology or Human Biology", "Classroom-based", null)]
         [NUnit.Framework.TestCaseAttribute("General Data Protection Regulation (ONLINE)", "Online/Distance Learning", null)]
-        [NUnit.Framework.TestCaseAttribute("Motor Vehicle Maintenance and Repair Apprenticeship at Level 2 (IMI Awards Ltd))", "Work based", null)]
+        [NUnit.Framework.TestCaseAttribute("Management - Apprenticeship (Higher) - Level 4", "Work based", null)]
         public virtual void DFC3900ViewSearchResultsByCourseNameDisplaysAttendanceMode(string courseName, string attendanceMode, string[] exampleTags)
         {
             string[] @__tags = new string[] {
@@ -258,9 +258,9 @@ namespace ESFA.UI.Specflow.Framework.FindACourse.Project.Tests.Features
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("DFC3900 View Search Results By Course Name displays Attendance Pattern")]
         [NUnit.Framework.CategoryAttribute("DFC-3900")]
-        [NUnit.Framework.TestCaseAttribute("English", "Normal Working Hours", null)]
+        [NUnit.Framework.TestCaseAttribute("NVQ 3 Diploma Nail Services - Day release (Apprentice Route)", "Normal Working Hours", null)]
         [NUnit.Framework.TestCaseAttribute("arabic", "Evening/Weekend", null)]
-        [NUnit.Framework.TestCaseAttribute("Assistant Accountant Apprentice - Level 3", "Day Release/Block Release", null)]
+        [NUnit.Framework.TestCaseAttribute("Management - Apprenticeship (Higher) - Level 4", "Day Release/Block Release", null)]
         public virtual void DFC3900ViewSearchResultsByCourseNameDisplaysAttendancePattern(string courseName, string attendancePattern, string[] exampleTags)
         {
             string[] @__tags = new string[] {

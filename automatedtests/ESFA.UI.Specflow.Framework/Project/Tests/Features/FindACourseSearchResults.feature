@@ -48,15 +48,15 @@
 		And the course level <CourseLevel> is displayed
 
   Examples:
-    | CourseName                                      | CourseLevel |
-    | Biology                                         |             |
-    | Chemistry                                       | Level 6     |
-    | ASTROPHYSICS                                    | Level 3     |
-    | DENTISTRY                                       | Level 2     |
-    | Diploma Level 1 Plumbing Studies                | Level 1     |
-    | Pharmacy Clinical Services Professional Diploma | Level 4     |
-    | SQA HND Marine Engineering Direct Entry         | Level 5     |
-    | Integrated Masters Equine Science MSci          | Level 7     |
+    | CourseName                                                    | CourseLevel |
+    | Biology                                                       |             |
+    | Diploma in Chemical Skin Peeling & Micro-needling             | Level 4     |
+    | ASTROPHYSICS                                                  | Level 3     |
+    | DENTISTRY                                                     | Level 2     |
+    | C&G L1 AWARD IN INTRODUCTORY TUNGSTEN INERT GAS (TIG) WELDING | Level 1     |
+    | Pharmacy Clinical Services Professional Diploma               | Level 4     |
+    | SQA HND Marine Engineering Direct Entry                       | Level 5     |
+    | Integrated Masters Equine Science MSci                        | Level 7     |
 
 
 @DFC-3900
@@ -68,10 +68,10 @@
 		And the study mode <StudyMode> is displayed
 
   Examples:
-    | CourseName          | StudyMode |
-    | English             | Full Time |
-    | hair and beauty     | Part Time |
-    | Hair & Beauty Route | Flexible  |
+    | CourseName                                  | StudyMode |
+    | A-level Maths (Pure and Statistics)         | Full Time |
+    | hair and beauty                             | Part Time |
+    | General Data Protection Regulation (ONLINE) | Flexible  |
 
 
 @DFC-3900
@@ -83,10 +83,10 @@
 		And the attendance mode <AttendanceMode> is displayed
 
   Examples:
-    | CourseName                                                                       | AttendanceMode           |
-    | science                                                                          | Classroom-based          |
-    | General Data Protection Regulation (ONLINE)                                      | Online/Distance Learning |
-    | Motor Vehicle Maintenance and Repair Apprenticeship at Level 2 (IMI Awards Ltd)) | Work based               |
+    | CourseName                                     | AttendanceMode           |
+    | A Level Biology or Human Biology               | Classroom-based          |
+    | General Data Protection Regulation (ONLINE)    | Online/Distance Learning |
+    | Management - Apprenticeship (Higher) - Level 4 | Work based               |
 
 
 @DFC-3900
@@ -98,10 +98,10 @@
 		And the attendance pattern <AttendancePattern> is displayed
 
   Examples:
-    | CourseName                                | AttendancePattern         |
-    | English                                   | Normal Working Hours      |
-    | arabic                                    | Evening/Weekend           |
-    | Assistant Accountant Apprentice - Level 3 | Day Release/Block Release |
+    | CourseName                                                   | AttendancePattern         |
+    | NVQ 3 Diploma Nail Services - Day release (Apprentice Route) | Normal Working Hours      |
+    | arabic                                                       | Evening/Weekend           |
+    | Management - Apprenticeship (Higher) - Level 4               | Day Release/Block Release |
 
 
 @DFC-3900

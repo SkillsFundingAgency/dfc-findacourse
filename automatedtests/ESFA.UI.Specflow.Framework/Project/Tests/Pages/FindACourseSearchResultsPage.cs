@@ -85,31 +85,31 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.Pages
 
         internal FindACourseSearchResultsPage GetProvider(string Provider)
         {
-            PageInteractionHelper.VerifyText(provider, Provider);
+            PageInteractionHelper.VerifyElementPresent(provider);
             return new FindACourseSearchResultsPage(webDriver);
         }
 
         internal FindACourseSearchResultsPage GetLocation(string Location)
         {
-            PageInteractionHelper.VerifyText(courseLocation, Location);
+            PageInteractionHelper.VerifyElementPresent(courseLocation);
             return new FindACourseSearchResultsPage(webDriver);
         }
 
         internal FindACourseSearchResultsPage GetDistance(string Distance)
         {
-            PageInteractionHelper.VerifyText(distance, Distance);
+            PageInteractionHelper.VerifyElementPresent(distance);
             return new FindACourseSearchResultsPage(webDriver);
         }
 
         internal FindACourseSearchResultsPage GetStartDate(string StartDate)
         {
-            PageInteractionHelper.VerifyText(startDate, StartDate);
+            PageInteractionHelper.VerifyElementPresent(startDate);
             return new FindACourseSearchResultsPage(webDriver);
         }
 
         internal FindACourseSearchResultsPage GetDuration(string Duration)
         {
-            PageInteractionHelper.VerifyText(duration, Duration);
+            PageInteractionHelper.VerifyElementPresent(duration);
             return new FindACourseSearchResultsPage(webDriver);
         }
 
