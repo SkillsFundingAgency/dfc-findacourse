@@ -103,7 +103,7 @@ namespace Dfc.FindACourse.Web.Controllers
 
             int perPage = int.TryParse(Configuration["Tribal:PerPage"], out perPage) ? perPage : 0;
 
-            return View(new CourseSearchResultViewModel(result) { SubjectKeyword = requestModel.SubjectKeyword, Location = requestModel.Location, DefaultRadiusDistance = (RadiusDistance)requestModel.LocationRadius, PerPage = perPage });
+            return View(new CourseSearchResultViewModel(result) { SubjectKeyword = requestModel.SubjectKeyword, Location = requestModel.Location, LocationRadius = (RadiusDistance)requestModel.LocationRadius, PerPage = perPage });
             
         }
 

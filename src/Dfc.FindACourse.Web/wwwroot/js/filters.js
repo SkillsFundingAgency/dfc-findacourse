@@ -29,6 +29,10 @@
 
         $('#LocationRadiusFilter').accordion();
 
+        $("#LocationRadiusFilter input[name='LocationRadius']").on('click', function () {
+            $('#FindACourseForm').submit();
+        });
+
         $('#StudyModeFilter').accordion();
 
         $('#AttendanceModeFilter').accordion();
