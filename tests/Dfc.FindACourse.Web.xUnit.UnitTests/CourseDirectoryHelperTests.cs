@@ -214,20 +214,6 @@ namespace Dfc.FindACourse.Web.xUnit.UnitTests
 
         }
 
-        private XmlNode CreateExpansionNode(XmlDocument doc, string[] subs)
-        {
-            var node = doc.CreateElement("expansion");
-            doc.AppendChild(node);
-            foreach (var s in subs)
-            {
-                var n = doc.CreateElement("sub");
-                n.InnerText = s;
-                node.AppendChild(n);
-            }
-
-            return node;
-        }
-
         [Fact]
         public void TestGetMissSpellingsGivenNullExpansionNodes()
         {

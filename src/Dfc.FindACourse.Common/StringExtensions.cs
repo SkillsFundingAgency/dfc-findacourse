@@ -35,5 +35,11 @@ namespace Dfc.FindACourse.Common
 
             return extendee;
         }
+
+        public static int ToIntOrValue(this string input, int value)
+        {
+            return int.TryParse(input, out var output) ? output : value;
+        }
+
     }
 }

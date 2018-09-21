@@ -17,10 +17,6 @@ namespace Dfc.FindACourse.Web.HtmlHelpers
         {
             if (!typeof(TEnum).IsEnum)
                 throw new ArgumentException("Not an enum.", nameof(TEnum));
-            if (!item.GetType().IsEnum)
-                throw new ArgumentException("Not an enum.", nameof(item));
-            if (typeof(TEnum) != item.GetType())
-                throw new ArgumentException($"Type {typeof(TEnum)} does not match type {item.GetType()}.");
             if (!Enum.IsDefined(typeof(TEnum), item))
                 throw new ArgumentException($"{item} is not defined in {typeof(TEnum)}.", nameof(item));
 

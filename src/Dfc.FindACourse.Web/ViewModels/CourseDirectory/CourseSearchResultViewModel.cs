@@ -19,7 +19,7 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
             NoOfPages = result.Value.NoOfPages;
             PageNo = result.Value.PageNo;
             Items = result.Value.Items.Select(x => new CourseSearchResultItemViewModel(x)).ToList();
-            DefaultRadiusDistance = RadiusDistance.Miles10;
+            LocationRadius = RadiusDistance.Miles10;
         }
 
         public string ShowingFrom()
@@ -50,6 +50,11 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
             return to.ToString();
         }
 
+        public string LocationRadiusChecked(int radius)
+        {
+            return (int)LocationRadius == radius ? "checked=\"checked\"" : string.Empty;
+        }
+
         [Display(Name = "Course name")]
         [Required(ErrorMessage = "Enter a course name")]
         public string SubjectKeyword { get; set; }
@@ -59,7 +64,7 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
         public bool LocationHasError { get; set; }
         public string LocationError => _locationError;
 
-        public RadiusDistance DefaultRadiusDistance { get; set; }
+        public RadiusDistance LocationRadius { get; set; }
         public string SortyBy { get; set; }
         public int StartNo { get; set; }
         public int EndNo { get; set; }
