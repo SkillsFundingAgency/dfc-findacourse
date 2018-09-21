@@ -109,7 +109,7 @@
                     <div class="accordion" id="StudyModeFilter">
                         <div class="accordion-header">
                             <div class="accordion-heading">Full-time or part-time</div>
-                            <div class="accordion-subheading"></div>
+                            <div class="accordion-subheading">@Model.StudyModeSelectedText()</div>
                             <span class="accordion-header-icon"></span>
                         </div>
                         <div class="accordion-panel">
@@ -117,25 +117,25 @@
                                 <ul>
                                     <li>
                                         <div class="multiple-choice">
-                                            <input type="checkbox" class="multiple-choice-all" name="StudyModeAll" id="StudyModeAll" value="all" />
+                                            <input type="checkbox" class="multiple-choice-all" name="StudyModes" id="StudyModeAll" value="all" @Model.StudyModeAllChecked() />
                                             <label for="StudyModeAll">Show all</label>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="multiple-choice">
-                                            <input type="checkbox" class="multiple-choice-item" name="StudyModeFullTime" id="StudyModeFullTime" value="1" />
+                                            <input type="checkbox" class="multiple-choice-item" name="StudyModes" id="StudyModeFullTime" value="1" @Model.StudyModeChecked(1) />
                                             <label for="StudyModeFullTime">Full Time</label>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="multiple-choice">
-                                            <input type="checkbox" class="multiple-choice-item" name="StudyModePartTime" id="StudyModePartTime" value="2" />
+                                            <input type="checkbox" class="multiple-choice-item" name="StudyModes" id="StudyModePartTime" value="2" @Model.StudyModeChecked(2) />
                                             <label for="StudyModePartTime">Part Time</label>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="multiple-choice">
-                                            <input type="checkbox" class="multiple-choice-item" name="StudyModeFlexible" id="StudyModeFlexible" value="4" />
+                                            <input type="checkbox" class="multiple-choice-item" name="StudyModes" id="StudyModeFlexible" value="4" @Model.StudyModeChecked(4) />
                                             <label for="StudyModeFlexible">Flexible</label>
                                         </div>
                                     </li>
