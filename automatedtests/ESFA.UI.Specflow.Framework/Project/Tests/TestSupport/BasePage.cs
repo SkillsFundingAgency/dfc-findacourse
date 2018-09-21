@@ -22,7 +22,6 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
         protected String GetPageHeading()
         {
 			return webDriver.FindElement(pageHeading).GetAttribute("innerText");
-			//km return webDriver.FindElement(pageHeading).Text;
 		}
 	}
 }

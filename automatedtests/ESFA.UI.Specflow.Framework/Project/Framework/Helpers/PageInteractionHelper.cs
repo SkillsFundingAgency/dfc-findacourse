@@ -2,6 +2,7 @@
 using System.Threading;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
+using SeleniumExtras.WaitHelpers;
 
 namespace ESFA.UI.Specflow.Framework.Project.Framework.Helpers
 {
@@ -90,6 +91,17 @@ namespace ESFA.UI.Specflow.Framework.Project.Framework.Helpers
                 + "\n Found: " + actual);
         }
 
+        public static Boolean VerifyElementPresent(By locator)
+        {
+            String actual = webDriver.FindElement(locator).Text;
+            if (actual!= null)
+            {
+                return true;
+            }
+
+            throw new Exception("The Element does not exist on the page");
+        }
+
         public static Boolean VerifyEditFieldText(By locator, String expected)
         {
             String actual = webDriver.FindElement(locator).GetAttribute("value");
@@ -135,13 +147,13 @@ namespace ESFA.UI.Specflow.Framework.Project.Framework.Helpers
         public static void WaitForElementToBePresent(By locator)
         {
             WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
-            wait.Until(ExpectedConditions.ElementExists(locator));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(locator));
         }
 
         public static void WaitForElementToBeDisplayed(By locator)
         {
             WebDriverWait wait = new WebDriverWait(webDriver, TimeSpan.FromSeconds(10));
-            wait.Until(ExpectedConditions.ElementIsVisible(locator));
+            wait.Until(SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(locator));
         }
 
         public static Boolean IsElementPresent(By locator)
