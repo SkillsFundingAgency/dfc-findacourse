@@ -265,7 +265,7 @@ namespace Dfc.FindACourse.Web.xUnit.UnitTests
             MockCourseDirectory.Setup(x => x.IsSuccessfulResult(
                 It.IsAny<IResult<CourseSearchResult>>(), It.IsAny<ITelemetryClient>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<DateTime>()
                 )).Returns(true);
-            MockCourseDirectoryService.Setup(x => x.CourseSearch(criteria, It.IsAny<PagingOptions>())).Returns(courseSearchResult);
+            MockCourseDirectoryService.Setup(x => x.CourseDirectorySearch(criteria, It.IsAny<PagingOptions>())).Returns(courseSearchResult);
 
             var result = Controller.CourseSearchResult(fromQuery) as ViewResult;
             MockTelemetryClient.Verify(x=>x.TrackEvent(It.IsAny<string>(), null, null),(Times.Never()));
@@ -320,7 +320,7 @@ namespace Dfc.FindACourse.Web.xUnit.UnitTests
                 It.IsAny<IResult<CourseSearchResult>>(), It.IsAny<ITelemetryClient>(), It.IsAny<string>(),
                 It.IsAny<string>(), It.IsAny<DateTime>()
             )).Returns(false); // Mock that Is Invalid Search Result
-            MockCourseDirectoryService.Setup(x => x.CourseSearch(criteria, It.IsAny<PagingOptions>()))
+            MockCourseDirectoryService.Setup(x => x.CourseDirectorySearch(criteria, It.IsAny<PagingOptions>()))
                 .Returns(courseSearchResult);
 
             var result = Controller.CourseSearchResult(fromQuery) as ViewResult;

@@ -5,11 +5,16 @@ namespace Dfc.FindACourse.Web.RequestModels
 {
     public class CourseSearchRequestModel : ICourseSearchRequestModel
     {
+        public CourseSearchRequestModel()
+        {
+            StudyModes = new int[] { };
+        }
+
         [Display(Name = "Course name")]
         [Required]
         public string SubjectKeyword { get; set; }
         public string Location { get; set; }
-        public int[] QualificationLevels { get; set; }
+        public int[] QualificationLevels { get; set; } = new int[] { };
         public int[] StudyModes { get; set; }
         public int[] AttendanceModes { get; set; }
         public int[] AttendancePatterns { get; set; }

@@ -7,7 +7,6 @@ namespace Dfc.FindACourse.Services.CourseDirectory
     {
         public string ApiKey { get; }
         public int PerPage { get; }
-
         public string ApiAddress { get; }
 
         public CourseDirectoryServiceConfiguration(string apiKey, int perPage, string apiAddress)
