@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Dfc.FindACourse.Common;
 using Dfc.FindACourse.Common.Interfaces;
 using Dfc.FindACourse.Common.Models;
 using Dfc.FindACourse.Services.Interfaces;
@@ -60,6 +61,26 @@ namespace Dfc.FindACourse.Services.CourseDirectory
 
             return results;
         }
+
+        //public string[] GetAttendanceModes(ICourseSearchCriteria searchCriteria)
+        //{
+        //    var results = new List<string>();
+
+        //    if (searchCriteria.AttendanceModes != null && searchCriteria.AttendanceModes.Count > 0)
+        //    {
+                
+        //    }
+
+        //    return results.ToArray();
+        //}
+
+        //public string GetAttendanceMode(AttendanceMode attendanceMode)
+        //{
+        //    switch (attendanceMode)
+        //    {
+        //        case AttendanceMode.LocationCampus: "AM1"
+        //    }
+        //}
 
         public bool IsDistanceSpecified(ICourseSearchCriteria searchCriteria)
         {

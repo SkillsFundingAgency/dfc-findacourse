@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Text;
 using Dfc.FindACourse.Common;
 using Dfc.FindACourse.Common.Interfaces;
@@ -28,7 +29,8 @@ namespace Dfc.FindACourse.Services.CourseDirectory
                 Distance = Helper.GetDistance(criteria),
                 DFE1619Funded = Helper.GetDfe1619Funded(criteria),
                 StudyModes = Helper.GetStudyModes(criteria),
-                DistanceSpecified = Helper.IsDistanceSpecified(criteria)
+                DistanceSpecified = Helper.IsDistanceSpecified(criteria),
+                AttendanceModes = criteria.AttendanceModes.ToArray()
             };
         }
 

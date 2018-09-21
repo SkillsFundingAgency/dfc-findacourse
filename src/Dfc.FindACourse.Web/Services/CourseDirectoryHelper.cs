@@ -120,5 +120,76 @@ namespace Dfc.FindACourse.Web.Services
             }
         }
 
+        public List<string> AttendanceModes(ICourseSearchRequestModel requestModel)
+        {
+            var synonymousModes = new AttendanceMode[]
+            {
+                AttendanceMode.DistanceWithAttendance,
+                AttendanceMode.DistanceWithoutAttendence,
+                AttendanceMode.OnlineWithAttendance,
+                AttendanceMode.OnlineWithoutAttendence
+            };
+
+            var attendanceModes = Enum.GetValues(typeof(AttendanceMode))
+                .Cast<AttendanceMode>()
+                .Where(x => IsAttendanceModeDisplayable(x))
+                .Cast<int>()
+                .Where(x => requestModel.AttendanceModes.Contains(x))
+                .Cast<AttendanceMode>()
+                .ToList();
+
+            if (attendanceModes.Any(x => synonymousModes.Contains(x)))
+            {
+                foreach (var synonym in synonymousModes)
+                {
+                    if (!attendanceModes.Contains(synonym))
+                    {
+                        attendanceModes.Add(synonym);
+                    }
+                }
+            }
+
+            var list = new List<string>();
+
+            foreach (var attendanceMode in attendanceModes)
+            {
+                list.Add(GetAttendanceModeSearchString(attendanceMode));
+            }
+
+            return list;
+        }
+
+        public bool IsAttendanceModeDisplayable(AttendanceMode attendanceMode)
+        {
+            switch (attendanceMode)
+            {
+                case AttendanceMode.FaceToFace:
+                case AttendanceMode.MixedMode:
+                case AttendanceMode.NotKnown:
+                    return false;
+                default:
+                    return true;
+            }
+        }
+
+        public string GetAttendanceModeSearchString(AttendanceMode attendanceMode)
+        {
+            var result = "AM9";
+
+            switch (attendanceMode)
+            {
+                case AttendanceMode.LocationCampus: result = "AM1"; break;
+                case AttendanceMode.FaceToFace: result = "AM2"; break;
+                case AttendanceMode.WorkBased: result = "AM3"; break;
+                case AttendanceMode.MixedMode: result = "AM4"; break;
+                case AttendanceMode.DistanceWithAttendance: result = "AM5"; break;
+                case AttendanceMode.DistanceWithoutAttendence: result = "AM6"; break;
+                case AttendanceMode.OnlineWithAttendance: result = "AM7"; break;
+                case AttendanceMode.OnlineWithoutAttendence: result = "AM8"; break;
+                case AttendanceMode.NotKnown: result = "AM9"; break;
+            }
+
+            return result;
+        }
     }
 }

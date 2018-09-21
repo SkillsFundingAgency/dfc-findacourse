@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml;
 using Dfc.FindACourse.Common;
 using Dfc.FindACourse.Common.Models;
@@ -114,6 +115,9 @@ namespace Dfc.FindACourse.Web.xUnit.UnitTests
                 new StudyModeExt{Key=1, Value="Value1"},
                 new StudyModeExt{Key=2, Value="Value2"}
             };
+
+            var attendanceModes = new List<string>();
+
             var expected = new CourseSearchCriteria
             ( 
                 "SubjectKeyword",
@@ -121,11 +125,13 @@ namespace Dfc.FindACourse.Web.xUnit.UnitTests
                 "Location",
                 20,
                 true,
-                modes
+                modes,
+                attendanceModes
             );
 
             MockCourseDirectoryHelper.Setup(x => x.StudyModes(It.IsAny<ICourseSearchRequestModel>())).Returns(modes);
             MockCourseDirectoryHelper.Setup(x => x.QualificationLevels(It.IsAny<ICourseSearchRequestModel>())).Returns(quals);
+            MockCourseDirectoryHelper.Setup(x => x.AttendanceModes(It.IsAny<ICourseSearchRequestModel>())).Returns(attendanceModes);
 
             var actual = CourseDirectory.CreateCourseSearchCriteria(requestModel);
 

@@ -8,6 +8,7 @@ namespace Dfc.FindACourse.Web.RequestModels
         public CourseSearchRequestModel()
         {
             StudyModes = new int[] { };
+            AttendanceModes = new int[] { };
         }
 
         [Display(Name = "Course name")]
