@@ -276,6 +276,7 @@ Scenario Outline: DFC-3976 Provider details are displayed when no Venue exists
   Examples:
     | CourseName                                       | Location | Provider/Venue |
     | BTEC Level 4 Certificate in Education & Training | gu21 6yl | Provider       |
+    |                                                  |          |                |
 
 
 @DFC-3974
@@ -307,6 +308,7 @@ Scenario Outline: DFC-3974 More Information Button
 	Then the View Course details page is displayed
 	And the Provider name is displayed
 	And I click the More Information Button
+    Then I am on the provider website
 
   Examples:
     | CourseName |

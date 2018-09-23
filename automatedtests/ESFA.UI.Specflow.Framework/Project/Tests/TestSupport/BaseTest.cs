@@ -7,7 +7,6 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.IE;
-//using OpenQA.Selenium.PhantomJS;
 using TechTalk.SpecFlow;
 using AventStack.ExtentReports.Reporter;
 using AventStack.ExtentReports;
@@ -140,10 +139,6 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
                 case "androidnative":
                     BrowserstackConfigMob();
                     break;
-
-                //case "phantomjs":
-                //    webDriver = new PhantomJSDriver();
-                //    break;
 
                 case "firefox":
                     webDriver = new FirefoxDriver();
