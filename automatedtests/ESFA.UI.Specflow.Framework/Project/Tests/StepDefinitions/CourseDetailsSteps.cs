@@ -98,12 +98,81 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.StepDefinitions
         }
 
         [Then(@"I click on the Google Maps link")]
-        public void TGoogleMapsLinkDisplayed()
+        public void GoogleMapsLinkDisplayed()
         {
             FindACourseCourseDetailsPage findACourseCourseDetailsPage = new FindACourseCourseDetailsPage(webDriver);
             findACourseCourseDetailsPage.ClickGoogleMaps();
         }
 
+        [Then(@"the Provider name is displayed")]
+        public void ProviderNameIsDisplayed()
+        {
+            FindACourseCourseDetailsPage findACourseCourseDetailsPage = new FindACourseCourseDetailsPage(webDriver);
+            findACourseCourseDetailsPage.GetProvider();
+        }
+
+        [Then(@"the (.*) Name is displayed")]
+        public void VenueOrProviderNameDisplayed(string venue)
+        {
+            FindACourseCourseDetailsPage findACourseCourseDetailsPage = new FindACourseCourseDetailsPage(webDriver);
+            findACourseCourseDetailsPage.GetVenueOrProviderName();
+        }
+
+        [Then(@"the (.*) Address is displayed")]
+        public void VenueAddressIsDisplayed(string venue)
+        {
+            FindACourseCourseDetailsPage findACourseCourseDetailsPage = new FindACourseCourseDetailsPage(webDriver);
+            findACourseCourseDetailsPage.GetVenueOrProviderAddress();
+        }
+
+        [Then(@"the (.*) Website is displayed")]
+        public void VenueWebsiteIsDisplayed(string venue)
+        {
+            FindACourseCourseDetailsPage findACourseCourseDetailsPage = new FindACourseCourseDetailsPage(webDriver);
+            findACourseCourseDetailsPage.GetVenueOrProviderWebsite();
+        }
+
+        [Then(@"the (.*) Email is displayed")]
+        public void VenueEmailIsDisplayed(string venue)
+        {
+            FindACourseCourseDetailsPage findACourseCourseDetailsPage = new FindACourseCourseDetailsPage(webDriver);
+            findACourseCourseDetailsPage.GetVenueOrProviderEmail();
+        }
+
+        [Then(@"the (.*) Phone Number is displayed")]
+        public void VenuePhoneIsDisplayed(string venue)
+        {
+            FindACourseCourseDetailsPage findACourseCourseDetailsPage = new FindACourseCourseDetailsPage(webDriver);
+            findACourseCourseDetailsPage.GetVenueOrProviderPhone();
+        }
+
+        [Then(@"I click the (.*) Button")]
+        public void ThenIClickTheEnrolNowButton(string button)
+        {
+            FindACourseCourseDetailsPage findACourseCourseDetailsPage = new FindACourseCourseDetailsPage(webDriver);
+            findACourseCourseDetailsPage.ClickEnrolNow();
+        }
+
+        [Then(@"the course description is displayed")]
+        public void CourseDescriptionIsDisplayed()
+        {
+            FindACourseCourseDetailsPage findACourseCourseDetailsPage = new FindACourseCourseDetailsPage(webDriver);
+            findACourseCourseDetailsPage.GetCourseDescription();
+        }
+
+        [Then(@"the course equipment is displayed")]
+        public void ourseEquipmentIsDisplayed()
+        {
+            FindACourseCourseDetailsPage findACourseCourseDetailsPage = new FindACourseCourseDetailsPage(webDriver);
+            findACourseCourseDetailsPage.GetCourseEquipment();
+        }
+
+        [Then(@"the course assessment is displayed")]
+        public void CourseAssessmentIsDisplayed()
+        {
+            FindACourseCourseDetailsPage findACourseCourseDetailsPage = new FindACourseCourseDetailsPage(webDriver);
+            findACourseCourseDetailsPage.GetCourseAssessment();
+        }
 
     }
 }

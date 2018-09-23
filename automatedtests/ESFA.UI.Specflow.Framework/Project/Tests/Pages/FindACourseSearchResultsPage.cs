@@ -118,6 +118,11 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.Pages
             //add information to sceanrio context to use on page 3
             ScenarioContext.Current["CourseTitle"] = webDriver.FindElement(courseTitle).GetAttribute("innerText");
 
+            if (PageInteractionHelper.IsElementPresent(provider))
+            {
+                ScenarioContext.Current["ProviderName"] = webDriver.FindElement(provider).GetAttribute("innerText");
+            }
+
             if (PageInteractionHelper.IsElementPresent(startDate))
             {
                 ScenarioContext.Current["StartDate"] = webDriver.FindElement(startDate).GetAttribute("innerText");
