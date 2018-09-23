@@ -118,8 +118,8 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.StepDefinitions
             findACourseCourseDetailsPage.GetVenueOrProviderName();
         }
 
-        [Then(@"the (.*) Address is displayed")]
-        public void VenueAddressIsDisplayed(string venue)
+        [Then(@"the Venue Address is displayed")]
+        public void VenueAddressIsDisplayed()
         {
             FindACourseCourseDetailsPage findACourseCourseDetailsPage = new FindACourseCourseDetailsPage(webDriver);
             findACourseCourseDetailsPage.GetVenueOrProviderAddress();
@@ -172,6 +172,13 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.StepDefinitions
         {
             FindACourseCourseDetailsPage findACourseCourseDetailsPage = new FindACourseCourseDetailsPage(webDriver);
             findACourseCourseDetailsPage.GetCourseAssessment();
+        }
+
+        [Then(@"the Provider address is displayed")]
+        public void ProviderAddressIsDisplayed()
+        {
+            FindACourseCourseDetailsPage findACourseCourseDetailsPage = new FindACourseCourseDetailsPage(webDriver);
+            findACourseCourseDetailsPage.GetProviderAddress();
         }
 
     }

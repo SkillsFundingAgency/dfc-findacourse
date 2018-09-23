@@ -45,6 +45,7 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.Pages
         private readonly By courseDescription = By.XPath(".//*[@id='2']/h2");
         private readonly By equipment = By.XPath(".//*[@id='2']/p[2]");
         private readonly By assessment = By.XPath(".//*[@id='2']/p[4]");
+        private readonly By providerAddress = By.XPath(".//*[@id='6']/aside/table[1]/tbody/tr/td[2]");
 
         internal FindACourseCourseDetailsPage CheckNullResults()
         {
@@ -139,6 +140,12 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.Pages
         internal FindACourseCourseDetailsPage GetVenueOrProviderAddress()
         {
             PageInteractionHelper.VerifyElementPresent(venueAddress);
+            return new FindACourseCourseDetailsPage(webDriver);
+        }
+
+        internal FindACourseCourseDetailsPage GetProviderAddress()
+        {
+            PageInteractionHelper.VerifyElementPresent(providerAddress);
             return new FindACourseCourseDetailsPage(webDriver);
         }
 

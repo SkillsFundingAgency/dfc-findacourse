@@ -246,7 +246,7 @@ Scenario Outline: DFC-3976 Provider and Venue details are displayed
 	Then the View Course details page is displayed
 	And the Provider name is displayed
 	And the <Provider/Venue> Name is displayed
-	And the <Provider/Venue> Address is displayed
+	And the Venue Address is displayed
 	And the <Provider/Venue> Website is displayed
 	And the <Provider/Venue> Email is displayed
 	And the <Provider/Venue> Phone Number is displayed
@@ -272,11 +272,12 @@ Scenario Outline: DFC-3976 Provider details are displayed when no Venue exists
 	When I select course title
 	Then the View Course details page is displayed
 	And the Provider name is displayed
+	And the Provider address is displayed
 
   Examples:
-    | CourseName                                       | Location | Provider/Venue |
-    | BTEC Level 4 Certificate in Education & Training | gu21 6yl | Provider       |
-    |                                                  |          |                |
+    | CourseName                   | Location | Provider/Venue |
+    | Cyber & Information Security | gu21 6yl | Provider       |
+
 
 
 @DFC-3974

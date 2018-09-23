@@ -5,11 +5,11 @@
 
 @DFC-3900
  Scenario: DFC3900 View Search Results By Course Name Valid Results
- 		Given I navigate to Find a Course home page
-		When I enter course Biology
-		And I click Search
-		Then I should be on Search Results for page
-		And Valid Results are returned
+ 	Given I navigate to Find a Course home page
+	When I enter course Biology
+	And I click Search
+	Then I should be on Search Results for page
+	And Valid Results are returned
 
 
 @DFC-3900
@@ -161,3 +161,47 @@
      Examples:
     | CourseName | Location | Distance | StartDate         | Duration |
     | geography  | EC1A 1BB   | 6.9      | 1 September 2018 | 2 Years  |
+
+
+@DFC-3934
+ Scenario Outline: DFC3935 Select location on Page 2
+ Given I navigate to Find a Course home page
+		When I enter course <CourseName>
+		And I enter location <Location>
+		And I click Search
+		Then I should be on Search Results for page
+		When On Page 2 I enter location <Location2>
+		And On Page 2 I click Search
+		Then I should be on Search Results for page
+
+     Examples:
+    | CourseName | Location | Location2 |
+    | maths      | EC1A 1BB | BS1 1JG   |
+    | english    | EC1A 1BB | NE7 7SF   |
+    | biology    | EC1A 1BB | M9 0FN    |
+    | computing  | EC1A 1BB | L4 1SE    |
+    | history    | EC1A 1BB | S1 2HE    |
+    | safety     | EC1A 1BB | BD1 1AJ   |
+
+
+
+@DFC-3935
+ Scenario Outline: DFC3935 Select Course Name on Page 2
+ Given I navigate to Find a Course home page
+		When I enter course <CourseName>
+		And I click Search
+		Then I should be on Search Results for page
+		When On Page 2 I enter course <CourseName2>
+		And On Page 2 I click Search
+		Then I should be on Search Results for page
+
+     Examples:
+    | CourseName | CourseName2       |
+    | geography  | biology           |
+    | geography  | team building     |
+    | geography  | NURSING           |
+    | geography  | ENGINEERING       |
+    | geography  | A LEVEL CHEMISTRY |
+    | geography  | NVQ HAIR & BEAUTY |
+    | geography  | GCSE MATHS        |
+    | geography  | LEVEL 4 EDUCATION |
