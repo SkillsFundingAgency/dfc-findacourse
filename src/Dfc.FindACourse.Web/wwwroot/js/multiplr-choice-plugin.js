@@ -8,7 +8,6 @@
     $.fn.multipleChoice = function (options) {
 
         var settings = $.extend({
-            startState: 'unchecked', // 'unchecked' | 'checked'
             allChange: function () { },
             itemChange: function () {}
         }, $.fn.multipleChoice.defaults, options);
@@ -17,14 +16,6 @@
             var multipleChoice = $(this);
             var allCheckbox = multipleChoice.find('input:checkbox.multiple-choice-all');
             var itemCheckboxes = multipleChoice.find('input:checkbox.multiple-choice-item');
-
-            if (settings.startState === 'unchecked') {
-                allCheckbox.prop('checked', '');
-                itemCheckboxes.prop('checked', '');
-            } else if (settings.startState === 'checked') {
-                allCheckbox.prop('checked', 'checked');
-                itemCheckboxes.prop('checked', 'checked');
-            }
 
             allCheckbox.on('change', function () {
                 itemCheckboxes.prop('checked', $(this).is(':checked'));

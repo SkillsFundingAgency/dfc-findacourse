@@ -14,6 +14,7 @@
             }
 
             $(subheadingSelector).html(text);
+            $('#FindACourseForm').submit();
         };
 
         var itemChangeHandler = function (subheadingSelector, event) {
@@ -25,6 +26,7 @@
             }
 
             $(subheadingSelector).html(text);
+            $('#FindACourseForm').submit();
         }
 
         $('#LocationRadiusFilter').accordion();

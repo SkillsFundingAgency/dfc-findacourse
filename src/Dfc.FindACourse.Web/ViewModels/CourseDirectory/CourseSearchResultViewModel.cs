@@ -20,6 +20,8 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
             PageNo = result.Value.PageNo;
             Items = result.Value.Items.Select(x => new CourseSearchResultItemViewModel(x)).ToList();
             LocationRadius = RadiusDistance.Miles10;
+            StudyModes = new int[] { };
+            AttendanceModes = new int[] { };
         }
 
         public string ShowingFrom()
@@ -55,6 +57,78 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
             return (int)LocationRadius == radius ? "checked=\"checked\"" : string.Empty;
         }
 
+        public string StudyModeAllChecked()
+        {
+            var allStudyModes = Enum.GetValues(typeof(StudyMode)).Cast<StudyMode>().Where(x => IsDisplayable(x)).Cast<int>();
+            return StudyModes != null && Enumerable.SequenceEqual(allStudyModes, StudyModes) ? "checked=\"checked\"" : string.Empty;
+        }
+
+        public string StudyModeSelectedText()
+        {
+            return StudyModes == null || StudyModes.Length == 0 ? string.Empty : $"{StudyModes.Length} selected";
+        }
+
+        public string StudyModeChecked(int value)
+        {
+            return StudyModes != null && StudyModes.Contains(value) ? "checked=\"checked\"" : string.Empty;
+        }
+
+        internal static bool IsDisplayable(StudyMode studyMode)
+        {
+            switch (studyMode)
+            {
+                case StudyMode.FullTime:
+                case StudyMode.PartTime:
+                case StudyMode.Flexible:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+
+        public string AttendanceModeAllChecked()
+        {
+            var allAttendanceModes = Enum.GetValues(typeof(AttendanceMode)).Cast<AttendanceMode>().Where(x => IsDisplayable(x) && IsSelectable(x)).Cast<int>();
+            //return AttendanceModes != null && AttendanceModes.Length > 0 && (AttendanceModes.Intersect(allAttendanceModes).Count() == AttendanceModes.Count()) ? "checked=\"checked\"" : string.Empty;
+            return AttendanceModes != null && Enumerable.SequenceEqual(allAttendanceModes, AttendanceModes) ? "checked=\"checked\"" : string.Empty;
+        }
+
+        public string AttendanceModeSelectedText()
+        {
+            return AttendanceModes == null || AttendanceModes.Length == 0 ? string.Empty : $"{AttendanceModes.Length} selected";
+        }
+
+        public string AttendanceModeChecked(int value)
+        {
+            return AttendanceModes != null && AttendanceModes.Contains(value) ? "checked=\"checked\"" : string.Empty;
+        }
+
+        internal static bool IsDisplayable(AttendanceMode attendanceMode)
+        {
+            switch (attendanceMode)
+            {
+                case AttendanceMode.FaceToFace:
+                case AttendanceMode.MixedMode:
+                case AttendanceMode.NotKnown:
+                    return false;
+                default:
+                    return true;
+            }
+        }
+        internal static bool IsSelectable(AttendanceMode attendanceMode)
+        {
+            switch (attendanceMode)
+            {
+                case AttendanceMode.LocationCampus:
+                case AttendanceMode.WorkBased:
+                case AttendanceMode.DistanceWithAttendance:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
         [Display(Name = "Course name")]
         [Required(ErrorMessage = "Enter a course name")]
         public string SubjectKeyword { get; set; }
@@ -73,5 +147,7 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
         public int NoOfPages { get; set; }
         public int PerPage { get; set; }
         public List<CourseSearchResultItemViewModel> Items { get; set; }
+        public int[] StudyModes { get; set; }
+        public int[] AttendanceModes { get; set; }
     }
 }
