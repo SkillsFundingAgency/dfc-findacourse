@@ -50,7 +50,7 @@
                 error: function (data) {
                     console.log(data.responseText);
                 }
-            }); 
+            });
         };
 
         var arrowNagivation = function (keyCode) {
@@ -147,7 +147,7 @@
                 if ($('#course-list').is(':visible')) {
                     e.preventDefault();
                     $("#Search").focus().click();
-                 
+
                 }
             }
 
@@ -174,12 +174,27 @@
         var setSubjectValue = function () {
             var hoverValue = $('#course-list li:hover').attr('data-value');
             var selectedValue = $('#course-list li.item-hover').attr('data-value');
-
+            
             if (selectedValue) {
-                $('#SubjectKeyword').val(selectedValue);
+                var spaceSelected = selectedValue.indexOf(' ') >= 0;
+                if (spaceSelected) {
+                    $('#SubjectKeyword').val('"' + selectedValue + '"');
+                }
+                else {
+                    $('#SubjectKeyword').val(selectedValue);
+                }
             } else {
-                $('#SubjectKeyword').val(hoverValue);
+                var hoverSelected = hoverValue.indexOf(' ') >= 0;
+                if (hoverSelected) {
+                    $('#SubjectKeyword').val('"' + hoverValue + '"');
+                }
+                else {
+                    $('#SubjectKeyword').val(hoverValue);
+                }
             }
+            $('#hidSubjectKeyword').val($('#SubjectKeyword').val());
         };
+        
+      
     });
 })();
