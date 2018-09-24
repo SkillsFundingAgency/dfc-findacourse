@@ -43,7 +43,7 @@
 
         $('#QualificationLevelFilter').accordion();
 
-        $('#Dfe1619FundedFilter').accordion();
+        $('#IsDfe1619FundedFilter').accordion();
 
         $('#StudyModeFilter .form-group').multipleChoice({
             allChange: function (event) { allChangeHandler('#StudyModeFilter .accordion-subheading', event); },
@@ -65,21 +65,20 @@
             itemChange: function (event) { itemChangeHandler('#QualificationLevelFilter .accordion-subheading', event); }
         });
 
-        $('#Dfe1619FundedFilter .form-group').multipleChoice({
-            allChange: function (event) { allChangeHandler('#Dfe1619FundedFilter .accordion-subheading', event); },
-            itemChange: function (event) { itemChangeHandler('#Dfe1619FundedFilter .accordion-subheading', event); }
+        $("#IsDfe1619FundedFilter input[name='IsDfe1619Funded']").on('click', function () {
+            $('#FindACourseForm').submit();
         });
 
         $('#ClearAlFilters').clearAllFilters({
             filters: [
                 "input[name='LocationRadius']",
-                "input[name^='StudyMode']",
-                "input[name^='AttendanceMode']",
-                "input[name^='AttendancePattern']",
-                "input[name^='QualificationLevel']",
-                "input[name='Dfe1619Funded']"
+                "input[name='StudyMode']",
+                "input[name='AttendanceMode']",
+                "input[name='AttendancePattern']",
+                "input[name='QualificationLevel']",
+                "input[name='IsDfe1619Funded']"
             ],
-            defaultFilters: ['#LocationRadius10Miles'],
+            defaultFilters: ['#LocationRadius10Miles', '#IsDfe1619FundedAll'],
             done: function () {
                 $('.accordion-subheading').html('');
                 $('#FindACourseForm').submit();
