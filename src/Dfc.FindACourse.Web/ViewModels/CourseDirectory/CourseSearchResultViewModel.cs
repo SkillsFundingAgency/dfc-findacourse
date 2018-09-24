@@ -198,6 +198,24 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
             }
         }
 
+        public string IsDfe1619FundedAllChecked()
+        {
+            return IsDfe1619Funded == null ? "checked=\"checked\"" : string.Empty;
+        }
+
+        public string IsDfe1619FundedChecked(bool value)
+        {
+            if (IsDfe1619Funded != null)
+            {
+                if (IsDfe1619Funded.Value && value)
+                    return "checked=\"checked\"";
+                if (!IsDfe1619Funded.Value && !value)
+                    return "checked=\"checked\"";
+            }
+
+            return string.Empty;
+        }
+
         [Display(Name = "Course name")]
         [Required(ErrorMessage = "Enter a course name")]
         public string SubjectKeyword { get; set; }
@@ -220,5 +238,6 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
         public int[] AttendanceModes { get; set; }
         public int[] AttendancePatterns { get; set; }
         public int[] QualificationLevels { get; set; }
+        public bool? IsDfe1619Funded { get; set; }
     }
 }

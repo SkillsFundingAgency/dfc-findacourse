@@ -112,7 +112,8 @@ namespace Dfc.FindACourse.Web.Controllers
                 StudyModes = requestModel.StudyModes,
                 AttendanceModes = requestModel.AttendanceModes,
                 AttendancePatterns = requestModel.AttendancePatterns,
-                QualificationLevels = requestModel.QualificationLevels
+                QualificationLevels = requestModel.QualificationLevels,
+                IsDfe1619Funded = requestModel.IsDfe1619Funded
             });
             
         }

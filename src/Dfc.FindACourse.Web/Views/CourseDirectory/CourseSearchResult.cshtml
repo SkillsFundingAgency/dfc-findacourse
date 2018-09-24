@@ -291,7 +291,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="accordion" id="Dfe1619FundedFilter">
+                    <div class="accordion" id="IsDfe1619FundedFilter">
                         <div class="accordion-header">
                             <div class="accordion-heading">Age suitability</div>
                             <span class="accordion-header-icon"></span>
@@ -301,20 +301,20 @@
                                 <ul>
                                     <li>
                                         <div class="multiple-choice">
-                                            <input type="radio" name="Dfe1619Funded" id="Dfe1619FundedAll" value="all" />
-                                            <label for="Dfe1619FundedAll">All ages</label>
+                                            <input type="radio" name="IsDfe1619Funded" id="IsDfe1619FundedAll" value="all" @Model.IsDfe1619FundedAllChecked() />
+                                            <label for="IsDfe1619FundedAll">All ages</label>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="multiple-choice">
-                                            <input type="radio" name="Dfe1619Funded" id="Dfe1619Funded16To19" value="16To19" />
-                                            <label for="Dfe1619Funded16To19">16 to 19 year-olds</label>
+                                            <input type="radio" name="IsDfe1619Funded" id="IsDfe1619Funded16To19" value="true" @Model.IsDfe1619FundedChecked(true) />
+                                            <label for="IsDfe1619Funded16To19">16 to 19 year-olds</label>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="multiple-choice">
-                                            <input type="radio" name="Dfe1619Funded" id="Dfe1619Funded19plus" value="19plus" />
-                                            <label for="Dfe1619Funded19plus">19+ year-olds</label>
+                                            <input type="radio" name="IsDfe1619Funded" id="IsDfe1619Funded19plus" value="false" @Model.IsDfe1619FundedChecked(false) />
+                                            <label for="IsDfe1619Funded19plus">19+ year-olds</label>
                                         </div>
                                     </li>
                                 </ul>
