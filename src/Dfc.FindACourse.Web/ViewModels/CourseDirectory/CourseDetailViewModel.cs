@@ -1,6 +1,7 @@
 ﻿using Dfc.FindACourse.Common;
 using Dfc.FindACourse.Common.Interfaces;
 using Dfc.FindACourse.Common.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -35,8 +36,8 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
                 EntryRequirements = value.Coursedetails.EntryRequirements;
                 AssessmentMethod = value.Coursedetails.AssessmentMethod;
                 EquipmentRequired = value.Coursedetails.EquipmentRequired;
-                URL = value.Coursedetails.URL;
-                BookingURL = value.Coursedetails.BookingURL;
+                URL = Uri.IsWellFormedUriString(value.Coursedetails.URL, UriKind.Absolute) ? value.Coursedetails.URL : string.Empty;
+                BookingURL = Uri.IsWellFormedUriString(value.Coursedetails.BookingURL, UriKind.Absolute) ? value.Coursedetails.BookingURL : string.Empty;
                 TariffRequired = value.Coursedetails.TariffRequired;
                 LADID = value.Coursedetails.LADID;
                 QualificationReferenceAuthority = value.Coursedetails.QualificationReferenceAuthority;

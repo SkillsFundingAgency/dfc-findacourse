@@ -256,7 +256,9 @@ namespace Dfc.FindACourse.Services.CourseDirectory
            
             try
             {
-                if (null != opportunityDetail.Items && null != opportunityDetail.Items[0])
+                if (null != opportunityDetail.Items && null != opportunityDetail.Items[0]
+                        && null != opportunityDetail.ItemsElementName
+                         && opportunityDetail.ItemsElementName[0] != ItemsChoiceType.VenueID)
                     region = opportunityDetail.Items[0].ToString();
             }
             catch (InvalidCastException)
@@ -368,7 +370,7 @@ namespace Dfc.FindACourse.Services.CourseDirectory
                 provider.FEChoices_LearnerSatisfactionSpecified = providerDetail.FEChoices_LearnerSatisfactionSpecified;
                 provider.FEChoices_EmployerSatisfaction = providerDetail.FEChoices_EmployerSatisfaction;
                 provider.FEChoices_EmployerSatisfactionSpecified = providerDetail.FEChoices_EmployerSatisfactionSpecified;
-                provider.Website = providerDetail.Website;
+                provider.Website = Uri.IsWellFormedUriString(providerDetail.Website, UriKind.Absolute) ? providerDetail.Website: string.Empty ;
                 provider.Email = providerDetail.Email;
                 provider.Phone = providerDetail.Phone;
                 provider.UKPRN = providerDetail.Fax;
