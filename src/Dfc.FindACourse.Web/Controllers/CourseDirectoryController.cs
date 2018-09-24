@@ -111,7 +111,8 @@ namespace Dfc.FindACourse.Web.Controllers
                 PerPage = perPage,
                 StudyModes = requestModel.StudyModes,
                 AttendanceModes = requestModel.AttendanceModes,
-                AttendancePatterns = requestModel.AttendancePatterns
+                AttendancePatterns = requestModel.AttendancePatterns,
+                QualificationLevels = requestModel.QualificationLevels
             });
             
         }

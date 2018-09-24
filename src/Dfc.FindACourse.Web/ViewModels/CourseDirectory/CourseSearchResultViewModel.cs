@@ -86,7 +86,6 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
             }
         }
 
-
         public string AttendanceModeAllChecked()
         {
             var allAttendanceModes = Enum.GetValues(typeof(AttendanceMode)).Cast<AttendanceMode>().Where(x => IsDisplayable(x) && IsSelectable(x)).Cast<int>();
@@ -171,6 +170,34 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
             }
         }
 
+        public string QualificationLevelAllChecked()
+        {
+            var allQualificationLevels = Enum.GetValues(typeof(QualificationLevel)).Cast<QualificationLevel>().Where(x => IsDisplayable(x)).Cast<int>();
+            return StudyModes != null && Enumerable.SequenceEqual(allQualificationLevels, QualificationLevels) ? "checked=\"checked\"" : string.Empty;
+        }
+
+        public string QualificationLevelSelectedText()
+        {
+            return QualificationLevels == null || QualificationLevels.Length == 0 ? string.Empty : $"{QualificationLevels.Length} selected";
+        }
+
+        public string QualificationLevelChecked(int value)
+        {
+            return QualificationLevels != null && QualificationLevels.Contains(value) ? "checked=\"checked\"" : string.Empty;
+        }
+
+        internal static bool IsDisplayable(QualificationLevel qualificationLevel)
+        {
+            switch (qualificationLevel)
+            {
+                case QualificationLevel.Level9:
+                case QualificationLevel.LevelNa:
+                    return false;
+                default:
+                    return true;
+            }
+        }
+
         [Display(Name = "Course name")]
         [Required(ErrorMessage = "Enter a course name")]
         public string SubjectKeyword { get; set; }
@@ -192,5 +219,6 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
         public int[] StudyModes { get; set; }
         public int[] AttendanceModes { get; set; }
         public int[] AttendancePatterns { get; set; }
+        public int[] QualificationLevels { get; set; }
     }
 }

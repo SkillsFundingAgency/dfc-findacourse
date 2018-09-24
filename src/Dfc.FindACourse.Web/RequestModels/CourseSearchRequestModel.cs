@@ -10,13 +10,14 @@ namespace Dfc.FindACourse.Web.RequestModels
             StudyModes = new int[] { };
             AttendanceModes = new int[] { };
             AttendancePatterns = new int[] { };
+            QualificationLevels = new int[] { };
         }
 
         [Display(Name = "Course name")]
         [Required]
         public string SubjectKeyword { get; set; }
         public string Location { get; set; }
-        public int[] QualificationLevels { get; set; } = new int[] { };
+        public int[] QualificationLevels { get; set; }
         public int[] StudyModes { get; set; }
         public int[] AttendanceModes { get; set; }
         public int[] AttendancePatterns { get; set; }
