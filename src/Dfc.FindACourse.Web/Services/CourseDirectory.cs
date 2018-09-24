@@ -68,7 +68,8 @@ namespace Dfc.FindACourse.Web.Services
                 requestModel.LocationRadius,
                 requestModel.IsDfe1619Funded,
                 CourseDirectoryHelper.StudyModes(requestModel),
-                CourseDirectoryHelper.AttendanceModes(requestModel)
+                CourseDirectoryHelper.AttendanceModes(requestModel),
+                CourseDirectoryHelper.AttendancePatterns(requestModel)
             );
         }
 

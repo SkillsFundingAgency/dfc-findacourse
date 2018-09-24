@@ -183,7 +183,7 @@
                     <div class="accordion" id="AttendancePatternFilter">
                         <div class="accordion-header">
                             <div class="accordion-heading">Day, night or weekend</div>
-                            <div class="accordion-subheading"></div>
+                            <div class="accordion-subheading">@Model.AttendancePatternSelectedText()</div>
                             <span class="accordion-header-icon"></span>
                         </div>
                         <div class="accordion-panel">
@@ -191,25 +191,25 @@
                                 <ul>
                                     <li>
                                         <div class="multiple-choice">
-                                            <input type="checkbox" class="multiple-choice-all" name="AttendancePatternAll" id="AttendancePatternAll" value="all" />
+                                            <input type="checkbox" class="multiple-choice-all" name="AttendancePatternAll" id="AttendancePatternAll" value="all" @Model.AttendancePatternAllChecked() />
                                             <label for="AttendancePatternAll">Show all</label>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="multiple-choice">
-                                            <input type="checkbox" class="multiple-choice-item" name="AttendancePatternNormal" id="AttendancePatternNormal" value="Normal" />
+                                            <input type="checkbox" class="multiple-choice-item" name="AttendancePatterns" id="AttendancePatternNormal" value="1" @Model.AttendancePatternChecked(1) />
                                             <label for="AttendancePatternNormal">Normal working hours</label>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="multiple-choice">
-                                            <input type="checkbox" class="multiple-choice-item" name="AttendancePatternDayBlock" id="AttendancePatternDayBlock" value="DayBlock" />
+                                            <input type="checkbox" class="multiple-choice-item" name="AttendancePatterns" id="AttendancePatternDayBlock" value="2" @Model.AttendancePatternChecked(2) />
                                             <label for="AttendancePatternDayBlock">Day release/Block release</label>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="multiple-choice">
-                                            <input type="checkbox" class="multiple-choice-item" name="AttendancePatternEveningWeekend" id="AttendancePatternEveningWeekend" value="EveningWeekend" />
+                                            <input type="checkbox" class="multiple-choice-item" name="AttendancePatterns" id="AttendancePatternEveningWeekend" value="3" @Model.AttendancePatternChecked(3)/>
                                             <label for="AttendancePatternEveningWeekend">Evening/Weekend</label>
                                         </div>
                                     </li>

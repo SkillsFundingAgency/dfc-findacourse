@@ -256,8 +256,12 @@ namespace Dfc.FindACourse.Web.xUnit.UnitTests
             var criteria = new CourseSearchCriteria("test");
             var courseSearchResult = Result.Ok(new CourseSearchResult(1, 1, 1, new CourseItem[] { }));
             var expected = new CourseSearchResultViewModel(courseSearchResult)
-            { SubjectKeyword = fromQuery.SubjectKeyword, Location = fromQuery.Location };
-
+            {
+                SubjectKeyword = fromQuery.SubjectKeyword,
+                Location = fromQuery.Location,
+                AttendanceModes = fromQuery.AttendanceModes,
+                AttendancePatterns = fromQuery.AttendancePatterns
+            };
 
             MockTelemetryClient.Setup(x => x.TrackEvent(It.IsAny<string>(), null, null)).Verifiable();
             MockTelemetryClient.Setup(x => x.Flush()).Verifiable();

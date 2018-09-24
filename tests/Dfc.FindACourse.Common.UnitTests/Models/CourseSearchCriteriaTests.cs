@@ -55,7 +55,7 @@ namespace Dfc.FindACourse.Common.UnitTests.Models
            // Assert.Equal(new QualificationLevel[] { }, actual.QualificationLevels);
             Assert.Equal(new StudyModeExt[] { }, actual.StudyModes);
             Assert.Equal(new List<string>(), actual.AttendanceModes);
-            Assert.Equal(new AttendancePattern[] { }, actual.AttendancePatterns);
+            Assert.Equal(new List<string>(), actual.AttendancePatterns);
             Assert.Equal(default(bool?), actual.IsDfe1619Funded);
         }
 
