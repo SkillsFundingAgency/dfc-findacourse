@@ -143,6 +143,7 @@ namespace Dfc.FindACourse.Services.CourseDirectory
              courseDetail.LADID,
              courseDetail.QualificationReferenceAuthority,
              courseDetail.QualificationReference,
+             courseDetail.QualificationLevel.ToQualificationLevel(),
              courseDetail.QualificationTitle,
              courseDetail.Level2EntitlementCategoryDesc,
              courseDetail.Level3EntitlementCategoryDesc,

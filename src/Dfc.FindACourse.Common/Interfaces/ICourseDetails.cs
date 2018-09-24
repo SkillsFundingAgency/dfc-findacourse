@@ -31,6 +31,8 @@ namespace Dfc.FindACourse.Common.Interfaces
 
         string QualificationReference { get; }
 
+        QualificationLevel QualificationLevel { get; }
+
         string QualificationTitle { get; }
 
         string Level2EntitlementCategoryDesc { get; }
