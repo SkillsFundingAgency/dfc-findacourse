@@ -44,6 +44,24 @@
                                 }
                             </td>
                         </tr>
+                        @if (Model.QualificationLevel == QualificationLevel.Level9)
+                        {
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell">Qualification level</td>
+                                <td class="govuk-table__cell">
+                                    Unknown
+                                </td>
+                            </tr>
+                        }
+                        else if (Model.QualificationLevel != QualificationLevel.LevelNa)
+                        {
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell">Qualification level</td>
+                                <td class="govuk-table__cell">
+                                    @Model.QualificationLevel.GetDisplayName()
+                                </td>
+                            </tr>
+                        }
                         <tr class="govuk-table__row">
                             <td class="govuk-table__cell">Entry requirements</td>
                             <td class="govuk-table__cell">
@@ -52,8 +70,8 @@
                             </td>
                         </tr>
                         @if (!string.IsNullOrWhiteSpace(@Model.Opportunities[0].Price)
-|| !string.IsNullOrWhiteSpace(@Model.Opportunities[0].PriceDescription)
-|| (Model.Provider.TFPlusLoansSpecified && Model.Provider.TFPlusLoans))
+                                || !string.IsNullOrWhiteSpace(@Model.Opportunities[0].PriceDescription)
+                                     || (Model.Provider.TFPlusLoansSpecified && Model.Provider.TFPlusLoans))
                         {
                             <tr class="govuk-table__row">
                                 <td class="govuk-table__cell">Cost</td>
@@ -300,7 +318,7 @@
                     @if (Model.Opportunities.Count > 1)
                     {
                         <details>
-                            <summary style="position: relative;top:-10px">
+                            <summary style="position: relative;">
                                 <span style="color:#005ea5;">Other dates and venues</span>
                             </summary>
 

@@ -22,7 +22,7 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
                 CourseId = value.Coursedetails.CourseId;// Opportunity.Id;   
                 CourseTitle = value.Coursedetails.CourseTitle;
                 CourseSummary = value.Coursedetails.CourseSummary;
-                //QualificationLevel = value.Coursedetails.Le.QualificationLevel;
+                QualificationLevel = value.Coursedetails.QualificationLevel;
                 StudyMode = value.Opportunities[0].StudyMode;
                 AttendanceMode = value.Opportunities[0].AttendanceMode;
                 AttendencePattern = value.Opportunities[0].AttendancePattern;
@@ -53,7 +53,7 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
                 SkillsForLifeTypeDesc = value.Coursedetails.SkillsForLifeTypeDesc;
                 Venue = (Venue)value.Venue;
                 Provider = (Provider)value.Provider;
-                Opportunities = value.Opportunities.AsEnumerable().Cast<Opportunity>().ToList();
+                Opportunities = value.Opportunities.AsEnumerable().Cast<Opportunity>().OrderBy( o => o.StartDate.Date).ToList();
             }
 
 

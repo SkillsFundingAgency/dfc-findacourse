@@ -121,7 +121,7 @@ namespace Dfc.FindACourse.Common.Models
             Duration = duration ?? throw new ArgumentNullException(nameof(duration));
             //OppDetails
             Price = price;
-            PriceDescription = priceDescription.ToSentenceCase();
+            PriceDescription = priceDescription;// DFC-4427 Removed ToSentenceCase();
             EndDate = endDate;
             Timetable = timetable;
             LanguageOfAssessment = langOfAssess;
