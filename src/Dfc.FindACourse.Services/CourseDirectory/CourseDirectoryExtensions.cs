@@ -27,6 +27,7 @@ namespace Dfc.FindACourse.Services.CourseDirectory
             switch (qualificationLevel)
             {
                 case "Entry Level": return QualificationLevel.EntryLevel;
+                case "Entry level": return QualificationLevel.EntryLevel;
                 case "Level 1": return QualificationLevel.Level1;
                 case "Level 2": return QualificationLevel.Level2;
                 case "Level 3": return QualificationLevel.Level3;

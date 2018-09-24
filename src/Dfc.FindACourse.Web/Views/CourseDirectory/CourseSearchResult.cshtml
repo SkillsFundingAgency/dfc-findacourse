@@ -403,6 +403,13 @@
                                         }
                                     </ul>
                                     <ul class="result-item-course-info">
+                                        @if (item.QualificationLevel != QualificationLevel.LevelNa)
+                                        {
+                                            <li>
+                                                <span class="label">Level:</span>
+                                                <span class="value">@item.QualificationLevel.GetDisplayName()</span>
+                                            </li>
+                                        }
                                         <li>
                                             <span class="label">Provider:</span>
                                             <span class="value">@item.ProviderName</span>
