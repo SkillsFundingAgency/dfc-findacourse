@@ -110,7 +110,8 @@ namespace Dfc.FindACourse.Web.Controllers
                 LocationRadius = (RadiusDistance)requestModel.LocationRadius,
                 PerPage = perPage,
                 StudyModes = requestModel.StudyModes,
-                AttendanceModes = requestModel.AttendanceModes
+                AttendanceModes = requestModel.AttendanceModes,
+                AttendancePatterns = requestModel.AttendancePatterns
             });
             
         }

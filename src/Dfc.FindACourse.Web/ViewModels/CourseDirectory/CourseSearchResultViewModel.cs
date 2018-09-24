@@ -90,7 +90,6 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
         public string AttendanceModeAllChecked()
         {
             var allAttendanceModes = Enum.GetValues(typeof(AttendanceMode)).Cast<AttendanceMode>().Where(x => IsDisplayable(x) && IsSelectable(x)).Cast<int>();
-            //return AttendanceModes != null && AttendanceModes.Length > 0 && (AttendanceModes.Intersect(allAttendanceModes).Count() == AttendanceModes.Count()) ? "checked=\"checked\"" : string.Empty;
             return AttendanceModes != null && Enumerable.SequenceEqual(allAttendanceModes, AttendanceModes) ? "checked=\"checked\"" : string.Empty;
         }
 
@@ -116,6 +115,7 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
                     return true;
             }
         }
+
         internal static bool IsSelectable(AttendanceMode attendanceMode)
         {
             switch (attendanceMode)
@@ -123,6 +123,48 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
                 case AttendanceMode.LocationCampus:
                 case AttendanceMode.WorkBased:
                 case AttendanceMode.DistanceWithAttendance:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        public string AttendancePatternAllChecked()
+        {
+            var allAttendancePatterns = Enum.GetValues(typeof(AttendancePattern)).Cast<AttendancePattern>().Where(x => IsDisplayable(x) && IsSelectable(x)).Cast<int>();
+            return AttendancePatterns != null && Enumerable.SequenceEqual(allAttendancePatterns, AttendancePatterns) ? "checked=\"checked\"" : string.Empty;
+        }
+
+        public string AttendancePatternSelectedText()
+        {
+            return AttendancePatterns == null || AttendancePatterns.Length == 0 ? string.Empty : $"{AttendancePatterns.Length} selected";
+        }
+
+        public string AttendancePatternChecked(int value)
+        {
+            return AttendancePatterns != null && AttendancePatterns.Contains(value) ? "checked=\"checked\"" : string.Empty;
+        }
+
+        internal static bool IsDisplayable(AttendancePattern attendancePattern)
+        {
+            switch (attendancePattern)
+            {
+                case AttendancePattern.Customised:
+                case AttendancePattern.NotKnown:
+                case AttendancePattern.NotApplicable:
+                    return false;
+                default:
+                    return true;
+            }
+        }
+
+        internal static bool IsSelectable(AttendancePattern attendancePattern)
+        {
+            switch (attendancePattern)
+            {
+                case AttendancePattern.DaytimeWorkHours:
+                case AttendancePattern.DayBlockRelease:
+                case AttendancePattern.Evening:
                     return true;
                 default:
                     return false;
@@ -149,5 +191,6 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
         public List<CourseSearchResultItemViewModel> Items { get; set; }
         public int[] StudyModes { get; set; }
         public int[] AttendanceModes { get; set; }
+        public int[] AttendancePatterns { get; set; }
     }
 }

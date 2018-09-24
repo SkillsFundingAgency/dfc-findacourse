@@ -14,7 +14,7 @@ namespace Dfc.FindACourse.Common.Models
         public List<QualLevel> QualificationLevels { get; set; }
         public List<StudyModeExt> StudyModes { get; set; }
         public List<string> AttendanceModes { get; set; }
-        public List<AttendancePattern> AttendancePatterns { get; set; }
+        public List<string> AttendancePatterns { get; set; }
         public bool? IsDfe1619Funded { get; set; }
 
         public CourseSearchCriteria(string subjectKeyword)
@@ -27,7 +27,7 @@ namespace Dfc.FindACourse.Common.Models
             QualificationLevels = new List<QualLevel>();
             StudyModes = new List<StudyModeExt>();
             AttendanceModes = new List<string>();
-            AttendancePatterns = new List<AttendancePattern>();
+            AttendancePatterns = new List<string>();
         }
         public CourseSearchCriteria(string subjectKeyword, List<QualLevel> qualLevels, string postcode, int radius)
         {
@@ -40,7 +40,7 @@ namespace Dfc.FindACourse.Common.Models
             QualificationLevels = qualLevels;
             StudyModes = new List<StudyModeExt>();
             AttendanceModes = new List<string>();
-            AttendancePatterns = new List<AttendancePattern>();
+            AttendancePatterns = new List<string>();
         }
         public CourseSearchCriteria(string subjectKeyword, List<QualLevel> qualLevels, string postcode, int radius, bool? dfeFunded)
         {
@@ -54,9 +54,9 @@ namespace Dfc.FindACourse.Common.Models
             IsDfe1619Funded = dfeFunded;
             StudyModes = new List<StudyModeExt>();
             AttendanceModes = new List<string>();
-            AttendancePatterns = new List<AttendancePattern>();
+            AttendancePatterns = new List<string>();
         }
-        public CourseSearchCriteria(string subjectKeyword, List<QualLevel> qualLevels, string postcode, int radius, bool? dfeFunded, List<StudyModeExt> studyModes, List<string> attendanceModes)
+        public CourseSearchCriteria(string subjectKeyword, List<QualLevel> qualLevels, string postcode, int radius, bool? dfeFunded, List<StudyModeExt> studyModes, List<string> attendanceModes, List<string> attendancePatterns)
         {
             if (string.IsNullOrWhiteSpace(subjectKeyword))
                 throw new ArgumentException($"{nameof(subjectKeyword)} cannot be null, empty or only whitespace.");
@@ -68,7 +68,7 @@ namespace Dfc.FindACourse.Common.Models
             IsDfe1619Funded = dfeFunded;
             StudyModes = studyModes;
             AttendanceModes = attendanceModes;
-            AttendancePatterns = new List<AttendancePattern>();
+            AttendancePatterns = attendancePatterns;
         }
         protected override IEnumerable<object> GetEqualityComponents()
         {
