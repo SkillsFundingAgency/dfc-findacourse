@@ -360,7 +360,9 @@
                         <dfc-select id="SortBy"
                                     name="SortBy"
                                     class="form-control form-control-1-4"
-                                    dfc-items="Html.GetEnumSelectList<SortBy>()">
+                                    dfc-selected-item="Html.GetEnumSelectListItem<CourseSearchResultViewModel, SortBy>(Model.SortBy)"
+                                    dfc-items="Html.GetEnumSelectList<SortBy>()"
+                                    dfc-ignored-item-values="new Enum[] { SortBy.StartDate }">
                         </dfc-select>
                     </div>
                     <hr class="bold-line" />

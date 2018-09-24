@@ -261,5 +261,12 @@ namespace Dfc.FindACourse.Web.Services
 
             return result;
         }
+
+        public SortBy GetSortBy(int value)
+        {
+            if (value == 1) return SortBy.Distance;
+
+            return SortBy.Relevance;
+        }
     }
 }

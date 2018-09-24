@@ -25,5 +25,6 @@ namespace Dfc.FindACourse.Web.RequestModels
         public string LocationCoordinates { get; set; }
         public int LocationRadius { get; set; }
         public int PageNo { get; set; }
+        public int SortBy { get; set; }
     }
 }
