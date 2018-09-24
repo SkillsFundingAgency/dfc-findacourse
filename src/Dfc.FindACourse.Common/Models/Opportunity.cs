@@ -132,7 +132,7 @@ namespace Dfc.FindACourse.Common.Models
             ApplyFrom = applyfrom;
             ApplyUntil = applyuntil;
             ApplyUntilDescription = applyuntildesc;
-            URL = url;
+            URL = Uri.IsWellFormedUriString(url, UriKind.Absolute) ? url : string.Empty;
             A10 = a10;
             Items = items;
             ItemsElementName =  itemsElementName;
