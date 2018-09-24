@@ -273,3 +273,4 @@ __pycache__/
 **/*.DS_Store
 /automatedtests/ESFA.UI.Specflow.Framework/Project/Tests/Features/FindACourseWithBackground.feature
 /automatedtests/ESFA.UI.Specflow.Framework/Project/Tests/Features/FindACourseWithBackground.feature.cs
+/automatedtests/new_windows.playlist

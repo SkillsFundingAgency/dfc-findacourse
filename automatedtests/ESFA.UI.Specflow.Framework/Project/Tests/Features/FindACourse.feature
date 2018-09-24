@@ -10,13 +10,13 @@
 		And I select distance <Distance>
 
   Examples:
-    | CourseName  | Location   | Distance |
-    | Chemistry   | b13 9da    | 1 Mile   |
-    | Bricklaying | B13 9DA    | 3 Miles  |
-    | Maths       | b13 9da      | 5 Miles  |
+    | CourseName  | Location | Distance |
+    | Chemistry   | b13 9da  | 1 Mile   |
+    | Bricklaying | B13 9DA  | 3 Miles  |
+    | Maths       | b13 9da  | 5 Miles  |
     | English     | b13 9da  | 10 Miles |
-    | Plumbing    | b13 9da      | 15 Miles |
-    | Electronic  | b13 9da      | 20 Miles |
+    | Plumbing    | b13 9da  | 15 Miles |
+    | Electronic  | b13 9da  | 20 Miles |
     | Medicine    | b13 9da  | National |  
 
 
@@ -172,17 +172,22 @@ Scenario Outline: DFC-4090 Search for Courses By Location & Distance Null Result
 		Then I should be on Search Results for page
 
   Examples:
-    | CourseName  | 
-    | Chemistry   | 
-    | Bricklaying | 
-    | Maths       | 
-    | English     | 
-    | Plumbing    | 
-    | Electronic  | 
-    | Medicine    | 
-    | Biology     | 
-    | Physics     | 
-
+    | CourseName        |
+    | Chemistry         |
+    | chemsitry         |
+    | CHEMISTRY         |
+    | PLUMMING          |
+    | Plumbing          |
+    | PLUMING           |
+    | BRICKLAYER        |
+    | BRICK LAYER       |
+    | hair and beuaty   |
+    | Hair & Beauty     |
+    | (Hair and Beuaty) |
+    | hair-beuaty       |
+    | a-level biology   |
+    | A-LEVEL BIOLOGY   |
+    | A Level Biology   |
 
 @DFC-3888
 	Scenario Outline: DFC-3888 Search for Courses By Course Name Null Results
@@ -193,8 +198,10 @@ Scenario Outline: DFC-4090 Search for Courses By Location & Distance Null Result
 		And no results found message is displayed
 
   Examples:
-    | CourseName  | 
-    | bbbbbbbbb   | 
+    | CourseName  |
+    | bbbbbbbbb   |
+    | 1234567890  |
+    | aaBBccDD123 |
 
 
 @DFC-3883
@@ -210,13 +217,14 @@ Scenario Outline: DFC-4090 Search for Courses By Location & Distance Null Result
     | CourseName | AutopopulateList                                                                                                      |
     | team       | TEAM,TEAM BUILDING,TEAM WORK,TEAM WORKING,TEAMWORK,TEAMWORKING                                                        |
     | builder    | BUILDER,BUILDING,BUILDING MAINTENANCE,BUILDING SERVICES,BUILDING SERVICES ENGINEERING,BUILDING SURVEYING,CONSTRUCTION |
-	
 
-@DFC-4094
-	Scenario: DFC-4094 Contact Adviser
-		Given I navigate to Find a Course home page
-		When I click Contact an adviser link
-		Then I will be on Contact us page
+	
+#BUG
+#@DFC-4094
+#	Scenario: DFC-4094 Contact Adviser
+#		Given I navigate to Find a Course home page
+#		When I click Contact an adviser link
+#		Then I will be on Contact us page
 
 
 @DFC-3887

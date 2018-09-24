@@ -127,5 +127,27 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.StepDefinitions
             findACourseSearchResultsPage.SelectFirstCourseAndStoreData();
             
         }
+
+        [When(@"On Page 2 I enter course (.*)")]
+        public void Page2EnterCourseName(string courseName)
+        {
+            FindACourseSearchResultsPage findACourseSearchResultsPage = new FindACourseSearchResultsPage(webDriver);
+            findACourseSearchResultsPage.EnterCourseName(courseName);
+        }
+
+        [When(@"On Page 2 I click Search")]
+        public void OnPage2ClickSearch()
+        {
+            webDriver.FindElement(By.Name("Search")).Submit();
+        }
+
+        [When(@"On Page 2 I enter location (.*)")]
+        public void WhenOnPageIEnterLocationBSJG(string location)
+        {
+            FindACourseSearchResultsPage findACourseSearchResultsPage = new FindACourseSearchResultsPage(webDriver);
+            findACourseSearchResultsPage.EnterLocation(location);
+        }
+
+
     }
 }

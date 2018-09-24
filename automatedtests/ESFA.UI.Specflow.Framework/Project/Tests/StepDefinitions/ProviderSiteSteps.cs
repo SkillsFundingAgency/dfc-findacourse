@@ -8,23 +8,21 @@ using TechTalk.SpecFlow;
 namespace ESFA.UI.Specflow.Framework.Project.Tests.StepDefinitions
 {
 	[Binding]
-	public class GoogleMapsSteps : BaseTest
+	public class ProviderSiteSteps : BaseTest
 	{
 
-		[Given(@"I am on the Google Maps page")]
-		public void NavigateToGoogleMaps()
+		[Given(@"I am on the Provider site page")]
+		public void NavigateToProviderSite()
 		{
 			//webDriver.Url = Configurator.GetConfiguratorInstance().GetBaseUrl();
 		}
 
-		[Then(@"I will be on Google Maps page")]
-		public void ConfirmGoogleMapsPage()
+		[Then(@"I am on the provider website")]
+		public void ConfirmProviderSite()
 		{
             Thread.Sleep(3000);
             WindowHelper.SwitchToNewWindow(webDriver);
-            GoogleMapsPage contactUsPage = new GoogleMapsPage(webDriver);
-
+            ProviderSitePage providerSitePage = new ProviderSitePage(webDriver);
         }
-
-	}
+    }
 }

@@ -35,12 +35,21 @@ Scenario Outline: DFC-3973 View Course Details display Course Title
 	And course title information is displayed
 
   Examples:
-    | CourseName | Location |
-    | Maths      | b13 8py  |
-    | Electrical | b13 8py  |
+    | CourseName             | Location |
+    | Maths                  | b13 8py  |
+    | Electrical             | b13 8py  |
+    | ENGLISH                | BS1 1JG  |
+    | COMPUTING              | NE7 7SF  |
+    | COMPUTER STUDIES       | M9 0FN   |
+    | IT                     | L4 1SE   |
+    | INFORMATION TECHNOLOGY | LS1 1UR  |
+    | ICT                    | S1 2HE   |
+    | COMPUTER SCIENCE       | BD1 1AJ  |
+    | SOFTWARE ENGINEERING   | E8 1DY   |
+    | INFORMATION SYSTEMS    | YO1 6GA  |
+    | COMPUTING              | SW2 1RW  |
 
 
-# BUG
 @DFC-3973
 Scenario Outline: DFC-3973 View Course Details display Qualification
 	Given I navigate to Find a Course home page
@@ -70,10 +79,10 @@ Scenario Outline: DFC-3973 View Course Details display Entry Requirements
 	And Entry Requirements <EntryRequirements> are displayed
 
   Examples:
-    | CourseName    | Location | EntryRequirements                                      |
-    | Hair & Beauty | b14 7en  | Successful interview            |
-    | Electrical    | b14 7en  | enter |
-    | Gardening     | b14 7en  | There are no prerequisites for entry                   |
+    | CourseName    | Location | EntryRequirements                    |
+    | Hair & Beauty | b14 7en  | Successful interview                 |
+    | Electrical    | b14 7en  | enter                                |
+    | Gardening     | b14 7en  | There are no prerequisites for entry |
 
 
 
@@ -129,8 +138,6 @@ Scenario Outline: DFC-3973 View Course Details display Start Date
     | Gardening  | EC1a 1BB   |
 
 
-
-
 @DFC-3973
 Scenario Outline: DFC-3973 View Course Details display Duration
 	Given I navigate to Find a Course home page
@@ -163,6 +170,7 @@ Scenario Outline: DFC-3973 View Course Details display Study Mode
   Examples:
     | CourseName | Location |
     | baker      | M1 1AE  |
+	   | geology    | b14 7rn  |
 
 
 
@@ -180,6 +188,7 @@ Scenario Outline: DFC-3973 View Course Details display Attendance Pattern
   Examples:
     | CourseName | Location |
     | baker      | M1 1AE  |
+	   | geology    | b14 7rn  |
 
 
 @DFC-3973
@@ -196,6 +205,7 @@ Scenario Outline: DFC-3973 View Course Details display Attendance Mode
   Examples:
     | CourseName | Location |
     | baker      | M1 1AE  |
+	   | geology    | b14 7rn  |
 
 
 @DFC-4194
@@ -211,5 +221,144 @@ Scenario Outline: DFC-4914 Venue on Google Maps
 	Then I will be on Google Maps page
 
   Examples:
-    | CourseName | Location |
-    | baker      | M1 1AE  |
+    | CourseName                                       | Location |
+    | baker                                            | M1 1AE   |
+    | geology                                          | b14 7rn  |
+    | BTEC Level 4 Certificate in Education & Training | gu21 6yl |
+    | Gardening                                        | b14 7en  |
+    | COMPUTER SCIENCE                                 | BD1 1AJ  |
+    | SOFTWARE ENGINEERING                             | E8 1DY   |
+    | INFORMATION SYSTEMS                              | YO1 6GA  |
+    | COMPUTING                                        | SW2 1RW  |
+    | COMPUTING                                        | NE7 7SF  |
+    | COMPUTER STUDIES                                 | M9 0FN   |
+    | IT                                               | L4 1SE   |
+
+@DFC-3976
+Scenario Outline: DFC-3976 Provider and Venue details are displayed
+	Given I navigate to Find a Course home page
+	When I enter course <CourseName>
+	And I select qualification <QualificationLevel>
+	And I enter location <Location>
+	And I click Search
+	Then I should be on Search Results for page
+	When I select course title
+	Then the View Course details page is displayed
+	And the Provider name is displayed
+	And the <Provider/Venue> Name is displayed
+	And the Venue Address is displayed
+	And the <Provider/Venue> Website is displayed
+	And the <Provider/Venue> Email is displayed
+	And the <Provider/Venue> Phone Number is displayed
+
+  Examples:
+    | CourseName | QualificationLevel                                   | Location | Provider/Venue |
+    | Chemistry  | Level 3 - A level/Access to higher education diploma | B63 3NA  | Venue          |
+    | Physics    | Level 3 - A level/Access to higher education diploma | B63 3NA  | Venue          |
+    | maths      | Level 3 - A level/Access to higher education diploma | B63 3NA  | Venue          |
+    | statistics | Level 3 - A level/Access to higher education diploma | B63 3NA  | Venue          |
+    | english    | Level 3 - A level/Access to higher education diploma | B63 3NA  | Venue          |
+    | history    | Level 3 - A level/Access to higher education diploma | B63 3NA  | Venue          |
+    | geography  | Level 3 - A level/Access to higher education diploma | B63 3NA  | Venue          |
+
+
+### additional steps required
+@DFC-3976
+Scenario Outline: DFC-3976 Provider details are displayed when no Venue exists
+	Given I navigate to Find a Course home page
+	When I enter course <CourseName>
+	And I click Search
+	Then I should be on Search Results for page
+	When I select course title
+	Then the View Course details page is displayed
+	And the Provider name is displayed
+	And the Provider address is displayed
+
+  Examples:
+    | CourseName                   | Location | Provider/Venue |
+    | Cyber & Information Security | gu21 6yl | Provider       |
+
+
+
+@DFC-3974
+Scenario Outline: DFC-3974 Enrol Now Button
+	Given I navigate to Find a Course home page
+	When I enter course <CourseName>
+	And I click Search
+	Then I should be on Search Results for page
+	When I select course title
+	Then the View Course details page is displayed
+	And the Provider name is displayed
+	And I click the Enrol Now Button
+	Then I am on the provider website
+
+  Examples:
+    | CourseName |
+    | Maths      |
+    | biology    |
+    | english    |
+    | physics    |
+
+@DFC-3974
+Scenario Outline: DFC-3974 More Information Button
+	Given I navigate to Find a Course home page
+	When I enter course <CourseName>
+	And I click Search
+	Then I should be on Search Results for page
+	When I select course title
+	Then the View Course details page is displayed
+	And the Provider name is displayed
+	And I click the More Information Button
+    Then I am on the provider website
+
+  Examples:
+    | CourseName |
+    | Education    |
+
+
+@DFC-3975
+Scenario Outline: DFC-3975 View Course description
+	Given I navigate to Find a Course home page
+	When I enter course <CourseName>
+	And I click Search
+	Then I should be on Search Results for page
+	When I select course title
+	Then the View Course details page is displayed
+	And the course description is displayed
+
+  Examples:
+    | CourseName      |
+    | Maths           |
+    | cake decoration |
+    | cake baking     |
+
+
+@DFC-3975
+Scenario Outline: DFC-3975 View Course equipment
+	Given I navigate to Find a Course home page
+	When I enter course <CourseName>
+	And I click Search
+	Then I should be on Search Results for page
+	When I select course title
+	Then the View Course details page is displayed
+	And the course equipment is displayed
+
+  Examples:
+    | CourseName      |
+    | CAKE DECORATION |
+    | cake baking     |
+
+
+	@DFC-3975
+Scenario Outline: DFC-3975 View Course assessment method
+	Given I navigate to Find a Course home page
+	When I enter course <CourseName>
+	And I click Search
+	Then I should be on Search Results for page
+	When I select course title
+	Then the View Course details page is displayed
+	And the course assessment is displayed
+
+  Examples:
+    | CourseName |
+    | CAKE DECORATION    |

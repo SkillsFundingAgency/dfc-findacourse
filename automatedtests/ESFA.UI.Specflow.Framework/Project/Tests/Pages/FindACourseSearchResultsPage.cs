@@ -33,7 +33,9 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.Pages
         private readonly By distance = By.XPath(".//*[@id='FindACourseForm']/div[2]/div[2]/div[2]/div/div/div[1]/ul[2]/li[3]/span[2]");
         private readonly By startDate = By.XPath(".//*[@id='FindACourseForm']/div[2]/div[2]/div[2]/div/div/div[1]/ul[2]/li[4]/span[2]");
         private readonly By duration = By.XPath(".//*[@id='FindACourseForm']/div[2]/div[2]/div[2]/div/div/div[1]/ul[2]/li[5]/span[2]");
-
+        private readonly By courseName = By.Id("SubjectKeyword");
+        private readonly By searchBtn = By.Id("Search");
+        private readonly By postcode = By.Id("Location");
 
         internal FindACourseSearchResultsPage CheckNullResults()
         {
@@ -118,6 +120,11 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.Pages
             //add information to sceanrio context to use on page 3
             ScenarioContext.Current["CourseTitle"] = webDriver.FindElement(courseTitle).GetAttribute("innerText");
 
+            if (PageInteractionHelper.IsElementPresent(provider))
+            {
+                ScenarioContext.Current["ProviderName"] = webDriver.FindElement(provider).GetAttribute("innerText");
+            }
+
             if (PageInteractionHelper.IsElementPresent(startDate))
             {
                 ScenarioContext.Current["StartDate"] = webDriver.FindElement(startDate).GetAttribute("innerText");
@@ -146,6 +153,18 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.Pages
             }
                 
             FormCompletionHelper.ClickElement(courseTitle);
+            return new FindACourseSearchResultsPage(webDriver);
+        }
+
+        internal FindACourseSearchResultsPage EnterCourseName(String courseTxt)
+        {
+            FormCompletionHelper.EnterText(courseName, courseTxt);
+            return new FindACourseSearchResultsPage(webDriver);
+        }
+
+        internal FindACourseSearchResultsPage EnterLocation(String location)
+        {
+            FormCompletionHelper.EnterText(postcode, location);
             return new FindACourseSearchResultsPage(webDriver);
         }
 
