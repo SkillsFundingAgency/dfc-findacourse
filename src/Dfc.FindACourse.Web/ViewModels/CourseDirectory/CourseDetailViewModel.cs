@@ -53,7 +53,7 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
                 SkillsForLifeTypeDesc = value.Coursedetails.SkillsForLifeTypeDesc;
                 Venue = (Venue)value.Venue;
                 Provider = (Provider)value.Provider;
-                Opportunities = value.Opportunities.AsEnumerable().Cast<Opportunity>().ToList();
+                Opportunities = value.Opportunities.AsEnumerable().Cast<Opportunity>().OrderBy( o => o.StartDate.Date).ToList();
             }
 
 
