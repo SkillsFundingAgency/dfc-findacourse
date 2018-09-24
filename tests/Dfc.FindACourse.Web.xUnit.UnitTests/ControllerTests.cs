@@ -260,7 +260,8 @@ namespace Dfc.FindACourse.Web.xUnit.UnitTests
                 SubjectKeyword = fromQuery.SubjectKeyword,
                 Location = fromQuery.Location,
                 AttendanceModes = fromQuery.AttendanceModes,
-                AttendancePatterns = fromQuery.AttendancePatterns
+                AttendancePatterns = fromQuery.AttendancePatterns,
+                QualificationLevels = fromQuery.QualificationLevels
             };
 
             MockTelemetryClient.Setup(x => x.TrackEvent(It.IsAny<string>(), null, null)).Verifiable();
