@@ -84,5 +84,9 @@
                 $('#FindACourseForm').submit();
             }
         });
+
+        $('#SortBy').on('change', function () {
+            $('#FindACourseForm').submit();
+        });
     });
 })();

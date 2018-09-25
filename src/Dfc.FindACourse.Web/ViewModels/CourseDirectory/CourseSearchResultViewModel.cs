@@ -226,7 +226,7 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
         public string LocationError => _locationError;
 
         public RadiusDistance LocationRadius { get; set; }
-        public string SortyBy { get; set; }
+        public SortBy SortBy { get; set; }
         public int StartNo { get; set; }
         public int EndNo { get; set; }
         public int NoOfRecords { get; set; }

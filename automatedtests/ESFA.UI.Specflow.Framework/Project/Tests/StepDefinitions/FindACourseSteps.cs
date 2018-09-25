@@ -95,7 +95,7 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.StepDefinitions
         public void ClickLinkonFindACoursePage(string linkToClick)
         {
             Thread.Sleep(2000);
-            webDriver.FindElement(By.PartialLinkText(linkToClick)).Click();
+            webDriver.FindElement(By.LinkText(linkToClick)).Click();
         }
 
 

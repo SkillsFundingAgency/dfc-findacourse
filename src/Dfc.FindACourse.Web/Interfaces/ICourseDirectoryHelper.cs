@@ -15,5 +15,6 @@ namespace Dfc.FindACourse.Web.Interfaces
         bool HasQualificationLevels(ICourseSearchRequestModel requestModel);
         List<string> AttendanceModes(ICourseSearchRequestModel requestModel);
         List<string> AttendancePatterns(ICourseSearchRequestModel requestModel);
+        SortBy GetSortBy(int value);
     }
 }

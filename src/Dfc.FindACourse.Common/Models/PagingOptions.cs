@@ -16,7 +16,7 @@ namespace Dfc.FindACourse.Common.Models
             if (pageNo < 0)
                 throw new ArgumentOutOfRangeException(nameof(pageNo));
 
-            SortBy = SortBy;
+            SortBy = sortBy;
             PageNo = pageNo;
         }
 
