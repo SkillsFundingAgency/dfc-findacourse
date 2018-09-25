@@ -1,4 +1,5 @@
-﻿/// <binding />
+﻿/* eslint-disable no-console */
+/// <binding />
 "use strict";
 
 // requires
@@ -49,6 +50,9 @@ var jsVendorDeps = {
     },
     "govuk_frontend_toolkit": {
         "javascripts/**/*.js": ""
+    },
+    "readmore-js": {
+        "readmore.min.js": ""
     }
 };
 
