@@ -42,6 +42,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Data\**\*" CopyToPublishDirectory="Always" />
+    <Content Update="Data\**\*" CopyToPublishDirectory="Always" />
   </ItemGroup>
 </Project>
