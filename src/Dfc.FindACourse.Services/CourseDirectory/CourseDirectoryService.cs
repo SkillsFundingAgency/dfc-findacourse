@@ -47,9 +47,6 @@ namespace Dfc.FindACourse.Services.CourseDirectory
             }
         }
 
-
-
-        //ASB TODO THIS NEEDS REFACTORING
         public IResult<Common.Models.CourseItemDetail> CourseItemDetail(int? courseDetailsId, int? opportunityId)
         {
             if (courseDetailsId == null)
