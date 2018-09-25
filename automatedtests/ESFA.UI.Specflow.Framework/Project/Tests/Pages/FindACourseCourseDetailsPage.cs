@@ -21,19 +21,21 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.Pages
             return PageInteractionHelper.VerifyPageHeading(courseDetailsPage, PAGE_TITLE);
         }
 
+        //TO DO - TIDY UP
         private readonly By courseDetailsPage = By.TagName("h2");
         private readonly By noResultsErrorMsg = By.XPath(".//*[@id='FindACourseForm']");
         private readonly string errorString = "There are no courses matching that name. Make sure that you've spelled it correctly, or use a broader description of the course.";
         private readonly By courseTitle = By.XPath(".//*[@id='content']/div[2]/div[1]/h1");
         private readonly By qualification = By.XPath(".//*[@id='1']/table/tbody/tr[1]/td[2]");
-        private readonly By entryRequirements = By.XPath(".//*[@id='1']/table/tbody/tr[2]/td[2]");
-        private readonly By cost = By.XPath(".//*[@id='1']/table/tbody/tr[3]/td[2]");
+        private readonly By qualificationLevel = By.XPath(".//*[@id='1']/table/tbody/tr[2]/td[2]");
+        private readonly By entryRequirements = By.XPath(".//*[@id='1']/table/tbody/tr[3]/td[2]");
+        private readonly By cost = By.XPath(".//*[@id='1']/table/tbody/tr[4]/td[2]");
         private readonly By advancedlink = By.PartialLinkText("Advanced Learner");
-        private readonly By startDate = By.XPath(".//*[@id='1']/table/tbody/tr[4]/td[2]");
-        private readonly By duration = By.XPath(".//*[@id='1']/table/tbody/tr[5]/td[2]");
-        private readonly By studyMode = By.XPath(".//*[@id='1']/table/tbody/tr[6]/td[2]");
-        private readonly By attendanceMode = By.XPath(".//*[@id='1']/table/tbody/tr[7]/td[2]");
-        private readonly By attendancePattern = By.XPath(".//*[@id='1']/table/tbody/tr[8]/td[2]");
+        private readonly By startDate = By.XPath(".//*[@id='1']/table/tbody/tr[5]/td[2]");
+        private readonly By duration = By.XPath(".//*[@id='1']/table/tbody/tr[6]/td[2]");
+        private readonly By studyMode = By.XPath(".//*[@id='1']/table/tbody/tr[7]/td[2]");
+        private readonly By attendanceMode = By.XPath(".//*[@id='1']/table/tbody/tr[8]/td[2]");
+        private readonly By attendancePattern = By.XPath(".//*[@id='1']/table/tbody/tr[9]/td[2]"); 
         private readonly By maplink = By.PartialLinkText("Google map");
         private readonly By providerName = By.XPath(".//*[@id='6']/aside/p");
         private readonly By venueName = By.XPath(".//*[@id='6']/aside/table[1]/tbody/tr[1]/td[2]");
@@ -190,7 +192,6 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.Pages
             PageInteractionHelper.IsElementDisplayed(assessment);
             return new FindACourseCourseDetailsPage(webDriver);
         }
-
     }
 
  }

@@ -219,16 +219,16 @@ Scenario Outline: DFC-4090 Search for Courses By Location & Distance Null Result
     | builder    | BUILDER,BUILDING,BUILDING MAINTENANCE,BUILDING SERVICES,BUILDING SERVICES ENGINEERING,BUILDING SURVEYING,CONSTRUCTION |
 
 	
-#BUG
-#@DFC-4094
-#	Scenario: DFC-4094 Contact Adviser
-#		Given I navigate to Find a Course home page
-#		When I click Contact an adviser link
-#		Then I will be on Contact us page
+
+@DFC-4094
+Scenario: DFC-4094 Contact Adviser
+	Given I navigate to Find a Course home page
+	When I click Contact a Careers Advisor link
+	Then I will be on Contact us page
 
 
 @DFC-3887
-	Scenario: DFC-3887 View Qualification Level Help Text
-		Given I navigate to Find a Course home page
-		When I click What qualification levels mean link
-		Then I will be on What qualification levels mean page
+Scenario: DFC-3887 View Qualification Level Help Text
+	Given I navigate to Find a Course home page
+	When I click What qualification levels mean link
+	Then I will be on What qualification levels mean page

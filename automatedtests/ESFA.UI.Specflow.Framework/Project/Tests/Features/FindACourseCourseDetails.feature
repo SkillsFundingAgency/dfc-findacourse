@@ -79,10 +79,10 @@ Scenario Outline: DFC-3973 View Course Details display Entry Requirements
 	And Entry Requirements <EntryRequirements> are displayed
 
   Examples:
-    | CourseName    | Location | EntryRequirements                    |
-    | Hair & Beauty | b14 7en  | Successful interview                 |
-    | Electrical    | b14 7en  | enter                                |
-    | Gardening     | b14 7en  | There are no prerequisites for entry |
+    | CourseName    | Location | EntryRequirements                      |
+    | Hair & Beauty | b14 7en  | There are no formal entry requirements |
+    | Electrical    | b14 7en  | Concessions may apply                  |
+    | Gardening     | b14 7en  | TBC                                    |
 
 
 
@@ -98,9 +98,9 @@ Scenario Outline: DFC-3973 View Course Details display Cost
 	And Cost Details <Cost> are displayed
 
   Examples:
-    | CourseName | Location | Cost                                  |
-    | Gardening  | b14 7en  | Tbc                                   |
-    | Electrical | b14 7en  | To Be Confirmed |
+    | CourseName                                  | Location | Cost            |
+    | Horticulture (City & Guilds) Diploma        | b14 7en  | To Be Confirmed |
+    | Diploma in Electrical Installation, Level 1 | b14 7en  | £2,200.00       |
 
 
 
@@ -252,14 +252,14 @@ Scenario Outline: DFC-3976 Provider and Venue details are displayed
 	And the <Provider/Venue> Phone Number is displayed
 
   Examples:
-    | CourseName | QualificationLevel                                   | Location | Provider/Venue |
-    | Chemistry  | Level 3 - A level/Access to higher education diploma | B63 3NA  | Venue          |
-    | Physics    | Level 3 - A level/Access to higher education diploma | B63 3NA  | Venue          |
-    | maths      | Level 3 - A level/Access to higher education diploma | B63 3NA  | Venue          |
-    | statistics | Level 3 - A level/Access to higher education diploma | B63 3NA  | Venue          |
-    | english    | Level 3 - A level/Access to higher education diploma | B63 3NA  | Venue          |
-    | history    | Level 3 - A level/Access to higher education diploma | B63 3NA  | Venue          |
-    | geography  | Level 3 - A level/Access to higher education diploma | B63 3NA  | Venue          |
+    | CourseName       | QualificationLevel                                   | Location | Provider/Venue |
+    | biology          | Level 3 - A level/Access to higher education diploma | B63 3NA  | Venue          |
+    | geography        | Level 3 - A level/Access to higher education diploma | B63 3NA  | Venue          |
+    | religous studies | Level 3 - A level/Access to higher education diploma | B63 3NA  | Venue          |
+    | business studies | Level 3 - A level/Access to higher education diploma | B63 3NA  | Venue          |
+    | english          | Level 3 - A level/Access to higher education diploma | B63 3NA  | Venue          |
+    | technology       | Level 3 - A level/Access to higher education diploma | B63 3NA  | Venue          |
+    | THEOLOGY         | Level 3 - A level/Access to higher education diploma | B63 3NA  | Venue          |
 
 
 ### additional steps required
@@ -361,4 +361,4 @@ Scenario Outline: DFC-3975 View Course assessment method
 
   Examples:
     | CourseName |
-    | CAKE DECORATION    |
+    | Network Engineering (Cyber Security) - BSc Hons Degree - Top up  |
