@@ -20,6 +20,7 @@ namespace Dfc.FindACourse.Common.Models
             string lADID,
             string qualificationReferenceAuthority,
             string qualificationReference,
+            QualificationLevel qualificationLevel,
             string qualificationTitle,
             string level2EntitlementCategoryDesc,
             string level3EntitlementCategoryDesc,
@@ -48,6 +49,7 @@ namespace Dfc.FindACourse.Common.Models
             LADID = lADID;
             QualificationReferenceAuthority = qualificationReferenceAuthority;
             QualificationReference = qualificationReference;
+            QualificationLevel = qualificationLevel;
             QualificationTitle = qualificationTitle;
             Level2EntitlementCategoryDesc = level2EntitlementCategoryDesc;
             Level3EntitlementCategoryDesc = level3EntitlementCategoryDesc;
@@ -82,7 +84,7 @@ namespace Dfc.FindACourse.Common.Models
         public string QualificationReferenceAuthority { get; }
 
         public string QualificationReference { get; }
-
+        public QualificationLevel QualificationLevel { get; }
         public string QualificationTitle { get; }
 
         public string Level2EntitlementCategoryDesc { get; }

@@ -170,7 +170,7 @@ namespace Dfc.FindACourse.Services.xUnit.UnitTests
         [Fact]
         public void TestGetDfe1619FundedGivenNullValueInCriteria()
         {
-            const string expected = "N";
+            const string expected = "";
             var criteria = new CourseSearchCriteria("test")
                 {IsDfe1619Funded = null};
             var actual = Helper.GetDfe1619Funded(criteria);

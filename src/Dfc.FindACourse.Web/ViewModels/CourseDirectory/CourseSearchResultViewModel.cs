@@ -86,11 +86,9 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
             }
         }
 
-
         public string AttendanceModeAllChecked()
         {
             var allAttendanceModes = Enum.GetValues(typeof(AttendanceMode)).Cast<AttendanceMode>().Where(x => IsDisplayable(x) && IsSelectable(x)).Cast<int>();
-            //return AttendanceModes != null && AttendanceModes.Length > 0 && (AttendanceModes.Intersect(allAttendanceModes).Count() == AttendanceModes.Count()) ? "checked=\"checked\"" : string.Empty;
             return AttendanceModes != null && Enumerable.SequenceEqual(allAttendanceModes, AttendanceModes) ? "checked=\"checked\"" : string.Empty;
         }
 
@@ -116,6 +114,7 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
                     return true;
             }
         }
+
         internal static bool IsSelectable(AttendanceMode attendanceMode)
         {
             switch (attendanceMode)
@@ -129,6 +128,94 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
             }
         }
 
+        public string AttendancePatternAllChecked()
+        {
+            var allAttendancePatterns = Enum.GetValues(typeof(AttendancePattern)).Cast<AttendancePattern>().Where(x => IsDisplayable(x) && IsSelectable(x)).Cast<int>();
+            return AttendancePatterns != null && Enumerable.SequenceEqual(allAttendancePatterns, AttendancePatterns) ? "checked=\"checked\"" : string.Empty;
+        }
+
+        public string AttendancePatternSelectedText()
+        {
+            return AttendancePatterns == null || AttendancePatterns.Length == 0 ? string.Empty : $"{AttendancePatterns.Length} selected";
+        }
+
+        public string AttendancePatternChecked(int value)
+        {
+            return AttendancePatterns != null && AttendancePatterns.Contains(value) ? "checked=\"checked\"" : string.Empty;
+        }
+
+        internal static bool IsDisplayable(AttendancePattern attendancePattern)
+        {
+            switch (attendancePattern)
+            {
+                case AttendancePattern.Customised:
+                case AttendancePattern.NotKnown:
+                case AttendancePattern.NotApplicable:
+                    return false;
+                default:
+                    return true;
+            }
+        }
+
+        internal static bool IsSelectable(AttendancePattern attendancePattern)
+        {
+            switch (attendancePattern)
+            {
+                case AttendancePattern.DaytimeWorkHours:
+                case AttendancePattern.DayBlockRelease:
+                case AttendancePattern.Evening:
+                    return true;
+                default:
+                    return false;
+            }
+        }
+
+        public string QualificationLevelAllChecked()
+        {
+            var allQualificationLevels = Enum.GetValues(typeof(QualificationLevel)).Cast<QualificationLevel>().Where(x => IsDisplayable(x)).Cast<int>();
+            return StudyModes != null && Enumerable.SequenceEqual(allQualificationLevels, QualificationLevels) ? "checked=\"checked\"" : string.Empty;
+        }
+
+        public string QualificationLevelSelectedText()
+        {
+            return QualificationLevels == null || QualificationLevels.Length == 0 ? string.Empty : $"{QualificationLevels.Length} selected";
+        }
+
+        public string QualificationLevelChecked(int value)
+        {
+            return QualificationLevels != null && QualificationLevels.Contains(value) ? "checked=\"checked\"" : string.Empty;
+        }
+
+        internal static bool IsDisplayable(QualificationLevel qualificationLevel)
+        {
+            switch (qualificationLevel)
+            {
+                case QualificationLevel.Level9:
+                case QualificationLevel.LevelNa:
+                    return false;
+                default:
+                    return true;
+            }
+        }
+
+        public string IsDfe1619FundedAllChecked()
+        {
+            return IsDfe1619Funded == null ? "checked=\"checked\"" : string.Empty;
+        }
+
+        public string IsDfe1619FundedChecked(bool value)
+        {
+            if (IsDfe1619Funded != null)
+            {
+                if (IsDfe1619Funded.Value && value)
+                    return "checked=\"checked\"";
+                if (!IsDfe1619Funded.Value && !value)
+                    return "checked=\"checked\"";
+            }
+
+            return string.Empty;
+        }
+
         [Display(Name = "Course name")]
         [Required(ErrorMessage = "Enter a course name")]
         public string SubjectKeyword { get; set; }
@@ -139,7 +226,7 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
         public string LocationError => _locationError;
 
         public RadiusDistance LocationRadius { get; set; }
-        public string SortyBy { get; set; }
+        public SortBy SortBy { get; set; }
         public int StartNo { get; set; }
         public int EndNo { get; set; }
         public int NoOfRecords { get; set; }
@@ -149,5 +236,8 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
         public List<CourseSearchResultItemViewModel> Items { get; set; }
         public int[] StudyModes { get; set; }
         public int[] AttendanceModes { get; set; }
+        public int[] AttendancePatterns { get; set; }
+        public int[] QualificationLevels { get; set; }
+        public bool? IsDfe1619Funded { get; set; }
     }
 }

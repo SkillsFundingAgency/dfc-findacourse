@@ -14,5 +14,7 @@ namespace Dfc.FindACourse.Web.Interfaces
         IEnumerable<string> GetMissSpellings(string search, XmlDocument searchTerms, XmlNodeList expnData);
         bool HasQualificationLevels(ICourseSearchRequestModel requestModel);
         List<string> AttendanceModes(ICourseSearchRequestModel requestModel);
+        List<string> AttendancePatterns(ICourseSearchRequestModel requestModel);
+        SortBy GetSortBy(int value);
     }
 }

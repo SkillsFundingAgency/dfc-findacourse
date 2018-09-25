@@ -191,5 +191,82 @@ namespace Dfc.FindACourse.Web.Services
 
             return result;
         }
+
+        public List<string> AttendancePatterns(ICourseSearchRequestModel requestModel)
+        {
+            var synonymousModes = new AttendancePattern[]
+            {
+                AttendancePattern.Evening,
+                AttendancePattern.Twilight,
+                AttendancePattern.Weekend
+            };
+
+            var attendancePatterns = Enum.GetValues(typeof(AttendancePattern))
+                .Cast<AttendancePattern>()
+                .Where(x => IsAttendancePatternDisplayable(x))
+                .Cast<int>()
+                .Where(x => requestModel.AttendancePatterns.Contains(x))
+                .Cast<AttendancePattern>()
+                .ToList();
+
+            if (attendancePatterns.Any(x => synonymousModes.Contains(x)))
+            {
+                foreach (var synonym in synonymousModes)
+                {
+                    if (!attendancePatterns.Contains(synonym))
+                    {
+                        attendancePatterns.Add(synonym);
+                    }
+                }
+            }
+
+            var list = new List<string>();
+
+            foreach (var attendancePattern in attendancePatterns)
+            {
+                list.Add(GetAttendancePatternSearchString(attendancePattern));
+            }
+
+            return list;
+        }
+
+        public bool IsAttendancePatternDisplayable(AttendancePattern attendancePattern)
+        {
+            switch (attendancePattern)
+            {
+                case AttendancePattern.Customised:
+                case AttendancePattern.NotKnown:
+                case AttendancePattern.NotApplicable:
+                    return false;
+                default:
+                    return true;
+            }
+        }
+
+        public string GetAttendancePatternSearchString(AttendancePattern attendancePattern)
+        {
+            var result = "AP8";
+
+            switch (attendancePattern)
+            {
+                case AttendancePattern.DaytimeWorkHours: result = "AP1"; break;
+                case AttendancePattern.DayBlockRelease: result = "AP2"; break;
+                case AttendancePattern.Evening: result = "AP3"; break;
+                case AttendancePattern.Twilight: result = "AP4"; break;
+                case AttendancePattern.Weekend: result = "AP5"; break;
+                case AttendancePattern.Customised: result = "AP6"; break;
+                case AttendancePattern.NotKnown: result = "AP7"; break;
+                case AttendancePattern.NotApplicable: result = "AP8"; break;
+            }
+
+            return result;
+        }
+
+        public SortBy GetSortBy(int value)
+        {
+            if (value == 1) return SortBy.Distance;
+
+            return SortBy.Relevance;
+        }
     }
 }

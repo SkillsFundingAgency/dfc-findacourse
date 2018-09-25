@@ -40,7 +40,7 @@ namespace Dfc.FindACourse.Common.Models
             Name = name.ToSentenceCase();
             Address = address ?? throw new ArgumentNullException(nameof(address));
             Distance = distance;
-            Website = website;
+            Website = Uri.IsWellFormedUriString(website, UriKind.Absolute) ? website : string.Empty;
         }
         public Venue(string name, IAddress address, double? distance = null)
         {

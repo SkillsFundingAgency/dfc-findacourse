@@ -30,7 +30,8 @@ namespace Dfc.FindACourse.Services.CourseDirectory
                 DFE1619Funded = Helper.GetDfe1619Funded(criteria),
                 StudyModes = Helper.GetStudyModes(criteria),
                 DistanceSpecified = Helper.IsDistanceSpecified(criteria),
-                AttendanceModes = criteria.AttendanceModes.ToArray()
+                AttendanceModes = criteria.AttendanceModes.ToArray(),
+                AttendancePatterns = criteria.AttendancePatterns.ToArray()
             };
         }
 

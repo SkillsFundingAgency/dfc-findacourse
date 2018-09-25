@@ -40,7 +40,7 @@ namespace Dfc.FindACourse.Services.CourseDirectory
 
         public string GetDfe1619Funded(ICourseSearchCriteria searchCriteria)
         {
-            var result = "N";
+            var result = string.Empty;
 
             if (searchCriteria.IsDfe1619Funded.HasValue)
             {

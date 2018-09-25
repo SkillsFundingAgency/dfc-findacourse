@@ -44,6 +44,24 @@
                                 }
                             </td>
                         </tr>
+                        @if (Model.QualificationLevel == QualificationLevel.Level9)
+                        {
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell">Qualification level</td>
+                                <td class="govuk-table__cell">
+                                    Unknown
+                                </td>
+                            </tr>
+                        }
+                        else if (Model.QualificationLevel != QualificationLevel.LevelNa)
+                        {
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell">Qualification level</td>
+                                <td class="govuk-table__cell">
+                                    @Model.QualificationLevel.GetDisplayName()
+                                </td>
+                            </tr>
+                        }
                         <tr class="govuk-table__row">
                             <td class="govuk-table__cell">Entry requirements</td>
                             <td class="govuk-table__cell">
@@ -52,8 +70,8 @@
                             </td>
                         </tr>
                         @if (!string.IsNullOrWhiteSpace(@Model.Opportunities[0].Price)
-|| !string.IsNullOrWhiteSpace(@Model.Opportunities[0].PriceDescription)
-|| (Model.Provider.TFPlusLoansSpecified && Model.Provider.TFPlusLoans))
+                               || !string.IsNullOrWhiteSpace(@Model.Opportunities[0].PriceDescription)
+                                    || (Model.Provider.TFPlusLoansSpecified && Model.Provider.TFPlusLoans))
                         {
                             <tr class="govuk-table__row">
                                 <td class="govuk-table__cell">Cost</td>
@@ -104,7 +122,7 @@
                         }
                     </tbody>
                 </table>
-
+                
                 @if (!string.IsNullOrWhiteSpace(Model.BookingURL))
                 {
                     <a target="_blank" href=@Model.BookingURL role="button" class="govuk-button govuk-button--start">
@@ -229,20 +247,20 @@
                                 <tr class="govuk-table__row">
                                     <td class="govuk-table__cell govuk-body-s" style="border-bottom: none">Address</td>
                                     <td class="govuk-table__cell govuk-body-s" style="border-bottom: none">
-                                        @if (!string.IsNullOrEmpty(@Model.Provider.ProviderAddress.Line1))
-                                        {@Model.Provider.ProviderAddress.Line1 <br>}
-                                        @if (!string.IsNullOrEmpty(@Model.Provider.ProviderAddress.Line2))
-                                        {@Model.Provider.ProviderAddress.Line2 <br>}
-                                        @if (!string.IsNullOrEmpty(@Model.Provider.ProviderAddress.Town))
-                                        {@Model.Provider.ProviderAddress.Town <br>}
-                                        @if (!string.IsNullOrEmpty(@Model.Provider.ProviderAddress.County))
-                                        {@Model.Provider.ProviderAddress.County <br>}
-                                        @if (!string.IsNullOrEmpty(@Model.Provider.ProviderAddress.Postcode))
-                                        {@Model.Provider.ProviderAddress.Postcode <br>}
-
-
-
-
+                                        @if (null != Model.Provider.ProviderAddress)
+                                        {
+                                            @if (!string.IsNullOrEmpty(@Model.Provider.ProviderAddress.Line1))
+                                            {@Model.Provider.ProviderAddress.Line1 <br>}
+                                            @if (!string.IsNullOrEmpty(@Model.Provider.ProviderAddress.Line2))
+                                            {@Model.Provider.ProviderAddress.Line2 <br>}
+                                            @if (!string.IsNullOrEmpty(@Model.Provider.ProviderAddress.Town))
+                                            {@Model.Provider.ProviderAddress.Town <br>}
+                                            @if (!string.IsNullOrEmpty(@Model.Provider.ProviderAddress.County))
+                                            {@Model.Provider.ProviderAddress.County <br>}
+                                            @if (!string.IsNullOrEmpty(@Model.Provider.ProviderAddress.Postcode))
+                                            {@Model.Provider.ProviderAddress.Postcode <br>}
+                                        }
+                                       
                                     </td>
                                 </tr>
 
@@ -300,7 +318,7 @@
                     @if (Model.Opportunities.Count > 1)
                     {
                         <details>
-                            <summary style="position: relative;top:-10px">
+                            <summary style="position: relative;">
                                 <span style="color:#005ea5;">Other dates and venues</span>
                             </summary>
 

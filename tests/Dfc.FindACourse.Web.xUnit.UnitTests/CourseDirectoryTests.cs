@@ -117,6 +117,7 @@ namespace Dfc.FindACourse.Web.xUnit.UnitTests
             };
 
             var attendanceModes = new List<string>();
+            var attendancePatterns = new List<string>();
 
             var expected = new CourseSearchCriteria
             ( 
@@ -126,12 +127,14 @@ namespace Dfc.FindACourse.Web.xUnit.UnitTests
                 20,
                 true,
                 modes,
-                attendanceModes
+                attendanceModes,
+                attendancePatterns
             );
 
             MockCourseDirectoryHelper.Setup(x => x.StudyModes(It.IsAny<ICourseSearchRequestModel>())).Returns(modes);
             MockCourseDirectoryHelper.Setup(x => x.QualificationLevels(It.IsAny<ICourseSearchRequestModel>())).Returns(quals);
             MockCourseDirectoryHelper.Setup(x => x.AttendanceModes(It.IsAny<ICourseSearchRequestModel>())).Returns(attendanceModes);
+            MockCourseDirectoryHelper.Setup(x => x.AttendancePatterns(It.IsAny<ICourseSearchRequestModel>())).Returns(attendancePatterns);
 
             var actual = CourseDirectory.CreateCourseSearchCriteria(requestModel);
 

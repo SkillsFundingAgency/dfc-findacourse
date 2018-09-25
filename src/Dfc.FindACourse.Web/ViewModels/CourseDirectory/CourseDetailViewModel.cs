@@ -1,6 +1,7 @@
 ﻿using Dfc.FindACourse.Common;
 using Dfc.FindACourse.Common.Interfaces;
 using Dfc.FindACourse.Common.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -22,7 +23,7 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
                 CourseId = value.Coursedetails.CourseId;// Opportunity.Id;   
                 CourseTitle = value.Coursedetails.CourseTitle;
                 CourseSummary = value.Coursedetails.CourseSummary;
-                //QualificationLevel = value.Coursedetails.Le.QualificationLevel;
+                QualificationLevel = value.Coursedetails.QualificationLevel;
                 StudyMode = value.Opportunities[0].StudyMode;
                 AttendanceMode = value.Opportunities[0].AttendanceMode;
                 AttendencePattern = value.Opportunities[0].AttendancePattern;
@@ -35,8 +36,8 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
                 EntryRequirements = value.Coursedetails.EntryRequirements;
                 AssessmentMethod = value.Coursedetails.AssessmentMethod;
                 EquipmentRequired = value.Coursedetails.EquipmentRequired;
-                URL = value.Coursedetails.URL;
-                BookingURL = value.Coursedetails.BookingURL;
+                URL = Uri.IsWellFormedUriString(value.Coursedetails.URL, UriKind.Absolute) ? value.Coursedetails.URL : string.Empty;
+                BookingURL = Uri.IsWellFormedUriString(value.Coursedetails.BookingURL, UriKind.Absolute) ? value.Coursedetails.BookingURL : string.Empty;
                 TariffRequired = value.Coursedetails.TariffRequired;
                 LADID = value.Coursedetails.LADID;
                 QualificationReferenceAuthority = value.Coursedetails.QualificationReferenceAuthority;
@@ -53,7 +54,7 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
                 SkillsForLifeTypeDesc = value.Coursedetails.SkillsForLifeTypeDesc;
                 Venue = (Venue)value.Venue;
                 Provider = (Provider)value.Provider;
-                Opportunities = value.Opportunities.AsEnumerable().Cast<Opportunity>().ToList();
+                Opportunities = value.Opportunities.AsEnumerable().Cast<Opportunity>().OrderBy( o => o.StartDate.Date).ToList();
             }
 
 

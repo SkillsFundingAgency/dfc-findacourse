@@ -91,7 +91,7 @@ namespace Dfc.FindACourse.Web.Controllers
             }
 
             var criteria = CourseDirectory.CreateCourseSearchCriteria(requestModel);
-            var result = Service.CourseDirectorySearch(criteria, new PagingOptions(SortBy.Relevance, requestModel.PageNo));
+            var result = Service.CourseDirectorySearch(criteria, new PagingOptions(CourseDirectoryHelper.GetSortBy(requestModel.SortBy), requestModel.PageNo));
 
             if (!CourseDirectory.IsSuccessfulResult(result, Telemetry, "Course Search", requestModel.SubjectKeyword, dtStart))
                 return View(nameof(Error), new Models.ErrorViewModel() { RequestId = "Course Search: " + requestModel.SubjectKeyword.ToString() + ". " + (null != result ? result.Error : string.Empty) });
@@ -110,7 +110,11 @@ namespace Dfc.FindACourse.Web.Controllers
                 LocationRadius = (RadiusDistance)requestModel.LocationRadius,
                 PerPage = perPage,
                 StudyModes = requestModel.StudyModes,
-                AttendanceModes = requestModel.AttendanceModes
+                AttendanceModes = requestModel.AttendanceModes,
+                AttendancePatterns = requestModel.AttendancePatterns,
+                QualificationLevels = requestModel.QualificationLevels,
+                IsDfe1619Funded = requestModel.IsDfe1619Funded,
+                SortBy = CourseDirectoryHelper.GetSortBy(requestModel.SortBy)
             });
             
         }

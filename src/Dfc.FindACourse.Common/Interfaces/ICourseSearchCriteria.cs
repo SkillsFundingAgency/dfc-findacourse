@@ -11,7 +11,7 @@ namespace Dfc.FindACourse.Common.Interfaces
         List<QualLevel> QualificationLevels { get; set; }
         List<StudyModeExt> StudyModes { get; set; }
         List<string> AttendanceModes { get; set; }
-        List<AttendancePattern> AttendancePatterns { get; set; }
+        List<string> AttendancePatterns { get; set; }
         bool? IsDfe1619Funded { get; set; }
     }
 }
