@@ -5,7 +5,6 @@
 
 (function () {
     $(function () {
-        alert('here');
         $('.twitter').attr('href', 'https://twitter.com/intent/tweet?original_referer&amp;url=' + window.location.href);
         $('.facebook').attr('href', 'https://www.facebook.com/sharer/sharer.php?u=' + window.location.href);
         $('.linkedin').attr('href', 'https://www.linkedin.com/shareArticle?url=' +window.location.href);
