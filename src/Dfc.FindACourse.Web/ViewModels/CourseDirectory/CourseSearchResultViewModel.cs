@@ -26,30 +26,32 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
 
         public string ShowingFrom()
         {
-            if (PageNo == 1 && NoOfRecords == 0)
-                return 0.ToString();
+            if ((PageNo == 1 || PageNo == 0) && NoOfRecords == 0)
+                return string.Empty;
 
             if (PageNo == 1)
-                return 1.ToString();
-
+                return 1.ToString() + " to ";
+                
             var from = (PageNo - 1) * PerPage + 1;
 
-            return from.ToString();
+            return from.ToString() + " to ";
         }
 
         public string ShowingTo()
         {
+            if (NoOfRecords == 0)
+                return string.Empty;
             if (PageNo <= 1 && PerPage >= NoOfRecords)
-                return NoOfRecords.ToString();
+                return NoOfRecords.ToString() + " of "; 
 
             if (PageNo <= 1 && PerPage < NoOfRecords)
-                return PerPage.ToString();
+                return PerPage.ToString() + " of ";
 
             var to = ((PageNo - 1) * PerPage) + PerPage;
 
             to = to > NoOfRecords ? NoOfRecords : to;
 
-            return to.ToString();
+            return to.ToString() + " of ";
         }
 
         public string LocationRadiusChecked(int radius)
