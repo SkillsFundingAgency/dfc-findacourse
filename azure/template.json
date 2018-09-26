@@ -132,7 +132,7 @@
       "dependsOn": [
         "primaryUIAppInsights",
         "primaryStorageAccount",
-        "[variables('appServiceDependsOn')]"
+        "primaryCertficate"
       ],
       "properties": {
         "mode": "Incremental",
