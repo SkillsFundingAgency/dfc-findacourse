@@ -49,13 +49,13 @@
 
   Examples:
     | CourseName                                                                    | CourseLevel |
-    | ESOL - EVERYDAY MATHS FOR ESOL                                                | Entry Level |
+    | ESOL english                                                                  | Entry Level |
     | Diploma in Chemical Skin Peeling & Micro-needling                             | Level 4     |
     | ASTROPHYSICS                                                                  | Level 3     |
     | DENTISTRY                                                                     | Level 2     |
     | C&G L1 AWARD IN INTRODUCTORY TUNGSTEN INERT GAS (TIG) WELDING                 | Level 1     |
     | Pharmacy Clinical Services Professional Diploma                               | Level 4     |
-    | SQA HND Marine Engineering Direct Entry                                       | Level 5     |
+    | Marine Engineering - HND                                                      | Level 5     |
     | Integrated Masters Equine Science MSci                                        | Level 7     |
     | Automotive Engineering and Technology (Motorsport) - BEng Hons Degree - Topup | Level 6     |
 
