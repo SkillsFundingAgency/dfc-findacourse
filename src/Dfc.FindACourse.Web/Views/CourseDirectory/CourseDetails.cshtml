@@ -32,7 +32,7 @@
                 <table class="govuk-table" role="presentation">
                     <tbody class="govuk-table__body">
                         <tr class="govuk-table__row">
-                            <td class="govuk-table__cell">Qualification name</td>
+                            <td class="govuk-table__cell" style="width: 30%;">Qualification name</td>
                             <td class="govuk-table__cell">
                                 @if (!string.IsNullOrWhiteSpace(Model.QualificationTitle))
                                 {
@@ -65,8 +65,9 @@
                         <tr class="govuk-table__row">
                             <td class="govuk-table__cell">Entry requirements</td>
                             <td class="govuk-table__cell">
-                                @Model.EntryRequirements
-
+                                <div id="EntryRequirements">
+                                    @Model.EntryRequirements
+                                </div>
                             </td>
                         </tr>
                         @if (!string.IsNullOrWhiteSpace(@Model.Opportunities[0].Price)
@@ -82,11 +83,13 @@
                                     }
                                     @if (!string.IsNullOrWhiteSpace(@Model.Opportunities[0].PriceDescription))
                                     {
+                                    <div id="PriceDescription">
                                         @Model.Opportunities[0].PriceDescription
+                                    </div>
                                     }
                                     @if (Model.Provider.TFPlusLoansSpecified && Model.Provider.TFPlusLoans)
                                     {
-                                        <br><a href="https://www.gov.uk/advanced-learner-loan/overview" target="_blank">Advanced Learner Loans maybe available</a>
+                                        <br><a href="https://www.gov.uk/advanced-learner-loan/overview" target="_blank">Advanced Learner Loans may be available</a>
                                     }
                                 </td>
                             </tr>
@@ -164,20 +167,26 @@
             <section id="2">
                 <h2 class="govuk-heading-m">Course description</h2>
                 <p class="govuk-body govuk-!-font-size-19">
-                    @Model.CourseSummary
+                    <div id="CourseSummary">
+                        @Model.CourseSummary
+                    </div>
                 </p>
                 @if (!string.IsNullOrWhiteSpace(@Model.EquipmentRequired))
                 {
                     <p class="govuk-heading-s">What you’ll need to bring</p>
                     <p class="govuk-body govuk-!-font-size-19">
-                        @Model.EquipmentRequired
+                        <div id="EquipmentRequired">
+                            @Model.EquipmentRequired
+                        </div>
                     </p>
                 }
                 @if (!string.IsNullOrWhiteSpace(@Model.AssessmentMethod))
                 {
                     <p class="govuk-heading-s">How you’ll be assessed</p>
                     <p class="govuk-body govuk-!-font-size-19">
-                        @Model.AssessmentMethod
+                        <div id="AssessmentMethod">
+                            @Model.AssessmentMethod
+                        </div>
                     </p>
                 }
             </section>
@@ -260,7 +269,7 @@
                                             @if (!string.IsNullOrEmpty(@Model.Provider.ProviderAddress.Postcode))
                                             {@Model.Provider.ProviderAddress.Postcode <br>}
                                         }
-                                       
+
                                     </td>
                                 </tr>
 
@@ -355,10 +364,11 @@
                                 </table>
                             </div>
                         </details>
+                        <hr>
                     }
 
 
-                    <hr>
+
 
                 </aside>
             </section>

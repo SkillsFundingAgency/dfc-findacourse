@@ -26,6 +26,8 @@
             }
 
             $(subheadingSelector).html(text);
+            $('#AttendanceModeFilter').accordion('testy');
+
             $('#FindACourseForm').submit();
         }
 
@@ -72,10 +74,10 @@
         $('#ClearAlFilters').clearAllFilters({
             filters: [
                 "input[name='LocationRadius']",
-                "input[name='StudyMode']",
-                "input[name='AttendanceMode']",
-                "input[name='AttendancePattern']",
-                "input[name='QualificationLevel']",
+                "input[name='StudyModes']",
+                "input[name='AttendanceModes']",
+                "input[name='AttendancePatterns']",
+                "input[name='QualificationLevels']",
                 "input[name='IsDfe1619Funded']"
             ],
             defaultFilters: ['#LocationRadius10Miles', '#IsDfe1619FundedAll'],
