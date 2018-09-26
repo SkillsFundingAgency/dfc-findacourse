@@ -157,7 +157,7 @@ namespace ESFA.UI.Specflow.Framework.FindACourse.Project.Tests.Features
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("DFC3900 View Search Results By Course Name display Course Level")]
         [NUnit.Framework.CategoryAttribute("DFC-3900")]
-        [NUnit.Framework.TestCaseAttribute("ESOL english", "Entry Level", null)]
+        [NUnit.Framework.TestCaseAttribute("entry level english", "Entry Level", null)]
         [NUnit.Framework.TestCaseAttribute("Diploma in Chemical Skin Peeling & Micro-needling", "Level 4", null)]
         [NUnit.Framework.TestCaseAttribute("ASTROPHYSICS", "Level 3", null)]
         [NUnit.Framework.TestCaseAttribute("DENTISTRY", "Level 2", null)]

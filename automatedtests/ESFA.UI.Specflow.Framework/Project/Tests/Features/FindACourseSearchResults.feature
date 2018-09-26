@@ -49,7 +49,7 @@
 
   Examples:
     | CourseName                                                                    | CourseLevel |
-    | ESOL english                                                                  | Entry Level |
+    | entry level english                                                           | Entry Level |
     | Diploma in Chemical Skin Peeling & Micro-needling                             | Level 4     |
     | ASTROPHYSICS                                                                  | Level 3     |
     | DENTISTRY                                                                     | Level 2     |
