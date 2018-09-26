@@ -6,14 +6,6 @@
 (function () {
     $(function () {
 
-        var options50 = {
-            speed: 100,
-            collapsedHeight: 50,
-            heightMargin: 20,
-            moreLink: '<a href="#" style="display:block;">... read more</a>',
-            lessLink: '<a href="#" style="display:block;">read less</a>'
-        };
-
         var options100 = {
             speed: 100,
             collapsedHeight: 100,
@@ -24,11 +16,11 @@
 
         $('#EntryRequirements')
             .css('overflow', 'hidden')
-            .readmore(options50);
+            .readmore(options100);
 
         $('#PriceDescription')
             .css('overflow', 'hidden')
-            .readmore(options50);
+            .readmore(options100);
 
         $('#CourseSummary')
             .css('overflow', 'hidden')
