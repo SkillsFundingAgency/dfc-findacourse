@@ -26,6 +26,12 @@
         }
     }
 
+    &.accordion--state-close {
+        .accordion-panel {
+            display: none;
+        }
+    }
+
     .accordion-panel {
         padding: 1em 2em 1em 2em;
     }

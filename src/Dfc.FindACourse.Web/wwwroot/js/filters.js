@@ -26,6 +26,8 @@
             }
 
             $(subheadingSelector).html(text);
+            $('#AttendanceModeFilter').accordion('testy');
+
             $('#FindACourseForm').submit();
         }
 
