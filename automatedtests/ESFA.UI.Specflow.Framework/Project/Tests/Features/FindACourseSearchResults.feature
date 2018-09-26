@@ -70,8 +70,8 @@
 
   Examples:
     | CourseName                                  | StudyMode |
-    | A-level Maths (Pure and Statistics)         | Full Time |
-    | hair and beauty                             | Part Time |
+    | A-level Maths (Pure and Statistics)         | Full-time |
+    | hair and beauty                             | Part-time |
     | General Data Protection Regulation (ONLINE) | Flexible  |
 
 
@@ -86,8 +86,8 @@
   Examples:
     | CourseName                                     | AttendanceMode           |
     | A Level Biology or Human Biology               | Classroom-based          |
-    | General Data Protection Regulation (ONLINE)    | Online/Distance Learning |
-    | Management - Apprenticeship (Higher) - Level 4 | Work based               |
+    | General Data Protection Regulation (ONLINE)    | Online/Distance learning |
+    | Management - Apprenticeship (Higher) - Level 4 | Work-based               |
 
 
 @DFC-3900
@@ -100,9 +100,9 @@
 
   Examples:
     | CourseName                                                   | AttendancePattern         |
-    | NVQ 3 Diploma Nail Services - Day release (Apprentice Route) | Normal Working Hours      |
+    | NVQ 3 Diploma Nail Services - Day release (Apprentice Route) | Normal working hours      |
     | arabic                                                       | Evening/Weekend           |
-    | Management - Apprenticeship (Higher) - Level 4               | Day Release/Block Release |
+    | Management - Apprenticeship (Higher) - Level 4               | Day release/Block release |
 
 
 @DFC-3900
