@@ -3,11 +3,11 @@ namespace Dfc.FindACourse.Common
 {
     public enum AttendancePattern
     {
-        [Display(Name = "Not Known")]
+        [Display(Name = "Not known")]
         NotKnown = 0,
-        [Display(Name = "Normal Working Hours")]
+        [Display(Name = "Normal working hours")]
         DaytimeWorkHours = 1,
-        [Display(Name = "Day Release/Block Release")]
+        [Display(Name = "Day release/Block release")]
         DayBlockRelease = 2,
         [Display(Name = "Evening/Weekend")]
         Evening = 3,
@@ -17,7 +17,7 @@ namespace Dfc.FindACourse.Common
         Weekend = 5,
         [Display(Name = "Customised")]
         Customised = 6,
-        [Display(Name = "Not Applicable")]
+        [Display(Name = "Not applicable")]
         NotApplicable = 7
     }
 }

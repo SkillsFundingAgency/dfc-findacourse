@@ -10,17 +10,17 @@ namespace Dfc.FindACourse.Common
         LocationCampus = 1,
         [Display(Name = "Face To Face")]
         FaceToFace = 2,
-        [Display(Name = "Work based")]
+        [Display(Name = "Work-based")]
         WorkBased = 3,
-        [Display(Name = "Mixed Mode")]
+        [Display(Name = "Mixed mode")]
         MixedMode = 4,
-        [Display(Name = "Online/Distance Learning")]
+        [Display(Name = "Online/Distance learning")]
         DistanceWithAttendance = 5,
-        [Display(Name = "Online/Distance Learning")]
+        [Display(Name = "Online/Distance learning")]
         DistanceWithoutAttendence = 6,
-        [Display(Name = "Online/Distance Learning")]
+        [Display(Name = "Online/Distance learning")]
         OnlineWithAttendance = 7,
-        [Display(Name = "Online/Distance Learning")]
+        [Display(Name = "Online/Distance learning")]
         OnlineWithoutAttendence = 8
     }
 }
