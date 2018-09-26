@@ -32,7 +32,6 @@
                     <input asp-for="SubjectKeyword"
                            class="form-control form-control-1-1"
                            autocomplete="off"
-                           placeholder="Enter a course name or subject"
                            autofocus />
                     <ul id="course-list"></ul>
                     <input type="hidden" id="hidSubjectKeyword" />
@@ -75,7 +74,6 @@
 
                 <input asp-for="Location"
                        class="form-control @inputValidationErrorCssClass"
-                       placeholder="Postcode"
                        autocomplete="off"
                        type="text"
                        value="@Model.Location" />

@@ -42,14 +42,17 @@
 
                         <input asp-for="Location"
                                class="postcode-search @inputValidationErrorCssClass"
-                               placeholder="Postcode"
                                autocomplete="off"
                                type="text"
                                value="@Model.Location" />
                         <input class="button" type="submit" id="Search" name="Search" value="Search">
+
                     </div>
+                         
                 </div>
+               
             </div>
+                
             <div class="grid-row">
                 <div class="column-full">
                     <div class="accordion" id="LocationRadiusFilter">
@@ -124,13 +127,13 @@
                                     <li>
                                         <div class="multiple-choice">
                                             <input type="checkbox" class="multiple-choice-item" name="StudyModes" id="StudyModeFullTime" value="1" @Model.StudyModeChecked(1) />
-                                            <label for="StudyModeFullTime">Full Time</label>
+                                            <label for="StudyModeFullTime">Full-time</label>
                                         </div>
                                     </li>
                                     <li>
                                         <div class="multiple-choice">
                                             <input type="checkbox" class="multiple-choice-item" name="StudyModes" id="StudyModePartTime" value="2" @Model.StudyModeChecked(2) />
-                                            <label for="StudyModePartTime">Part Time</label>
+                                            <label for="StudyModePartTime">Part-time</label>
                                         </div>
                                     </li>
                                     <li>
@@ -167,7 +170,7 @@
                                     <li>
                                         <div class="multiple-choice">
                                             <input type="checkbox" class="multiple-choice-item" name="AttendanceModes" id="AttendanceModeWorkbased" value="3" @Model.AttendanceModeChecked(3) />
-                                            <label for="AttendanceModeWorkbased">Workbased</label>
+                                            <label for="AttendanceModeWorkbased">Work-based</label>
                                         </div>
                                     </li>
                                     <li>
@@ -334,7 +337,7 @@
                             <input asp-for="SubjectKeyword"
                                    class="form-control form-control-1-1"
                                    autocomplete="off"
-                                   placeholder="Enter a course name or subject" />
+                                    />
                             <ul id="course-list"></ul>
                             <input class="button" type="submit" id="Search" name="Search" value="Search" />
                         </div>

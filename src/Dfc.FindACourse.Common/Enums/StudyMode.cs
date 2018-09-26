@@ -7,10 +7,10 @@ namespace Dfc.FindACourse.Common
     {
         NotKnown = 0,
 
-        [Display(Name = "Full Time")]
+        [Display(Name = "Full-time")]
         FullTime = 1,
 
-        [Display(Name = "Part Time")]
+        [Display(Name = "Part-time")]
         PartTime = 2,
 
         PartTimeOfAFullTimeProgram = 3,
