@@ -3282,6 +3282,10 @@ input[type="search"]::-webkit-search-decoration {
   }
 }
 
+.accordion.accordion--state-close .accordion-panel {
+  display: none;
+}
+
 .accordion .accordion-panel {
   padding: 1em 2em 1em 2em;
 }
