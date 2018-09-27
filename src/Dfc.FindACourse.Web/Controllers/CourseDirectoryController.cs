@@ -88,15 +88,12 @@ namespace Dfc.FindACourse.Web.Controllers
         public ActionResult CourseSearchResult([FromQuery]  CourseSearchRequestModel requestModel)
         {
             var dtStart = DateTime.Now;
-            //if (!ModelState.IsValid)
-            //{
-            //    Telemetry.TrackEvent($"CourseSearch: ModelState Invalid.");
-            //    return View();
-            //}
+            var isPostcodeInvalid = false;
 
             if (TempData != null)
             {
-               TempData["SubjectKeyword"] = requestModel.SubjectKeyword;
+                isPostcodeInvalid = (TempData["Location_IsInvalid"] != null && (bool)TempData["Location_IsInvalid"] == true);
+                TempData["SubjectKeyword"] = requestModel.SubjectKeyword;
 
                 if (!string.IsNullOrWhiteSpace(requestModel.Location))
                 {
@@ -106,7 +103,10 @@ namespace Dfc.FindACourse.Web.Controllers
                         TempData["Location_IsInvalid"] = true;
                         TempData["Location_Postcode"] = requestModel.Location;
 
-                        return RedirectToAction(nameof(Index));
+                        if (new UriBuilder(Request.Headers["Referer"]).Path != Request.Path)
+                        {
+                            return RedirectToAction(nameof(Index));
+                        }
                     }
                 }
                 else
@@ -133,6 +133,7 @@ namespace Dfc.FindACourse.Web.Controllers
             {
                 SubjectKeyword = requestModel.SubjectKeyword,
                 Location = requestModel.Location,
+                LocationHasError = isPostcodeInvalid,
                 LocationRadius = (RadiusDistance)requestModel.LocationRadius,
                 PerPage = perPage,
                 StudyModes = requestModel.StudyModes,
