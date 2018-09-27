@@ -65,14 +65,17 @@ namespace Dfc.FindACourse.Web.Controllers
                 Location = location
             };
 
-            if (TempData["Location_Postcode"] != null)
+            if (TempData != null)
             {
-                TempData.Remove("Location_Postcode");
-            }
+                if (TempData["Location_Postcode"] != null)
+                {
+                    TempData.Remove("Location_Postcode");
+                }
 
-            if (TempData["Location_IsInvalid"] != null)
-            {
-                TempData.Remove("Location_IsInvalid");
+                if (TempData["Location_IsInvalid"] != null)
+                {
+                    TempData.Remove("Location_IsInvalid");
+                }
             }
 
             Telemetry.TrackEvent("Find A Course Start page");
@@ -91,23 +94,26 @@ namespace Dfc.FindACourse.Web.Controllers
             //    return View();
             //}
 
-            TempData["SubjectKeyword"] = requestModel.SubjectKeyword;
-
-            if (!string.IsNullOrWhiteSpace(requestModel.Location))
+            if (TempData != null)
             {
-                var postcodeResult = PostcodeService.IsValidAsync(requestModel.Location).Result;
-                if (postcodeResult.IsFailure)
+               TempData["SubjectKeyword"] = requestModel.SubjectKeyword;
+
+                if (!string.IsNullOrWhiteSpace(requestModel.Location))
                 {
-                    TempData["Location_IsInvalid"] = true;
-                    TempData["Location_Postcode"] = requestModel.Location;
+                    var postcodeResult = PostcodeService.IsValidAsync(requestModel.Location).Result;
+                    if (postcodeResult.IsFailure)
+                    {
+                        TempData["Location_IsInvalid"] = true;
+                        TempData["Location_Postcode"] = requestModel.Location;
 
-                    return RedirectToAction(nameof(Index));
+                        return RedirectToAction(nameof(Index));
+                    }
                 }
-            }
-            else
-            {
-                TempData.Remove("Location_IsInvalid");
-                TempData.Remove("Location_Postcode");
+                else
+                {
+                    TempData.Remove("Location_IsInvalid");
+                    TempData.Remove("Location_Postcode");
+                }
             }
 
             var criteria = CourseDirectory.CreateCourseSearchCriteria(requestModel);
