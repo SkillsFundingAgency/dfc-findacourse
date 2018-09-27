@@ -6,28 +6,26 @@
 (function () {
     $(function () {
 
-        var defaultOptions = {
-            highlight: function (element, errorClass) {
-                var formGroup = $(element).closest('.form-group');
+        //var defaultOptions = {
+        //    highlight: function (element, errorClass) {
+        //        var formGroup = $(element).closest('.form-group');
 
-                if (formGroup) {
-                    if (!formGroup.hasClass(errorClass)) {
-                        formGroup.addClass(errorClass);
-                    }
-                }
-            },
-            unhighlight: function (element, errorClass) {
-                var formGroup = $(element).closest('.form-group');
+        //        if (formGroup) {
+        //            if (!formGroup.hasClass(errorClass)) {
+        //                formGroup.addClass(errorClass);
+        //            }
+        //        }
+        //    },
+        //    unhighlight: function (element, errorClass) {
+        //        var formGroup = $(element).closest('.form-group');
 
-                if (formGroup) {
-                    if (formGroup.hasClass(errorClass)) {
-                        formGroup.removeClass(errorClass);
-                    }
-                }
-            }
-        };
-
-        $.validator.setDefaults(defaultOptions);
+        //        if (formGroup) {
+        //            if (formGroup.hasClass(errorClass)) {
+        //                formGroup.removeClass(errorClass);
+        //            }
+        //        }
+        //    }
+        //};
 
         $('#FindACourseForm input').on('focusout keyup', function () {
             if ($(this).hasClass('input-validation-error')) {
