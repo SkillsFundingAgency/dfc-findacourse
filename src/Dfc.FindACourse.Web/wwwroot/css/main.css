@@ -3382,10 +3382,6 @@ p.white {
   margin-bottom: 0;
 }
 
-#LocationRadius {
-  top: -1px;
-}
-
 @media only screen and (min-width: 946px) {
   #LocationRadius {
     left: -5px;
