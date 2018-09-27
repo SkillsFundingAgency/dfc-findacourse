@@ -1,7 +1,9 @@
-﻿using System;
-using System.Collections.Specialized;
+﻿using Microsoft.AspNetCore.Http.Extensions;
+using Microsoft.AspNetCore.WebUtilities;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Text;
-using System.Web;
 
 namespace Dfc.FindACourse.Web.TagHelpers
 {
@@ -17,18 +19,24 @@ namespace Dfc.FindACourse.Web.TagHelpers
         {
             get
             {
-                var qs = QueryString;
+                var ub = new UriBuilder(Url);
+                var query = QueryHelpers.ParseQuery(ub.Query); //HttpUtility.ParseQueryString(ub.Query);
+                var items = query.SelectMany(x => x.Value, (col, val) => new KeyValuePair<string, string>(col.Key, val)).ToList();
+                var found = items.Where(x => x.Key == ParamName).ToList();
+                var value = 1;
 
-                int value = string.IsNullOrWhiteSpace(qs[ParamName]) ? 1 :
-                    int.TryParse(qs[ParamName], out value) ? value : 1;
+                if (found.Any())
+                {
+                    value = string.IsNullOrWhiteSpace(found[0].Value) ? 1 : int.TryParse(found[0].Value, out value) ? value : 1;
+                }
 
                 return value;
             }
         }
 
-        public UriBuilder Uri => new UriBuilder(Url);
+        //public UriBuilder Uri => new UriBuilder(Url);
 
-        public NameValueCollection QueryString => HttpUtility.ParseQueryString(Uri.Query);
+        //public NameValueCollection QueryString => HttpUtility.ParseQueryString(Uri.Query);
 
 
         public DfcPagination(string url, int noOfPages, int displayNoOfPages, string paramName, bool slide)
@@ -95,13 +103,16 @@ namespace Dfc.FindACourse.Web.TagHelpers
 
         public string GetUrlWithPageNo(int pageNo)
         {
-            var uri = Uri;
-            var qs = QueryString;
+            var ub = new UriBuilder(Url);
+            var query = QueryHelpers.ParseQuery(ub.Query);
+            var items = query.SelectMany(x => x.Value, (col, value) => new KeyValuePair<string, string>(col.Key, value)).ToList();
+            items.RemoveAll(x => x.Key == ParamName);
 
-            qs.Set(ParamName, pageNo.ToString());
-            uri.Query = qs.ToString();
+            var qb = new QueryBuilder(items);
+            qb.Add(ParamName, pageNo.ToString());
+            ub.Query = qb.ToQueryString().ToString();
 
-            return uri.ToString();
+            return ub.ToString();
         }
     }
 }
