@@ -20,7 +20,7 @@ namespace Dfc.FindACourse.Web.TagHelpers
             get
             {
                 var ub = new UriBuilder(Url);
-                var query = QueryHelpers.ParseQuery(ub.Query); //HttpUtility.ParseQueryString(ub.Query);
+                var query = QueryHelpers.ParseQuery(ub.Query);
                 var items = query.SelectMany(x => x.Value, (col, val) => new KeyValuePair<string, string>(col.Key, val)).ToList();
                 var found = items.Where(x => x.Key == ParamName).ToList();
                 var value = 1;
@@ -33,11 +33,6 @@ namespace Dfc.FindACourse.Web.TagHelpers
                 return value;
             }
         }
-
-        //public UriBuilder Uri => new UriBuilder(Url);
-
-        //public NameValueCollection QueryString => HttpUtility.ParseQueryString(Uri.Query);
-
 
         public DfcPagination(string url, int noOfPages, int displayNoOfPages, string paramName, bool slide)
         {
