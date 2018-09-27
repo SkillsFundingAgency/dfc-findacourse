@@ -23,7 +23,7 @@ namespace Dfc.FindACourse.Services.CourseDirectory
             return new SearchCriteriaStructure
             {
                 APIKey = apiKey,
-                SubjectKeyword = criteria.SubjectKeyword,
+                SubjectKeyword = criteria.SubjectKeyword.Contains(" ") ? $"'{criteria.SubjectKeyword}'" : criteria.SubjectKeyword,
                 QualificationLevels = Helper.GetQualificationLevels(criteria.QualificationLevels),
                 Location = Helper.GetTownOrPostcode(criteria.TownOrPostcode),
                 Distance = Helper.GetDistance(criteria),

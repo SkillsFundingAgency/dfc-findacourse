@@ -184,13 +184,9 @@
                     $('#SubjectKeyword').val(selectedValue);
                 }
             } else {
-                var hoverSelected = hoverValue.indexOf(' ') >= 0;
-                if (hoverSelected) {
-                    $('#SubjectKeyword').val('"' + hoverValue + '"');
-                }
-                else {
+                
                     $('#SubjectKeyword').val(hoverValue);
-                }
+               
             }
             $('#hidSubjectKeyword').val($('#SubjectKeyword').val());
         };
