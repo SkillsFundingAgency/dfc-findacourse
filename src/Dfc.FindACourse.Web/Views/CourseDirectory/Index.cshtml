@@ -54,10 +54,10 @@
 
             @{
                 var inputValidationErrorCssClass = (Model.LocationHasError) ? "input-validation-error" : string.Empty;
-                var formGroupErrorCssClass = (Model.LocationHasError) ? "error" : string.Empty;
+                //var formGroupErrorCssClass = (Model.LocationHasError) ? "error" : string.Empty;
             }            
             
-            <div class="form-group @formGroupErrorCssClass">
+            <div class="form-group">
                 <label class="form-label" for="Location">
                     Location (optional)
                     <span class="form-hint">Enter a full postcode. For example, S1 1WB</span>

@@ -27,18 +27,18 @@
         //    }
         //};
 
-        $('#FindACourseForm input').on('focusout keyup', function () {
-            if ($(this).hasClass('input-validation-error')) {
-                $.validator.defaults.highlight($(this), $.validator.defaults.errorClass);
-            } else {
-                $.validator.defaults.unhighlight($(this), $.validator.defaults.errorClass);
-            }
-        });
+        //$('#FindACourseForm input').on('focusout keyup', function () {
+        //    if ($(this).hasClass('input-validation-error')) {
+        //        $.validator.defaults.highlight($(this), $.validator.defaults.errorClass);
+        //    } else {
+        //        $.validator.defaults.unhighlight($(this), $.validator.defaults.errorClass);
+        //    }
+        //});
 
         $(function () {
             $("select").removeAttr("multiple");
         });
-
+         
     });
 
 })();
