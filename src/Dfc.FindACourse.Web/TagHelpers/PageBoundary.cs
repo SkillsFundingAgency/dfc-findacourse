@@ -19,7 +19,7 @@ namespace Dfc.FindACourse.Web.TagHelpers
             if (ceiling > currentPageNo) return;
 
             StartNumber = currentPageNo + 1 - ceiling;
-            DisplayNumber = DisplayNumber - 1 + StartNumber;
+            DisplayNumber = (DisplayNumber - 1 + StartNumber) < noOfPages ? (DisplayNumber - 1 + StartNumber): noOfPages;
         }
     }
 }

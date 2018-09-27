@@ -61,6 +61,9 @@ namespace Dfc.FindACourse.Web
 
             services.AddSingleton<IConfiguration>(Configuration);
             services.Configure<App>(Configuration.GetSection("App"));
+            services.Configure<App>(Configuration.GetSection("Storage"));
+            services.Configure<App>(Configuration.GetSection("Tribal"));
+
             services.AddSingleton(typeof(IPostcodeServiceConfiguration),
                 new PostcodeServiceConfiguration(Configuration["Postcodes.Io:ApiBaseUrl"]));
 
