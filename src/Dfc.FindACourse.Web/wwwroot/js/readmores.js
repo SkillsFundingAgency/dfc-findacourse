@@ -9,7 +9,7 @@
         var options100 = {
             speed: 100,
             collapsedHeight: 100,
-            heightMargin: 20,
+            heightMargin: 25,
             moreLink: '<a href="#" style="display:block;margin-bottom:20px;">... read more</a>',
             lessLink: '<a href="#" style="display:block;margin-bottom:20px;">read less</a>'
         };
