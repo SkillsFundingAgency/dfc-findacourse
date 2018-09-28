@@ -81,12 +81,12 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
 
         internal string DistanceDisplayText(ICourseItem item)
         {
-            if (!item.Opportunity.HasVenue && item.Opportunity.HasRegion)
+            if (item.Opportunity.HasVenue && item.Opportunity.Venue.Distance.HasValue)
             {
-                return _distanceDisplayText;
+                return $"{item.Opportunity.Venue.Distance.Value.ToString("0.0")} miles";
             }
 
-            return $"{item.Opportunity.Venue.Distance.Value.ToString("0.0")} miles";
+            return _distanceDisplayText;
         }
     }
 }
