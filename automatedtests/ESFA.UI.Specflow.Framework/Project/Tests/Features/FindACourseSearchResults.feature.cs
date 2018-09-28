@@ -157,7 +157,7 @@ namespace ESFA.UI.Specflow.Framework.FindACourse.Project.Tests.Features
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("DFC3900 View Search Results By Course Name display Course Level")]
         [NUnit.Framework.CategoryAttribute("DFC-3900")]
-        [NUnit.Framework.TestCaseAttribute("English Bridging Course Entry Level", "Entry Level", null)]
+        [NUnit.Framework.TestCaseAttribute("English Bridging Course Entry Level", "Entry level", null)]
         [NUnit.Framework.TestCaseAttribute("Diploma in Chemical Skin Peeling & Micro-needling", "Level 4", null)]
         [NUnit.Framework.TestCaseAttribute("ASTROPHYSICS", "Level 3", null)]
         [NUnit.Framework.TestCaseAttribute("DENTISTRY", "Level 2", null)]
@@ -219,8 +219,10 @@ namespace ESFA.UI.Specflow.Framework.FindACourse.Project.Tests.Features
 #line 68
   testRunner.Then("I should be on Search Results for page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 69
-  testRunner.When(string.Format("I select {0} filter", studyMode), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+  testRunner.And("I click  the Clear All Filters link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 70
+  testRunner.When(string.Format("I select {0} filter", studyMode), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 71
   testRunner.Then(string.Format("the study mode {0} is displayed", studyMode), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -241,18 +243,18 @@ namespace ESFA.UI.Specflow.Framework.FindACourse.Project.Tests.Features
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("DFC3900 View Search Results By Course Name displays Attendance Mode", null, @__tags);
-#line 80
+#line 81
  this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 81
- testRunner.Given("I navigate to Find a Course home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 82
-  testRunner.When(string.Format("I enter course {0}", courseName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.Given("I navigate to Find a Course home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 83
-  testRunner.And("I click Search", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.When(string.Format("I enter course {0}", courseName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 84
-  testRunner.Then("I should be on Search Results for page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+  testRunner.And("I click Search", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 85
+  testRunner.Then("I should be on Search Results for page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 86
   testRunner.And(string.Format("the attendance mode {0} is displayed", attendanceMode), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -273,18 +275,18 @@ namespace ESFA.UI.Specflow.Framework.FindACourse.Project.Tests.Features
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("DFC3900 View Search Results By Course Name displays Attendance Pattern", null, @__tags);
-#line 95
+#line 96
  this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 96
- testRunner.Given("I navigate to Find a Course home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 97
-  testRunner.When(string.Format("I enter course {0}", courseName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.Given("I navigate to Find a Course home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 98
-  testRunner.And("I click Search", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.When(string.Format("I enter course {0}", courseName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 99
-  testRunner.Then("I should be on Search Results for page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+  testRunner.And("I click Search", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 100
+  testRunner.Then("I should be on Search Results for page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 101
   testRunner.And(string.Format("the attendance pattern {0} is displayed", attendancePattern), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -304,18 +306,18 @@ namespace ESFA.UI.Specflow.Framework.FindACourse.Project.Tests.Features
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("DFC3900 View Search Results By Course Name displays Provider", null, @__tags);
-#line 110
+#line 111
  this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 111
- testRunner.Given("I navigate to Find a Course home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 112
-  testRunner.When(string.Format("I enter course {0}", courseName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.Given("I navigate to Find a Course home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 113
-  testRunner.And("I click Search", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.When(string.Format("I enter course {0}", courseName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 114
-  testRunner.Then("I should be on Search Results for page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+  testRunner.And("I click Search", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 115
+  testRunner.Then("I should be on Search Results for page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 116
   testRunner.And(string.Format("the provider {0} is displayed", provider), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -336,18 +338,18 @@ namespace ESFA.UI.Specflow.Framework.FindACourse.Project.Tests.Features
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("DFC3900 View Search Results By Course Name displays Location", null, @__tags);
-#line 124
+#line 125
  this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 125
- testRunner.Given("I navigate to Find a Course home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 126
-  testRunner.When(string.Format("I enter course {0}", courseName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.Given("I navigate to Find a Course home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 127
-  testRunner.And("I click Search", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.When(string.Format("I enter course {0}", courseName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 128
-  testRunner.Then("I should be on Search Results for page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+  testRunner.And("I click Search", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 129
+  testRunner.Then("I should be on Search Results for page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 130
   testRunner.And(string.Format("the location {0} is dispalyed", location), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -366,20 +368,20 @@ namespace ESFA.UI.Specflow.Framework.FindACourse.Project.Tests.Features
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("DFC3900 View Search Results By Course Name displays Distance", null, @__tags);
-#line 139
+#line 140
  this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 140
- testRunner.Given("I navigate to Find a Course home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 141
-  testRunner.When(string.Format("I enter course {0}", courseName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.Given("I navigate to Find a Course home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 142
-  testRunner.And(string.Format("I enter location {0}", location), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.When(string.Format("I enter course {0}", courseName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 143
-  testRunner.And("I click Search", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And(string.Format("I enter location {0}", location), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 144
-  testRunner.Then("I should be on Search Results for page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+  testRunner.And("I click Search", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 145
+  testRunner.Then("I should be on Search Results for page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 146
   testRunner.And(string.Format("the distance {0} is displayed", distance), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -398,24 +400,24 @@ namespace ESFA.UI.Specflow.Framework.FindACourse.Project.Tests.Features
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("DFC3900 View Search Results By Course Name displays Start Date and Duration", null, @__tags);
-#line 153
+#line 154
  this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 154
- testRunner.Given("I navigate to Find a Course home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 155
-  testRunner.When(string.Format("I enter course {0}", courseName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.Given("I navigate to Find a Course home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 156
-  testRunner.And(string.Format("I enter location {0}", location), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.When(string.Format("I enter course {0}", courseName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 157
-  testRunner.And("I click Search", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And(string.Format("I enter location {0}", location), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 158
-  testRunner.Then("I should be on Search Results for page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+  testRunner.And("I click Search", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 159
-  testRunner.And(string.Format("the distance {0} is displayed", distance), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.Then("I should be on Search Results for page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 160
-  testRunner.And(string.Format("the start date {0} is displayed", startDate), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And(string.Format("the distance {0} is displayed", distance), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 161
+  testRunner.And(string.Format("the start date {0} is displayed", startDate), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 162
   testRunner.And(string.Format("the duration {0} is displayed", duration), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -439,24 +441,24 @@ namespace ESFA.UI.Specflow.Framework.FindACourse.Project.Tests.Features
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("DFC3935 Select location on Page 2", null, @__tags);
-#line 169
+#line 170
  this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 170
- testRunner.Given("I navigate to Find a Course home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 171
-  testRunner.When(string.Format("I enter course {0}", courseName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.Given("I navigate to Find a Course home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 172
-  testRunner.And(string.Format("I enter location {0}", location), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.When(string.Format("I enter course {0}", courseName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 173
-  testRunner.And("I click Search", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.And(string.Format("I enter location {0}", location), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 174
-  testRunner.Then("I should be on Search Results for page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+  testRunner.And("I click Search", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 175
-  testRunner.When(string.Format("On Page 2 I enter location {0}", location2), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+  testRunner.Then("I should be on Search Results for page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 176
-  testRunner.And("On Page 2 I click Search", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.When(string.Format("On Page 2 I enter location {0}", location2), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 177
+  testRunner.And("On Page 2 I click Search", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 178
   testRunner.Then("I should be on Search Results for page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -482,22 +484,22 @@ namespace ESFA.UI.Specflow.Framework.FindACourse.Project.Tests.Features
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("DFC3935 Select Course Name on Page 2", null, @__tags);
-#line 191
+#line 192
  this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 192
- testRunner.Given("I navigate to Find a Course home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 193
-  testRunner.When(string.Format("I enter course {0}", courseName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.Given("I navigate to Find a Course home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 194
-  testRunner.And("I click Search", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.When(string.Format("I enter course {0}", courseName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 195
-  testRunner.Then("I should be on Search Results for page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+  testRunner.And("I click Search", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 196
-  testRunner.When(string.Format("On Page 2 I enter course {0}", courseName2), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+  testRunner.Then("I should be on Search Results for page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 197
-  testRunner.And("On Page 2 I click Search", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.When(string.Format("On Page 2 I enter course {0}", courseName2), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 198
+  testRunner.And("On Page 2 I click Search", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 199
   testRunner.Then("I should be on Search Results for page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

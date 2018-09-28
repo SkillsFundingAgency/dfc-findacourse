@@ -155,6 +155,12 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.StepDefinitions
             findACourseSearchResultsPage.SelectStudyModeFilter(studyMode);
         }
 
+        [Then(@"I click  the Clear All Filters link")]
+        public void ClearAllFiltersLink()
+        {
+            FindACourseSearchResultsPage findACourseSearchResultsPage = new FindACourseSearchResultsPage(webDriver);
+            findACourseSearchResultsPage.ClearFilters();
+        }
 
 
     }
