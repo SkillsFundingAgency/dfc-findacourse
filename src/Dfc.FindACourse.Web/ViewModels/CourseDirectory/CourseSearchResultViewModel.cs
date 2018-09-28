@@ -218,6 +218,16 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
             return string.Empty;
         }
 
+        public IEnumerable<SelectListItem> FilterSortBySelectListItems(IEnumerable<SelectListItem> selectListItems)
+        {
+            if (string.IsNullOrWhiteSpace(Location))
+            {
+                return selectListItems.Where(x => x.Value != ((int)SortBy.Distance).ToString());
+            }
+
+            return selectListItems;
+        }
+
         [Display(Name = "Course name")]
         [Required(ErrorMessage = "Enter a course name")]
         public string SubjectKeyword { get; set; }

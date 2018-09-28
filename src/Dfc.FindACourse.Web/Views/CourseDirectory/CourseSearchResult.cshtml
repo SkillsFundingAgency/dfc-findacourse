@@ -32,7 +32,6 @@
                 <div class="column-full">
                     @{
                         var inputValidationErrorCssClass = (Model.LocationHasError) ? "input-validation-error" : string.Empty;
-                        var formGroupErrorCssClass = (Model.LocationHasError) ? "error" : string.Empty;
                     }
 
                     <div class="form-group">
@@ -368,7 +367,7 @@
                                     name="SortBy"
                                     class="form-control form-control-1-4"
                                     dfc-selected-item="Html.GetEnumSelectListItem<CourseSearchResultViewModel, SortBy>(Model.SortBy)"
-                                    dfc-items="Html.GetEnumSelectList<SortBy>()"
+                                    dfc-items="Model.FilterSortBySelectListItems(Html.GetEnumSelectList<SortBy>())"
                                     dfc-ignored-item-values="new Enum[] { SortBy.StartDate }">
                         </dfc-select>
                     </div>
