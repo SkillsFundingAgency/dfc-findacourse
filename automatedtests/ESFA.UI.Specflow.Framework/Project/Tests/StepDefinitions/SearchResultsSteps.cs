@@ -142,11 +142,19 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.StepDefinitions
         }
 
         [When(@"On Page 2 I enter location (.*)")]
-        public void WhenOnPageIEnterLocationBSJG(string location)
+        public void EnterLocationOnPage2(string location)
         {
             FindACourseSearchResultsPage findACourseSearchResultsPage = new FindACourseSearchResultsPage(webDriver);
             findACourseSearchResultsPage.EnterLocation(location);
         }
+
+        [When(@"I select (.*) filter")]
+        public void SelectStudyModeFilter(string studyMode)
+        {
+            FindACourseSearchResultsPage findACourseSearchResultsPage = new FindACourseSearchResultsPage(webDriver);
+            findACourseSearchResultsPage.SelectStudyModeFilter(studyMode);
+        }
+
 
 
     }

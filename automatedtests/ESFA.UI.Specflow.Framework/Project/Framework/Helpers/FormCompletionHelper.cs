@@ -115,6 +115,15 @@ namespace ESFA.UI.Specflow.Framework.Project.Framework.Helpers
             }
         }
 
+        public static void SelectCheckBox2(By element)
+        {
+            IWebElement checkbox = webDriver.FindElement(element);
+            if (!checkbox.Selected)
+            {
+                checkbox.Click();
+            }
+        }
+
         public static void SelectRadioOptionByForAttribute(By locator, String forAttribute)
         {
             IList<IWebElement> radios = webDriver.FindElements(locator);

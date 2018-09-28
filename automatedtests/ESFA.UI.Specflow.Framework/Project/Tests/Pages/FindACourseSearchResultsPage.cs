@@ -36,6 +36,10 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.Pages
         private readonly By courseName = By.Id("SubjectKeyword");
         private readonly By searchBtn = By.Id("Search");
         private readonly By postcode = By.Id("Location");
+        private readonly By fulltime = By.XPath(".//*[@id='StudyModeFullTime']");
+        private readonly By parttime = By.XPath(".//*[@id='StudyModePartTime']"); 
+        private readonly By flexible= By.XPath(".//*[@id='StudyModeFlexible']");
+        private readonly By studymodefilter = By.XPath(".//*[@id='StudyModeFilter']");
 
         internal FindACourseSearchResultsPage CheckNullResults()
         {
@@ -168,5 +172,29 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.Pages
             return new FindACourseSearchResultsPage(webDriver);
         }
 
+        internal FindACourseSearchResultsPage SelectStudyModeFilter(String StudyMode)
+        {
+            webDriver.FindElement(studymodefilter).Click();
+            System.Threading.Thread.Sleep(2000);
+            switch (StudyMode)
+            {
+                case "Full-time":
+                    FormCompletionHelper.SelectCheckBox2(fulltime);
+                    return new FindACourseSearchResultsPage(webDriver);
+
+                case "Part-time":
+                    FormCompletionHelper.SelectCheckBox2(parttime);
+                    return new FindACourseSearchResultsPage(webDriver);
+
+                case "Flexible":
+                    FormCompletionHelper.SelectCheckBox2(flexible);
+                    return new FindACourseSearchResultsPage(webDriver);
+
+                default:
+                    throw new Exception("study mode option not found");
+
+            }
+
+        }
     }
 }

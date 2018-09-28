@@ -49,7 +49,7 @@
 
   Examples:
     | CourseName                                                                    | CourseLevel |
-    | entry level english                                                           | Entry Level |
+    | English Bridging Course Entry Level                                                         | Entry Level |
     | Diploma in Chemical Skin Peeling & Micro-needling                             | Level 4     |
     | ASTROPHYSICS                                                                  | Level 3     |
     | DENTISTRY                                                                     | Level 2     |
@@ -66,11 +66,12 @@
 		When I enter course <CourseName>
 		And I click Search
 		Then I should be on Search Results for page
-		And the study mode <StudyMode> is displayed
+		When I select <StudyMode> filter
+		Then the study mode <StudyMode> is displayed
 
   Examples:
     | CourseName                                  | StudyMode |
-    | A-level Maths (Pure and Statistics)         | Full-time |
+    | A-level Maths         | Full-time |
     | hair and beauty                             | Part-time |
     | General Data Protection Regulation (ONLINE) | Flexible  |
 
