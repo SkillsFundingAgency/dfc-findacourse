@@ -9,6 +9,8 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
 {
     public class CourseSearchResultItemViewModel
     {
+        private static readonly string _distanceDisplayText = "Contact provider";
+
         
         public CourseSearchResultItemViewModel(ICourseItem item)
         {
@@ -20,7 +22,8 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
             AttendencePattern = item.Opportunity.AttendancePattern;
             ProviderName = item.Provider.Name;
             Location = (item.Opportunity.HasVenue) ? item.Opportunity.Venue.Address.ToString() : item.Opportunity.Region;
-            Distance = (item.Opportunity.HasVenue && item.Opportunity.Venue.Distance.HasValue) ? item.Opportunity.Venue.Distance.Value.ToString("0.0") : "0.0";
+            Distance = DistanceDisplayText(item);
+            //Distance = (item.Opportunity.HasVenue && item.Opportunity.Venue.Distance.HasValue) ? item.Opportunity.Venue.Distance.Value.ToString("0.0") : "0.0";
             StartDate = item.Opportunity.StartDate.ToString();
             Duration = item.Opportunity.Duration.ToString();
         }
@@ -74,6 +77,16 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
                 default:
                     return true;
             }
+        }
+
+        internal string DistanceDisplayText(ICourseItem item)
+        {
+            if (item.Opportunity.HasVenue && item.Opportunity.Venue.Distance.HasValue)
+            {
+                return $"{item.Opportunity.Venue.Distance.Value.ToString("0.0")} miles";
+            }
+
+            return _distanceDisplayText;
         }
     }
 }
