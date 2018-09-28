@@ -73,7 +73,7 @@
   Examples:
     | CourseName                                  | StudyMode |
     | A-level Maths         | Full-time |
-    | hair and beauty                             | Part-time |
+#   | hair and beauty                             | Part-time |
     | General Data Protection Regulation (ONLINE) | Flexible  |
 
 

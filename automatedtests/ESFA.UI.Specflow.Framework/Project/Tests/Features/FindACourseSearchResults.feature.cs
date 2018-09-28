@@ -196,7 +196,6 @@ namespace ESFA.UI.Specflow.Framework.FindACourse.Project.Tests.Features
         [NUnit.Framework.DescriptionAttribute("DFC3900 View Search Results By Course Name display Study Mode")]
         [NUnit.Framework.CategoryAttribute("DFC-3900")]
         [NUnit.Framework.TestCaseAttribute("A-level Maths", "Full-time", null)]
-        [NUnit.Framework.TestCaseAttribute("hair and beauty", "Part-time", null)]
         [NUnit.Framework.TestCaseAttribute("General Data Protection Regulation (ONLINE)", "Flexible", null)]
         public virtual void DFC3900ViewSearchResultsByCourseNameDisplayStudyMode(string courseName, string studyMode, string[] exampleTags)
         {
