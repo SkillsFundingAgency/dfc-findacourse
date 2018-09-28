@@ -100,7 +100,8 @@ namespace Dfc.FindACourse.Web.Controllers
                     var postcodeResult = PostcodeService.IsValidAsync(requestModel.Location).Result;
                     if (postcodeResult.IsFailure)
                     {
-                        TempData["Location_IsInvalid"] = true;
+                        isPostcodeInvalid = true;
+                        TempData["Location_IsInvalid"] = isPostcodeInvalid;
                         TempData["Location_Postcode"] = requestModel.Location;
 
                         if (new UriBuilder(Request.Headers["Referer"]).Path != Request.Path)
