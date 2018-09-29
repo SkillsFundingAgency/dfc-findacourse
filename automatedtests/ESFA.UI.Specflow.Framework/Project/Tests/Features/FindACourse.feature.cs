@@ -435,7 +435,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("bbbbbbbbb", null)]
         [NUnit.Framework.TestCaseAttribute("1234567890", null)]
         [NUnit.Framework.TestCaseAttribute("aaBBccDD123", null)]
-        [NUnit.Framework.TestCaseAttribute("aa&BB&cDD23", null)]
+        [NUnit.Framework.TestCaseAttribute("aaaBB cDD23", null)]
         [NUnit.Framework.TestCaseAttribute("(aaBBccDD123)", null)]
         public virtual void DFC_3888SearchForCoursesByCourseNameNullResults(string courseName, string[] exampleTags)
         {
@@ -466,6 +466,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("DFC-3883 Auto Populate Course Name")]
         [NUnit.Framework.CategoryAttribute("DFC-3883")]
+        [NUnit.Framework.TestCaseAttribute("team", "TEAM,TEAM BUILDING,TEAM WORK,TEAM WORKING,TEAMWORK,TEAMWORKING", null)]
         [NUnit.Framework.TestCaseAttribute("builder", "BUILDER,BUILDING,BUILDING MAINTENANCE,BUILDING SERVICES,BUILDING SERVICES ENGINEE" +
             "RING,BUILDING SURVEYING,CONSTRUCTION", null)]
         public virtual void DFC_3883AutoPopulateCourseName(string courseName, string autopopulateList, string[] exampleTags)

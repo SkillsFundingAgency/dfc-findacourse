@@ -202,7 +202,7 @@ Scenario Outline: DFC-4090 Search for Courses By Location & Distance Null Result
     | bbbbbbbbb     |
     | 1234567890    |
     | aaBBccDD123   |
-    | aa&BB&cDD23   |
+    | aaaBB cDD23   |
     | (aaBBccDD123) |
 
 
@@ -217,7 +217,7 @@ Scenario Outline: DFC-4090 Search for Courses By Location & Distance Null Result
 
   Examples:
     | CourseName | AutopopulateList                                                                                                      |
-#    | team       | TEAM,TEAM BUILDING,TEAM WORK,TEAM WORKING,TEAMWORK,TEAMWORKING                                                        |
+    | team       | TEAM,TEAM BUILDING,TEAM WORK,TEAM WORKING,TEAMWORK,TEAMWORKING                                                        |
     | builder    | BUILDER,BUILDING,BUILDING MAINTENANCE,BUILDING SERVICES,BUILDING SERVICES ENGINEERING,BUILDING SURVEYING,CONSTRUCTION |
 
 	
