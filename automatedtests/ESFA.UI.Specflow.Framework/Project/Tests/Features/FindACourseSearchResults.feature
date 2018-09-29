@@ -208,3 +208,73 @@
     | geography  | NVQ HAIR & BEAUTY |
     | geography  | GCSE MATHS        |
     | geography  | LEVEL 4 EDUCATION |
+
+
+@DFC-3895
+ Scenario Outline: DFC3895 Filter Results By Study Mode
+ Given I navigate to Find a Course home page
+		When I enter course <CourseName>
+		And I click Search
+		Then I should be on Search Results for page
+		And I click  the Clear All Filters link
+		When I filter by study mode <StudyMode>
+		Then the study mode <StudyMode> is displayed
+
+  Examples:
+    | CourseName      | StudyMode |
+    | A-level Maths   | Full-time |
+    | A LEVEL ENGLISH | Full-time |
+    | COMPUTING       | Flexible  |
+	| COMPUTING       | Part-time  |
+
+
+@DFC-3894
+ Scenario Outline: DFC3894 Filter Results By Attendance Mode
+ Given I navigate to Find a Course home page
+		When I enter course <CourseName>
+		And I click Search
+		Then I should be on Search Results for page
+		And I click  the Clear All Filters link
+		When I filter by attendance mode <AttendanceMode>
+		Then the attendance mode <AttendanceMode> is displayed
+
+  Examples:
+    | CourseName      | AttendanceMode           |
+    | A-level Maths   | Classroom-based          |
+    | A LEVEL ENGLISH | Classroom-based          |
+    | COMPUTING       | Work-based               |
+    | COMPUTING       | Online/Distance learning |
+
+@DFC-3896
+ Scenario Outline: DFC3896 Filter Results By Attendance Pattern
+ Given I navigate to Find a Course home page
+		When I enter course <CourseName>
+		And I click Search
+		Then I should be on Search Results for page
+		And I click  the Clear All Filters link
+		When I filter by attendance pattern <AttendancePattern>
+		Then the attendance pattern <AttendancePattern> is displayed
+
+  Examples:
+    | CourseName      | AttendancePattern    |
+    | A-level Maths   | Normal working hours |
+    | A LEVEL ENGLISH | Normal working hours |
+    | COMPUTING       | Day release/Block release    |
+	| COMPUTING       | Evening/Weekend   |
+
+
+
+@DFC-3928
+ Scenario Outline: DFC3928 Clear Filters
+ Given I navigate to Find a Course home page
+		When I enter course <CourseName>
+		And I click Search
+		Then I should be on Search Results for page
+		And I click  the Clear All Filters link
+
+  Examples:
+    | CourseName   |
+    | Maths        |
+    | Biochmeistry |
+
+

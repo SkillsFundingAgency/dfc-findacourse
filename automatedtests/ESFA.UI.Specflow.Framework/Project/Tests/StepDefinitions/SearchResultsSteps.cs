@@ -148,11 +148,25 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.StepDefinitions
             findACourseSearchResultsPage.EnterLocation(location);
         }
 
-        [When(@"I select (.*) filter")]
+        [When(@"I filter by study mode (.*)")]
         public void SelectStudyModeFilter(string studyMode)
         {
             FindACourseSearchResultsPage findACourseSearchResultsPage = new FindACourseSearchResultsPage(webDriver);
             findACourseSearchResultsPage.SelectStudyModeFilter(studyMode);
+        }
+
+        [When(@"I filter by attendance mode (.*)")]
+        public void SelectAttendModeFilter(string attendMode)
+        {
+            FindACourseSearchResultsPage findACourseSearchResultsPage = new FindACourseSearchResultsPage(webDriver);
+            findACourseSearchResultsPage.SelectAttendModeFilter(attendMode);
+        }
+
+        [When(@"I filter by attendance pattern (.*)")]
+        public void SelectAttendPatternFilter(string attendPattern)
+        {
+            FindACourseSearchResultsPage findACourseSearchResultsPage = new FindACourseSearchResultsPage(webDriver);
+            findACourseSearchResultsPage.SelectAttendPatternFilter(attendPattern);
         }
 
         [Then(@"I click  the Clear All Filters link")]

@@ -36,10 +36,22 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.Pages
         private readonly By courseName = By.Id("SubjectKeyword");
         private readonly By searchBtn = By.Id("Search");
         private readonly By postcode = By.Id("Location");
+        //study mode filters
+        private readonly By studymodefilter = By.XPath(".//*[@id='StudyModeFilter']");
         private readonly By fulltime = By.XPath(".//*[@id='StudyModeFullTime']");
         private readonly By parttime = By.XPath(".//*[@id='StudyModePartTime']"); 
         private readonly By flexible= By.XPath(".//*[@id='StudyModeFlexible']");
-        private readonly By studymodefilter = By.XPath(".//*[@id='StudyModeFilter']");
+        //attendance mode filter
+        private readonly By attendmodefilter = By.XPath(".//*[@id='AttendanceModeFilter']");
+        private readonly By classroom = By.XPath(".//*[@id='AttendanceModeClassroom']");
+        private readonly By workbased = By.XPath(".//*[@id='AttendanceModeWorkbased']");
+        private readonly By online = By.XPath(".//*[@id='AttendanceModeOnlineDistanceLearning']");
+        //attendance attern filter
+        private readonly By attendpatternfilter = By.XPath(".//*[@id='AttendancePatternFilter']");
+        private readonly By normal = By.XPath(".//*[@id='AttendancePatternNormal']");
+        private readonly By dayblock = By.XPath(".//*[@id='AttendancePatternDayBlock']");
+        private readonly By eveningweekend = By.XPath(".//*[@id='AttendancePatternEveningWeekend']");
+
         private readonly By clearFilters = By.LinkText("Clear all filters");
 
         internal FindACourseSearchResultsPage CheckNullResults()
@@ -180,20 +192,78 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.Pages
             switch (StudyMode)
             {
                 case "Full-time":
+                    FormCompletionHelper.ClickElement(clearFilters);
                     FormCompletionHelper.SelectCheckBox2(fulltime);
+                    System.Threading.Thread.Sleep(3000);
                     return new FindACourseSearchResultsPage(webDriver);
-
+               
                 case "Part-time":
+                    FormCompletionHelper.ClickElement(clearFilters);
                     FormCompletionHelper.SelectCheckBox2(parttime);
+                    System.Threading.Thread.Sleep(3000);
                     return new FindACourseSearchResultsPage(webDriver);
 
                 case "Flexible":
+                    FormCompletionHelper.ClickElement(clearFilters);
                     FormCompletionHelper.SelectCheckBox2(flexible);
+                    System.Threading.Thread.Sleep(3000);
                     return new FindACourseSearchResultsPage(webDriver);
 
                 default:
                     throw new Exception("study mode option not found");
+            }
+        }
 
+        internal FindACourseSearchResultsPage SelectAttendModeFilter(String AttendMode)
+        {
+            webDriver.FindElement(attendmodefilter).Click();
+            System.Threading.Thread.Sleep(2000);
+            switch (AttendMode)
+            {
+                case "Classroom-based":
+                    FormCompletionHelper.SelectCheckBox2(classroom);
+                    System.Threading.Thread.Sleep(3000);
+                    return new FindACourseSearchResultsPage(webDriver);
+
+                case "Work-based":
+                    FormCompletionHelper.SelectCheckBox2(workbased);
+                    System.Threading.Thread.Sleep(3000);
+                    return new FindACourseSearchResultsPage(webDriver);
+
+                case "Online/Distance learning":
+                    FormCompletionHelper.SelectCheckBox2(online);
+                    System.Threading.Thread.Sleep(3000);
+                    return new FindACourseSearchResultsPage(webDriver);
+
+                default:
+                    throw new Exception("attendance mode option not found");
+            }
+        }
+
+
+        internal FindACourseSearchResultsPage SelectAttendPatternFilter(String AttendPattern)
+        {
+            webDriver.FindElement(attendpatternfilter).Click();
+            System.Threading.Thread.Sleep(2000);
+            switch (AttendPattern)
+            {
+                case "Normal working hours":
+                    FormCompletionHelper.SelectCheckBox2(normal);
+                    System.Threading.Thread.Sleep(3000);
+                    return new FindACourseSearchResultsPage(webDriver);
+
+                case "Evening/Weekend":
+                    FormCompletionHelper.SelectCheckBox2(eveningweekend);
+                    System.Threading.Thread.Sleep(3000);
+                    return new FindACourseSearchResultsPage(webDriver);
+
+                case "Day release/Block release":
+                    FormCompletionHelper.SelectCheckBox2(dayblock);
+                    System.Threading.Thread.Sleep(3000);
+                    return new FindACourseSearchResultsPage(webDriver);
+
+                default:
+                    throw new Exception("attendance pattern option not found");
             }
         }
 

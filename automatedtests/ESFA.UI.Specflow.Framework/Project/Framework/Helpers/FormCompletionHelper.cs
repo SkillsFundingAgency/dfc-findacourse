@@ -43,6 +43,7 @@ namespace ESFA.UI.Specflow.Framework.Project.Framework.Helpers
             webDriver.FindElement(locator).SendKeys(text);
         }
 
+
         public static void SelectFromDropDownByValue(IWebElement element, String value)
         {
             var selectElement = new SelectElement(element);
