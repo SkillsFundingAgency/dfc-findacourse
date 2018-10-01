@@ -5,18 +5,18 @@
 
 (function () {
     $(function () {
-        function GetURLParam(name) {
-            name = name.replace(/[[]/, "\\[").replace(/[\]]/, "\\]");
-            var regexS = "[\\?&]" + name + "=([^&#]*)";
-            var regex = new RegExp(regexS);
-            var results = regex.exec($('#hidUrl').val());
-            if (results == null)
-                return "";
-            else
-                return results[1];
-        }
-        //get vars
-        var subject = GetURLParam('SubjectKeyword');
+        //function GetURLParam(name) {
+        //    name = name.replace(/[[]/, "\\[").replace(/[\]]/, "\\]");
+        //    var regexS = "[\\?&]" + name + "=([^&#]*)";
+        //    var regex = new RegExp(regexS);
+        //    var results = regex.exec($('#hidUrl').val());
+        //    if (results == null)
+        //        return "";
+        //    else
+        //        return results[1];
+        //}
+        ////get vars
+        //var subject = GetURLParam('SubjectKeyword');
         //var qualLevels = GetURLParam('QualificationLevels');
         //var radius = GetURLParam('LocationRadius');
         //var postcode = GetURLParam('Location');
