@@ -6,6 +6,7 @@
 (function () {
     $(function () {
 
+     
         var autoCompleteSuggestions = function (term) {
             $.ajax({
                 type: 'GET',
@@ -146,7 +147,7 @@
             if (keyCode === 13) {
                 if ($('#course-list').is(':visible')) {
                     e.preventDefault();
-                    $("#Search").focus().click();
+                        $("#Search").focus().click();
 
                 }
             }
@@ -154,6 +155,13 @@
             if (keyCode === 9) {
                 $('#course-list').hide();
             }
+        });
+        $('#Search').on('click', function () {
+            //Save Vars
+            sessionStorage.setItem('subjectkeyword', $('#SubjectKeyword').val());
+            sessionStorage.setItem('quallevel', $('#QualificationLevels').val());
+            sessionStorage.setItem('locationradius', $('#LocationRadius').val());
+            sessionStorage.setItem('locationpostcode', $('#Location').val());
         });
 
         $('#SubjectKeyword').on('click', function () {
@@ -178,12 +186,16 @@
             if (selectedValue) {
 
                 $('#SubjectKeyword').val(selectedValue);
+                sessionStorage.setItem('subjectkeyword', selectedValue);
+
             }
             else {
                 
-                 $('#SubjectKeyword').val(hoverValue);
+                $('#SubjectKeyword').val(hoverValue);
+                sessionStorage.setItem('subjectkeyword', hoverValue);
                
             }
+            
             $('#hidSubjectKeyword').val($('#SubjectKeyword').val());
         };
         
