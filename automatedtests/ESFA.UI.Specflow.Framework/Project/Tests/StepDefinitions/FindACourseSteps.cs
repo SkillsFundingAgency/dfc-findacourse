@@ -52,6 +52,7 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.StepDefinitions
         public void EnterOneLetterAtATime(string courseTxt)
         {
             FindACoursePage findACoursePage = new FindACoursePage(webDriver);
+            findACoursePage.ClearCourseName();
             foreach (char c in courseTxt)
             {
                 findACoursePage.EnterCourseNameWithoutClearing(c.ToString());

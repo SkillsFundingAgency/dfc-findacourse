@@ -176,16 +176,12 @@
             var selectedValue = $('#course-list li.item-hover').attr('data-value');
             
             if (selectedValue) {
-                var spaceSelected = selectedValue.indexOf(' ') >= 0;
-                if (spaceSelected) {
-                    $('#SubjectKeyword').val('"' + selectedValue + '"');
-                }
-                else {
-                    $('#SubjectKeyword').val(selectedValue);
-                }
-            } else {
+
+                $('#SubjectKeyword').val(selectedValue);
+            }
+            else {
                 
-                    $('#SubjectKeyword').val(hoverValue);
+                 $('#SubjectKeyword').val(hoverValue);
                
             }
             $('#hidSubjectKeyword').val($('#SubjectKeyword').val());

@@ -98,5 +98,11 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.Pages
             FormCompletionHelper.IsElementDisplayed(postcodeValidation);
             return new FindACoursePage(webDriver);
         }
+
+        internal FindACoursePage ClearCourseName()
+        {
+            webDriver.FindElement(courseName).Clear();
+            return new FindACoursePage(webDriver);
+        }
     }
 }

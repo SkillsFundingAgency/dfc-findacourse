@@ -198,10 +198,12 @@ Scenario Outline: DFC-4090 Search for Courses By Location & Distance Null Result
 		And no results found message is displayed
 
   Examples:
-    | CourseName  |
-    | bbbbbbbbb   |
-    | 1234567890  |
-    | aaBBccDD123 |
+    | CourseName    |
+    | bbbbbbbbb     |
+    | 1234567890    |
+    | aaBBccDD123   |
+    | aaaBB cDD23   |
+    | (aaBBccDD123) |
 
 
 @DFC-3883

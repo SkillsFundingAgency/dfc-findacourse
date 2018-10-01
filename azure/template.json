@@ -231,7 +231,7 @@
               },
               {
                 "name": "App__Page1Text3",
-                "value": "For example, Engineering or Hairdressing"
+                "value": "For example, Maths or Sports Studies"
               },
               {
                 "name": "App__Page1Text4",
@@ -255,7 +255,7 @@
               },
               {
                 "name": "Tribal__PerPage",
-                "value": "20"
+                "value": "10"
               },
               {
                 "name": "Tribal__APIAddress",

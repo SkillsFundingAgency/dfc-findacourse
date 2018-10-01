@@ -43,6 +43,7 @@ namespace ESFA.UI.Specflow.Framework.Project.Framework.Helpers
             webDriver.FindElement(locator).SendKeys(text);
         }
 
+
         public static void SelectFromDropDownByValue(IWebElement element, String value)
         {
             var selectElement = new SelectElement(element);
@@ -112,6 +113,15 @@ namespace ESFA.UI.Specflow.Framework.Project.Framework.Helpers
             if(element.Displayed && !element.Selected)
             {
                 element.Click();
+            }
+        }
+
+        public static void SelectCheckBox2(By element)
+        {
+            IWebElement checkbox = webDriver.FindElement(element);
+            if (!checkbox.Selected)
+            {
+                checkbox.Click();
             }
         }
 
