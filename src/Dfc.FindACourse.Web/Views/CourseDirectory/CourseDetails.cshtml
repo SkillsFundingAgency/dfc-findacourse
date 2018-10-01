@@ -1,6 +1,10 @@
 ﻿@using Dfc.FindACourse.Common;
 @using Dfc.FindACourse.Web.HtmlHelpers;
 @using Dfc.FindACourse.Web.ViewModels.CourseDirectory;
+@using Microsoft.Extensions.Options;
+@using Dfc.FindACourse.Common.Settings;
+@inject IOptions<App> appSettings
+
 @model Dfc.FindACourse.Web.ViewModels.CourseDirectory.CourseDetailViewModel;
 
 @{
@@ -71,8 +75,8 @@
                             </td>
                         </tr>
                         @if (!string.IsNullOrWhiteSpace(@Model.Opportunities[0].Price)
-                               || !string.IsNullOrWhiteSpace(@Model.Opportunities[0].PriceDescription)
-                                    || (Model.Provider.TFPlusLoansSpecified && Model.Provider.TFPlusLoans))
+                              || !string.IsNullOrWhiteSpace(@Model.Opportunities[0].PriceDescription)
+                                   || (Model.Provider.TFPlusLoansSpecified && Model.Provider.TFPlusLoans))
                         {
                             <tr class="govuk-table__row">
                                 <td class="govuk-table__cell">Cost</td>
@@ -83,9 +87,9 @@
                                     }
                                     @if (!string.IsNullOrWhiteSpace(@Model.Opportunities[0].PriceDescription))
                                     {
-                                    <div id="PriceDescription">
-                                        @Model.Opportunities[0].PriceDescription
-                                    </div>
+                                        <div id="PriceDescription">
+                                            @Model.Opportunities[0].PriceDescription
+                                        </div>
                                     }
                                     @if (Model.Provider.TFPlusLoansSpecified && Model.Provider.TFPlusLoans)
                                     {
@@ -125,7 +129,7 @@
                         }
                     </tbody>
                 </table>
-                
+
                 @if (!string.IsNullOrWhiteSpace(Model.BookingURL))
                 {
                     <a target="_blank" href=@Model.BookingURL role="button" class="govuk-button govuk-button--start">
@@ -324,7 +328,7 @@
                     </table>
 
 
-                    @if (Model.Opportunities.Count > 1)
+                    @if (Model.Opportunities.Count > 1 && appSettings.Value.Page3DisplayOtherDates)
                     {
                         <details>
                             <summary style="position: relative;">
@@ -366,11 +370,19 @@
                         </details>
                         <hr>
                     }
+                    @if (appSettings.Value.Page3DisplayTravel)
+                    {    
+                        <details>
+                            <summary style="position: relative;">
+                                <span style="color:#005ea5;">Travel time</span>
+                            </summary>
+                        </details>
+                    }
 
 
 
 
-                </aside>
+                    </aside>
             </section>
 
 
