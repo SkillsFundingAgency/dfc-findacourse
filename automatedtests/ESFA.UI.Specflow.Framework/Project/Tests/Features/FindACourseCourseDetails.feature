@@ -40,13 +40,13 @@ Scenario Outline: DFC-3973 View Course Details display Course Title
     | Electrical             | b13 8py  |
     | ENGLISH                | BS1 1JG  |
     | COMPUTING              | NE7 7SF  |
-    | COMPUTER STUDIES       | M9 0FN   |
+    | COMPUTER STUDIES       | M1 1ae   |
     | IT                     | L4 1SE   |
     | INFORMATION TECHNOLOGY | LS1 1UR  |
     | ICT                    | S1 2HE   |
     | COMPUTER SCIENCE       | BD1 1AJ  |
-    | SOFTWARE ENGINEERING   | E8 1DY   |
-    | INFORMATION SYSTEMS    | YO1 6GA  |
+    | SOFTWARE  | b13 9da   |
+    | INFORMATION   | ne7 7sf |
     | COMPUTING              | SW2 1RW  |
 
 
@@ -80,7 +80,7 @@ Scenario Outline: DFC-3973 View Course Details display Entry Requirements
 
   Examples:
     | CourseName    | Location | EntryRequirements                      |
-    | Hair & Beauty | b14 7en  | There are no formal entry requirements |
+    | Hair & Beauty | b14 7en  | interview |
     | Electrical    | b14 7en  | Concessions may apply                  |
     | Gardening     | b14 7en  | TBC                                    |
 
@@ -227,11 +227,11 @@ Scenario Outline: DFC-4914 Venue on Google Maps
     | BTEC Level 4 Certificate in Education & Training | gu21 6yl |
     | Gardening                                        | b14 7en  |
     | COMPUTER SCIENCE                                 | BD1 1AJ  |
-    | SOFTWARE ENGINEERING                             | E8 1DY   |
-    | INFORMATION SYSTEMS                              | YO1 6GA  |
+    | SOFTWARE                                         | E8 1DY   |
+    | INFORMATION                                      | YO1 6GA  |
     | COMPUTING                                        | SW2 1RW  |
     | COMPUTING                                        | NE7 7SF  |
-    | COMPUTER STUDIES                                 | M9 0FN   |
+    | english                                          | M9 0FN   |
     | IT                                               | L4 1SE   |
 
 @DFC-3976
@@ -255,8 +255,8 @@ Scenario Outline: DFC-3976 Provider and Venue details are displayed
     | CourseName       | QualificationLevel                                   | Location | Provider/Venue |
     | biology          | Level 3 - A level/Access to higher education diploma | B63 3NA  | Venue          |
     | geography        | Level 3 - A level/Access to higher education diploma | B63 3NA  | Venue          |
-    | religous studies | Level 3 - A level/Access to higher education diploma | B63 3NA  | Venue          |
-    | business studies | Level 3 - A level/Access to higher education diploma | B63 3NA  | Venue          |
+    | biology          | Level 3 - A level/Access to higher education diploma | B63 3Nb  | Venue          |
+    | geography        | Level 3 - A level/Access to higher education diploma | B63 3Nb  | Venue          |
     | english          | Level 3 - A level/Access to higher education diploma | B63 3NA  | Venue          |
     | technology       | Level 3 - A level/Access to higher education diploma | B63 3NA  | Venue          |
     | THEOLOGY         | Level 3 - A level/Access to higher education diploma | B63 3NA  | Venue          |

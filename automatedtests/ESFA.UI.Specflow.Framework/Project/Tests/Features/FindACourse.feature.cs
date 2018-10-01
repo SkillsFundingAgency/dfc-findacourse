@@ -435,6 +435,8 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("bbbbbbbbb", null)]
         [NUnit.Framework.TestCaseAttribute("1234567890", null)]
         [NUnit.Framework.TestCaseAttribute("aaBBccDD123", null)]
+        [NUnit.Framework.TestCaseAttribute("aaaBB cDD23", null)]
+        [NUnit.Framework.TestCaseAttribute("(aaBBccDD123)", null)]
         public virtual void DFC_3888SearchForCoursesByCourseNameNullResults(string courseName, string[] exampleTags)
         {
             string[] @__tags = new string[] {
@@ -476,20 +478,20 @@ this.ScenarioInitialize(scenarioInfo);
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("DFC-3883 Auto Populate Course Name", null, @__tags);
-#line 208
+#line 210
  this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 209
-  testRunner.Given("I navigate to Find a Course home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 210
-  testRunner.When(string.Format("one letter at a time {0}", courseName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 211
-  testRunner.Then(string.Format("the Course suggestions {0} displayed", autopopulateList), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+  testRunner.Given("I navigate to Find a Course home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 212
-  testRunner.And(string.Format("I Can select one of the List options {0}", courseName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+  testRunner.When(string.Format("one letter at a time {0}", courseName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 213
-  testRunner.When("I click Search", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+  testRunner.Then(string.Format("the Course suggestions {0} displayed", autopopulateList), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line 214
+  testRunner.And(string.Format("I Can select one of the List options {0}", courseName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 215
+  testRunner.When("I click Search", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 216
   testRunner.Then("I should be on Search Results for page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -502,14 +504,14 @@ this.ScenarioInitialize(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("DFC-4094 Contact Adviser", null, new string[] {
                         "DFC-4094"});
-#line 224
+#line 226
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 225
- testRunner.Given("I navigate to Find a Course home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 226
- testRunner.When("I click Contact a Careers Advisor link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 227
+ testRunner.Given("I navigate to Find a Course home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 228
+ testRunner.When("I click Contact a Careers Advisor link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 229
  testRunner.Then("I will be on Contact us page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -522,14 +524,14 @@ this.ScenarioInitialize(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("DFC-3887 View Qualification Level Help Text", null, new string[] {
                         "DFC-3887"});
-#line 231
+#line 233
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 232
- testRunner.Given("I navigate to Find a Course home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 233
- testRunner.When("I click What qualification levels mean link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 234
+ testRunner.Given("I navigate to Find a Course home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 235
+ testRunner.When("I click What qualification levels mean link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 236
  testRunner.Then("I will be on What qualification levels mean page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
