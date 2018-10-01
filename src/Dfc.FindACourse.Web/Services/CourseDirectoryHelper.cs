@@ -37,7 +37,7 @@ namespace Dfc.FindACourse.Web.Services
                     }
                 );
 
-            return qualificationLevels;
+            return qualificationLevels.Count() == 9 ? new List<QualLevel>() : qualificationLevels;
         }
 
         public bool HasQualificationLevels(ICourseSearchRequestModel requestModel)
@@ -66,7 +66,7 @@ namespace Dfc.FindACourse.Web.Services
                     }
                 );
 
-            return paramStudyModes;
+            return paramStudyModes.Count() == 3 ? new List<StudyModeExt>() : paramStudyModes;
         }
 
         public IEnumerable<string> GetMissSpellings(string search, XmlDocument searchTerms, XmlNodeList expansionNodes)
@@ -156,7 +156,7 @@ namespace Dfc.FindACourse.Web.Services
                 list.Add(GetAttendanceModeSearchString(attendanceMode));
             }
 
-            return list;
+            return list.Count() == 6 ? new List<string>() : list;
         }
 
         public bool IsAttendanceModeDisplayable(AttendanceMode attendanceMode)
@@ -227,7 +227,7 @@ namespace Dfc.FindACourse.Web.Services
                 list.Add(GetAttendancePatternSearchString(attendancePattern));
             }
 
-            return list;
+            return list.Count() == 5 ? new List<string>() : list;
         }
 
         public bool IsAttendancePatternDisplayable(AttendancePattern attendancePattern)
