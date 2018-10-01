@@ -3403,9 +3403,14 @@ p.white {
 }
 
 .index-page .field-validation-error {
-  /*background: white;*/
+  background: white;
   padding: 9px;
   /*width: 42%;*/
+}
+
+#LocationValidationMessage {
+  display: block;
+  width: 248px;
 }
 
 .index-page #SubjectKeyword {
