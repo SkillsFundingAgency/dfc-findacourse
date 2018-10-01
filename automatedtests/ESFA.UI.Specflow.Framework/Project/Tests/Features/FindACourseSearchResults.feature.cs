@@ -220,7 +220,7 @@ namespace ESFA.UI.Specflow.Framework.FindACourse.Project.Tests.Features
 #line 69
   testRunner.And("I click  the Clear All Filters link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 70
-  testRunner.When(string.Format("I select {0} filter", studyMode), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+  testRunner.When(string.Format("I filter by study mode {0}", studyMode), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 71
   testRunner.Then(string.Format("the study mode {0} is displayed", studyMode), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden

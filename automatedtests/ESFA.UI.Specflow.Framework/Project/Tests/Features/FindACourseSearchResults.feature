@@ -67,7 +67,7 @@
 		And I click Search
 		Then I should be on Search Results for page
 		And I click  the Clear All Filters link
-		When I select <StudyMode> filter
+		When I filter by study mode <StudyMode>
 		Then the study mode <StudyMode> is displayed
 
   Examples:
@@ -256,11 +256,11 @@
 		Then the attendance pattern <AttendancePattern> is displayed
 
   Examples:
-    | CourseName      | AttendancePattern    |
-    | A-level Maths   | Normal working hours |
-    | A LEVEL ENGLISH | Normal working hours |
-    | COMPUTING       | Day release/Block release    |
-	| COMPUTING       | Evening/Weekend   |
+    | CourseName      | AttendancePattern         |
+    | A-level Maths   | Normal working hours      |
+    | A LEVEL ENGLISH | Normal working hours      |
+    | COMPUTING       | Day release/Block release |
+    | COMPUTING       | Evening/Weekend           |
 
 
 
