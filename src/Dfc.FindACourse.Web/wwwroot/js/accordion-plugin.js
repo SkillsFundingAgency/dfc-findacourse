@@ -90,15 +90,11 @@
                 methods.setStateCssClass(el, val);
             }
 
-            console.log([attrId, 'getStateCssClass', val]);
-
             return val;
         },
         setStateCssClass: function (el, val) {
            var attrId = $(el).attr('id');
             window.sessionStorage.setItem(attrId + '::stateCssClass', val);
-
-            console.log([attrId, 'setStateCssClass', val]);
         },
         getToggleState: function(el, settings) {
             var current = methods.getStateCssClass(el, settings);
