@@ -33,6 +33,7 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
         public static bool zapTest = false;
         protected static string reportLocation;
 
+       
         [BeforeTestRun(Order =1)]
         public static void InitializeReport(object sender, EventArgs e)
         {
@@ -82,6 +83,10 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
                 case "debug":
                     webDriver = new ChromeDriver();
                     webDriver.Manage().Window.Maximize();
+                    webDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
+                    webDriver.Manage().Cookies.DeleteAllCookies();
+                    String currentWindow = webDriver.CurrentWindowHandle;
+                    webDriver.SwitchTo().Window(currentWindow);
                     break;
 
                 case "win10chrome":
@@ -157,15 +162,7 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
                 default:
                     throw new Exception("Driver name does not match OR this framework does not support the webDriver specified");
             }
-
-            //webDriver.Manage().Window.Maximize();
-            //webDriver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(10);
-            //webDriver.Manage().Cookies.DeleteAllCookies();
-            //String currentWindow = webDriver.CurrentWindowHandle;
-            //webDriver.SwitchTo().Window(currentWindow);
-
             PageInteractionHelper.SetDriver(webDriver);
-
         }
 
 
@@ -294,8 +291,7 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
         {
             //connect to Zap service
             Zap = new ClientApi("localhost", 8095, null);
-          
-
+                     
             //conffigure proxy
             const string PROXY = "localhost:8095";
             var chromeOptions = new ChromeOptions();
