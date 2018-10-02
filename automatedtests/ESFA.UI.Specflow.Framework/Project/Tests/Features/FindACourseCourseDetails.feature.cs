@@ -781,7 +781,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("DFC-3975 View Course assessment method")]
         [NUnit.Framework.CategoryAttribute("DFC-3975")]
-        [NUnit.Framework.TestCaseAttribute("Network Engineering (Cyber Security) - BSc Hons Degree - Top up", null)]
+        [NUnit.Framework.TestCaseAttribute("Network Engineering (Cyber Security) BSc Hons Degree Top up", null)]
         public virtual void DFC_3975ViewCourseAssessmentMethod(string courseName, string[] exampleTags)
         {
             string[] @__tags = new string[] {

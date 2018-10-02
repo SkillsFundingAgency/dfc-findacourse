@@ -158,14 +158,14 @@ namespace ESFA.UI.Specflow.Framework.FindACourse.Project.Tests.Features
         [NUnit.Framework.DescriptionAttribute("DFC3900 View Search Results By Course Name display Course Level")]
         [NUnit.Framework.CategoryAttribute("DFC-3900")]
         [NUnit.Framework.TestCaseAttribute("English Bridging Course Entry Level", "Entry level", null)]
-        [NUnit.Framework.TestCaseAttribute("Diploma in Chemical Skin Peeling & Micro-needling", "Level 4", null)]
+        [NUnit.Framework.TestCaseAttribute("Diploma in Chemical Skin Peeling & Micro needling", "Level 4", null)]
         [NUnit.Framework.TestCaseAttribute("ASTROPHYSICS", "Level 3", null)]
         [NUnit.Framework.TestCaseAttribute("DENTISTRY", "Level 2", null)]
         [NUnit.Framework.TestCaseAttribute("C&G L1 AWARD IN INTRODUCTORY TUNGSTEN INERT GAS (TIG) WELDING", "Level 1", null)]
         [NUnit.Framework.TestCaseAttribute("Pharmacy Clinical Services Professional Diploma", "Level 4", null)]
-        [NUnit.Framework.TestCaseAttribute("Marine Engineering - HND", "Level 5", null)]
+        [NUnit.Framework.TestCaseAttribute("Marine Engineering HND", "Level 5", null)]
         [NUnit.Framework.TestCaseAttribute("Integrated Masters Equine Science MSci", "Level 7", null)]
-        [NUnit.Framework.TestCaseAttribute("Automotive Engineering and Technology (Motorsport) - BEng Hons Degree - Topup", "Level 6", null)]
+        [NUnit.Framework.TestCaseAttribute("Automotive Engineering and Technology (Motorsport) BEng Hons Degree Topup", "Level 6", null)]
         public virtual void DFC3900ViewSearchResultsByCourseNameDisplayCourseLevel(string courseName, string courseLevel, string[] exampleTags)
         {
             string[] @__tags = new string[] {
@@ -195,7 +195,7 @@ namespace ESFA.UI.Specflow.Framework.FindACourse.Project.Tests.Features
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("DFC3900 View Search Results By Course Name display Study Mode")]
         [NUnit.Framework.CategoryAttribute("DFC-3900")]
-        [NUnit.Framework.TestCaseAttribute("A-level Maths", "Full-time", null)]
+        [NUnit.Framework.TestCaseAttribute("A level Maths", "Full-time", null)]
         [NUnit.Framework.TestCaseAttribute("General Data Protection Regulation (ONLINE)", "Flexible", null)]
         public virtual void DFC3900ViewSearchResultsByCourseNameDisplayStudyMode(string courseName, string studyMode, string[] exampleTags)
         {
@@ -232,7 +232,7 @@ namespace ESFA.UI.Specflow.Framework.FindACourse.Project.Tests.Features
         [NUnit.Framework.CategoryAttribute("DFC-3900")]
         [NUnit.Framework.TestCaseAttribute("A Level Biology or Human Biology", "Classroom-based", null)]
         [NUnit.Framework.TestCaseAttribute("General Data Protection Regulation (ONLINE)", "Online/Distance learning", null)]
-        [NUnit.Framework.TestCaseAttribute("Management - Apprenticeship (Higher) - Level 4", "Work-based", null)]
+        [NUnit.Framework.TestCaseAttribute("Management Apprenticeship (Higher) Level 4", "Work-based", null)]
         public virtual void DFC3900ViewSearchResultsByCourseNameDisplaysAttendanceMode(string courseName, string attendanceMode, string[] exampleTags)
         {
             string[] @__tags = new string[] {
@@ -262,9 +262,9 @@ namespace ESFA.UI.Specflow.Framework.FindACourse.Project.Tests.Features
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("DFC3900 View Search Results By Course Name displays Attendance Pattern")]
         [NUnit.Framework.CategoryAttribute("DFC-3900")]
-        [NUnit.Framework.TestCaseAttribute("NVQ 3 Diploma Nail Services - Day release (Apprentice Route)", "Normal working hours", null)]
+        [NUnit.Framework.TestCaseAttribute("NVQ 3 Diploma Nail Services Day release (Apprentice Route)", "Normal working hours", null)]
         [NUnit.Framework.TestCaseAttribute("arabic", "Evening/Weekend", null)]
-        [NUnit.Framework.TestCaseAttribute("Management - Apprenticeship (Higher) - Level 4", "Day release/Block release", null)]
+        [NUnit.Framework.TestCaseAttribute("Management Apprenticeship (Higher) Level 4", "Day release/Block release", null)]
         public virtual void DFC3900ViewSearchResultsByCourseNameDisplaysAttendancePattern(string courseName, string attendancePattern, string[] exampleTags)
         {
             string[] @__tags = new string[] {
@@ -507,7 +507,7 @@ namespace ESFA.UI.Specflow.Framework.FindACourse.Project.Tests.Features
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("DFC3895 Filter Results By Study Mode")]
         [NUnit.Framework.CategoryAttribute("DFC-3895")]
-        [NUnit.Framework.TestCaseAttribute("A-level Maths", "Full-time", null)]
+        [NUnit.Framework.TestCaseAttribute("A level Maths", "Full-time", null)]
         [NUnit.Framework.TestCaseAttribute("A LEVEL ENGLISH", "Full-time", null)]
         [NUnit.Framework.TestCaseAttribute("COMPUTING", "Flexible", null)]
         [NUnit.Framework.TestCaseAttribute("COMPUTING", "Part-time", null)]
@@ -544,7 +544,7 @@ namespace ESFA.UI.Specflow.Framework.FindACourse.Project.Tests.Features
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("DFC3894 Filter Results By Attendance Mode")]
         [NUnit.Framework.CategoryAttribute("DFC-3894")]
-        [NUnit.Framework.TestCaseAttribute("A-level Maths", "Classroom-based", null)]
+        [NUnit.Framework.TestCaseAttribute("A level Maths", "Classroom-based", null)]
         [NUnit.Framework.TestCaseAttribute("A LEVEL ENGLISH", "Classroom-based", null)]
         [NUnit.Framework.TestCaseAttribute("COMPUTING", "Work-based", null)]
         [NUnit.Framework.TestCaseAttribute("COMPUTING", "Online/Distance learning", null)]
@@ -581,7 +581,7 @@ namespace ESFA.UI.Specflow.Framework.FindACourse.Project.Tests.Features
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("DFC3896 Filter Results By Attendance Pattern")]
         [NUnit.Framework.CategoryAttribute("DFC-3896")]
-        [NUnit.Framework.TestCaseAttribute("A-level Maths", "Normal working hours", null)]
+        [NUnit.Framework.TestCaseAttribute("A level Maths", "Normal working hours", null)]
         [NUnit.Framework.TestCaseAttribute("A LEVEL ENGLISH", "Normal working hours", null)]
         [NUnit.Framework.TestCaseAttribute("COMPUTING", "Day release/Block release", null)]
         [NUnit.Framework.TestCaseAttribute("COMPUTING", "Evening/Weekend", null)]
