@@ -61,12 +61,7 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
             {
                 if (zapTest == true)
                 {
-                    //create OWASP Report
-                    string reportPath = "\\Project\\OWASPReports\\";
-                    reportLocation = FileSystemHelper.CreateFilePath(reportPath);
-                    
                     Zap.Dispose();
-                    WriteZapHtmlReport(reportLocation + "_PassiveScanReport.html", Zap.core.htmlreport());
                 }
                 webDriver.Quit();
                 extent.Flush();
@@ -155,6 +150,7 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
                     webDriver.Manage().Window.Maximize();
                     break;
 
+                    //Run all tests through the Zap proxy for passive scan
                 case "zapProxyChrome":
                     InitialiseZapProxyChrome();
                     break;
@@ -289,11 +285,9 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
 
         private static void InitialiseZapProxyChrome()
         {
-            //connect to Zap service
-            Zap = new ClientApi("localhost", 8095, null);
+            Zap = new ClientApi("localhost", 8096, null);
                      
-            //conffigure proxy
-            const string PROXY = "localhost:8095";
+            const string PROXY = "localhost:8096";
             var chromeOptions = new ChromeOptions();
             var proxy = new Proxy();
             proxy.HttpProxy = PROXY;
@@ -307,11 +301,6 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
             zapTest = true;
 
             webDriver = new ChromeDriver(chromeOptions);
-        }
-
-        public static void WriteZapHtmlReport(string path, byte[] bytes)
-        {
-            File.WriteAllBytes(path, bytes);
         }
 
         public static void BrowserstackConfig()
@@ -341,22 +330,6 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
             capability.SetCapability("realMobile", ConfigurationManager.AppSettings["realMobile"]);
             capability.SetCapability("name", ConfigurationManager.AppSettings["name"]);
             capability.SetCapability("os_version", ConfigurationManager.AppSettings["os_version"]);
-
-            //String username = Environment.GetEnvironmentVariable("BROWSERSTACK_USERNAME");
-            //if (username == null)
-            //{
-            //    username = ConfigurationManager.AppSettings.Get("user");
-            //}
-
-            //String accesskey = Environment.GetEnvironmentVariable("BROWSERSTACK_ACCESS_KEY");
-            //if (accesskey == null)
-            //{
-            //    accesskey = ConfigurationManager.AppSettings.Get("key");
-            //}
-
-            //capability.SetCapability("browserstack.user", username);
-            //capability.SetCapability("browserstack.key", accesskey);
-
             capability.SetCapability("browserstack.user", ConfigurationManager.AppSettings["user"]);
             capability.SetCapability("browserstack.key", ConfigurationManager.AppSettings["key"]);
 

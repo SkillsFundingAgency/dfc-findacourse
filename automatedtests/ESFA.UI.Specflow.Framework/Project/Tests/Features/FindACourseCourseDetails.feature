@@ -17,9 +17,9 @@ Scenario Outline: DFC-4194 View Course Details
 	And course title information is displayed
 
 Examples:
-| CourseName        | QualificationLevel                                   | Location   | Distance | 
-| English           | Level 3 - A level/Access to higher education diploma | B13 9da | 10 Miles |
-| BUILDING SERVICES | Level 3 - A level/Access to higher education diploma | B13 9DA    | 3 Miles  |  
+| CourseName        | QualificationLevel                                   | Location | Distance |
+| English           | Level 3 - A level/Access to higher education diploma | B13 9da  | 10 Miles |
+| BUILDING SERVICES | Level 3 - A level/Access to higher education diploma | B13 9DA  | 3 Miles  |
 
 
 
@@ -45,8 +45,8 @@ Scenario Outline: DFC-3973 View Course Details display Course Title
     | INFORMATION TECHNOLOGY | LS1 1UR  |
     | ICT                    | S1 2HE   |
     | COMPUTER SCIENCE       | BD1 1AJ  |
-    | SOFTWARE  | b13 9da   |
-    | INFORMATION   | ne7 7sf |
+    | SOFTWARE               | b13 9da  |
+    | INFORMATION            | ne7 7sf  |
     | COMPUTING              | SW2 1RW  |
 
 
@@ -79,10 +79,10 @@ Scenario Outline: DFC-3973 View Course Details display Entry Requirements
 	And Entry Requirements <EntryRequirements> are displayed
 
   Examples:
-    | CourseName    | Location | EntryRequirements                      |
-    | Hair & Beauty | b14 7en  | interview |
-    | Electrical    | b14 7en  | Concessions may apply                  |
-    | Gardening     | b14 7en  | TBC                                    |
+    | CourseName    | Location | EntryRequirements     |
+    | Hair & Beauty | b14 7en  | interview             |
+    | Electrical    | b14 7en  | Concessions may apply |
+    | Gardening     | b14 7en  | TBC                   |
 
 
 
@@ -117,8 +117,8 @@ Scenario Outline: DFC-3973 View Course Details display Loans
 	Then I will be on the advanced learner loan page
 
   Examples:
-    | CourseName |Location|
-    | health |b14 7en   |
+    | CourseName | Location |
+    | health     | b14 7en  |
 	
 	
 
@@ -135,7 +135,7 @@ Scenario Outline: DFC-3973 View Course Details display Start Date
 
   Examples:
     | CourseName | Location |
-    | Gardening  | EC1a 1BB   |
+    | Gardening  | EC1a 1BB |
 
 
 @DFC-3973
@@ -169,8 +169,8 @@ Scenario Outline: DFC-3973 View Course Details display Study Mode
 
   Examples:
     | CourseName | Location |
-    | baker      | M1 1AE  |
-	   | geology    | b14 7rn  |
+    | baker      | M1 1AE   |
+    | geology    | b14 7rn  |
 
 
 
@@ -187,8 +187,8 @@ Scenario Outline: DFC-3973 View Course Details display Attendance Pattern
 
   Examples:
     | CourseName | Location |
-    | baker      | M1 1AE  |
-	   | geology    | b14 7rn  |
+    | baker      | M1 1AE   |
+    | geology    | b14 7rn  |
 
 
 @DFC-3973
@@ -204,8 +204,8 @@ Scenario Outline: DFC-3973 View Course Details display Attendance Mode
 
   Examples:
     | CourseName | Location |
-    | baker      | M1 1AE  |
-	   | geology    | b14 7rn  |
+    | baker      | M1 1AE   |
+    | geology    | b14 7rn  |
 
 
 @DFC-4194
@@ -361,4 +361,4 @@ Scenario Outline: DFC-3975 View Course assessment method
 
   Examples:
     | CourseName |
-    | Network Engineering (Cyber Security) - BSc Hons Degree - Top up  |
+    | Network Engineering (Cyber Security) BSc Hons Degree Top up  |

@@ -48,16 +48,16 @@
 		And the course level <CourseLevel> is displayed
 
   Examples:
-    | CourseName                                                                    | CourseLevel |
-    | English Bridging Course Entry Level                                                         | Entry level |
-    | Diploma in Chemical Skin Peeling & Micro-needling                             | Level 4     |
-    | ASTROPHYSICS                                                                  | Level 3     |
-    | DENTISTRY                                                                     | Level 2     |
-    | C&G L1 AWARD IN INTRODUCTORY TUNGSTEN INERT GAS (TIG) WELDING                 | Level 1     |
-    | Pharmacy Clinical Services Professional Diploma                               | Level 4     |
-    | Marine Engineering - HND                                                      | Level 5     |
-    | Integrated Masters Equine Science MSci                                        | Level 7     |
-    | Automotive Engineering and Technology (Motorsport) - BEng Hons Degree - Topup | Level 6     |
+    | CourseName                                                                | CourseLevel |
+    | English Bridging Course Entry Level                                       | Entry level |
+    | Diploma in Chemical Skin Peeling & Micro needling                         | Level 4     |
+    | ASTROPHYSICS                                                              | Level 3     |
+    | DENTISTRY                                                                 | Level 2     |
+    | C&G L1 AWARD IN INTRODUCTORY TUNGSTEN INERT GAS (TIG) WELDING             | Level 1     |
+    | Pharmacy Clinical Services Professional Diploma                           | Level 4     |
+    | Marine Engineering HND                                                    | Level 5     |
+    | Integrated Masters Equine Science MSci                                    | Level 7     |
+    | Automotive Engineering and Technology (Motorsport) BEng Hons Degree Topup | Level 6     |
 
 
 @DFC-3900
@@ -71,10 +71,10 @@
 		Then the study mode <StudyMode> is displayed
 
   Examples:
-    | CourseName                                  | StudyMode |
-    | A-level Maths         | Full-time |
-#   | hair and beauty                             | Part-time |
-    | General Data Protection Regulation (ONLINE) | Flexible  |
+    | CourseName                                  | StudyMode       |
+    | A level Maths                               | Full-time       |
+ #  | hair and beauty                             | Part-time       |
+    | General Data Protection Regulation (ONLINE) | Flexible        |
 
 
 @DFC-3900
@@ -86,10 +86,10 @@
 		And the attendance mode <AttendanceMode> is displayed
 
   Examples:
-    | CourseName                                     | AttendanceMode           |
-    | A Level Biology or Human Biology               | Classroom-based          |
-    | General Data Protection Regulation (ONLINE)    | Online/Distance learning |
-    | Management - Apprenticeship (Higher) - Level 4 | Work-based               |
+    | CourseName                                  | AttendanceMode           |
+    | A Level Biology or Human Biology            | Classroom-based          |
+    | General Data Protection Regulation (ONLINE) | Online/Distance learning |
+    | Management Apprenticeship (Higher) Level 4  | Work-based               |
 
 
 @DFC-3900
@@ -101,10 +101,10 @@
 		And the attendance pattern <AttendancePattern> is displayed
 
   Examples:
-    | CourseName                                                   | AttendancePattern         |
-    | NVQ 3 Diploma Nail Services - Day release (Apprentice Route) | Normal working hours      |
-    | arabic                                                       | Evening/Weekend           |
-    | Management - Apprenticeship (Higher) - Level 4               | Day release/Block release |
+    | CourseName                                                 | AttendancePattern         |
+    | NVQ 3 Diploma Nail Services Day release (Apprentice Route) | Normal working hours      |
+    | arabic                                                     | Evening/Weekend           |
+    | Management Apprenticeship (Higher) Level 4                 | Day release/Block release |
 
 
 @DFC-3900
@@ -222,7 +222,7 @@
 
   Examples:
     | CourseName      | StudyMode |
-    | A-level Maths   | Full-time |
+    | A level Maths   | Full-time |
     | A LEVEL ENGLISH | Full-time |
     | COMPUTING       | Flexible  |
 	| COMPUTING       | Part-time  |
@@ -240,7 +240,7 @@
 
   Examples:
     | CourseName      | AttendanceMode           |
-    | A-level Maths   | Classroom-based          |
+    | A level Maths   | Classroom-based          |
     | A LEVEL ENGLISH | Classroom-based          |
     | COMPUTING       | Work-based               |
     | COMPUTING       | Online/Distance learning |
@@ -257,7 +257,7 @@
 
   Examples:
     | CourseName      | AttendancePattern         |
-    | A-level Maths   | Normal working hours      |
+    | A level Maths   | Normal working hours      |
     | A LEVEL ENGLISH | Normal working hours      |
     | COMPUTING       | Day release/Block release |
     | COMPUTING       | Evening/Weekend           |
