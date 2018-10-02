@@ -231,24 +231,27 @@
                                         <a class="govuk-link" target="_blank" href="https://www.google.com/maps?q=@Model.Venue.Address.Latitude,@Model.Venue.Address.Longitude">Find on Google maps</a>
                                     </td>
                                 </tr>
-                                <tr class="govuk-table__row">
-                                    <td class="govuk-table__cell" colspan="2">
-                                        <details>
-                                            <summary>
-                                                <span style="color:#005ea5"> Journey time</span>
-                                            </summary>
-                                            <div class="panel">
-                                                <select class="form-control valid select-mode" name="" aria-invalid="false">
-                                                    <option value="TRANSIT" aria-live="polite">Bus/Train</option>
-                                                    <option value="WALKING" aria-live="polite">Walking</option>
-                                                    <option value="BICYCLING" aria-live="polite">Cycling</option>
-                                                    <option value="DRIVING" aria-live="polite">Driving</option>
-                                                </select>
-                                                <span class="journey-time" aria-live="polite">5 mins</span>
-                                            </div>
-                                        </details>
-                                    </td>
-                                </tr>
+                                @if (appSettings.Value.Page3DisplayTravel)
+                                {
+                                    <tr class="govuk-table__row">
+                                        <td class="govuk-table__cell" colspan="2">
+                                            <details>
+                                                <summary>
+                                                    <span style="color:#005ea5"> Journey time</span>
+                                                </summary>
+                                                <div class="panel">
+                                                    <select class="form-control valid select-mode" name="" aria-invalid="false">
+                                                        <option value="TRANSIT" aria-live="polite">Bus/Train</option>
+                                                        <option value="WALKING" aria-live="polite">Walking</option>
+                                                        <option value="BICYCLING" aria-live="polite">Cycling</option>
+                                                        <option value="DRIVING" aria-live="polite">Driving</option>
+                                                    </select>
+                                                    <span class="journey-time" aria-live="polite">5 mins</span>
+                                                </div>
+                                            </details>
+                                        </td>
+                                    </tr>
+                                }
                             </tbody>
                         </table>
                     }
@@ -370,18 +373,7 @@
                         </details>
                         <hr>
                     }
-                    @if (appSettings.Value.Page3DisplayTravel)
-                    {    
-                        <details>
-                            <summary style="position: relative;">
-                                <span style="color:#005ea5;">Travel time</span>
-                            </summary>
-                        </details>
-                    }
-
-
-
-
+                    
                     </aside>
             </section>
 
