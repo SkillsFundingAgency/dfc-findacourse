@@ -189,7 +189,7 @@
                 sessionStorage.setItem('subjectkeyword', selectedValue);
 
             }
-            else {
+            else if (hoverValue){
                 
                 $('#SubjectKeyword').val(hoverValue);
                 sessionStorage.setItem('subjectkeyword', hoverValue);
