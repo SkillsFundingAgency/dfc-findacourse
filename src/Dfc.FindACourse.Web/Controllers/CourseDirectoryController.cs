@@ -160,11 +160,11 @@ namespace Dfc.FindACourse.Web.Controllers
             if (!CourseDirectory.IsSuccessfulResult(result, Telemetry, "Course Detail", id.Value.ToString(), dtStart))
                 return View(nameof(Error), new Models.ErrorViewModel() { RequestId = "Course Detail: " + id.Value.ToString() + ". " + (null != result ? result.Error:string.Empty) });
 
-            //DEBUG_FIX - Add the flush to see if working straightaway ASB TODO AGain is this correct as wont get called if ModelState is Invalid
-            Telemetry.Flush();
+           
 
             return View(new CourseDetailViewModel(result.Value, !string.IsNullOrEmpty(distance) ? distance: string.Empty) { });
         }
+
       
         public IActionResult OpportunityDetails(int? id, string distance, int? oppid)
         {
