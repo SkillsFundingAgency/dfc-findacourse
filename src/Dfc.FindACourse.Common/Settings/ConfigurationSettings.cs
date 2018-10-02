@@ -30,8 +30,12 @@ namespace Dfc.FindACourse.Common.Settings
         public string Page1Text6 { get; set; }
         public string Page1Text7 { get; set; }
 
+        public bool Page3DisplayTravel { get; set; }
+        public bool Page3DisplayOtherDates { get; set; }
+
         public string ApiKey { get; set; }
         public int PerPage { get; set; }
         public string APIAddress { get; set; }
+
     }
 }

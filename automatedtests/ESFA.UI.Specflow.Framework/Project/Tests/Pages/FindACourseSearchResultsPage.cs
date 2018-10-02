@@ -193,20 +193,24 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.Pages
             {
                 case "Full-time":
                     FormCompletionHelper.ClickElement(clearFilters);
+                    PageInteractionHelper.WaitForPageToLoad();
                     FormCompletionHelper.SelectCheckBox2(fulltime);
-                    System.Threading.Thread.Sleep(3000);
+                    PageInteractionHelper.WaitForPageToLoad();
                     return new FindACourseSearchResultsPage(webDriver);
                
                 case "Part-time":
                     FormCompletionHelper.ClickElement(clearFilters);
+                    PageInteractionHelper.WaitForPageToLoad();
                     FormCompletionHelper.SelectCheckBox2(parttime);
-                    System.Threading.Thread.Sleep(3000);
+                    PageInteractionHelper.WaitForPageToLoad();
+                    //System.Threading.Thread.Sleep(3000);
                     return new FindACourseSearchResultsPage(webDriver);
 
                 case "Flexible":
                     FormCompletionHelper.ClickElement(clearFilters);
+                    PageInteractionHelper.WaitForPageToLoad();
                     FormCompletionHelper.SelectCheckBox2(flexible);
-                    System.Threading.Thread.Sleep(3000);
+                    PageInteractionHelper.WaitForPageToLoad();
                     return new FindACourseSearchResultsPage(webDriver);
 
                 default:
@@ -216,23 +220,25 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.Pages
 
         internal FindACourseSearchResultsPage SelectAttendModeFilter(String AttendMode)
         {
+            FormCompletionHelper.ClickElement(clearFilters);
+            PageInteractionHelper.WaitForPageToLoad();
             webDriver.FindElement(attendmodefilter).Click();
             System.Threading.Thread.Sleep(2000);
             switch (AttendMode)
             {
                 case "Classroom-based":
                     FormCompletionHelper.SelectCheckBox2(classroom);
-                    System.Threading.Thread.Sleep(3000);
+                    PageInteractionHelper.WaitForPageToLoad();
                     return new FindACourseSearchResultsPage(webDriver);
 
                 case "Work-based":
                     FormCompletionHelper.SelectCheckBox2(workbased);
-                    System.Threading.Thread.Sleep(3000);
+                    PageInteractionHelper.WaitForPageToLoad();
                     return new FindACourseSearchResultsPage(webDriver);
 
                 case "Online/Distance learning":
                     FormCompletionHelper.SelectCheckBox2(online);
-                    System.Threading.Thread.Sleep(3000);
+                    PageInteractionHelper.WaitForPageToLoad();
                     return new FindACourseSearchResultsPage(webDriver);
 
                 default:
@@ -243,23 +249,25 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.Pages
 
         internal FindACourseSearchResultsPage SelectAttendPatternFilter(String AttendPattern)
         {
+            FormCompletionHelper.ClickElement(clearFilters);
+            PageInteractionHelper.WaitForPageToLoad();
             webDriver.FindElement(attendpatternfilter).Click();
             System.Threading.Thread.Sleep(2000);
             switch (AttendPattern)
             {
                 case "Normal working hours":
                     FormCompletionHelper.SelectCheckBox2(normal);
-                    System.Threading.Thread.Sleep(3000);
+                    PageInteractionHelper.WaitForPageToLoad();
                     return new FindACourseSearchResultsPage(webDriver);
 
                 case "Evening/Weekend":
                     FormCompletionHelper.SelectCheckBox2(eveningweekend);
-                    System.Threading.Thread.Sleep(3000);
+                    PageInteractionHelper.WaitForPageToLoad();
                     return new FindACourseSearchResultsPage(webDriver);
 
                 case "Day release/Block release":
                     FormCompletionHelper.SelectCheckBox2(dayblock);
-                    System.Threading.Thread.Sleep(3000);
+                    PageInteractionHelper.WaitForPageToLoad();
                     return new FindACourseSearchResultsPage(webDriver);
 
                 default:
