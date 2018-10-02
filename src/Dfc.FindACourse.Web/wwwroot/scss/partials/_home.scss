@@ -46,9 +46,14 @@ left:-5px
 .index-page .field-validation-error {
     background: white;
     padding: 9px;
-    width: 42%;
+    /*width: 42%;*/
 }
 
-.index-page #SubjectKeyword{
-    width:100%;
+#LocationValidationMessage {
+    display: block;
+    width: 248px;
+}
+
+.index-page #SubjectKeyword {
+    width: 100%;
 }

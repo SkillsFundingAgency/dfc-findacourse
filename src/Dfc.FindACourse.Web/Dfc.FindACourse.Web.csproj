@@ -12,7 +12,6 @@
     <Content Remove="BusinessLogic\**" />
     <EmbeddedResource Remove="BusinessLogic\**" />
     <None Remove="BusinessLogic\**" />
-    <Content Remove="wwwroot\vendor\js\govuk_frontend_toolkit\govuk_toolkit.js" />
     <Content Remove="wwwroot\vendor\js\govuk_frontend_toolkit\stageprompt.js" />
     <Content Remove="wwwroot\vendor\js\govuk_frontend_toolkit\govuk\selection-buttons.js" />
     <Content Remove="wwwroot\vendor\js\govuk_frontend_toolkit\govuk\analytics\analytics.js" />
