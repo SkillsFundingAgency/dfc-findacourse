@@ -72,8 +72,8 @@ Scenario Outline: DFC-4090 Search for Courses By Location & Distance Null Result
 		And no results found message is displayed
 
   Examples:
-    | CourseName | Location | Distance |
-    | ARCHAEOLOGIST   | PO30 1DN  | 1 Mile   |
+    | CourseName    | Location | Distance |
+    | ARCHAEOLOGIST | PO30 1DN | 1 Mile   |
  
 
 @DFC-3884
