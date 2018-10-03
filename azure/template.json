@@ -60,6 +60,13 @@
       "metadata": {
         "description": "Display travel distance on page 3"
       }
+    },
+    "surveyBannerLink": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "Link for a survey to be included in the banner"
+      }
     }
   },
   "variables": {
@@ -270,6 +277,10 @@
               {
                 "name": "App__Page3DisplayTravel",
                 "value": "[parameters('page3DisplayTravel')]"
+              },
+              {
+                "name": "App__SurveyBannerLink",
+                "value": "[parameters('surveyBannerLink')]"
               },
               {
                 "name": "Tribal__ApiKey",
