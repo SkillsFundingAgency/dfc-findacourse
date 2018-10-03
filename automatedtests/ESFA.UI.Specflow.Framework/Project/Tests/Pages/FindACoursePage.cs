@@ -28,6 +28,7 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.Pages
 		private readonly By searchBtn = By.Name("Search");
 		private readonly By advisorLnk = By.LinkText("Contact an adviser");
         private readonly By postcodeValidation = By.XPath(".//*[@id='FindACourseForm']/div[3]/span");
+        private readonly By courseNameValidation = By.XPath(".//*[@id='SubjectKeyword-error']");
 
         internal FindACoursePage EnterCourseName(String courseTxt)
 		{
@@ -102,6 +103,12 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.Pages
         internal FindACoursePage ClearCourseName()
         {
             webDriver.FindElement(courseName).Clear();
+            return new FindACoursePage(webDriver);
+        }
+
+        internal FindACoursePage CourseNameValidation()
+        {
+            FormCompletionHelper.IsElementDisplayed(courseNameValidation);
             return new FindACoursePage(webDriver);
         }
     }

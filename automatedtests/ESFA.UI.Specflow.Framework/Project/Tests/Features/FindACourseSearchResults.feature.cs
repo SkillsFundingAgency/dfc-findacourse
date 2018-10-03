@@ -547,7 +547,7 @@ namespace ESFA.UI.Specflow.Framework.FindACourse.Project.Tests.Features
         [NUnit.Framework.TestCaseAttribute("A level Maths", "Classroom-based", null)]
         [NUnit.Framework.TestCaseAttribute("A LEVEL ENGLISH", "Classroom-based", null)]
         [NUnit.Framework.TestCaseAttribute("COMPUTING", "Work-based", null)]
-        [NUnit.Framework.TestCaseAttribute("COMPUTING", "Online/Distance learning", null)]
+        [NUnit.Framework.TestCaseAttribute("COMPUTER", "Online/Distance learning", null)]
         public virtual void DFC3894FilterResultsByAttendanceMode(string courseName, string attendanceMode, string[] exampleTags)
         {
             string[] @__tags = new string[] {
@@ -572,8 +572,6 @@ namespace ESFA.UI.Specflow.Framework.FindACourse.Project.Tests.Features
   testRunner.And("I click  the Clear All Filters link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 238
   testRunner.When(string.Format("I filter by attendance mode {0}", attendanceMode), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 239
-  testRunner.Then(string.Format("the attendance mode {0} is displayed", attendanceMode), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }
@@ -583,8 +581,8 @@ namespace ESFA.UI.Specflow.Framework.FindACourse.Project.Tests.Features
         [NUnit.Framework.CategoryAttribute("DFC-3896")]
         [NUnit.Framework.TestCaseAttribute("A level Maths", "Normal working hours", null)]
         [NUnit.Framework.TestCaseAttribute("A LEVEL ENGLISH", "Normal working hours", null)]
-        [NUnit.Framework.TestCaseAttribute("COMPUTING", "Day release/Block release", null)]
-        [NUnit.Framework.TestCaseAttribute("COMPUTING", "Evening/Weekend", null)]
+        [NUnit.Framework.TestCaseAttribute("COMPUTING", "Normal working hours", null)]
+        [NUnit.Framework.TestCaseAttribute("COMPUTER", "Normal working hours", null)]
         public virtual void DFC3896FilterResultsByAttendancePattern(string courseName, string attendancePattern, string[] exampleTags)
         {
             string[] @__tags = new string[] {

@@ -131,6 +131,12 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.StepDefinitions
             findACoursePage.PostCodeValidation();
         }
 
+        [Then(@"I should be shown a validation error message")]
+        public void ThenIShouldBeShownAValidationErrorMessage()
+        {
+            FindACoursePage findACoursePage = new FindACoursePage(webDriver);
+            findACoursePage.CourseNameValidation();
+        }
 
 
     }
