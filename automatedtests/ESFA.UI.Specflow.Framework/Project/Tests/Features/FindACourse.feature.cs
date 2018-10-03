@@ -391,20 +391,20 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.DescriptionAttribute("DFC-3888 Search for Courses By Course Name Only")]
         [NUnit.Framework.CategoryAttribute("DFC-3888")]
         [NUnit.Framework.TestCaseAttribute("Chemistry", null)]
-        [NUnit.Framework.TestCaseAttribute("chemsitry", null)]
+        [NUnit.Framework.TestCaseAttribute("chemsitry 1", null)]
         [NUnit.Framework.TestCaseAttribute("CHEMISTRY", null)]
         [NUnit.Framework.TestCaseAttribute("PLUMMING", null)]
         [NUnit.Framework.TestCaseAttribute("Plumbing", null)]
         [NUnit.Framework.TestCaseAttribute("PLUMING", null)]
-        [NUnit.Framework.TestCaseAttribute("BRICKLAYER", null)]
-        [NUnit.Framework.TestCaseAttribute("BRICK LAYER", null)]
+        [NUnit.Framework.TestCaseAttribute("BRICKLAYER.", null)]
+        [NUnit.Framework.TestCaseAttribute("BRICK+LAYER", null)]
         [NUnit.Framework.TestCaseAttribute("hair and beuaty", null)]
         [NUnit.Framework.TestCaseAttribute("Hair & Beauty", null)]
         [NUnit.Framework.TestCaseAttribute("(Hair and Beuaty)", null)]
-        [NUnit.Framework.TestCaseAttribute("hair-beuaty", null)]
-        [NUnit.Framework.TestCaseAttribute("a-level biology", null)]
-        [NUnit.Framework.TestCaseAttribute("A-LEVEL BIOLOGY", null)]
-        [NUnit.Framework.TestCaseAttribute("A Level Biology", null)]
+        [NUnit.Framework.TestCaseAttribute("hair beauty\'", null)]
+        [NUnit.Framework.TestCaseAttribute("a level biology,", null)]
+        [NUnit.Framework.TestCaseAttribute("A LEVEL BIOLOGY:", null)]
+        [NUnit.Framework.TestCaseAttribute("hair/beauty", null)]
         public virtual void DFC_3888SearchForCoursesByCourseNameOnly(string courseName, string[] exampleTags)
         {
             string[] @__tags = new string[] {
@@ -430,6 +430,47 @@ this.ScenarioInitialize(scenarioInfo);
         }
         
         [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("DFC-3888 Search for Courses using illegal Chars")]
+        [NUnit.Framework.CategoryAttribute("DFC-3888")]
+        [NUnit.Framework.TestCaseAttribute("Chemistry!", null)]
+        [NUnit.Framework.TestCaseAttribute("chemsitry;", null)]
+        [NUnit.Framework.TestCaseAttribute("CHEMISTRY^", null)]
+        [NUnit.Framework.TestCaseAttribute("\"PLUMMING\"", null)]
+        [NUnit.Framework.TestCaseAttribute("@Plumbing", null)]
+        [NUnit.Framework.TestCaseAttribute("{PLUMING}", null)]
+        [NUnit.Framework.TestCaseAttribute("BRICK=LAYER", null)]
+        [NUnit.Framework.TestCaseAttribute("hairbeuaty?", null)]
+        [NUnit.Framework.TestCaseAttribute("Hair & Beauty %", null)]
+        [NUnit.Framework.TestCaseAttribute("(Hair £ Beuaty)", null)]
+        [NUnit.Framework.TestCaseAttribute("#hair beauty", null)]
+        [NUnit.Framework.TestCaseAttribute("a level biology*", null)]
+        [NUnit.Framework.TestCaseAttribute("A-LEVEL BIOLOGY", null)]
+        [NUnit.Framework.TestCaseAttribute("hair_beauty", null)]
+        public virtual void DFC_3888SearchForCoursesUsingIllegalChars(string courseName, string[] exampleTags)
+        {
+            string[] @__tags = new string[] {
+                    "DFC-3888"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("DFC-3888 Search for Courses using illegal Chars", null, @__tags);
+#line 194
+ this.ScenarioInitialize(scenarioInfo);
+            this.ScenarioStart();
+#line 195
+  testRunner.Given("I navigate to Find a Course home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 196
+  testRunner.When(string.Format("I enter course {0}", courseName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line 197
+  testRunner.And("I click Search", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 198
+  testRunner.Then("I should be shown a validation error message", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line hidden
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("DFC-3888 Search for Courses By Course Name Null Results")]
         [NUnit.Framework.CategoryAttribute("DFC-3888")]
         [NUnit.Framework.TestCaseAttribute("bbbbbbbbb", null)]
@@ -446,18 +487,18 @@ this.ScenarioInitialize(scenarioInfo);
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("DFC-3888 Search for Courses By Course Name Null Results", null, @__tags);
-#line 193
+#line 218
  this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 194
+#line 219
   testRunner.Given("I navigate to Find a Course home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 195
+#line 220
   testRunner.When(string.Format("I enter course {0}", courseName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 196
+#line 221
   testRunner.And("I click Search", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 197
+#line 222
   testRunner.Then("I should be on Search Results for page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 198
+#line 223
   testRunner.And("no results found message is displayed", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
             this.ScenarioCleanup();
@@ -478,20 +519,20 @@ this.ScenarioInitialize(scenarioInfo);
                 @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
             }
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("DFC-3883 Auto Populate Course Name", null, @__tags);
-#line 210
+#line 235
  this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 211
+#line 236
   testRunner.Given("I navigate to Find a Course home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 212
+#line 237
   testRunner.When(string.Format("one letter at a time {0}", courseName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 213
+#line 238
   testRunner.Then(string.Format("the Course suggestions {0} displayed", autopopulateList), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line 214
+#line 239
   testRunner.And(string.Format("I Can select one of the List options {0}", courseName), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line 215
+#line 240
   testRunner.When("I click Search", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 216
+#line 241
   testRunner.Then("I should be on Search Results for page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -504,14 +545,14 @@ this.ScenarioInitialize(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("DFC-4094 Contact Adviser", null, new string[] {
                         "DFC-4094"});
-#line 226
+#line 251
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 227
+#line 252
  testRunner.Given("I navigate to Find a Course home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 228
+#line 253
  testRunner.When("I click Contact a Careers Advisor link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 229
+#line 254
  testRunner.Then("I will be on Contact us page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
@@ -524,14 +565,14 @@ this.ScenarioInitialize(scenarioInfo);
         {
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("DFC-3887 View Qualification Level Help Text", null, new string[] {
                         "DFC-3887"});
-#line 233
+#line 258
 this.ScenarioInitialize(scenarioInfo);
             this.ScenarioStart();
-#line 234
+#line 259
  testRunner.Given("I navigate to Find a Course home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
-#line 235
+#line 260
  testRunner.When("I click What qualification levels mean link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 236
+#line 261
  testRunner.Then("I will be on What qualification levels mean page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();

@@ -546,8 +546,8 @@ namespace ESFA.UI.Specflow.Framework.FindACourse.Project.Tests.Features
         [NUnit.Framework.CategoryAttribute("DFC-3894")]
         [NUnit.Framework.TestCaseAttribute("A level Maths", "Classroom-based", null)]
         [NUnit.Framework.TestCaseAttribute("A LEVEL ENGLISH", "Classroom-based", null)]
-        [NUnit.Framework.TestCaseAttribute("COMPUTING", "Classroom-based", null)]
-        [NUnit.Framework.TestCaseAttribute("COMPUTER", "Classroom-based", null)]
+        [NUnit.Framework.TestCaseAttribute("COMPUTING", "Work-based", null)]
+        [NUnit.Framework.TestCaseAttribute("COMPUTER", "Online/Distance learning", null)]
         public virtual void DFC3894FilterResultsByAttendanceMode(string courseName, string attendanceMode, string[] exampleTags)
         {
             string[] @__tags = new string[] {
@@ -572,8 +572,6 @@ namespace ESFA.UI.Specflow.Framework.FindACourse.Project.Tests.Features
   testRunner.And("I click  the Clear All Filters link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line 238
   testRunner.When(string.Format("I filter by attendance mode {0}", attendanceMode), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line 239
-  testRunner.Then(string.Format("the attendance mode {0} is displayed", attendanceMode), ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             this.ScenarioCleanup();
         }

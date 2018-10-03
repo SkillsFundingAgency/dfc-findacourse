@@ -174,20 +174,45 @@ Scenario Outline: DFC-4090 Search for Courses By Location & Distance Null Result
   Examples:
     | CourseName        |
     | Chemistry         |
-    | chemsitry         |
+    | chemsitry 1       |
     | CHEMISTRY         |
     | PLUMMING          |
     | Plumbing          |
     | PLUMING           |
-    | BRICKLAYER        |
-    | BRICK LAYER       |
+    | BRICKLAYER.       |
+    | BRICK+LAYER       |
     | hair and beuaty   |
     | Hair & Beauty     |
     | (Hair and Beuaty) |
-    | hair-beuaty       |
-    | a-level biology   |
-    | A-LEVEL BIOLOGY   |
-    | A Level Biology   |
+    | hair beauty'      |
+    | a level biology,  |
+    | A LEVEL BIOLOGY:  |
+    | hair/beauty       |
+
+
+@DFC-3888
+	Scenario Outline: DFC-3888 Search for Courses using illegal Chars
+		Given I navigate to Find a Course home page
+		When I enter course <CourseName>
+		And I click Search
+		Then I should be shown a validation error message
+
+  Examples:
+    | CourseName  |
+    | Chemistry!  |
+    | chemsitry;  |
+    | CHEMISTRY^  |
+    | "PLUMMING"  |
+    | @Plumbing   |
+    | {PLUMING}   |
+    | BRICK=LAYER |
+    | hairbeuaty?   |
+    | Hair & Beauty % |
+    | (Hair £ Beuaty) |
+    | #hair beauty      |
+    | a level biology*  |
+    | A-LEVEL BIOLOGY  |
+    | hair_beauty       |
 
 @DFC-3888
 	Scenario Outline: DFC-3888 Search for Courses By Course Name Null Results

@@ -236,14 +236,14 @@
 		Then I should be on Search Results for page
 		And I click  the Clear All Filters link
 		When I filter by attendance mode <AttendanceMode>
-		Then the attendance mode <AttendanceMode> is displayed
+#		Then the attendance mode <AttendanceMode> is displayed
 
   Examples:
-    | CourseName      | AttendanceMode  |
-    | A level Maths   | Classroom-based |
-    | A LEVEL ENGLISH | Classroom-based |
-    | COMPUTING       | Classroom-based |
-    | COMPUTER       | Classroom-based |
+    | CourseName      | AttendanceMode           |
+    | A level Maths   | Classroom-based          |
+    | A LEVEL ENGLISH | Classroom-based          |
+    | COMPUTING       | Work-based               |
+    | COMPUTER        | Online/Distance learning |
 
 @DFC-3896
  Scenario Outline: DFC3896 Filter Results By Attendance Pattern
