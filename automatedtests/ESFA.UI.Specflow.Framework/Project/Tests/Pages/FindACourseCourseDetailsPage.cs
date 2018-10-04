@@ -39,10 +39,10 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.Pages
         private readonly By maplink = By.PartialLinkText("Google map");
         private readonly By providerName = By.XPath(".//*[@id='6']/aside/p");
         private readonly By venueName = By.XPath(".//*[@id='6']/aside/table[1]/tbody/tr[1]/td[2]");
-        private readonly By venueAddress = By.XPath(".//*[@id='6']/aside/table[1]/tbody/tr[2]/td[2]");
-        private readonly By venueWebsite = By.XPath(".//*[@id='6']/aside/table[2]/tbody/tr[1]/td[2]/a");
-        private readonly By venueEmail = By.XPath(".//*[@id='6']/aside/table[2]/tbody/tr[2]/td[2]/a");
-        private readonly By venuePhone = By.XPath(".//*[@id='6']/aside/table[2]/tbody/tr[3]/td[2]");
+        private readonly By venueAddress = By.XPath(".//*[@id='6']/aside/table[1]/tbody/tr[2]/td[2]"); 
+        private readonly By venueWebsite = By.XPath(".//*[@id='6']/aside/table[3]/tbody/tr[1]/td[2]/a");
+        private readonly By venueEmail = By.XPath(".//*[@id='6']/aside/table[3]/tbody/tr[2]/td[2]/a");
+        private readonly By venuePhone = By.XPath(".//*[@id='6']/aside/table[3]/tbody/tr[3]/td[2]");
         private readonly By button = By.XPath(".//*[@id='1']/a");
         private readonly By courseDescription = By.XPath(".//*[@id='2']/h2");
         private readonly By equipment = By.XPath(".//*[@id='2']/p[2]");
