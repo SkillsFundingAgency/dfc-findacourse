@@ -9,6 +9,7 @@
 
 @{
     ViewData["Title"] = "CourseDetails";
+    ViewBag.SurveyBannerLink = appSettings.Value.SurveyBannerLink;
 }
 
 <link rel='stylesheet' href='/css/course-directory.css' type='text/css' media='all' />
@@ -231,8 +232,13 @@
                                         <a class="govuk-link" target="_blank" href="https://www.google.com/maps?q=@Model.Venue.Address.Latitude,@Model.Venue.Address.Longitude">Find on Google maps</a>
                                     </td>
                                 </tr>
-                                @if (appSettings.Value.Page3DisplayTravel)
-                                {
+                            </tbody>
+                        </table>
+                        <hr style="border-top: 0px;">
+                        @if (appSettings.Value.Page3DisplayTravel)
+                        {
+                            <table class="govuk-table" role="presentation">
+                                <tbody class="govuk-table__body">
                                     <tr class="govuk-table__row">
                                         <td class="govuk-table__cell" colspan="2">
                                             <details>
@@ -251,9 +257,11 @@
                                             </details>
                                         </td>
                                     </tr>
-                                }
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                           
+                        }
+
                     }
                     else
                     {
@@ -297,6 +305,7 @@
                         }
                         <hr>
                     }
+                    <!-- Wesbite, Email, Phone -->
                     <table class="govuk-table" role="presentation">
                         <tbody class="govuk-table__body">
                             <!-- In order this should display: Venue Website, Opportunity URL, Provider URL-->
@@ -373,8 +382,8 @@
                         </details>
                         <hr>
                     }
-                    
-                    </aside>
+
+                </aside>
             </section>
 
 

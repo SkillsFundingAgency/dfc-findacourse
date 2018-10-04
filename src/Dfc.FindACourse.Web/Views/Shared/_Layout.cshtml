@@ -110,16 +110,20 @@
 
     <div id="global-header-bar"></div>
 
-    <div class="govuk-phase-banner govuk-header__container--full-width">
-        <p class="govuk-phase-banner__content">
-            <strong class="govuk-tag govuk-phase-banner__content__tag ">
-                alpha
-            </strong>
-            <span class="govuk-phase-banner__text">
-                This is a new service - your <a class="govuk-link" href="#">feedback</a> will help us to improve it.
-            </span>
-        </p>
-    </div>
+
+    @if (!string.IsNullOrWhiteSpace(ViewBag.SurveyBannerLink))
+    {
+        <div class="govuk-phase-banner govuk-header__container--full-width">
+            <p class="govuk-phase-banner__content" style="width: 990px;margin-left: auto;margin-right: auto;padding-left: 30px;">
+                <strong class="govuk-tag govuk-phase-banner__content__tag ">
+                    alpha
+                </strong>
+                <span class="govuk-phase-banner__text">
+                    This is a new service - your <a class="govuk-link" href="@ViewBag.SurveyBannerLink">feedback</a> will help us to improve it.
+                </span>
+            </p>
+        </div>
+    }
 
     <div id="content-container" class="@ViewBag.ContentContainerClass">
         <main id="content" role="main">
