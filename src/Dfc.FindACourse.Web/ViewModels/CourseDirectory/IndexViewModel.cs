@@ -17,7 +17,7 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
 
         [Display(Name = "Course name")]
         [Required(ErrorMessage = "Enter a course name")]
-        [RegularExpression(@"^[a-zA-Z0-9& ()\\\+:',\./]*$", ErrorMessage = _subjectKeywordError)]
+        [RegularExpression(@"^[a-zA-Z0-9& ()\\\+-:',\./]*$", ErrorMessage = _subjectKeywordError)]
         public string SubjectKeyword { get; set; }
         [Display(Name = "Postcode")]
         [RegularExpression(@"([a-zA-Z][0-9]|[a-zA-Z][0-9][0-9]|[a-zA-Z][a-zA-Z][0-9]|[a-zA-Z][a-zA-Z][0-9][0-9]|[a-zA-Z][0-9][a-zA-Z]|[a-zA-Z][a-zA-Z][0-9][a-zA-Z]) ([0-9][abdefghjklmnpqrstuwxyzABDEFGHJLMNPQRSTUWXYZ][abdefghjklmnpqrstuwxyzABDEFGHJLMNPQRSTUWXYZ])", ErrorMessage = _locationError)]
