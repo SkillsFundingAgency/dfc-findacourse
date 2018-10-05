@@ -1,8 +1,10 @@
 ﻿using Dfc.FindACourse.Common.Settings;
 using Dfc.FindACourse.Services.Interfaces;
+using Dfc.FindACourse.Web.Controllers;
 using Dfc.FindACourse.Web.Interfaces;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Moq;
 
@@ -135,6 +137,18 @@ namespace Dfc.FindACourse.Web.xUnit.UnitTests
                 // mock.Setup(x => x.GetAll()).Returns(StoriesAll);
                 _postcodeService = mock;
                 return _postcodeService;
+            }
+        }
+
+        private Mock<ILogger<CourseDirectoryController>> _logger;
+        public Mock<ILogger<CourseDirectoryController>> MockLogger
+        {
+            get
+            {
+                if (_logger != null) return _logger;
+                var mock = new Mock<ILogger<CourseDirectoryController>>();
+                _logger = mock;
+                return _logger;
             }
         }
     }
