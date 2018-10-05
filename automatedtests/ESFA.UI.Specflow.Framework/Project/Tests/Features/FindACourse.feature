@@ -198,21 +198,21 @@ Scenario Outline: DFC-4090 Search for Courses By Location & Distance Null Result
 		Then I should be shown a validation error message
 
   Examples:
-    | CourseName  |
-    | Chemistry!  |
-    | chemsitry;  |
-    | CHEMISTRY^  |
-    | "PLUMMING"  |
-    | @Plumbing   |
-    | {PLUMING}   |
-    | BRICK=LAYER |
-    | hairbeuaty?   |
-    | Hair & Beauty % |
-    | (Hair £ Beuaty) |
-    | #hair beauty      |
-    | a level biology*  |
-    | A-LEVEL BIOLOGY  |
-    | hair_beauty       |
+    | CourseName       |
+    | Chemistry!       |
+    | chemsitry;       |
+    | CHEMISTRY^       |
+    | "PLUMMING"       |
+    | @Plumbing        |
+    | {PLUMING}        |
+    | BRICK=LAYER      |
+    | hairbeuaty?      |
+    | Hair & Beauty %  |
+    | (Hair £ Beuaty)  |
+    | #hair beauty     |
+    | a level biology* |
+    | A~LEVEL BIOLOGY  |
+    | hair_beauty      |
 
 @DFC-3888
 	Scenario Outline: DFC-3888 Search for Courses By Course Name Null Results
