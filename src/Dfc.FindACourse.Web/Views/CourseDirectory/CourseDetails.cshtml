@@ -76,8 +76,8 @@
                             </td>
                         </tr>
                         @if (!string.IsNullOrWhiteSpace(@Model.Opportunities[0].Price)
-                          || !string.IsNullOrWhiteSpace(@Model.Opportunities[0].PriceDescription)
-                               || (Model.Provider.TFPlusLoansSpecified && Model.Provider.TFPlusLoans))
+                     || !string.IsNullOrWhiteSpace(@Model.Opportunities[0].PriceDescription)
+                          || (Model.Provider.TFPlusLoansSpecified && Model.Provider.TFPlusLoans))
                         {
                             <tr class="govuk-table__row">
                                 <td class="govuk-table__cell">Cost</td>
@@ -235,7 +235,9 @@
                             </tbody>
                         </table>
                         <hr style="border-top: 0px;">
-                        @if (appSettings.Value.Page3DisplayTravel)
+                        @if (appSettings.Value.Page3DisplayTravel
+                         && !string.IsNullOrWhiteSpace(Model.Postcode)
+                         && !string.IsNullOrWhiteSpace(Model.Venue.Address?.Postcode))
                         {
                             <input type="hidden" id="JourneyTimeOrigin" name="JourneyTimeOrigin" value="@Model.Postcode" />
                             <input type="hidden" id="JourneyTimeDestination" name="JourneyTimeDestination" value="@Model.Venue.Address.Postcode" />
@@ -412,8 +414,10 @@ else
 }
 
 @section Scripts {
-
-    @if (appSettings.Value.Page3DisplayTravel)
+    @if (null != Model.Venue
+      && appSettings.Value.Page3DisplayTravel
+      && !string.IsNullOrWhiteSpace(Model.Postcode)
+      && !string.IsNullOrWhiteSpace(Model.Venue.Address?.Postcode))
     {
         <script>
 
@@ -440,7 +444,7 @@ else
                     reorderedStore[2] = $.grep(journeyTimesStore, function (item) { return item.mode === 'Walking'; })[0];
                     reorderedStore[3] = $.grep(journeyTimesStore, function (item) { return item.mode === 'Cycling'; })[0];
 
-                    cb(reorderedStore); 
+                    cb(reorderedStore);
                 }
             }
 
