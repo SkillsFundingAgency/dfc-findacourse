@@ -139,17 +139,5 @@ namespace Dfc.FindACourse.Web.xUnit.UnitTests
                 return _postcodeService;
             }
         }
-
-        private Mock<ILogger<CourseDirectoryController>> _logger;
-        public Mock<ILogger<CourseDirectoryController>> MockLogger
-        {
-            get
-            {
-                if (_logger != null) return _logger;
-                var mock = new Mock<ILogger<CourseDirectoryController>>();
-                _logger = mock;
-                return _logger;
-            }
-        }
     }
 }

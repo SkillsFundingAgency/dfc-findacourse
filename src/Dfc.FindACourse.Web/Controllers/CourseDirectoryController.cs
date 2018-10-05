@@ -19,8 +19,6 @@ namespace Dfc.FindACourse.Web.Controllers
 {
     public class CourseDirectoryController : Controller
     {
-        private readonly ILogger<CourseDirectoryController> _logger;
-
         public IConfiguration Configuration { get; }
         public ICourseDirectoryService Service { get; }
         public IMemoryCache Cache { get; }
@@ -34,9 +32,8 @@ namespace Dfc.FindACourse.Web.Controllers
 
         public CourseDirectoryController(IConfiguration configuration, ICourseDirectoryService courseDirectoryService
             , IMemoryCache memoryCache, ITelemetryClient telemetryClient, IOptions<App> appSettings,
-            ICourseDirectory courseDirectory, IFileHelper fileHelper, ICourseDirectoryHelper requestModelHelper, IPostcodeService postcodeService, ILogger<CourseDirectoryController> logger)
+            ICourseDirectory courseDirectory, IFileHelper fileHelper, ICourseDirectoryHelper requestModelHelper, IPostcodeService postcodeService)
         {
-            _logger = logger;
             Configuration = configuration;
             Service = courseDirectoryService;
             Cache = memoryCache;
@@ -51,7 +48,8 @@ namespace Dfc.FindACourse.Web.Controllers
         // GET: CourseDirectory
         public ActionResult Index()
         {
-            _logger.LogDebug($"[{DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss.ffffff", CultureInfo.InvariantCulture)}] Starting call Controller = {nameof(CourseDirectoryController)}, Action = {nameof(Index)}");
+            Telemetry.TrackEvent("Find A Course Start page");
+            Telemetry.TrackEvent($"[{DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss.ffffff", CultureInfo.InvariantCulture)}] Starting call Controller = {nameof(CourseDirectoryController)}, Action = {nameof(Index)}");
 
             var isPostcodeInvalid = false;
             var location = default(string);
@@ -82,9 +80,7 @@ namespace Dfc.FindACourse.Web.Controllers
                 }
             }
 
-            Telemetry.TrackEvent("Find A Course Start page");
-
-            _logger.LogDebug($"[{DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss.ffffff", CultureInfo.InvariantCulture)}] Ending call Controller = {nameof(CourseDirectoryController)}, Action = {nameof(Index)}");
+            Telemetry.TrackEvent($"[{DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss.ffffff", CultureInfo.InvariantCulture)}] Ending call Controller = {nameof(CourseDirectoryController)}, Action = {nameof(Index)}");
 
             return View(indViewModel);
         }
@@ -93,7 +89,7 @@ namespace Dfc.FindACourse.Web.Controllers
         // ASB TODO - Should we not be returning OK objects? rather than empty Views if something goes wrong?
         public ActionResult CourseSearchResult([FromQuery]  CourseSearchRequestModel requestModel)
         {
-            _logger.LogDebug($"[{DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss.ffffff", CultureInfo.InvariantCulture)}] Starting call Controller = {nameof(CourseDirectoryController)}, Action = {nameof(CourseSearchResult)}");
+            Telemetry.TrackEvent($"[{DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss.ffffff", CultureInfo.InvariantCulture)}] Starting call Controller = {nameof(CourseDirectoryController)}, Action = {nameof(CourseSearchResult)}");
 
             var dtStart = DateTime.Now;
             var isPostcodeInvalid = false;
@@ -124,13 +120,13 @@ namespace Dfc.FindACourse.Web.Controllers
                 }
             }
 
-            _logger.LogDebug($"[{DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss.ffffff", CultureInfo.InvariantCulture)}] Starting to create course search criteria.");
+            Telemetry.TrackEvent($"[{DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss.ffffff", CultureInfo.InvariantCulture)}] Starting to create course search criteria.");
             var criteria = CourseDirectory.CreateCourseSearchCriteria(requestModel);
-            _logger.LogDebug($"[{DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss.ffffff", CultureInfo.InvariantCulture)}] Finished creating course search criteria.");
+            Telemetry.TrackEvent($"[{DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss.ffffff", CultureInfo.InvariantCulture)}] Finished creating course search criteria.");
 
-            _logger.LogDebug($"[{DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss.ffffff", CultureInfo.InvariantCulture)}] Starting call to course directory search from the course directory service.");
+            Telemetry.TrackEvent($"[{DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss.ffffff", CultureInfo.InvariantCulture)}] Starting call to course directory search from the course directory service.");
             var result = Service.CourseDirectorySearch(criteria, new PagingOptions(CourseDirectoryHelper.GetSortBy(requestModel.SortBy), requestModel.PageNo));
-            _logger.LogDebug($"[{DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss.ffffff", CultureInfo.InvariantCulture)}] Finished calling course directory search from the course directory service.");
+            Telemetry.TrackEvent($"[{DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss.ffffff", CultureInfo.InvariantCulture)}] Finished calling course directory search from the course directory service.");
 
             if (!CourseDirectory.IsSuccessfulResult(result, Telemetry, "Course Search", requestModel.SubjectKeyword, dtStart))
                 return View(nameof(Error), new Models.ErrorViewModel() { RequestId = "Course Search: " + requestModel.SubjectKeyword.ToString() + ". " + (null != result ? result.Error : string.Empty) });
@@ -142,7 +138,7 @@ namespace Dfc.FindACourse.Web.Controllers
 
             int perPage = int.TryParse(Configuration["Tribal:PerPage"], out perPage) ? perPage : 0;
 
-            _logger.LogDebug($"[{DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss.ffffff", CultureInfo.InvariantCulture)}] Ending call Controller = {nameof(CourseDirectoryController)}, Action = {nameof(CourseSearchResult)}");
+            Telemetry.TrackEvent($"[{DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss.ffffff", CultureInfo.InvariantCulture)}] Ending call Controller = {nameof(CourseDirectoryController)}, Action = {nameof(CourseSearchResult)}");
 
             return View(new CourseSearchResultViewModel(result)
             {
@@ -164,7 +160,7 @@ namespace Dfc.FindACourse.Web.Controllers
 
         public IActionResult CourseDetails(int? id, string distance, string postcode)
         {
-            _logger.LogDebug($"[{DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss.ffffff", CultureInfo.InvariantCulture)}] Starting call Controller = {nameof(CourseDirectoryController)}, Action = {nameof(CourseDetails)}");
+            Telemetry.TrackEvent($"[{DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss.ffffff", CultureInfo.InvariantCulture)}] Starting call Controller = {nameof(CourseDirectoryController)}, Action = {nameof(CourseDetails)}");
 
             //Parmeters
             var dtStart = DateTime.Now;
@@ -175,17 +171,17 @@ namespace Dfc.FindACourse.Web.Controllers
                 return View();
             }
 
-            _logger.LogDebug($"[{DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss.ffffff", CultureInfo.InvariantCulture)}] Starting call to course item detail from the course directory service.");
+            Telemetry.TrackEvent($"[{DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss.ffffff", CultureInfo.InvariantCulture)}] Starting call to course item detail from the course directory service.");
             var result = Service.CourseItemDetail(id, null);
-            _logger.LogDebug($"[{DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss.ffffff", CultureInfo.InvariantCulture)}] Finished calling course item detail from the course directory service.");
+            Telemetry.TrackEvent($"[{DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss.ffffff", CultureInfo.InvariantCulture)}] Finished calling course item detail from the course directory service.");
 
             if (!CourseDirectory.IsSuccessfulResult(result, Telemetry, "Course Detail", id.Value.ToString(), dtStart))
                 return View(nameof(Error), new Models.ErrorViewModel() { RequestId = "Course Detail: " + id.Value.ToString() + ". " + (null != result ? result.Error:string.Empty) });
 
+            Telemetry.TrackEvent($"[{DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss.ffffff", CultureInfo.InvariantCulture)}] Ending call Controller = {nameof(CourseDirectoryController)}, Action = {nameof(CourseDetails)}");
+
             //DEBUG_FIX - Add the flush to see if working straightaway ASB TODO AGain is this correct as wont get called if ModelState is Invalid
             Telemetry.Flush();
-
-            _logger.LogDebug($"[{DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss.ffffff", CultureInfo.InvariantCulture)}] Ending call Controller = {nameof(CourseDirectoryController)}, Action = {nameof(CourseDetails)}");
 
             return View(new CourseDetailViewModel(result.Value, !string.IsNullOrEmpty(distance) ? distance: string.Empty, !string.IsNullOrEmpty(postcode) ? postcode : string.Empty) { });
         }
