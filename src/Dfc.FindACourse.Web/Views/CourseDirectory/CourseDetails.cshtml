@@ -152,13 +152,13 @@
                     </a>
                     <p class="enrol-text">on the provider’s website</p>
                 }
-                else if (null != Model.Venue && !string.IsNullOrWhiteSpace(Model.Venue.Website))
+                @*else if (null != Model.Venues && null != Model.Opportunities[0].Venue && !string.IsNullOrWhiteSpace(Model.Opportunities[0].Venue.Website))
                 {
-                    <a target="_blank" href=@Model.Venue.Website role="button" class="govuk-button govuk-button--start">
+                    <a target="_blank" href=@Model.Opportunities[0].Venue.Website role="button" class="govuk-button govuk-button--start">
                         More Information
                     </a>
                     <p class="enrol-text">on the provider’s website</p>
-                }
+                }*@
                 else if (!string.IsNullOrWhiteSpace(Model.Provider.Website))
                 {
                     <a target="_blank" href=@Model.Provider.Website role="button" class="govuk-button govuk-button--start">
@@ -202,7 +202,7 @@
                 <aside class="govuk-related-items" role="complementary">
                     <h2 class="govuk-heading-s" style="margin-top: 10px">Provider</h2>
                     <p class="govuk-body-s">@Model.ProviderName</p>
-                    @if (null != Model.Venue)
+                    @if (null != Model.Opportunities && Model.Opportunities.Count > 0 )
                     {
                         <hr>
 
@@ -211,25 +211,25 @@
                             <tbody class="govuk-table__body">
                                 <tr class="govuk-table__row">
                                     <td class="govuk-table__cell govuk-body-s">Name</td>
-                                    <td class="govuk-table__cell govuk-body-s">@Model.Venue.Name</td>
+                                    <td class="govuk-table__cell govuk-body-s">@Model.Opportunities[0].Venue.Name</td>
                                 </tr>
                                 <tr class="govuk-table__row">
                                     <td class="govuk-table__cell govuk-body-s" style="border-bottom: none">Address</td>
                                     <td class="govuk-table__cell govuk-body-s" style="border-bottom: none">
-                                        @if (!string.IsNullOrEmpty(@Model.Venue.Address.Line1))
-                                        {@Model.Venue.Address.Line1 <br>}
-                                        @if (!string.IsNullOrEmpty(@Model.Venue.Address.Line2))
-                                        {@Model.Venue.Address.Line2 <br>}
-                                        @if (!string.IsNullOrEmpty(@Model.Venue.Address.Town))
-                                        {@Model.Venue.Address.Town <br>}
-                                        @if (!string.IsNullOrEmpty(@Model.Venue.Address.County))
-                                        {@Model.Venue.Address.County <br>}
-                                        @if (!string.IsNullOrEmpty(@Model.Venue.Address.Postcode))
-                                        {@Model.Venue.Address.Postcode <br>}
+                                        @if (!string.IsNullOrEmpty(@Model.Opportunities[0].Venue.Address.Line1))
+                                        {@Model.Opportunities[0].Venue.Address.Line1 <br>}
+                                        @if (!string.IsNullOrEmpty(@Model.Opportunities[0].Venue.Address.Line2))
+                                        {@Model.Opportunities[0].Venue.Address.Line2 <br>}
+                                        @if (!string.IsNullOrEmpty(@Model.Opportunities[0].Venue.Address.Town))
+                                        {@Model.Opportunities[0].Venue.Address.Town <br>}
+                                        @if (!string.IsNullOrEmpty(@Model.Opportunities[0].Venue.Address.County))
+                                        {@Model.Opportunities[0].Venue.Address.County <br>}
+                                        @if (!string.IsNullOrEmpty(@Model.Opportunities[0].Venue.Address.Postcode))
+                                        {@Model.Opportunities[0].Venue.Address.Postcode <br>}
 
 
 
-                                        <a class="govuk-link" target="_blank" href="https://www.google.com/maps?q=@Model.Venue.Address.Latitude,@Model.Venue.Address.Longitude">Find on Google maps</a>
+                                        <a class="govuk-link" target="_blank" href="https://www.google.com/maps?q=@Model.Opportunities[0].Venue.Address.Latitude,@Model.Opportunities[0].Venue.Address.Longitude">Find on Google maps</a>
                                     </td>
                                 </tr>
                             </tbody>
@@ -310,12 +310,12 @@
                         <tbody class="govuk-table__body">
                             <!-- In order this should display: Venue Website, Opportunity URL, Provider URL-->
 
-                            @if (null != Model.Venue && !string.IsNullOrWhiteSpace(@Model.Venue.Website))
+                            @if (null != Model.Opportunities[0].Venue && !string.IsNullOrWhiteSpace(@Model.Opportunities[0].Venue.Website))
                             {
                                 <tr class="govuk-table__row">
                                     <td class="govuk-table__cell govuk-body-s">Website</td>
                                     <td class="govuk-table__cell">
-                                        <a class="govuk-link govuk-body-s" target="_blank" href="@Model.Venue.Website" style="word-break: break-all;">@Model.Venue.Website</a>
+                                        <a class="govuk-link govuk-body-s" target="_blank" href="@Model.Opportunities[0].Venue.Website" style="word-break: break-all;">@Model.Opportunities[0].Venue.Website</a>
                                     </td>
                                 </tr>
                             }

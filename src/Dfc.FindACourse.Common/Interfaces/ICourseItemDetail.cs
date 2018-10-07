@@ -9,6 +9,6 @@ namespace Dfc.FindACourse.Common.Interfaces
         ICourseDetails Coursedetails { get; }
         List<IOpportunity> Opportunities { get; }
         IProvider Provider { get; }
-        IVenue Venue { get; }
+        List<IVenue> Venues { get; }
     }
 }

@@ -12,19 +12,19 @@ namespace Dfc.FindACourse.Common.Models
         public ICourseDetails Coursedetails { get; }
         public List<Interfaces.IOpportunity> Opportunities { get; }
         public IProvider Provider { get; }
-        public IVenue Venue { get; }
+        public List<IVenue> Venues { get; }
 
         public CourseItemDetail(
             ICourseDetails courseDetails,
             List<IOpportunity> opportunities,
             IProvider provider, 
-            IVenue venue)
+            List<IVenue> venues)
         {
             Coursedetails = courseDetails ?? throw new ArgumentNullException(nameof(courseDetails));
             Opportunities = opportunities ?? throw new ArgumentNullException(nameof(opportunities));
             Provider = provider ?? throw new ArgumentNullException(nameof(provider));
             //Venue is now nullable since it could be a distance course with a Region
-            Venue = venue;
+            Venues = venues;
         }
 
         protected override IEnumerable<object> GetEqualityComponents()

@@ -111,7 +111,8 @@ namespace Dfc.FindACourse.Services.CourseDirectory
         }
         public static Venue ToVenue(this VenueDetail venueDetail)
         {
-            return new Venue(
+            return new Venue(   
+                venueDetail.VenueID,
                 venueDetail.VenueName,
                 venueDetail.VenueAddress.ToAddess(),
                 venueDetail.Website,
@@ -314,7 +315,17 @@ namespace Dfc.FindACourse.Services.CourseDirectory
             }
             return oppResults;
         }
+        public static List<IVenue> ToVenues(this VenueDetail[] venueDetails)
+        {
+            var venResults = new List<IVenue>();
 
+            foreach (VenueDetail venueDetail in venueDetails)
+            {
+                venResults.Add(venueDetail.ToVenue());
+            }
+            
+            return venResults;
+        }
         public static Provider ToProvider(this ProviderInfo providerInfo)
         {
             try
