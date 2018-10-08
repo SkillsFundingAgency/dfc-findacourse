@@ -130,7 +130,7 @@ namespace Dfc.FindACourse.Web.xUnit.UnitTests
             MockTelemetryClient.Setup(x => x.TrackEvent(It.IsAny<string>(), null, null)).Verifiable();
             MockTelemetryClient.Setup(x => x.Flush()).Verifiable();
 
-            var expected = new CourseDetailViewModel(courseDetailsResult.Value, "0", "");
+            var expected = new CourseDetailViewModel(courseDetailsResult.Value, "0", "", null);
 
             var result = Controller.CourseDetails(5, "0", "") as ViewResult;
 
@@ -159,7 +159,7 @@ namespace Dfc.FindACourse.Web.xUnit.UnitTests
             MockTelemetryClient.Setup(x => x.TrackEvent(It.IsAny<string>(), null, null)).Verifiable();
             MockTelemetryClient.Setup(x => x.Flush()).Verifiable();
 
-            var expected = new CourseDetailViewModel(courseDetailsResult.Value, "0", "");
+            var expected = new CourseDetailViewModel(courseDetailsResult.Value, "0", "", null);
 
             var result = Controller.OpportunityDetails(5, "0", 6, "") as ViewResult;
 
@@ -219,6 +219,10 @@ namespace Dfc.FindACourse.Web.xUnit.UnitTests
             var venue = new Venue("v", new Address("L1", "L2", "L3", "L4", "L5", 10, 10), 10);
             var course = new CourseDetails(1, "test", string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, QualificationLevel.Level1, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty, string.Empty);
             var duration = new Duration("desc");
+            var venues = new List<IVenue>
+            {
+                venue
+            };
             var opportunity = new Opportunity(
                 1,
                 StudyMode.Flexible,
@@ -233,7 +237,7 @@ namespace Dfc.FindACourse.Web.xUnit.UnitTests
                 opportunity
             };
             var provider = new Provider(1, "provider");
-            var courseItem = new CourseItemDetail(course, listOpps, provider, venue);
+            var courseItem = new CourseItemDetail(course, listOpps, provider, venues);
             var courseDetailsResult = Result.Ok(courseItem);
             return courseDetailsResult;
         }
