@@ -3,28 +3,29 @@
 @using Dfc.FindACourse.Web.ViewModels.CourseDirectory;
 @using Microsoft.Extensions.Options;
 @using Dfc.FindACourse.Common.Settings;
-@inject IOptions<App> appSettings
+@inject IOptions<App>
+    appSettings
 
-@model Dfc.FindACourse.Web.ViewModels.CourseDirectory.CourseDetailViewModel;
+    @model Dfc.FindACourse.Web.ViewModels.CourseDirectory.CourseDetailViewModel;
 
-@{
+    @{
     ViewData["Title"] = "CourseDetails";
     ViewBag.SurveyBannerLink = appSettings.Value.SurveyBannerLink;
-}
+    }
 
-<link rel='stylesheet' href='/css/course-directory.css' type='text/css' media='all' />
+    <link rel='stylesheet' href='/css/course-directory.css' type='text/css' media='all' />
 
-<div class="govuk-breadcrumbs">
-    <ol class="govuk-breadcrumbs__list">
-        <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/">Home</a></li>
-        <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/">Find a course</a></li>
+    <div class="govuk-breadcrumbs">
+        <ol class="govuk-breadcrumbs__list">
+            <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/">Home</a></li>
+            <li class="govuk-breadcrumbs__list-item"><a class="govuk-breadcrumbs__link" href="/">Find a course</a></li>
 
-    </ol>
-</div>
+        </ol>
+    </div>
 
-<a class="link-back mt" href="javascript:history.go(-1)">Back to results</a>
-@if (null != Model)
-{
+    <a class="link-back mt" href="javascript:history.go(-1)">Back to results</a>
+    @if (null != Model)
+    {
     <div class="govuk-grid-row">
 
         <div class="govuk-grid-column-two-thirds">
@@ -41,31 +42,31 @@
                             <td class="govuk-table__cell">
                                 @if (!string.IsNullOrWhiteSpace(Model.QualificationTitle))
                                 {
-                                    @Model.QualificationTitle
+                                @Model.QualificationTitle
                                 }
                                 else
                                 {
-                                    @Model.CourseTitle
+                                @Model.CourseTitle
                                 }
                             </td>
                         </tr>
                         @if (Model.QualificationLevel == QualificationLevel.Level9)
                         {
-                            <tr class="govuk-table__row">
-                                <td class="govuk-table__cell">Qualification level</td>
-                                <td class="govuk-table__cell">
-                                    Unknown
-                                </td>
-                            </tr>
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell">Qualification level</td>
+                            <td class="govuk-table__cell">
+                                Unknown
+                            </td>
+                        </tr>
                         }
                         else if (Model.QualificationLevel != QualificationLevel.LevelNa)
                         {
-                            <tr class="govuk-table__row">
-                                <td class="govuk-table__cell">Qualification level</td>
-                                <td class="govuk-table__cell">
-                                    @Model.QualificationLevel.GetDisplayName()
-                                </td>
-                            </tr>
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell">Qualification level</td>
+                            <td class="govuk-table__cell">
+                                @Model.QualificationLevel.GetDisplayName()
+                            </td>
+                        </tr>
                         }
                         <tr class="govuk-table__row">
                             <td class="govuk-table__cell">Entry requirements</td>
@@ -76,28 +77,28 @@
                             </td>
                         </tr>
                         @if (!string.IsNullOrWhiteSpace(@Model.Opportunities[0].Price)
-                     || !string.IsNullOrWhiteSpace(@Model.Opportunities[0].PriceDescription)
-                          || (Model.Provider.TFPlusLoansSpecified && Model.Provider.TFPlusLoans))
+                        || !string.IsNullOrWhiteSpace(@Model.Opportunities[0].PriceDescription)
+                        || (Model.Provider.TFPlusLoansSpecified && Model.Provider.TFPlusLoans))
                         {
-                            <tr class="govuk-table__row">
-                                <td class="govuk-table__cell">Cost</td>
-                                <td class="govuk-table__cell">
-                                    @if (!string.IsNullOrWhiteSpace(@Model.Opportunities[0].Price))
-                                    {
-                                        @Model.Opportunities[0].Price
-                                    }
-                                    @if (!string.IsNullOrWhiteSpace(@Model.Opportunities[0].PriceDescription))
-                                    {
-                                        <div id="PriceDescription">
-                                            @Model.Opportunities[0].PriceDescription
-                                        </div>
-                                    }
-                                    @if (Model.Provider.TFPlusLoansSpecified && Model.Provider.TFPlusLoans)
-                                    {
-                                        <br><a href="https://www.gov.uk/advanced-learner-loan/overview" target="_blank">Advanced Learner Loans may be available</a>
-                                    }
-                                </td>
-                            </tr>
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell">Cost</td>
+                            <td class="govuk-table__cell">
+                                @if (!string.IsNullOrWhiteSpace(@Model.Opportunities[0].Price))
+                                {
+                                @Model.Opportunities[0].Price
+                                }
+                                @if (!string.IsNullOrWhiteSpace(@Model.Opportunities[0].PriceDescription))
+                                {
+                                <div id="PriceDescription">
+                                    @Model.Opportunities[0].PriceDescription
+                                </div>
+                                }
+                                @if (Model.Provider.TFPlusLoansSpecified && Model.Provider.TFPlusLoans)
+                                {
+                                <br><a href="https://www.gov.uk/advanced-learner-loan/overview" target="_blank">Advanced Learner Loans may be available</a>
+                                }
+                            </td>
+                        </tr>
                         }
                         <tr class="govuk-table__row">
                             <td class="govuk-table__cell">Start date</td>
@@ -109,62 +110,62 @@
                         </tr>
                         @if (Model.IsDisplayable(Model.StudyMode))
                         {
-                            <tr class="govuk-table__row">
-                                <td class="govuk-table__cell">Full-time or part-time</td>
-                                <td class="govuk-table__cell">@Model.StudyMode.GetDisplayName()</td>
-                            </tr>
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell">Full-time or part-time</td>
+                            <td class="govuk-table__cell">@Model.StudyMode.GetDisplayName()</td>
+                        </tr>
                         }
                         @if (Model.IsDisplayable(Model.AttendanceMode))
                         {
-                            <tr class="govuk-table__row">
-                                <td class="govuk-table__cell">Classroom or online</td>
-                                <td class="govuk-table__cell">@Model.AttendanceMode.GetDisplayName()</td>
-                            </tr>
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell">Classroom or online</td>
+                            <td class="govuk-table__cell">@Model.AttendanceMode.GetDisplayName()</td>
+                        </tr>
                         }
                         @if (Model.IsDisplayable(Model.AttendencePattern))
                         {
-                            <tr class="govuk-table__row">
-                                <td class="govuk-table__cell">Day, night or weekend</td>
-                                <td class="govuk-table__cell">@Model.AttendencePattern.GetDisplayName()</td>
-                            </tr>
+                        <tr class="govuk-table__row">
+                            <td class="govuk-table__cell">Day, night or weekend</td>
+                            <td class="govuk-table__cell">@Model.AttendencePattern.GetDisplayName()</td>
+                        </tr>
                         }
                     </tbody>
                 </table>
 
                 @if (!string.IsNullOrWhiteSpace(Model.BookingURL))
                 {
-                    <a target="_blank" href=@Model.BookingURL role="button" class="govuk-button govuk-button--start">
-                        Enrol now
-                    </a>
-                    <p class="enrol-text">on the provider’s website</p>
+                <a target="_blank" href=@Model.BookingURL role="button" class="govuk-button govuk-button--start">
+                    Enrol now
+                </a>
+                <p class="enrol-text">on the provider’s website</p>
                 }
                 else if (!string.IsNullOrWhiteSpace(Model.URL))
                 {
-                    <a target="_blank" href=@Model.Provider.Website role="button" class="govuk-button govuk-button--start">
-                        More Information
-                    </a>
-                    <p class="enrol-text">on the provider’s website</p>
+                <a target="_blank" href=@Model.Provider.Website role="button" class="govuk-button govuk-button--start">
+                    More Information
+                </a>
+                <p class="enrol-text">on the provider’s website</p>
                 }
                 else if (!string.IsNullOrWhiteSpace(Model.Opportunities[0].URL))
                 {
-                    <a target="_blank" href=@Model.Provider.Website role="button" class="govuk-button govuk-button--start">
-                        More Information
-                    </a>
-                    <p class="enrol-text">on the provider’s website</p>
+                <a target="_blank" href=@Model.Provider.Website role="button" class="govuk-button govuk-button--start">
+                    More Information
+                </a>
+                <p class="enrol-text">on the provider’s website</p>
                 }
                 @*else if (null != Model.Venues && null != Model.Opportunities[0].Venue && !string.IsNullOrWhiteSpace(Model.Opportunities[0].Venue.Website))
                 {
-                    <a target="_blank" href=@Model.Opportunities[0].Venue.Website role="button" class="govuk-button govuk-button--start">
-                        More Information
-                    </a>
-                    <p class="enrol-text">on the provider’s website</p>
+                <a target="_blank" href=@Model.Opportunities[0].Venue.Website role="button" class="govuk-button govuk-button--start">
+                    More Information
+                </a>
+                <p class="enrol-text">on the provider’s website</p>
                 }*@
                 else if (!string.IsNullOrWhiteSpace(Model.Provider.Website))
                 {
-                    <a target="_blank" href=@Model.Provider.Website role="button" class="govuk-button govuk-button--start">
-                        More Information
-                    </a>
-                    <p class="enrol-text">on the provider’s website</p>
+                <a target="_blank" href=@Model.Provider.Website role="button" class="govuk-button govuk-button--start">
+                    More Information
+                </a>
+                <p class="enrol-text">on the provider’s website</p>
                 }
 
 
@@ -178,21 +179,21 @@
                 </p>
                 @if (!string.IsNullOrWhiteSpace(@Model.EquipmentRequired))
                 {
-                    <p class="govuk-heading-s">What you’ll need to bring</p>
-                    <p class="govuk-body govuk-!-font-size-19">
-                        <div id="EquipmentRequired">
-                            @Model.EquipmentRequired
-                        </div>
-                    </p>
+                <p class="govuk-heading-s">What you’ll need to bring</p>
+                <p class="govuk-body govuk-!-font-size-19">
+                    <div id="EquipmentRequired">
+                        @Model.EquipmentRequired
+                    </div>
+                </p>
                 }
                 @if (!string.IsNullOrWhiteSpace(@Model.AssessmentMethod))
                 {
-                    <p class="govuk-heading-s">How you’ll be assessed</p>
-                    <p class="govuk-body govuk-!-font-size-19">
-                        <div id="AssessmentMethod">
-                            @Model.AssessmentMethod
-                        </div>
-                    </p>
+                <p class="govuk-heading-s">How you’ll be assessed</p>
+                <p class="govuk-body govuk-!-font-size-19">
+                    <div id="AssessmentMethod">
+                        @Model.AssessmentMethod
+                    </div>
+                </p>
                 }
             </section>
         </div>
@@ -204,135 +205,135 @@
                     <p class="govuk-body-s">@Model.ProviderName</p>
                     @if (null != Model.Opportunities && Model.Opportunities.Count > 0 )
                     {
-                        <hr>
+                    <hr>
 
-                        <h2 class="govuk-heading-s" style="margin-top: 10px;padding-top: 10px">Venue</h2>
-                        <table class="govuk-table" role="presentation">
-                            <tbody class="govuk-table__body">
-                                <tr class="govuk-table__row">
-                                    <td class="govuk-table__cell govuk-body-s">Name</td>
-                                    <td class="govuk-table__cell govuk-body-s">@Model.Opportunities[0].Venue.Name</td>
-                                </tr>
-                                <tr class="govuk-table__row">
-                                    <td class="govuk-table__cell govuk-body-s" style="border-bottom: none">Address</td>
-                                    <td class="govuk-table__cell govuk-body-s" style="border-bottom: none">
-                                        @if (!string.IsNullOrEmpty(@Model.Opportunities[0].Venue.Address.Line1))
-                                        {@Model.Opportunities[0].Venue.Address.Line1 <br>}
-                                        @if (!string.IsNullOrEmpty(@Model.Opportunities[0].Venue.Address.Line2))
-                                        {@Model.Opportunities[0].Venue.Address.Line2 <br>}
-                                        @if (!string.IsNullOrEmpty(@Model.Opportunities[0].Venue.Address.Town))
-                                        {@Model.Opportunities[0].Venue.Address.Town <br>}
-                                        @if (!string.IsNullOrEmpty(@Model.Opportunities[0].Venue.Address.County))
-                                        {@Model.Opportunities[0].Venue.Address.County <br>}
-                                        @if (!string.IsNullOrEmpty(@Model.Opportunities[0].Venue.Address.Postcode))
-                                        {@Model.Opportunities[0].Venue.Address.Postcode <br>}
+                    <h2 class="govuk-heading-s" style="margin-top: 10px;padding-top: 10px">Venue</h2>
+                    <table class="govuk-table" role="presentation">
+                        <tbody class="govuk-table__body">
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell govuk-body-s">Name</td>
+                                <td class="govuk-table__cell govuk-body-s">@Model.Opportunities[0].Venue.Name</td>
+                            </tr>
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell govuk-body-s" style="border-bottom: none">Address</td>
+                                <td class="govuk-table__cell govuk-body-s" style="border-bottom: none">
+                                    @if (!string.IsNullOrEmpty(@Model.Opportunities[0].Venue.Address.Line1))
+                                    {@Model.Opportunities[0].Venue.Address.Line1 <br>}
+                                    @if (!string.IsNullOrEmpty(@Model.Opportunities[0].Venue.Address.Line2))
+                                    {@Model.Opportunities[0].Venue.Address.Line2 <br>}
+                                    @if (!string.IsNullOrEmpty(@Model.Opportunities[0].Venue.Address.Town))
+                                    {@Model.Opportunities[0].Venue.Address.Town <br>}
+                                    @if (!string.IsNullOrEmpty(@Model.Opportunities[0].Venue.Address.County))
+                                    {@Model.Opportunities[0].Venue.Address.County <br>}
+                                    @if (!string.IsNullOrEmpty(@Model.Opportunities[0].Venue.Address.Postcode))
+                                    {@Model.Opportunities[0].Venue.Address.Postcode <br>}
 
 
 
-                                        <a class="govuk-link" target="_blank" href="https://www.google.com/maps?q=@Model.Opportunities[0].Venue.Address.Latitude,@Model.Opportunities[0].Venue.Address.Longitude">Find on Google maps</a>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        <hr style="border-top: 0px;">
-                        @if (appSettings.Value.Page3DisplayTravel
-                         && !string.IsNullOrWhiteSpace(Model.Opportunities[0].Venue.Address.Postcode)
-                         && !string.IsNullOrWhiteSpace(Model.Opportunities[0].Venue.Address?.Postcode))
-                        {
-                            <input type="hidden" id="JourneyTimeOrigin" name="JourneyTimeOrigin" value="@Model.Opportunities[0].Venue.Address.Postcode" />
-                            <input type="hidden" id="JourneyTimeDestination" name="JourneyTimeDestination" value="@Model.Opportunities[0].Venue.Address.Postcode" />
-                            <table class="govuk-table" role="presentation">
-                                <tbody class="govuk-table__body">
-                                    <tr class="govuk-table__row">
-                                        <td class="govuk-table__cell" colspan="2">
-                                            <details>
-                                                <summary>
-                                                    <span style="color:#005ea5"> Journey time</span>
-                                                </summary>
-                                                <div class="panel">
-                                                    <div id="JourneyTimes"></div>
-                                                </div>
-                                            </details>
-                                        </td>
-                                    </tr>
-                                </tbody>
-                            </table>
+                                    <a class="govuk-link" target="_blank" href="https://www.google.com/maps?q=@Model.Opportunities[0].Venue.Address.Latitude,@Model.Opportunities[0].Venue.Address.Longitude">Find on Google maps</a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <hr style="border-top: 0px;">
+                    @if (appSettings.Value.Page3DisplayTravel
+                    && !string.IsNullOrWhiteSpace(appSettings.Value.GoogleApiKey)
+                    && !string.IsNullOrWhiteSpace(Model.Opportunities[0].Venue.Address.Postcode)
+                    && !string.IsNullOrWhiteSpace(Model.Opportunities[0].Venue.Address?.Postcode))
+                    {
+                    <input type="hidden" id="JourneyTimeOrigin" name="JourneyTimeOrigin" value="@Model.Opportunities[0].Venue.Address.Postcode" />
+                    <input type="hidden" id="JourneyTimeDestination" name="JourneyTimeDestination" value="@Model.Opportunities[0].Venue.Address.Postcode" />
+                    <table class="govuk-table" role="presentation">
+                        <tbody class="govuk-table__body">
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell" colspan="2">
+                                    <details>
+                                        <summary>
+                                            <span style="color:#005ea5"> Journey time</span>
+                                        </summary>
+                                        <div class="panel">
+                                            <div id="JourneyTimes"></div>
+                                        </div>
+                                    </details>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
 
-                        }
+                    }
 
                     }
                     else
                     {
 
-                        <table class="govuk-table" role="presentation">
-                            <tbody class="govuk-table__body">
-                                <tr class="govuk-table__row">
-                                    <td class="govuk-table__cell govuk-body-s" style="border-bottom: none">Address</td>
-                                    <td class="govuk-table__cell govuk-body-s" style="border-bottom: none">
-                                        @if (null != Model.Provider.ProviderAddress)
-                                        {
-                                            @if (!string.IsNullOrEmpty(@Model.Provider.ProviderAddress.Line1))
-                                            {@Model.Provider.ProviderAddress.Line1 <br>}
-                                            @if (!string.IsNullOrEmpty(@Model.Provider.ProviderAddress.Line2))
-                                            {@Model.Provider.ProviderAddress.Line2 <br>}
-                                            @if (!string.IsNullOrEmpty(@Model.Provider.ProviderAddress.Town))
-                                            {@Model.Provider.ProviderAddress.Town <br>}
-                                            @if (!string.IsNullOrEmpty(@Model.Provider.ProviderAddress.County))
-                                            {@Model.Provider.ProviderAddress.County <br>}
-                                            @if (!string.IsNullOrEmpty(@Model.Provider.ProviderAddress.Postcode))
-                                            {@Model.Provider.ProviderAddress.Postcode <br>}
-                                        }
+                    <table class="govuk-table" role="presentation">
+                        <tbody class="govuk-table__body">
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell govuk-body-s" style="border-bottom: none">Address</td>
+                                <td class="govuk-table__cell govuk-body-s" style="border-bottom: none">
+                                    @if (null != Model.Provider.ProviderAddress)
+                                    {
+                                    @if (!string.IsNullOrEmpty(@Model.Provider.ProviderAddress.Line1))
+                                    {@Model.Provider.ProviderAddress.Line1 <br>}
+                                    @if (!string.IsNullOrEmpty(@Model.Provider.ProviderAddress.Line2))
+                                    {@Model.Provider.ProviderAddress.Line2 <br>}
+                                    @if (!string.IsNullOrEmpty(@Model.Provider.ProviderAddress.Town))
+                                    {@Model.Provider.ProviderAddress.Town <br>}
+                                    @if (!string.IsNullOrEmpty(@Model.Provider.ProviderAddress.County))
+                                    {@Model.Provider.ProviderAddress.County <br>}
+                                    @if (!string.IsNullOrEmpty(@Model.Provider.ProviderAddress.Postcode))
+                                    {@Model.Provider.ProviderAddress.Postcode <br>}
+                                    }
 
-                                    </td>
-                                </tr>
+                                </td>
+                            </tr>
 
-                            </tbody>
-                        </table>
-                        @if (null != @Model.Opportunities && null != @Model.Opportunities[0].Region)
-                        {
-                            <hr>
-                            <h2 class="govuk-heading-s" style="margin-top: 10px;padding-top: 10px">Venue</h2>
-                            <table class="govuk-table" role="presentation">
-                                <tbody class="govuk-table__body">
-                                    <tr class="govuk-table__row">
-                                        <td class="govuk-table__cell govuk-body-s" style="border-bottom: none">Location</td>
-                                        <td class="govuk-table__cell govuk-body-s" style="border-bottom: none;">@Model.Opportunities[0].Region</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        }
-                        <hr>
+                        </tbody>
+                    </table>
+                    @if (null != @Model.Opportunities && null != @Model.Opportunities[0].Region)
+                    {
+                    <hr>
+                    <h2 class="govuk-heading-s" style="margin-top: 10px;padding-top: 10px">Venue</h2>
+                    <table class="govuk-table" role="presentation">
+                        <tbody class="govuk-table__body">
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell govuk-body-s" style="border-bottom: none">Location</td>
+                                <td class="govuk-table__cell govuk-body-s" style="border-bottom: none;">@Model.Opportunities[0].Region</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    }
+                    <hr>
                     }
                     <!-- Wesbite, Email, Phone -->
                     <table class="govuk-table" role="presentation">
                         <tbody class="govuk-table__body">
                             <!-- In order this should display: Venue Website, Opportunity URL, Provider URL-->
-
                             @if (null != Model.Opportunities[0].Venue && !string.IsNullOrWhiteSpace(@Model.Opportunities[0].Venue.Website))
                             {
-                                <tr class="govuk-table__row">
-                                    <td class="govuk-table__cell govuk-body-s">Website</td>
-                                    <td class="govuk-table__cell">
-                                        <a class="govuk-link govuk-body-s" target="_blank" href="@Model.Opportunities[0].Venue.Website" style="word-break: break-all;">@Model.Opportunities[0].Venue.Website</a>
-                                    </td>
-                                </tr>
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell govuk-body-s">Website</td>
+                                <td class="govuk-table__cell">
+                                    <a class="govuk-link govuk-body-s" target="_blank" href="@Model.Opportunities[0].Venue.Website" style="word-break: break-all;">@Model.Opportunities[0].Venue.Website</a>
+                                </td>
+                            </tr>
                             }
 
 
                             @if (!string.IsNullOrWhiteSpace(@Model.Provider.Email))
                             {
-                                <tr class="govuk-table__row">
-                                    <td class="govuk-table__cell govuk-body-s">Email</td>
-                                    <td class="govuk-table__cell govuk-body-s"><a href="mailto: @Model.Provider.Email" style="word-break: break-all;"> @Model.Provider.Email</a> </td>
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell govuk-body-s">Email</td>
+                                <td class="govuk-table__cell govuk-body-s"><a href="mailto: @Model.Provider.Email" style="word-break: break-all;"> @Model.Provider.Email</a> </td>
 
-                                </tr>
+                            </tr>
                             }
                             @if (!string.IsNullOrWhiteSpace(@Model.Provider.Phone))
                             {
-                                <tr class="govuk-table__row">
-                                    <td class="govuk-table__cell govuk-body-s">Phone</td>
-                                    <td class="govuk-table__cell govuk-body-s">@Model.Provider.Phone</td>
-                                </tr>
+                            <tr class="govuk-table__row">
+                                <td class="govuk-table__cell govuk-body-s">Phone</td>
+                                <td class="govuk-table__cell govuk-body-s">@Model.Provider.Phone</td>
+                            </tr>
                             }
                         </tbody>
                     </table>
@@ -340,45 +341,45 @@
 
                     @if (Model.Opportunities.Count > 1 && appSettings.Value.Page3DisplayOtherDates)
                     {
-                        <details>
-                            <summary style="position: relative;top: 10px;">
-                                <span style="color:#005ea5;">Other dates and venues</span>
-                            </summary>
+                    <details>
+                        <summary style="position: relative;top: 10px;">
+                            <span style="color:#005ea5;">Other dates and venues</span>
+                        </summary>
 
 
-                            <div class="panel">
-                                <table class="govuk-table">
-                                    <thead class="govuk-table__head">
-                                        <tr class="govuk-table__row">
-                                            <td class="govuk-table__header govuk-body-s" scope="col">Venue</td>
-                                            <td class="govuk-table__header govuk-body-s" scope="col">Start date</td>
-                                            <td class="govuk-table__header govuk-body-s" scope="col">Options</td>
-                                        </tr>
-                                    </thead>
-                                    @foreach (var item in Model.Opportunities.Skip(1).Take(5))
-                                    {
-                                        <tbody>
-                                            <tr class="govuk-table__row">
-                                                @if (item.HasVenue && null != @item.Venue && !string.IsNullOrEmpty(@item.Venue.Name))
-                                                {
-                                                    <td class="govuk-table__cell govuk-body-s">@item.Venue.Name</td>
-                                                }
-                                                else
-                                                {
-                                                    <td class="govuk-table__cell govuk-body-s">@Model.Provider.Name</td>
-                                                }
-                                                <td class="govuk-table__cell govuk-body-s">@item.StartDate</td>
-                                                <td class="govuk-table__cell govuk-body-s">
-                                                    <a asp-action="OpportunityDetails" asp-route-id="@Model.CourseId" asp-route-distance="0" asp-route-oppid="@item.Id">View Course</a>
-                                                </td>
-                                            </tr>
+                        <div class="panel">
+                            <table class="govuk-table">
+                                <thead class="govuk-table__head">
+                                    <tr class="govuk-table__row">
+                                        <td class="govuk-table__header govuk-body-s" scope="col">Venue</td>
+                                        <td class="govuk-table__header govuk-body-s" scope="col">Start date</td>
+                                        <td class="govuk-table__header govuk-body-s" scope="col">Options</td>
+                                    </tr>
+                                </thead>
+                                @foreach (var item in Model.Opportunities.Skip(1).Take(5))
+                                {
+                                <tbody>
+                                    <tr class="govuk-table__row">
+                                        @if (item.HasVenue && null != @item.Venue && !string.IsNullOrEmpty(@item.Venue.Name))
+                                        {
+                                        <td class="govuk-table__cell govuk-body-s">@item.Venue.Name</td>
+                                        }
+                                        else
+                                        {
+                                        <td class="govuk-table__cell govuk-body-s">@Model.Provider.Name</td>
+                                        }
+                                        <td class="govuk-table__cell govuk-body-s">@item.StartDate</td>
+                                        <td class="govuk-table__cell govuk-body-s">
+                                            <a asp-action="OpportunityDetails" asp-route-id="@Model.CourseId" asp-route-distance="0" asp-route-oppid="@item.Id">View Course</a>
+                                        </td>
+                                    </tr>
 
-                                        </tbody>
-                                    }
-                                </table>
-                            </div>
-                        </details>
-                        <hr>
+                                </tbody>
+                                }
+                            </table>
+                        </div>
+                    </details>
+                    <hr>
                     }
 
                 </aside>
@@ -407,19 +408,20 @@
         <div class="clearfix"></div>
     </div>
 
-}
-else
-{
-    <p>There are no courses matching that courses identifier. Make sure that you have the correct value, or return to the results.</p>
-}
-
-@section Scripts {
-    @if (null != Model.Opportunities[0].Venue
-      && appSettings.Value.Page3DisplayTravel
-      && !string.IsNullOrWhiteSpace(Model.Postcode)
-      && !string.IsNullOrWhiteSpace(Model.Opportunities[0].Venue.Address?.Postcode))
+    }
+    else
     {
-        <script>
+    <p>There are no courses matching that courses identifier. Make sure that you have the correct value, or return to the results.</p>
+    }
+
+    @section Scripts {
+    @if (null != Model.Opportunities[0].Venue
+    && appSettings.Value.Page3DisplayTravel
+    && !string.IsNullOrWhiteSpace(appSettings.Value.GoogleApiKey)
+    && !string.IsNullOrWhiteSpace(Model.Postcode)
+    && !string.IsNullOrWhiteSpace(Model.Opportunities[0].Venue.Address?.Postcode))
+    {
+    <script>
 
             var origin = $('#JourneyTimeOrigin').val();
             var destination = $('#JourneyTimeDestination').val();
@@ -491,8 +493,8 @@ else
                 $('#JourneyTimes').journeyTimes({ store: store });
             }
 
-        </script>
+    </script>
 
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBgk9ha3t6TNlwQrxTnSw3MH7zRCJAA5Io&callback=initJourneyTime"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=@appSettings.Value.GoogleApiKey&callback=initJourneyTime"></script>
     }
-}
+    }
