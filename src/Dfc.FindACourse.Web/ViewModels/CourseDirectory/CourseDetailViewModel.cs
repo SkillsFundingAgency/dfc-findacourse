@@ -53,7 +53,7 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
                 CreditValue = value.Coursedetails.CreditValue;
                 QCAGuidedLearningHours = value.Coursedetails.QCAGuidedLearningHours;
                 SkillsForLifeTypeDesc = value.Coursedetails.SkillsForLifeTypeDesc;
-                Venues = value.Venues.AsEnumerable().Cast<Venue>().ToList();
+                Venues = value.Venues != null ? value.Venues.AsEnumerable().Cast<Venue>().ToList(): null;
                 Provider = (Provider)value.Provider;
                 //Load Opportunities, passing in the venue list for linking, and the opportunityID to set order
                 Opportunities = LoadOpportunities(value, Venues, oppid);
@@ -66,14 +66,17 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
         {
             List<Opportunity> data = value.Opportunities.AsEnumerable().Cast<Opportunity>().OrderBy(o => o.StartDate.Date).ToList();
 
-            foreach (Opportunity opp in data)
+            //Check to see if we have venus and then load
+            if (null != venues && venues.Count > 0)
             {
-                if (opp.ItemsElementName[0] == ItemChoice.VenueID)
-                    opp.Venue = (IVenue)venues.FirstOrDefault(v => v.VenueId == opp.Items[0]);
+                foreach (Opportunity opp in data)
+                {
+                    if (opp.ItemsElementName[0] == ItemChoice.VenueID)
+                        opp.Venue = (IVenue)venues.FirstOrDefault(v => v.VenueId == opp.Items[0]);
+                }
+                if (null != oppid && oppid.HasValue && oppid.Value > 0)
+                    return data.OrderByDescending(x => x.Id == oppid.Value).ToList();
             }
-            if (null != oppid && oppid.HasValue && oppid.Value > 0)
-                return data.OrderByDescending(x => x.Id == oppid.Value).ToList();
-
             return data;
         }
 
