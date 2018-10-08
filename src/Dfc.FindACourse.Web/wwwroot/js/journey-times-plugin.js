@@ -47,6 +47,9 @@
             }
 
             return els;
+        },
+        onTrigger: function () {
+
         }
     };
 
