@@ -138,13 +138,13 @@ namespace Dfc.FindACourse.Web.Controllers
                 AttendancePatterns = requestModel.AttendancePatterns,
                 QualificationLevels = requestModel.QualificationLevels,
                 IsDfe1619Funded = requestModel.IsDfe1619Funded,
-                SortBy = CourseDirectoryHelper.GetSortBy(requestModel.SortBy)
+                SortBy = CourseDirectoryHelper.GetSortBy(requestModel.SortBy),
             });
             
         }
 
 
-        public IActionResult CourseDetails(int? id, string distance)
+        public IActionResult CourseDetails(int? id, string distance, string postcode)
         {
             //Parmeters
             var dtStart = DateTime.Now;
@@ -163,10 +163,10 @@ namespace Dfc.FindACourse.Web.Controllers
             //DEBUG_FIX - Add the flush to see if working straightaway ASB TODO AGain is this correct as wont get called if ModelState is Invalid
             Telemetry.Flush();
 
-            return View(new CourseDetailViewModel(result.Value, !string.IsNullOrEmpty(distance) ? distance: string.Empty, null) { });
+            return View(new CourseDetailViewModel(result.Value, !string.IsNullOrEmpty(distance) ? distance: string.Empty) { });
         }
       
-        public IActionResult OpportunityDetails(int? id, string distance, int? oppid)
+        public IActionResult OpportunityDetails(int? id, string distance, int? oppid, string postcode)
         {
             //Parmeters
             var dtStart = DateTime.Now;
@@ -185,7 +185,7 @@ namespace Dfc.FindACourse.Web.Controllers
             //DEBUG_FIX - Add the flush to see if working straightaway ASB TODO AGain is this correct as wont get called if ModelState is Invalid
             Telemetry.Flush();
 
-            return View(nameof(CourseDetails), new CourseDetailViewModel(result.Value, !string.IsNullOrEmpty(distance) ? distance : string.Empty, oppid) { });
+            return View(nameof(CourseDetails), new CourseDetailViewModel(result.Value, !string.IsNullOrEmpty(distance) ? distance : string.Empty) { });
         }
 
 

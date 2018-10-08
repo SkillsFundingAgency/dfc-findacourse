@@ -76,8 +76,8 @@
                             </td>
                         </tr>
                         @if (!string.IsNullOrWhiteSpace(@Model.Opportunities[0].Price)
-                              || !string.IsNullOrWhiteSpace(@Model.Opportunities[0].PriceDescription)
-                                   || (Model.Provider.TFPlusLoansSpecified && Model.Provider.TFPlusLoans))
+                     || !string.IsNullOrWhiteSpace(@Model.Opportunities[0].PriceDescription)
+                          || (Model.Provider.TFPlusLoansSpecified && Model.Provider.TFPlusLoans))
                         {
                             <tr class="govuk-table__row">
                                 <td class="govuk-table__cell">Cost</td>
@@ -235,8 +235,12 @@
                             </tbody>
                         </table>
                         <hr style="border-top: 0px;">
-                        @if (appSettings.Value.Page3DisplayTravel)
+                        @if (appSettings.Value.Page3DisplayTravel
+                         && !string.IsNullOrWhiteSpace(Model.Postcode)
+                         && !string.IsNullOrWhiteSpace(Model.Venue.Address?.Postcode))
                         {
+                            <input type="hidden" id="JourneyTimeOrigin" name="JourneyTimeOrigin" value="@Model.Postcode" />
+                            <input type="hidden" id="JourneyTimeDestination" name="JourneyTimeDestination" value="@Model.Venue.Address.Postcode" />
                             <table class="govuk-table" role="presentation">
                                 <tbody class="govuk-table__body">
                                     <tr class="govuk-table__row">
@@ -246,20 +250,14 @@
                                                     <span style="color:#005ea5"> Journey time</span>
                                                 </summary>
                                                 <div class="panel">
-                                                    <select class="form-control valid select-mode" name="" aria-invalid="false">
-                                                        <option value="TRANSIT" aria-live="polite">Bus/Train</option>
-                                                        <option value="WALKING" aria-live="polite">Walking</option>
-                                                        <option value="BICYCLING" aria-live="polite">Cycling</option>
-                                                        <option value="DRIVING" aria-live="polite">Driving</option>
-                                                    </select>
-                                                    <span class="journey-time" aria-live="polite">5 mins</span>
+                                                    <div id="JourneyTimes"></div>
                                                 </div>
                                             </details>
                                         </td>
                                     </tr>
                                 </tbody>
                             </table>
-                           
+
                         }
 
                     }
@@ -415,3 +413,86 @@ else
     <p>There are no courses matching that courses identifier. Make sure that you have the correct value, or return to the results.</p>
 }
 
+@section Scripts {
+    @if (null != Model.Venue
+      && appSettings.Value.Page3DisplayTravel
+      && !string.IsNullOrWhiteSpace(Model.Postcode)
+      && !string.IsNullOrWhiteSpace(Model.Venue.Address?.Postcode))
+    {
+        <script>
+
+            var origin = $('#JourneyTimeOrigin').val();
+            var destination = $('#JourneyTimeDestination').val();
+            var journeyTimesStore = [];
+            var allRequestsDone = false;
+
+            function buildRequestOptions(origin, destination, travelMode) {
+                return {
+                    origins: [origin],
+                    destinations: [destination],
+                    travelMode: travelMode,
+                    unitSystem: google.maps.UnitSystem.IMPERIAL
+                };
+            }
+
+            function notifyWhenDone(cb) {
+                if (journeyTimesStore.length === 4) {
+
+                    var reorderedStore = [];
+                    reorderedStore[0] = $.grep(journeyTimesStore, function (item) { return item.mode === 'Driving'; })[0];
+                    reorderedStore[1] = $.grep(journeyTimesStore, function (item) { return item.mode === 'Bus/Train'; })[0];
+                    reorderedStore[2] = $.grep(journeyTimesStore, function (item) { return item.mode === 'Walking'; })[0];
+                    reorderedStore[3] = $.grep(journeyTimesStore, function (item) { return item.mode === 'Cycling'; })[0];
+
+                    cb(reorderedStore);
+                }
+            }
+
+            function addToStore(travelMode, durationText) {
+                journeyTimesStore.push({ mode: travelMode, duration: durationText });
+                notifyWhenDone(render);
+            }
+
+            function bicyclingCallback(response, status) {
+                if (status === 'OK') {
+                    addToStore('Cycling', response.rows[0].elements[0].duration['text']);
+                }
+            }
+
+            function drivingCallback(response, status) {
+                if (status === 'OK') {
+                    addToStore('Driving', response.rows[0].elements[0].duration['text']);
+                }
+            }
+
+            function transitCallback(response, status) {
+                if (status === 'OK') {
+                    addToStore('Bus/Train', response.rows[0].elements[0].duration['text']);
+                }
+            }
+
+            function walkingCallback(response, status) {
+                if (status === 'OK') {
+                    addToStore('Walking', response.rows[0].elements[0].duration['text']);
+                }
+            }
+
+            function initJourneyTime() {
+                if (origin && destination) {
+                    var service = new google.maps.DistanceMatrixService();
+                    service.getDistanceMatrix(buildRequestOptions(origin, destination, 'DRIVING'), drivingCallback);
+                    service.getDistanceMatrix(buildRequestOptions(origin, destination, 'TRANSIT'), transitCallback);
+                    service.getDistanceMatrix(buildRequestOptions(origin, destination, 'WALKING'), walkingCallback);
+                    service.getDistanceMatrix(buildRequestOptions(origin, destination, 'BICYCLING'), bicyclingCallback);
+                }
+            }
+
+            function render(store) {
+                $('#JourneyTimes').journeyTimes({ store: store });
+            }
+
+        </script>
+
+        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBgk9ha3t6TNlwQrxTnSw3MH7zRCJAA5Io&callback=initJourneyTime"></script>
+    }
+}

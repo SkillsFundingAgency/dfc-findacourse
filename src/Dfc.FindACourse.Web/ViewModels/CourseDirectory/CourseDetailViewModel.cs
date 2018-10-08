@@ -1,5 +1,4 @@
 ﻿using Dfc.FindACourse.Common;
-using Dfc.FindACourse.Common.Enums;
 using Dfc.FindACourse.Common.Interfaces;
 using Dfc.FindACourse.Common.Models;
 using System;
@@ -17,7 +16,7 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
         /// Main view model constructor
         /// </summary>
         /// <param name="value"></param>
-        public CourseDetailViewModel(ICourseItemDetail value, string distance, int? oppid)
+        public CourseDetailViewModel(ICourseItemDetail value, string distance, string postcode)
         {
             if (value != null)
             {
@@ -53,49 +52,20 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
                 CreditValue = value.Coursedetails.CreditValue;
                 QCAGuidedLearningHours = value.Coursedetails.QCAGuidedLearningHours;
                 SkillsForLifeTypeDesc = value.Coursedetails.SkillsForLifeTypeDesc;
-                Venues = value.Venues.AsEnumerable().Cast<Venue>().ToList();
+                Venue = (Venue)value.Venue;
                 Provider = (Provider)value.Provider;
-                //Load Opportunities, passing in the venue list for linking, and the opportunityID to set order
-                Opportunities = LoadOpportunities(value, Venues, oppid);
+                Opportunities = value.Opportunities.AsEnumerable().Cast<Opportunity>().OrderBy( o => o.StartDate.Date).ToList();
             }
 
-
+            Postcode = postcode;
         }
 
-        private List<Opportunity> LoadOpportunities(ICourseItemDetail value, List<Venue> venues, int? oppid = null)
-        {
-            List<Opportunity> data = value.Opportunities.AsEnumerable().Cast<Opportunity>().OrderBy(o => o.StartDate.Date).ToList();
-
-            foreach(Opportunity opp in data)
-            {
-                if (opp.ItemsElementName[0] == ItemChoice.VenueID)
-                    opp.Venue = (IVenue)venues.FirstOrDefault(v => v.VenueId == opp.Items[0]);
-            }
-            if (null != oppid && oppid.HasValue && oppid.Value > 0)
-                return data.OrderByDescending(x => x.Id == oppid.Value).ToList();
-
-            return data;
-        }
+        
 
         public int CourseId { get; set; }
         public string CourseTitle { get; set; }
         public string CourseSummary { get; set; }
         public QualificationLevel QualificationLevel { get; set; }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         public StudyMode StudyMode { get; set; }
         public AttendanceMode AttendanceMode { get; set; }
         public AttendancePattern AttendencePattern { get; set; }
@@ -143,9 +113,10 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
         public string QCAGuidedLearningHours { get; set; }
         public string SkillsForLifeTypeDesc { get; set; }
 
-        public List<Venue> Venues { get; set; }
+        public Venue Venue { get; set; }
         public Provider Provider { get; set; }
         public List<Opportunity> Opportunities { get; set; }
+        public string Postcode { get; set; }
 
         public bool IsDisplayable(StudyMode studyMode)
         {
