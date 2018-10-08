@@ -236,8 +236,9 @@
                         </table>
                         <hr style="border-top: 0px;">
                         @if (appSettings.Value.Page3DisplayTravel
-                         && !string.IsNullOrWhiteSpace(Model.Postcode)
-                         && !string.IsNullOrWhiteSpace(Model.Venue.Address?.Postcode))
+                        && string.IsNullOrWhiteSpace(appSettings.Value.GoogleApiKey)
+                        && !string.IsNullOrWhiteSpace(Model.Postcode)
+                        && !string.IsNullOrWhiteSpace(Model.Venue.Address?.Postcode))
                         {
                             <input type="hidden" id="JourneyTimeOrigin" name="JourneyTimeOrigin" value="@Model.Postcode" />
                             <input type="hidden" id="JourneyTimeDestination" name="JourneyTimeDestination" value="@Model.Venue.Address.Postcode" />
@@ -415,9 +416,10 @@ else
 
 @section Scripts {
     @if (null != Model.Venue
-      && appSettings.Value.Page3DisplayTravel
-      && !string.IsNullOrWhiteSpace(Model.Postcode)
-      && !string.IsNullOrWhiteSpace(Model.Venue.Address?.Postcode))
+    && appSettings.Value.Page3DisplayTravel
+    && string.IsNullOrWhiteSpace(appSettings.Value.GoogleApiKey)
+    && !string.IsNullOrWhiteSpace(Model.Postcode)
+    && !string.IsNullOrWhiteSpace(Model.Venue.Address?.Postcode))
     {
         <script>
 
@@ -493,6 +495,6 @@ else
 
         </script>
 
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBgk9ha3t6TNlwQrxTnSw3MH7zRCJAA5Io&callback=initJourneyTime"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=@appSettings.Value.GoogleApiKey&callback=initJourneyTime"></script>
     }
 }
