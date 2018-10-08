@@ -1,5 +1,5 @@
 ﻿/* eslint-disable no-console */
-// Journey Time Plugin
+// Journey Times Plugin
 
 'use strict';
 
