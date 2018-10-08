@@ -47,6 +47,12 @@
         "description": "Tribal (course search) API"
       }
     },
+    "GoogleAPIKey": {
+      "type": "string",
+      "metadata": {
+        "description": "Google API key for analytics"
+      }
+    },
     "page3DisplayOtherDates": {
       "type": "bool",
       "defaultValue": false,
@@ -229,6 +235,10 @@
               {
                 "name": "ConfigSettings__TempSettingsFilePath",
                 "value": "Data\\\\Temp"
+              },
+              {
+                "name": "App__GoogleApiKey",
+                "value": "[parameters('GoogleAPIKey')]"
               },
               {
                 "name": "App__ContentNCHLink",
