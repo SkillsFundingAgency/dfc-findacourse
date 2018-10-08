@@ -236,7 +236,7 @@
                         </table>
                         <hr style="border-top: 0px;">
                         @if (appSettings.Value.Page3DisplayTravel
-                        && string.IsNullOrWhiteSpace(appSettings.Value.GoogleApiKey)
+                        && !string.IsNullOrWhiteSpace(appSettings.Value.GoogleApiKey)
                         && !string.IsNullOrWhiteSpace(Model.Postcode)
                         && !string.IsNullOrWhiteSpace(Model.Venue.Address?.Postcode))
                         {
@@ -417,7 +417,7 @@ else
 @section Scripts {
     @if (null != Model.Venue
     && appSettings.Value.Page3DisplayTravel
-    && string.IsNullOrWhiteSpace(appSettings.Value.GoogleApiKey)
+    && !string.IsNullOrWhiteSpace(appSettings.Value.GoogleApiKey)
     && !string.IsNullOrWhiteSpace(Model.Postcode)
     && !string.IsNullOrWhiteSpace(Model.Venue.Address?.Postcode))
     {
