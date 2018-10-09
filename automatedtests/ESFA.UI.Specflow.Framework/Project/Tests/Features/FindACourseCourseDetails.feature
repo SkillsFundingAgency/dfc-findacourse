@@ -81,7 +81,7 @@ Scenario Outline: DFC-3973 View Course Details display Entry Requirements
   Examples:
     | CourseName    | Location | EntryRequirements |
     | Hair & Beauty | b14 7en  | interview         |
-    | Electrical    | b14 7en  | To Be Confirmed   |
+    | Electrical    | b14 7en  | To  |
     | Gardening     | b14 7en  | TBC               |
 
 
@@ -224,7 +224,7 @@ Scenario Outline: DFC-4914 Venue on Google Maps
     | CourseName       | Location |
     | cisco            | M1 1AE   |
     | geology          | b14 7rn  |
-    | Historyg         | gu21 6yl |
+    | History         | gu21 6yl |
     | Gardening        | b14 7en  |
     | COMPUTER SCIENCE | BD1 1AJ  |
     | SOFTWARE         | E8 1DY   |
