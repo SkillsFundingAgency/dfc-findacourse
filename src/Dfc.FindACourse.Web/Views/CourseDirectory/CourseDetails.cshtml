@@ -76,8 +76,8 @@
                             </td>
                         </tr>
                         @if (!string.IsNullOrWhiteSpace(@Model.Opportunities[0].Price)
-                          || !string.IsNullOrWhiteSpace(@Model.Opportunities[0].PriceDescription)
-                               || (Model.Provider.TFPlusLoansSpecified && Model.Provider.TFPlusLoans))
+                       || !string.IsNullOrWhiteSpace(@Model.Opportunities[0].PriceDescription)
+                       || (Model.Provider.TFPlusLoansSpecified && Model.Provider.TFPlusLoans))
                         {
                             <tr class="govuk-table__row">
                                 <td class="govuk-table__cell">Cost</td>
@@ -152,13 +152,13 @@
                     </a>
                     <p class="enrol-text">on the provider’s website</p>
                 }
-                else if (null != Model.Venue && !string.IsNullOrWhiteSpace(Model.Venue.Website))
-                {
-                    <a target="_blank" href=@Model.Venue.Website role="button" class="govuk-button govuk-button--start">
+                @*else if (null != Model.Venues && null != Model.Opportunities[0].Venue && !string.IsNullOrWhiteSpace(Model.Opportunities[0].Venue.Website))
+                    {
+                    <a target="_blank" href=@Model.Opportunities[0].Venue.Website role="button" class="govuk-button govuk-button--start">
                         More Information
                     </a>
                     <p class="enrol-text">on the provider’s website</p>
-                }
+                    }*@
                 else if (!string.IsNullOrWhiteSpace(Model.Provider.Website))
                 {
                     <a target="_blank" href=@Model.Provider.Website role="button" class="govuk-button govuk-button--start">
@@ -202,7 +202,7 @@
                 <aside class="govuk-related-items" role="complementary">
                     <h2 class="govuk-heading-s" style="margin-top: 10px">Provider</h2>
                     <p class="govuk-body-s">@Model.ProviderName</p>
-                    @if (null != Model.Venue)
+                    @if (null != Model.Opportunities && Model.Opportunities.Count > 0 && null != Model.Opportunities[0].Venue)
                     {
                         <hr>
 
@@ -211,40 +211,43 @@
                             <tbody class="govuk-table__body">
                                 <tr class="govuk-table__row">
                                     <td class="govuk-table__cell govuk-body-s">Name</td>
-                                    <td class="govuk-table__cell govuk-body-s">@Model.Venue.Name</td>
+                                    <td class="govuk-table__cell govuk-body-s">@Model.Opportunities[0].Venue.Name</td>
                                 </tr>
                                 <tr class="govuk-table__row">
                                     <td class="govuk-table__cell govuk-body-s" style="border-bottom: none">Address</td>
                                     <td class="govuk-table__cell govuk-body-s" style="border-bottom: none">
-                                        @if (!string.IsNullOrEmpty(@Model.Venue.Address.Line1))
-                                        {@Model.Venue.Address.Line1 <br>}
-                                        @if (!string.IsNullOrEmpty(@Model.Venue.Address.Line2))
-                                        {@Model.Venue.Address.Line2 <br>}
-                                        @if (!string.IsNullOrEmpty(@Model.Venue.Address.Town))
-                                        {@Model.Venue.Address.Town <br>}
-                                        @if (!string.IsNullOrEmpty(@Model.Venue.Address.County))
-                                        {@Model.Venue.Address.County <br>}
-                                        @if (!string.IsNullOrEmpty(@Model.Venue.Address.Postcode))
-                                        {@Model.Venue.Address.Postcode <br>}
+                                        @if (!string.IsNullOrEmpty(@Model.Opportunities[0].Venue.Address.Line1))
+                                        {@Model.Opportunities[0].Venue.Address.Line1 <br>}
+                                        @if (!string.IsNullOrEmpty(@Model.Opportunities[0].Venue.Address.Line2))
+                                        {@Model.Opportunities[0].Venue.Address.Line2 <br>}
+                                        @if (!string.IsNullOrEmpty(@Model.Opportunities[0].Venue.Address.Town))
+                                        {@Model.Opportunities[0].Venue.Address.Town <br>}
+                                        @if (!string.IsNullOrEmpty(@Model.Opportunities[0].Venue.Address.County))
+                                        {@Model.Opportunities[0].Venue.Address.County <br>}
+                                        @if (!string.IsNullOrEmpty(@Model.Opportunities[0].Venue.Address.Postcode))
+                                        {@Model.Opportunities[0].Venue.Address.Postcode <br>}
 
 
 
-                                        <a class="govuk-link" target="_blank" href="https://www.google.com/maps?q=@Model.Venue.Address.Latitude,@Model.Venue.Address.Longitude">Find on Google maps</a>
+                                        <a class="govuk-link" target="_blank" href="https://www.google.com/maps?q=@Model.Opportunities[0].Venue.Address.Latitude,@Model.Opportunities[0].Venue.Address.Longitude">Find on Google maps</a>
                                     </td>
                                 </tr>
                             </tbody>
                         </table>
                         <hr style="border-top: 0px;">
-                        @if (appSettings.Value.Page3DisplayTravel)
+                        @if (appSettings.Value.Page3DisplayTravel
+                       && !string.IsNullOrWhiteSpace(appSettings.Value.GoogleApiKey)
+                       && !string.IsNullOrWhiteSpace(Model.Postcode)
+                       && !string.IsNullOrWhiteSpace(Model.Opportunities[0].Venue.Address?.Postcode))
                         {
                             <input type="hidden" id="JourneyTimeOrigin" name="JourneyTimeOrigin" value="@Model.Postcode" />
-                            <input type="hidden" id="JourneyTimeDestination" name="JourneyTimeDestination" value="@Model.Venue.Address.Postcode" />
+                            <input type="hidden" id="JourneyTimeDestination" name="JourneyTimeDestination" value="@Model.Opportunities[0].Venue.Address.Postcode" />
                             <table class="govuk-table" role="presentation">
                                 <tbody class="govuk-table__body">
                                     <tr class="govuk-table__row">
                                         <td class="govuk-table__cell" colspan="2">
                                             <details>
-                                                <summary>
+                                                <summary id="JourneyTimesTrigger">
                                                     <span style="color:#005ea5"> Journey time</span>
                                                 </summary>
                                                 <div class="panel">
@@ -305,13 +308,12 @@
                     <table class="govuk-table" role="presentation">
                         <tbody class="govuk-table__body">
                             <!-- In order this should display: Venue Website, Opportunity URL, Provider URL-->
-
-                            @if (null != Model.Venue && !string.IsNullOrWhiteSpace(@Model.Venue.Website))
+                            @if (null != Model.Opportunities[0].Venue && !string.IsNullOrWhiteSpace(@Model.Opportunities[0].Venue.Website))
                             {
                                 <tr class="govuk-table__row">
                                     <td class="govuk-table__cell govuk-body-s">Website</td>
                                     <td class="govuk-table__cell">
-                                        <a class="govuk-link govuk-body-s" target="_blank" href="@Model.Venue.Website" style="word-break: break-all;">@Model.Venue.Website</a>
+                                        <a class="govuk-link govuk-body-s" target="_blank" href="@Model.Opportunities[0].Venue.Website" style="word-break: break-all;">@Model.Opportunities[0].Venue.Website</a>
                                     </td>
                                 </tr>
                             }
@@ -413,14 +415,18 @@ else
 
 @section Scripts {
 
-    @if (appSettings.Value.Page3DisplayTravel)
+    @if (null != Model.Opportunities[0].Venue
+    && appSettings.Value.Page3DisplayTravel
+    && !string.IsNullOrWhiteSpace(appSettings.Value.GoogleApiKey)
+    && !string.IsNullOrWhiteSpace(Model.Postcode)
+    && !string.IsNullOrWhiteSpace(Model.Opportunities[0].Venue.Address?.Postcode))
     {
         <script>
 
             var origin = $('#JourneyTimeOrigin').val();
             var destination = $('#JourneyTimeDestination').val();
             var journeyTimesStore = [];
-            var allRequestsDone = false;
+            var storeDone = false;
 
             function buildRequestOptions(origin, destination, travelMode) {
                 return {
@@ -440,7 +446,9 @@ else
                     reorderedStore[2] = $.grep(journeyTimesStore, function (item) { return item.mode === 'Walking'; })[0];
                     reorderedStore[3] = $.grep(journeyTimesStore, function (item) { return item.mode === 'Cycling'; })[0];
 
-                    cb(reorderedStore); 
+                    storeDone = true;
+
+                    return cb(reorderedStore);
                 }
             }
 
@@ -474,7 +482,13 @@ else
             }
 
             function initJourneyTime() {
-                if (origin && destination) {
+                $('#JourneyTimesTrigger').on('click', function () {
+                    sendRequests();
+                });
+            }
+
+            function sendRequests() {
+                if (origin && destination && storeDone === false) {
                     var service = new google.maps.DistanceMatrixService();
                     service.getDistanceMatrix(buildRequestOptions(origin, destination, 'DRIVING'), drivingCallback);
                     service.getDistanceMatrix(buildRequestOptions(origin, destination, 'TRANSIT'), transitCallback);
@@ -489,6 +503,6 @@ else
 
         </script>
 
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBgk9ha3t6TNlwQrxTnSw3MH7zRCJAA5Io&callback=initJourneyTime"></script>
+        <script src="https://maps.googleapis.com/maps/api/js?key=@appSettings.Value.GoogleApiKey&callback=initJourneyTime"></script>
     }
 }

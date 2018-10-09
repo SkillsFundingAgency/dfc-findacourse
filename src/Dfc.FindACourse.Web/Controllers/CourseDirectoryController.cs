@@ -46,6 +46,8 @@ namespace Dfc.FindACourse.Web.Controllers
         // GET: CourseDirectory
         public ActionResult Index()
         {
+            Telemetry.TrackEvent($"Logging Controller = {nameof(CourseDirectoryController)} Action = {nameof(Index)}: {nameof(Environment.MachineName)} = {Environment.MachineName}");
+
             var isPostcodeInvalid = false;
             var location = default(string);
             
@@ -84,6 +86,8 @@ namespace Dfc.FindACourse.Web.Controllers
         // ASB TODO - Should we not be returning OK objects? rather than empty Views if something goes wrong?
         public ActionResult CourseSearchResult([FromQuery]  CourseSearchRequestModel requestModel)
         {
+            Telemetry.TrackEvent($"Logging Controller = {nameof(CourseDirectoryController)} Action = {nameof(Index)}: {nameof(Environment.MachineName)} = {Environment.MachineName}");
+
             var dtStart = DateTime.Now;
             var isPostcodeInvalid = false;
 
@@ -146,6 +150,8 @@ namespace Dfc.FindACourse.Web.Controllers
 
         public IActionResult CourseDetails(int? id, string distance, string postcode)
         {
+            Telemetry.TrackEvent($"Logging Controller = {nameof(CourseDirectoryController)} Action = {nameof(Index)}: {nameof(Environment.MachineName)} = {Environment.MachineName}");
+
             //Parmeters
             var dtStart = DateTime.Now;
 
@@ -163,11 +169,13 @@ namespace Dfc.FindACourse.Web.Controllers
             //DEBUG_FIX - Add the flush to see if working straightaway ASB TODO AGain is this correct as wont get called if ModelState is Invalid
             Telemetry.Flush();
 
-            return View(new CourseDetailViewModel(result.Value, !string.IsNullOrEmpty(distance) ? distance: string.Empty, !string.IsNullOrEmpty(postcode) ? postcode : string.Empty) { });
+            return View(nameof(CourseDetails), new CourseDetailViewModel(result.Value, !string.IsNullOrEmpty(distance) ? distance: string.Empty, postcode, null) { });
         }
       
         public IActionResult OpportunityDetails(int? id, string distance, int? oppid, string postcode)
         {
+            Telemetry.TrackEvent($"Logging Controller = {nameof(CourseDirectoryController)} Action = {nameof(Index)}: {nameof(Environment.MachineName)} = {Environment.MachineName}");
+
             //Parmeters
             var dtStart = DateTime.Now;
 
@@ -185,7 +193,7 @@ namespace Dfc.FindACourse.Web.Controllers
             //DEBUG_FIX - Add the flush to see if working straightaway ASB TODO AGain is this correct as wont get called if ModelState is Invalid
             Telemetry.Flush();
 
-            return View(nameof(CourseDetails), new CourseDetailViewModel(result.Value, !string.IsNullOrEmpty(distance) ? distance : string.Empty, !string.IsNullOrEmpty(postcode) ? postcode : string.Empty) { });
+            return View(nameof(CourseDetails), new CourseDetailViewModel(result.Value, !string.IsNullOrEmpty(distance) ? distance : string.Empty, postcode, oppid) { });
         }
 
 

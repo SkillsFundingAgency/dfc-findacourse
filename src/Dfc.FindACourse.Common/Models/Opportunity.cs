@@ -14,7 +14,7 @@ namespace Dfc.FindACourse.Common.Models
         public AttendancePattern AttendancePattern { get; }
         public bool IsDfe1619Funded { get; }
         public IDescriptionDate StartDate { get; }
-        public IVenue Venue { get; }
+        public IVenue Venue { get; set; }
         public bool HasVenue => Venue != null;
         public string Region { get; }
         public bool HasRegion => !string.IsNullOrWhiteSpace(Region);

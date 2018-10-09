@@ -3,6 +3,8 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <Configurations>Debug;Release;Development</Configurations>
+    <AssemblyVersion>1.0.18281.1040</AssemblyVersion>
+    <FileVersion>1.0.18281.1040</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>

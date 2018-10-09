@@ -10,7 +10,7 @@ namespace Dfc.FindACourse.Common.Interfaces
         AttendancePattern AttendancePattern { get; }
         bool IsDfe1619Funded { get; }
         IDescriptionDate StartDate { get; }
-        IVenue Venue { get; }
+        IVenue Venue { get; set; }
         bool HasVenue { get; }
         string Region { get; }
         bool HasRegion { get; }
