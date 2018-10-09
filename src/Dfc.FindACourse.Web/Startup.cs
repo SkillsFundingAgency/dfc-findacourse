@@ -10,6 +10,7 @@ using Dfc.FindACourse.Services.CourseDirectory;
 using Dfc.FindACourse.Services.Interfaces;
 using Dfc.FindACourse.Services.Postcode;
 using Dfc.FindACourse.Web.Interfaces;
+using Dfc.FindACourse.Web.Middleware;
 using Dfc.FindACourse.Web.Services;
 using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Builder;
@@ -82,7 +83,7 @@ namespace Dfc.FindACourse.Web
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddMemoryCache();
             services.AddApplicationInsightsTelemetry();
-            
+            services.AddCorrelationId();
 
         }
 
@@ -104,6 +105,8 @@ namespace Dfc.FindACourse.Web
                 context.Response.Headers.Add("X-Frame-Options", "DENY");
                 await next();
             });
+
+            app.UseCorrelationId(new CorrelationIdOptions());
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
