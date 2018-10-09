@@ -237,7 +237,7 @@
                         <hr style="border-top: 0px;">
                         @if (appSettings.Value.Page3DisplayTravel
                        && !string.IsNullOrWhiteSpace(appSettings.Value.GoogleApiKey)
-                       && !string.IsNullOrWhiteSpace(Model.Opportunities[0].Venue.Address.Postcode)
+                       && !string.IsNullOrWhiteSpace(Model.Postcode)
                        && !string.IsNullOrWhiteSpace(Model.Opportunities[0].Venue.Address?.Postcode))
                         {
                             <input type="hidden" id="JourneyTimeOrigin" name="JourneyTimeOrigin" value="@Model.Postcode" />

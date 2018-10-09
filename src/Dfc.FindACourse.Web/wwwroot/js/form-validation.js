@@ -10,8 +10,6 @@
         $('#FindACourseForm').addTriggersToJqueryValidate().triggerElementValidationsOnFormValidation();
 
         $('#SubjectKeyword').elementValidation(function (element, result) {
-            console.log(['validation ran for element:', element, 'and the result was:', result]);
-
             var errorClass = 'error';
             var formGroup = $(element).closest('.form-group');
 
@@ -25,8 +23,6 @@
         });
 
         $('#Location').elementValidation(function (element, result) {
-            console.log(['validation ran for element:', element, 'and the result was:', result]);
-
             var errorClass = 'error';
             var formGroup = $(element).closest('.form-group');
 
@@ -44,8 +40,6 @@
             var formGroup = $(this).closest('.form-group');
             var validationMessage = $('span[data-valmsg-for="Location"]');
             var isEmpty = $(this).val().length === 0;
-
-            console.log(validationMessage);
 
             if (isEmpty && formGroup) {
                 if (formGroup.hasClass(errorClass)) {
