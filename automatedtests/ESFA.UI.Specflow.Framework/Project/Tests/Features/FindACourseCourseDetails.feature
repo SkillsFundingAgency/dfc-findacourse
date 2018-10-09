@@ -79,10 +79,10 @@ Scenario Outline: DFC-3973 View Course Details display Entry Requirements
 	And Entry Requirements <EntryRequirements> are displayed
 
   Examples:
-    | CourseName    | Location | EntryRequirements     |
-    | Hair & Beauty | b14 7en  | interview             |
-    | Electrical    | b14 7en  | Concessions may apply |
-    | Gardening     | b14 7en  | TBC                   |
+    | CourseName    | Location | EntryRequirements |
+    | Hair & Beauty | b14 7en  | interview         |
+    | Electrical    | b14 7en  | To Be Confirmed   |
+    | Gardening     | b14 7en  | TBC               |
 
 
 
@@ -151,7 +151,7 @@ Scenario Outline: DFC-3973 View Course Details display Duration
 
   Examples:
     | CourseName | Location |
-    | baker      | M1 1AE   |
+    | cisco      | M1 1AE   |
     | geology    | b14 7rn  |
 
 
@@ -169,7 +169,7 @@ Scenario Outline: DFC-3973 View Course Details display Study Mode
 
   Examples:
     | CourseName | Location |
-    | baker      | M1 1AE   |
+    | cisco      | M1 1AE   |
     | geology    | b14 7rn  |
 
 
@@ -187,7 +187,7 @@ Scenario Outline: DFC-3973 View Course Details display Attendance Pattern
 
   Examples:
     | CourseName | Location |
-    | baker      | M1 1AE   |
+    | cisco      | M1 1AE   |
     | geology    | b14 7rn  |
 
 
@@ -204,7 +204,7 @@ Scenario Outline: DFC-3973 View Course Details display Attendance Mode
 
   Examples:
     | CourseName | Location |
-    | baker      | M1 1AE   |
+    | cisco      | M1 1AE   |
     | geology    | b14 7rn  |
 
 
@@ -221,18 +221,18 @@ Scenario Outline: DFC-4914 Venue on Google Maps
 	Then I will be on Google Maps page
 
   Examples:
-    | CourseName                                       | Location |
-    | baker                                            | M1 1AE   |
-    | geology                                          | b14 7rn  |
-    | BTEC Level 4 Certificate in Education & Training | gu21 6yl |
-    | Gardening                                        | b14 7en  |
-    | COMPUTER SCIENCE                                 | BD1 1AJ  |
-    | SOFTWARE                                         | E8 1DY   |
-    | INFORMATION                                      | YO1 6GA  |
-    | COMPUTING                                        | SW2 1RW  |
-    | COMPUTING                                        | NE7 7SF  |
-    | english                                          | M9 0FN   |
-    | IT                                               | L4 1SE   |
+    | CourseName       | Location |
+    | cisco            | M1 1AE   |
+    | geology          | b14 7rn  |
+    | Historyg         | gu21 6yl |
+    | Gardening        | b14 7en  |
+    | COMPUTER SCIENCE | BD1 1AJ  |
+    | SOFTWARE         | E8 1DY   |
+    | INFORMATION      | YO1 6GA  |
+    | COMPUTING        | SW2 1RW  |
+    | COMPUTING        | NE7 7SF  |
+    | english          | M9 0FN   |
+    | IT               | L4 1SE   |
 
 @DFC-3976
 Scenario Outline: DFC-3976 Provider and Venue details are displayed
@@ -252,14 +252,14 @@ Scenario Outline: DFC-3976 Provider and Venue details are displayed
 	And the <Provider/Venue> Phone Number is displayed
 
   Examples:
-    | CourseName       | QualificationLevel                                   | Location | Provider/Venue |
-    | biology          | Level 3 - A level/Access to higher education diploma | B63 3NA  | Venue          |
-    | geography        | Level 3 - A level/Access to higher education diploma | B63 3NA  | Venue          |
-    | biology          | Level 3 - A level/Access to higher education diploma | B63 3Nb  | Venue          |
-    | geography        | Level 3 - A level/Access to higher education diploma | B63 3Nb  | Venue          |
-    | english          | Level 3 - A level/Access to higher education diploma | B63 3NA  | Venue          |
-    | technology       | Level 3 - A level/Access to higher education diploma | B63 3NA  | Venue          |
-    | THEOLOGY         | Level 3 - A level/Access to higher education diploma | B63 3NA  | Venue          |
+    | CourseName  | QualificationLevel                                   | Location | Provider/Venue |
+    | biology     | Level 3 - A level/Access to higher education diploma | B63 3NA  | Venue          |
+    | geography   | Level 3 - A level/Access to higher education diploma | B63 3NA  | Venue          |
+    | biology     | Level 3 - A level/Access to higher education diploma | B63 3Nb  | Venue          |
+    | geography   | Level 3 - A level/Access to higher education diploma | B63 3Nb  | Venue          |
+    | ACCOUNTANCY | Level 3 - A level/Access to higher education diploma | B63 3NA  | Venue          |
+    | technology  | Level 3 - A level/Access to higher education diploma | B63 3NA  | Venue          |
+    | THEOLOGY    | Level 3 - A level/Access to higher education diploma | B63 3NA  | Venue          |
 
 
 ### additional steps required

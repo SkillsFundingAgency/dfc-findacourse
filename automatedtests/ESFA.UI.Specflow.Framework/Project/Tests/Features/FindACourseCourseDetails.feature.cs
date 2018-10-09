@@ -197,7 +197,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.DescriptionAttribute("DFC-3973 View Course Details display Entry Requirements")]
         [NUnit.Framework.CategoryAttribute("DFC-3973")]
         [NUnit.Framework.TestCaseAttribute("Hair & Beauty", "b14 7en", "interview", null)]
-        [NUnit.Framework.TestCaseAttribute("Electrical", "b14 7en", "Concessions may apply", null)]
+        [NUnit.Framework.TestCaseAttribute("Electrical", "b14 7en", "To Be Confirmed", null)]
         [NUnit.Framework.TestCaseAttribute("Gardening", "b14 7en", "TBC", null)]
         public virtual void DFC_3973ViewCourseDetailsDisplayEntryRequirements(string courseName, string location, string entryRequirements, string[] exampleTags)
         {
@@ -345,7 +345,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("DFC-3973 View Course Details display Duration")]
         [NUnit.Framework.CategoryAttribute("DFC-3973")]
-        [NUnit.Framework.TestCaseAttribute("baker", "M1 1AE", null)]
+        [NUnit.Framework.TestCaseAttribute("cisco", "M1 1AE", null)]
         [NUnit.Framework.TestCaseAttribute("geology", "b14 7rn", null)]
         public virtual void DFC_3973ViewCourseDetailsDisplayDuration(string courseName, string location, string[] exampleTags)
         {
@@ -382,7 +382,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("DFC-3973 View Course Details display Study Mode")]
         [NUnit.Framework.CategoryAttribute("DFC-3973")]
-        [NUnit.Framework.TestCaseAttribute("baker", "M1 1AE", null)]
+        [NUnit.Framework.TestCaseAttribute("cisco", "M1 1AE", null)]
         [NUnit.Framework.TestCaseAttribute("geology", "b14 7rn", null)]
         public virtual void DFC_3973ViewCourseDetailsDisplayStudyMode(string courseName, string location, string[] exampleTags)
         {
@@ -419,7 +419,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("DFC-3973 View Course Details display Attendance Pattern")]
         [NUnit.Framework.CategoryAttribute("DFC-3973")]
-        [NUnit.Framework.TestCaseAttribute("baker", "M1 1AE", null)]
+        [NUnit.Framework.TestCaseAttribute("cisco", "M1 1AE", null)]
         [NUnit.Framework.TestCaseAttribute("geology", "b14 7rn", null)]
         public virtual void DFC_3973ViewCourseDetailsDisplayAttendancePattern(string courseName, string location, string[] exampleTags)
         {
@@ -456,7 +456,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("DFC-3973 View Course Details display Attendance Mode")]
         [NUnit.Framework.CategoryAttribute("DFC-3973")]
-        [NUnit.Framework.TestCaseAttribute("baker", "M1 1AE", null)]
+        [NUnit.Framework.TestCaseAttribute("cisco", "M1 1AE", null)]
         [NUnit.Framework.TestCaseAttribute("geology", "b14 7rn", null)]
         public virtual void DFC_3973ViewCourseDetailsDisplayAttendanceMode(string courseName, string location, string[] exampleTags)
         {
@@ -493,9 +493,9 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("DFC-4914 Venue on Google Maps")]
         [NUnit.Framework.CategoryAttribute("DFC-4194")]
-        [NUnit.Framework.TestCaseAttribute("baker", "M1 1AE", null)]
+        [NUnit.Framework.TestCaseAttribute("cisco", "M1 1AE", null)]
         [NUnit.Framework.TestCaseAttribute("geology", "b14 7rn", null)]
-        [NUnit.Framework.TestCaseAttribute("BTEC Level 4 Certificate in Education & Training", "gu21 6yl", null)]
+        [NUnit.Framework.TestCaseAttribute("Historyg", "gu21 6yl", null)]
         [NUnit.Framework.TestCaseAttribute("Gardening", "b14 7en", null)]
         [NUnit.Framework.TestCaseAttribute("COMPUTER SCIENCE", "BD1 1AJ", null)]
         [NUnit.Framework.TestCaseAttribute("SOFTWARE", "E8 1DY", null)]
@@ -545,7 +545,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("geography", "Level 3 - A level/Access to higher education diploma", "B63 3NA", "Venue", null)]
         [NUnit.Framework.TestCaseAttribute("biology", "Level 3 - A level/Access to higher education diploma", "B63 3Nb", "Venue", null)]
         [NUnit.Framework.TestCaseAttribute("geography", "Level 3 - A level/Access to higher education diploma", "B63 3Nb", "Venue", null)]
-        [NUnit.Framework.TestCaseAttribute("english", "Level 3 - A level/Access to higher education diploma", "B63 3NA", "Venue", null)]
+        [NUnit.Framework.TestCaseAttribute("ACCOUNTANCY", "Level 3 - A level/Access to higher education diploma", "B63 3NA", "Venue", null)]
         [NUnit.Framework.TestCaseAttribute("technology", "Level 3 - A level/Access to higher education diploma", "B63 3NA", "Venue", null)]
         [NUnit.Framework.TestCaseAttribute("THEOLOGY", "Level 3 - A level/Access to higher education diploma", "B63 3NA", "Venue", null)]
         public virtual void DFC_3976ProviderAndVenueDetailsAreDisplayed(string courseName, string qualificationLevel, string location, string providerVenue, string[] exampleTags)
