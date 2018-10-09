@@ -14,8 +14,6 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
 	{
 		private IWebDriver driver;
 		private Local browserStackLocal;
-		//private string profile;
-		//private string environment;
 		private readonly ScenarioContext context;
 
 		public BrowserStackDriver(ScenarioContext context)
@@ -55,7 +53,7 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
 			capability.SetCapability("browserstack.user", username);
 			capability.SetCapability("browserstack.key", accesskey);
 
-			File.AppendAllText("C:\\Users\\kadir\\Desktop\\sf.log", "Starting local");
+			//File.AppendAllText("C:\\Users\\kadir\\Desktop\\sf.log", "Starting local");
 
 			if (capability.GetCapability("browserstack.local") != null && capability.GetCapability("browserstack.local").ToString() == "true")
 			{
@@ -66,7 +64,7 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
 				browserStackLocal.start(bsLocalArgs);
 			}
 
-			File.AppendAllText("C:\\Users\\kadir\\Desktop\\sf.log", "Starting driver");
+			//File.AppendAllText("C:\\Users\\kadir\\Desktop\\sf.log", "Starting driver");
 			driver = new RemoteWebDriver(new Uri("http://" + ConfigurationManager.AppSettings.Get("server") + "/wd/hub/"), capability);
 			return driver;
 		}

@@ -295,9 +295,6 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
             proxy.FtpProxy = PROXY;
             proxy.IsAutoDetect = false;
             chromeOptions.Proxy = proxy;
-            chromeOptions.AddArgument("ignore-certificate-errors");
-            chromeOptions.AddArgument("start-maximized");
-            chromeOptions.AddArguments("disable-infobars");
             zapTest = true;
 
             webDriver = new ChromeDriver(chromeOptions);

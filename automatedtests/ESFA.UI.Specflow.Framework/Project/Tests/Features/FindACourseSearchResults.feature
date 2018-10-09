@@ -52,12 +52,13 @@
     | English Bridging Course Entry Level                                       | Entry level |
     | Diploma in Chemical Skin Peeling & Micro needling                         | Level 4     |
     | ASTROPHYSICS                                                              | Level 3     |
-    | DENTISTRY                                                                 | Level 2     |
+    | gcse english                                                              | Level 2     |
     | C&G L1 AWARD IN INTRODUCTORY TUNGSTEN INERT GAS (TIG) WELDING             | Level 1     |
     | Pharmacy Clinical Services Professional Diploma                           | Level 4     |
     | Marine Engineering HND                                                    | Level 5     |
     | Integrated Masters Equine Science MSci                                    | Level 7     |
     | Automotive Engineering and Technology (Motorsport) BEng Hons Degree Topup | Level 6     |
+
 
 
 @DFC-3900
@@ -87,7 +88,7 @@
 
   Examples:
     | CourseName                                  | AttendanceMode           |
-    | A Level Biology or Human Biology            | Classroom-based          |
+    | A Level Biology         | Classroom-based          |
     | General Data Protection Regulation (ONLINE) | Online/Distance learning |
     | Management Apprenticeship (Higher) Level 4  | Work-based               |
 
@@ -103,7 +104,7 @@
   Examples:
     | CourseName                                                 | AttendancePattern         |
     | NVQ 3 Diploma Nail Services Day release (Apprentice Route) | Normal working hours      |
-    | arabic                                                     | Evening/Weekend           |
+    | Arabic 3 lower: module 3                                   | Evening/Weekend           |
     | Management Apprenticeship (Higher) Level 4                 | Day release/Block release |
 
 
