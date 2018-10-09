@@ -46,6 +46,8 @@ namespace Dfc.FindACourse.Web.Controllers
         // GET: CourseDirectory
         public ActionResult Index()
         {
+            Telemetry.TrackEvent($"Logging Controller = {nameof(CourseDirectoryController)} Action = {nameof(Index)}: {nameof(Environment.MachineName)} = {Environment.MachineName}");
+
             var isPostcodeInvalid = false;
             var location = default(string);
             
@@ -84,6 +86,8 @@ namespace Dfc.FindACourse.Web.Controllers
         // ASB TODO - Should we not be returning OK objects? rather than empty Views if something goes wrong?
         public ActionResult CourseSearchResult([FromQuery]  CourseSearchRequestModel requestModel)
         {
+            Telemetry.TrackEvent($"Logging Controller = {nameof(CourseDirectoryController)} Action = {nameof(Index)}: {nameof(Environment.MachineName)} = {Environment.MachineName}");
+
             var dtStart = DateTime.Now;
             var isPostcodeInvalid = false;
 
@@ -146,6 +150,8 @@ namespace Dfc.FindACourse.Web.Controllers
 
         public IActionResult CourseDetails(int? id, string distance, string postcode)
         {
+            Telemetry.TrackEvent($"Logging Controller = {nameof(CourseDirectoryController)} Action = {nameof(Index)}: {nameof(Environment.MachineName)} = {Environment.MachineName}");
+
             //Parmeters
             var dtStart = DateTime.Now;
 
@@ -168,6 +174,8 @@ namespace Dfc.FindACourse.Web.Controllers
       
         public IActionResult OpportunityDetails(int? id, string distance, int? oppid, string postcode)
         {
+            Telemetry.TrackEvent($"Logging Controller = {nameof(CourseDirectoryController)} Action = {nameof(Index)}: {nameof(Environment.MachineName)} = {Environment.MachineName}");
+
             //Parmeters
             var dtStart = DateTime.Now;
 
