@@ -135,7 +135,7 @@ namespace Dfc.FindACourse.Web.xUnit.UnitTests
 
             var result = Controller.CourseDetails(5, "0", "") as ViewResult;
 
-            MockTelemetryClient.Verify(x => x.TrackEvent(It.IsAny<string>(), null, null), (Times.Never()));
+            MockTelemetryClient.Verify(x => x.TrackEvent(It.IsAny<string>(), null, null), (Times.AtLeastOnce()));
             MockTelemetryClient.Verify(x => x.Flush(), (Times.Exactly(1)));
             Assert.NotNull(result);
             Assert.NotNull(result);
@@ -164,7 +164,7 @@ namespace Dfc.FindACourse.Web.xUnit.UnitTests
 
             var result = Controller.OpportunityDetails(5, "0", 6, "") as ViewResult;
 
-            MockTelemetryClient.Verify(x => x.TrackEvent(It.IsAny<string>(), null, null), (Times.Never()));
+            MockTelemetryClient.Verify(x => x.TrackEvent(It.IsAny<string>(), null, null), (Times.AtLeastOnce()));
             MockTelemetryClient.Verify(x => x.Flush(), (Times.Exactly(1)));
             Assert.NotNull(result);
             Assert.NotNull(result);
@@ -192,7 +192,7 @@ namespace Dfc.FindACourse.Web.xUnit.UnitTests
             MockTelemetryClient.Setup(x => x.Flush()).Verifiable();
 
             var result = Controller.CourseDetails(5, "0", "") as ViewResult;
-            MockTelemetryClient.Verify(x => x.TrackEvent(It.IsAny<string>(), null, null), (Times.Never()));
+            MockTelemetryClient.Verify(x => x.TrackEvent(It.IsAny<string>(), null, null), (Times.AtLeastOnce()));
             MockTelemetryClient.Verify(x => x.Flush(), (Times.Never()));
             AssertDefaultErrorView(result);
         }
@@ -210,7 +210,7 @@ namespace Dfc.FindACourse.Web.xUnit.UnitTests
             MockTelemetryClient.Setup(x => x.Flush()).Verifiable();
 
             var result = Controller.OpportunityDetails(5, "0", 6, "") as ViewResult;
-            MockTelemetryClient.Verify(x => x.TrackEvent(It.IsAny<string>(), null, null), (Times.Never()));
+            MockTelemetryClient.Verify(x => x.TrackEvent(It.IsAny<string>(), null, null), (Times.AtLeastOnce()));
             MockTelemetryClient.Verify(x => x.Flush(), (Times.Never()));
             AssertDefaultErrorView(result);
         }
@@ -297,7 +297,7 @@ namespace Dfc.FindACourse.Web.xUnit.UnitTests
             MockCourseDirectoryService.Setup(x => x.CourseDirectorySearch(criteria, It.IsAny<PagingOptions>())).Returns(courseSearchResult);
 
             var result = Controller.CourseSearchResult(fromQuery) as ViewResult;
-            MockTelemetryClient.Verify(x=>x.TrackEvent(It.IsAny<string>(), null, null),(Times.Never()));
+            MockTelemetryClient.Verify(x=>x.TrackEvent(It.IsAny<string>(), null, null),(Times.AtLeastOnce()));
             MockTelemetryClient.Verify(x => x.Flush(), (Times.Exactly(1)));
             Assert.NotNull(result);
             Assert.NotNull(result);
@@ -353,7 +353,7 @@ namespace Dfc.FindACourse.Web.xUnit.UnitTests
                 .Returns(courseSearchResult);
 
             var result = Controller.CourseSearchResult(fromQuery) as ViewResult;
-            MockTelemetryClient.Verify(x => x.TrackEvent(It.IsAny<string>(), null, null), (Times.Never()));
+            MockTelemetryClient.Verify(x => x.TrackEvent(It.IsAny<string>(), null, null), (Times.AtLeastOnce()));
             MockTelemetryClient.Verify(x => x.Flush(), (Times.Never()));
             AssertDefaultErrorView(result);
         }
