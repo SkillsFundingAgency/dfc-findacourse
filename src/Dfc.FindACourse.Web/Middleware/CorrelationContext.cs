@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace Dfc.FindACourse.Web.Middleware
 {
-    public class CorrelationContext
+    public class CorrelationContext : ICorrelationContext
     {
-        internal CorrelationContext(string correlationId, string header)
+        public CorrelationContext(string correlationId, string header)
         {
             if (string.IsNullOrWhiteSpace(correlationId))
                 throw new ArgumentNullException(nameof(correlationId));

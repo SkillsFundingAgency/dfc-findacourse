@@ -32,7 +32,8 @@ namespace Dfc.FindACourse.Web.xUnit.UnitTests
                 MockCourseDirectory.Object,
                 MockFileHelper.Object,
                 MockCourseDirectoryHelper.Object,
-                MockPostcodeService.Object
+                MockPostcodeService.Object,
+                MockCorrelationContextAccessor.Object
             );
             
             Assert.NotNull(Controller.Configuration);

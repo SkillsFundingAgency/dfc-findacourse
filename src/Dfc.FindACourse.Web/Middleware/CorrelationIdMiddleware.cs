@@ -9,7 +9,7 @@ namespace Dfc.FindACourse.Web.Middleware
     public class CorrelationIdMiddleware
     {
         private readonly RequestDelegate _next;
-        private readonly CorrelationIdOptions _options;
+        private readonly ICorrelationIdOptions _options;
 
         public CorrelationIdMiddleware(RequestDelegate next, IOptions<CorrelationIdOptions> options)
         {

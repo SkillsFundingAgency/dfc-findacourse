@@ -2,6 +2,6 @@
 {
     public interface ICorrelationContextAccessor
     {
-        CorrelationContext CorrelationContext { get; set; }
+        ICorrelationContext CorrelationContext { get; set; }
     }
 }

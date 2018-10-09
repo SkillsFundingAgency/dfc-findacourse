@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace Dfc.FindACourse.Web.Middleware
 {
-    public class CorrelationIdOptions
+    public class CorrelationIdOptions : ICorrelationIdOptions
     {
         private const string DefaultHeader = "X-Correlation-ID";
 
