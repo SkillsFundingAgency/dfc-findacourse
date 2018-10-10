@@ -60,7 +60,10 @@ namespace Dfc.FindACourse.Web
                     tribalPerPage,
                     Configuration["Tribal:APIAddress"]));
 
-            services.AddSingleton<ServiceInterface>(new ServiceInterfaceClient(new ServiceInterfaceClient.EndpointConfiguration(), Configuration["Tribal:APIAddress"]));
+            services.AddScoped<ServiceInterface>((provider) =>
+                new ServiceInterfaceClient(
+                    new ServiceInterfaceClient.EndpointConfiguration(),
+                    Configuration["Tribal:APIAddress"]));
 
             services.AddSingleton<IConfiguration>(Configuration);
             services.Configure<App>(Configuration.GetSection("App"));
