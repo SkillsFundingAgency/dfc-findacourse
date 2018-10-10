@@ -293,11 +293,12 @@ Scenario Outline: DFC-3974 Enrol Now Button
 	Then I am on the provider website
 
   Examples:
-    | CourseName |
-    | Maths      |
-    | biology    |
-    | english    |
-    | physics    |
+    | CourseName                 |
+    | Computer Studies/Computing |
+    | Maths                      |
+    | biology                    |
+    | english                    |
+    | physics                    |
 
 @DFC-3974
 Scenario Outline: DFC-3974 More Information Button
