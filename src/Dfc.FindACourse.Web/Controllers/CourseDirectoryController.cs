@@ -1,18 +1,19 @@
 ﻿using Dfc.FindACourse.Common;
+using Dfc.FindACourse.Common.Interfaces;
 using Dfc.FindACourse.Common.Models;
+using Dfc.FindACourse.Common.Settings;
 using Dfc.FindACourse.Services.Interfaces;
+using Dfc.FindACourse.Web.Interfaces;
+using Dfc.FindACourse.Web.Middleware;
 using Dfc.FindACourse.Web.RequestModels;
 using Dfc.FindACourse.Web.ViewModels.CourseDirectory;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using System;
 using System.Linq;
-using Microsoft.Extensions.Options;
-using Dfc.FindACourse.Common.Settings;
-using Dfc.FindACourse.Web.Interfaces;
-using Microsoft.AspNetCore.Authorization;
-using Dfc.FindACourse.Web.Middleware;
 
 namespace Dfc.FindACourse.Web.Controllers
 {
@@ -30,10 +31,17 @@ namespace Dfc.FindACourse.Web.Controllers
         public ICorrelationContextAccessor CorrelationContextAccessor { get; }
 
 
-        public CourseDirectoryController(IConfiguration configuration, ICourseDirectoryService courseDirectoryService
-            , IMemoryCache memoryCache, ITelemetryClient telemetryClient, IOptions<App> appSettings,
-            ICourseDirectory courseDirectory, IFileHelper fileHelper, ICourseDirectoryHelper requestModelHelper, IPostcodeService postcodeService
-            , ICorrelationContextAccessor correlationContextAccessor)
+        public CourseDirectoryController(
+            IConfiguration configuration, 
+            ICourseDirectoryService courseDirectoryService, 
+            IMemoryCache memoryCache, 
+            ITelemetryClient telemetryClient, 
+            IOptions<App> appSettings,
+            ICourseDirectory courseDirectory, 
+            IFileHelper fileHelper, 
+            ICourseDirectoryHelper requestModelHelper, 
+            IPostcodeService postcodeService, 
+            ICorrelationContextAccessor correlationContextAccessor)
         {
             Configuration = configuration;
             Service = courseDirectoryService;
@@ -80,8 +88,6 @@ namespace Dfc.FindACourse.Web.Controllers
                     TempData.Remove("Location_IsInvalid");
                 }
             }
-
-            Telemetry.TrackEvent("Find A Course Start page");
 
             Telemetry.TrackEvent($"Logging: Ended: Controller = {nameof(CourseDirectoryController)}: Action = {nameof(Index)}: {nameof(Environment.MachineName)} = {Environment.MachineName}: {nameof(CorrelationContextAccessor.CorrelationContext.CorrelationId)} = {CorrelationContextAccessor.CorrelationContext.CorrelationId}");
 
@@ -165,7 +171,7 @@ namespace Dfc.FindACourse.Web.Controllers
 
             if (!ModelState.IsValid)
             {
-                Telemetry.TrackEvent($"CourseSearch: ModelState Invalid.");
+                Telemetry.TrackEvent($"CourseSearch: ModelState Invalid: Controller = {nameof(CourseDirectoryController)}: Action = {nameof(CourseDetails)}: {nameof(Environment.MachineName)} = {Environment.MachineName}: {nameof(CorrelationContextAccessor.CorrelationContext.CorrelationId)} = {CorrelationContextAccessor.CorrelationContext.CorrelationId}");
                 return View();
             }
 
@@ -191,7 +197,7 @@ namespace Dfc.FindACourse.Web.Controllers
 
             if (!ModelState.IsValid)
             {
-                Telemetry.TrackEvent($"CourseSearch: ModelState Invalid.");
+                Telemetry.TrackEvent($"CourseSearch: ModelState Invalid: Controller = {nameof(CourseDirectoryController)}: Action = {nameof(OpportunityDetails)}: {nameof(Environment.MachineName)} = {Environment.MachineName}: {nameof(CorrelationContextAccessor.CorrelationContext.CorrelationId)} = {CorrelationContextAccessor.CorrelationContext.CorrelationId}");
                 return View();
             }
 
