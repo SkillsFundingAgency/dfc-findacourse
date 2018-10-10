@@ -197,7 +197,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.DescriptionAttribute("DFC-3973 View Course Details display Entry Requirements")]
         [NUnit.Framework.CategoryAttribute("DFC-3973")]
         [NUnit.Framework.TestCaseAttribute("Hair & Beauty", "b14 7en", "interview", null)]
-        [NUnit.Framework.TestCaseAttribute("Electrical", "b14 7en", "To Be Confirmed", null)]
+        [NUnit.Framework.TestCaseAttribute("Electrical", "b14 7en", "To", null)]
         [NUnit.Framework.TestCaseAttribute("Gardening", "b14 7en", "TBC", null)]
         public virtual void DFC_3973ViewCourseDetailsDisplayEntryRequirements(string courseName, string location, string entryRequirements, string[] exampleTags)
         {
@@ -495,7 +495,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.CategoryAttribute("DFC-4194")]
         [NUnit.Framework.TestCaseAttribute("cisco", "M1 1AE", null)]
         [NUnit.Framework.TestCaseAttribute("geology", "b14 7rn", null)]
-        [NUnit.Framework.TestCaseAttribute("Historyg", "gu21 6yl", null)]
+        [NUnit.Framework.TestCaseAttribute("History", "gu21 6yl", null)]
         [NUnit.Framework.TestCaseAttribute("Gardening", "b14 7en", null)]
         [NUnit.Framework.TestCaseAttribute("COMPUTER SCIENCE", "BD1 1AJ", null)]
         [NUnit.Framework.TestCaseAttribute("SOFTWARE", "E8 1DY", null)]
