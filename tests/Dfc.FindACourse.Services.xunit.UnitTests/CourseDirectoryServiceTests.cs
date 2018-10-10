@@ -12,6 +12,7 @@ using Dfc.FindACourse.Services.CourseDirectory;
 using Dfc.FindACourse.Services.Interfaces;
 using Dfc.FindACourse.TestUtilities.TestUtilities;
 using Dfc.FindACourse.Web;
+using Microsoft.ApplicationInsights;
 using Microsoft.Extensions.Configuration;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Moq;
@@ -29,8 +30,11 @@ namespace Dfc.FindACourse.Services.xUnit.UnitTests
         public CourseDirectoryServiceTests(ITestOutputHelper output)
         {
             _output = output;
-            Service = new CourseDirectoryService(MockConfiguration.Object, MockCourseSearch.Object,
-                MockServiceClient.Object);
+            Service = new CourseDirectoryService(
+                MockConfiguration.Object, 
+                MockCourseSearch.Object,
+                MockServiceClient.Object,
+                MockTelemetryClient.Object);
         }
 
 
@@ -85,6 +89,18 @@ namespace Dfc.FindACourse.Services.xUnit.UnitTests
             }
         }
 
+        private Mock<ITelemetryClient> _telemetryClientMock;
+        public Mock<ITelemetryClient> MockTelemetryClient
+        {
+            get
+            {
+                if (_telemetryClientMock != null) return _telemetryClientMock;
+
+                var mock = new Mock<ITelemetryClient>();
+                _telemetryClientMock = mock;
+                return _telemetryClientMock;
+            }
+        }
 
         [Fact]
         public void TestConstruction()
@@ -167,10 +183,10 @@ namespace Dfc.FindACourse.Services.xUnit.UnitTests
                 "247962c3-5d72-4581-9840-19c6b6bb638c", 1000000000,
                 "https://apitest.coursedirectoryproviderportal.org.uk/CourseSearchService.svc");
             var courseSearch = new CourseSearch(new ServiceHelper());
-            var client =
-                new ServiceInterfaceClient(new ServiceInterfaceClient.EndpointConfiguration(), config.ApiAddress);
+            var client = new ServiceInterfaceClient(new ServiceInterfaceClient.EndpointConfiguration(), config.ApiAddress);
+            var telemetryClient = new TelemetryClientAdapter(new TelemetryClient());
             var pagingOptions = new PagingOptions(SortBy.Relevance, 1);
-            var service = new CourseDirectoryService(config, courseSearch, client);
+            var service = new CourseDirectoryService(config, courseSearch, client, telemetryClient);
 
             _validSearches = new List<string>();
             _InValidSearches = new List<string>();

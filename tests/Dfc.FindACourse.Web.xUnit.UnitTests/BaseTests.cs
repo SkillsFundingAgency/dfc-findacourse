@@ -1,4 +1,5 @@
-﻿using Dfc.FindACourse.Common.Settings;
+﻿using Dfc.FindACourse.Common.Interfaces;
+using Dfc.FindACourse.Common.Settings;
 using Dfc.FindACourse.Services.Interfaces;
 using Dfc.FindACourse.Web.Interfaces;
 using Dfc.FindACourse.Web.Middleware;
@@ -64,7 +65,6 @@ namespace Dfc.FindACourse.Web.xUnit.UnitTests
                 if (_telemetryClientMock != null) return _telemetryClientMock;
 
                 var mock = new Mock<ITelemetryClient>();
-                // mock.Setup(x => x.GetAll()).Returns(StoriesAll);
                 _telemetryClientMock = mock;
                 return _telemetryClientMock;
             }
