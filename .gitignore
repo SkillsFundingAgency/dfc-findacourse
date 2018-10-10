@@ -276,3 +276,4 @@ __pycache__/
 /automatedtests/new_windows.playlist
 /automatedtests/SecurityTests
 /automatedtests/ESFA.UI.Specflow.Framework/Project/Tests/TestSupport/SecurityTests.cs
+/automatedtests/APITests
