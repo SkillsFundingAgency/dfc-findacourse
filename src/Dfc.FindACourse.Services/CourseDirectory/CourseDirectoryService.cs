@@ -43,6 +43,7 @@ namespace Dfc.FindACourse.Services.CourseDirectory
             }
             catch (Exception e)
             {
+                ServiceClient.Dispose();
                 return Result.Fail<CourseSearchResult>(e.Message);
             }
         }
@@ -86,9 +87,8 @@ namespace Dfc.FindACourse.Services.CourseDirectory
             }
             catch (Exception e)
             {
+                ServiceClient.Dispose();
                 return Result.Fail<CourseItemDetail>(e.Message);
-
-
             }
         }
        
