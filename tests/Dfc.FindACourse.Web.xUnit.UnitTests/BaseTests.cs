@@ -1,8 +1,10 @@
 ﻿using Dfc.FindACourse.Common.Settings;
 using Dfc.FindACourse.Services.Interfaces;
+using Dfc.FindACourse.Web.Controllers;
 using Dfc.FindACourse.Web.Interfaces;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Moq;
 
