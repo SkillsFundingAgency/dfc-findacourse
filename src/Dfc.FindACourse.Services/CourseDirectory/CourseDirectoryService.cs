@@ -9,20 +9,23 @@ using Tribal;
 
 namespace Dfc.FindACourse.Services.CourseDirectory
 {
-
-
     public class CourseDirectoryService : ICourseDirectoryService
     {
         public ICourseDirectoryServiceConfiguration Configuration { get; }
         public ICourseSearch CourseSearch { get; }
         public ServiceInterface ServiceClient { get; }
+        public ITelemetryClient TelemetryClient { get; }
 
-
-        public CourseDirectoryService(ICourseDirectoryServiceConfiguration configuration, ICourseSearch courseSearch, ServiceInterface serviceClient)
+        public CourseDirectoryService(
+            ICourseDirectoryServiceConfiguration configuration, 
+            ICourseSearch courseSearch, 
+            ServiceInterface serviceClient,
+            ITelemetryClient telemetryClient)
         {
             Configuration = configuration;
             CourseSearch = courseSearch;
             ServiceClient = serviceClient;
+            TelemetryClient = telemetryClient;
         }
 
         public IResult<CourseSearchResult> CourseDirectorySearch(ICourseSearchCriteria criteria, IPagingOptions options)
@@ -43,6 +46,11 @@ namespace Dfc.FindACourse.Services.CourseDirectory
             }
             catch (Exception e)
             {
+                ServiceClient.Dispose();
+
+                TelemetryClient.TrackEvent($"Service = {nameof(CourseDirectoryService)}: Method = {nameof(CourseDirectorySearch)}: Exception Message = {e.Message}");
+                TelemetryClient.TrackException(e);
+
                 return Result.Fail<CourseSearchResult>(e.Message);
             }
         }
@@ -86,9 +94,12 @@ namespace Dfc.FindACourse.Services.CourseDirectory
             }
             catch (Exception e)
             {
+                ServiceClient.Dispose();
+
+                TelemetryClient.TrackEvent($"Service = {nameof(CourseDirectoryService)}: Method = {nameof(CourseItemDetail)}: Exception Message = {e.Message}");
+                TelemetryClient.TrackException(e);
+
                 return Result.Fail<CourseItemDetail>(e.Message);
-
-
             }
         }
        

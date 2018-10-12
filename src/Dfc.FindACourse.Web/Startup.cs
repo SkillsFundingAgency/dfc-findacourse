@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Net.Http;
-using System.Net.NetworkInformation;
-using System.Threading.Tasks;
+﻿using Dfc.FindACourse.Common;
+using Dfc.FindACourse.Common.Interfaces;
 using Dfc.FindACourse.Common.Settings;
 using Dfc.FindACourse.Services.CourseDirectory;
 using Dfc.FindACourse.Services.Interfaces;
@@ -12,15 +7,19 @@ using Dfc.FindACourse.Services.Postcode;
 using Dfc.FindACourse.Web.Interfaces;
 using Dfc.FindACourse.Web.Middleware;
 using Dfc.FindACourse.Web.Services;
-using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Net.Http;
+using System.Net.NetworkInformation;
+using System.Threading.Tasks;
 using Tribal;
 
 namespace Dfc.FindACourse.Web
@@ -60,7 +59,10 @@ namespace Dfc.FindACourse.Web
                     tribalPerPage,
                     Configuration["Tribal:APIAddress"]));
 
-            services.AddSingleton<ServiceInterface>(new ServiceInterfaceClient(new ServiceInterfaceClient.EndpointConfiguration(), Configuration["Tribal:APIAddress"]));
+            services.AddScoped<ServiceInterface>((provider) =>
+                new ServiceInterfaceClient(
+                    new ServiceInterfaceClient.EndpointConfiguration(),
+                    Configuration["Tribal:APIAddress"]));
 
             services.AddSingleton<IConfiguration>(Configuration);
             services.Configure<App>(Configuration.GetSection("App"));
@@ -70,7 +72,7 @@ namespace Dfc.FindACourse.Web
             services.AddSingleton(typeof(IPostcodeServiceConfiguration),
                 new PostcodeServiceConfiguration(Configuration["Postcodes.Io:ApiBaseUrl"]));
 
-            services.AddScoped<ITelemetryClient, MyTelemetryClient>();
+            services.AddScoped<ITelemetryClient, TelemetryClientAdapter>();
             services.AddScoped<ICourseDirectory, CourseDirectory>();
             services.AddScoped<ICourseSearch, CourseSearch>();
             services.AddScoped<IServiceHelper, ServiceHelper>();

@@ -12,12 +12,22 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.Pages
 
         public ProviderSitePage(IWebDriver webDriver) : base(webDriver)
         {
-          //  SelfVerify();
+            SelfVerify();
         }
 
         protected override bool SelfVerify()
         {
-           return PageInteractionHelper.VerifyPageTitle(this.webDriver.Title.ToString(), PAGE_TITLE);
+            if (webDriver.Url.ToLower().Contains("nationalcareersservice.org.uk"))
+            {
+                throw new Exception("Invalid URL provided");
+            }
+
+            if (webDriver.PageSource.Contains("Status Code: 404; Not Found"))
+            {
+                throw new Exception("Invalid URL provided");
+            }
+           
+           return PageInteractionHelper.VerifyPageTitle(this.webDriver.Title.ToString(), this.webDriver.Title.ToString());
 		}
     }
 }
