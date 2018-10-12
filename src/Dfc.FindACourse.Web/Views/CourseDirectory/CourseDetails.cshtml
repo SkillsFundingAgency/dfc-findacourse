@@ -140,14 +140,14 @@
                 }
                 else if (!string.IsNullOrWhiteSpace(Model.URL))
                 {
-                    <a target="_blank" href=@Model.Provider.Website role="button" class="govuk-button govuk-button--start">
+                    <a target="_blank" href=@Model.URL role="button" class="govuk-button govuk-button--start">
                         More Information
                     </a>
                     <p class="enrol-text">on the provider’s website</p>
                 }
-                else if (!string.IsNullOrWhiteSpace(Model.Opportunities[0].URL))
+                else if (null != Model.Opportunities && Model.Opportunities.Count > 0 && !string.IsNullOrWhiteSpace(Model.Opportunities[0].URL))
                 {
-                    <a target="_blank" href=@Model.Provider.Website role="button" class="govuk-button govuk-button--start">
+                    <a target="_blank" href=@Model.Opportunities[0].URL) role="button" class="govuk-button govuk-button--start">
                         More Information
                     </a>
                     <p class="enrol-text">on the provider’s website</p>
