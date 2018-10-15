@@ -162,7 +162,7 @@ namespace ESFA.UI.Specflow.Framework.FindACourse.Project.Tests.Features
         [NUnit.Framework.TestCaseAttribute("ASTROPHYSICS", "Level 3", null)]
         [NUnit.Framework.TestCaseAttribute("gcse english", "Level 2", null)]
         [NUnit.Framework.TestCaseAttribute("C&G L1 AWARD IN INTRODUCTORY TUNGSTEN INERT GAS (TIG) WELDING", "Level 1", null)]
-        [NUnit.Framework.TestCaseAttribute("Pharmacy Clinical Services Professional Diploma", "Level 4", null)]
+        [NUnit.Framework.TestCaseAttribute("HNC in Applied Biology", "Level 4", null)]
         [NUnit.Framework.TestCaseAttribute("Marine Engineering HND", "Level 5", null)]
         [NUnit.Framework.TestCaseAttribute("Integrated Masters Equine Science MSci", "Level 7", null)]
         [NUnit.Framework.TestCaseAttribute("Automotive Engineering and Technology (Motorsport) BEng Hons Degree Topup", "Level 6", null)]

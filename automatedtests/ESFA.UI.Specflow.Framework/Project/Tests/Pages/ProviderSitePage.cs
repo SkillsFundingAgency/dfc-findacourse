@@ -17,6 +17,14 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.Pages
 
         protected override bool SelfVerify()
         {
+            if (!webDriver.Url.ToLower().StartsWith("http://"))
+            {
+                if (!webDriver.Url.ToLower().StartsWith("https://"))
+                {
+                    throw new Exception("Invalid URL provided");
+                }
+            }
+
             if (webDriver.Url.ToLower().Contains("nationalcareersservice.org.uk"))
             {
                 throw new Exception("Invalid URL provided");

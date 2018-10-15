@@ -198,7 +198,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.CategoryAttribute("DFC-3973")]
         [NUnit.Framework.TestCaseAttribute("Hair & Beauty", "b14 7en", "interview", null)]
         [NUnit.Framework.TestCaseAttribute("Electrical", "b14 7en", "To", null)]
-        [NUnit.Framework.TestCaseAttribute("Gardening", "b14 7en", "TBC", null)]
+        [NUnit.Framework.TestCaseAttribute("baking", "b14 7en", "£72.00", null)]
         public virtual void DFC_3973ViewCourseDetailsDisplayEntryRequirements(string courseName, string location, string entryRequirements, string[] exampleTags)
         {
             string[] @__tags = new string[] {

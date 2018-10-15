@@ -81,8 +81,8 @@ Scenario Outline: DFC-3973 View Course Details display Entry Requirements
   Examples:
     | CourseName    | Location | EntryRequirements |
     | Hair & Beauty | b14 7en  | interview         |
-    | Electrical    | b14 7en  | To  |
-    | Gardening     | b14 7en  | TBC               |
+    | Electrical    | b14 7en  | To                |
+    | baking        | b14 7en  | £72.00            |
 
 
 

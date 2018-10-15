@@ -54,7 +54,7 @@
     | ASTROPHYSICS                                                              | Level 3     |
     | gcse english                                                              | Level 2     |
     | C&G L1 AWARD IN INTRODUCTORY TUNGSTEN INERT GAS (TIG) WELDING             | Level 1     |
-    | Pharmacy Clinical Services Professional Diploma                           | Level 4     |
+    | HNC in Applied Biology                                                    | Level 4     |
     | Marine Engineering HND                                                    | Level 5     |
     | Integrated Masters Equine Science MSci                                    | Level 7     |
     | Automotive Engineering and Technology (Motorsport) BEng Hons Degree Topup | Level 6     |
