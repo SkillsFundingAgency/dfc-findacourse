@@ -444,7 +444,7 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestCaseAttribute("(Hair £ Beuaty)", null)]
         [NUnit.Framework.TestCaseAttribute("#hair beauty", null)]
         [NUnit.Framework.TestCaseAttribute("a level biology*", null)]
-        [NUnit.Framework.TestCaseAttribute("A-LEVEL BIOLOGY", null)]
+        [NUnit.Framework.TestCaseAttribute("A~LEVEL BIOLOGY", null)]
         [NUnit.Framework.TestCaseAttribute("hair_beauty", null)]
         public virtual void DFC_3888SearchForCoursesUsingIllegalChars(string courseName, string[] exampleTags)
         {

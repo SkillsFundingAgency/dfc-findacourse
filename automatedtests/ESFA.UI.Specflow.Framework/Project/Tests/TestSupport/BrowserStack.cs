@@ -13,7 +13,6 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.TestSupport
 	public sealed class BrowserStack
 	{
 		private BrowserStackDriver bsDriver;
-		//private string[] tags;
 
 		[BeforeScenario]
 		[Scope(Tag = "BrowserStack")]

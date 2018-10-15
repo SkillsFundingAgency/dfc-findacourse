@@ -5,9 +5,6 @@ namespace ESFA.UI.Specflow.Framework.FindACourse.Project.Framework.Helpers
 {
     public class FileSystemHelper
     {
-        //private static string reportNm = null;
-        //private static string reportPath = null;
-
         public static string CreateFilePath(string filePath)
         {
             String reportsDirectory = AppDomain.CurrentDomain.BaseDirectory

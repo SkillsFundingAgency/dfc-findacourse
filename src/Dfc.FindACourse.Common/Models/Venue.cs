@@ -6,6 +6,7 @@ namespace Dfc.FindACourse.Common.Models
 {
     public class Venue : ValueObject<Venue>, IVenue
     {
+        public string VenueId { get; }
         public string Name { get; }
         public IAddress Address { get; }
         public double? Distance { get; }
@@ -54,7 +55,18 @@ namespace Dfc.FindACourse.Common.Models
             Distance = distance;
            
         }
-
+        public Venue(string venueid, string name, IAddress address, string website, double? distance = null)
+        {
+            if (string.IsNullOrWhiteSpace(name))
+                throw new ArgumentException($"{nameof(name)} cannot be null, empty or only whitespace.");
+            if (distance.HasValue && distance.Value < 0)
+                throw new ArgumentOutOfRangeException(nameof(distance));
+            VenueId = venueid;
+            Name = name.ToSentenceCase();
+            Address = address ?? throw new ArgumentNullException(nameof(address));
+            Distance = distance;
+            Website = Uri.IsWellFormedUriString(website, UriKind.Absolute) ? website : string.Empty;
+        }
         protected override IEnumerable<object> GetEqualityComponents()
         {
             yield return Name;

@@ -34,6 +34,8 @@
         $('#LocationRadiusFilter').accordion();
 
         $("#LocationRadiusFilter input[name='LocationRadius']").on('click', function () {
+            //RADIUS PERSIST
+            sessionStorage.setItem('locationradius', $(this).val());
             $('#FindACourseForm').submit();
         });
 

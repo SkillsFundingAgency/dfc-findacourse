@@ -1,19 +1,19 @@
 ﻿using Dfc.FindACourse.Common;
+using Dfc.FindACourse.Common.Interfaces;
 using Dfc.FindACourse.Common.Models;
+using Dfc.FindACourse.Common.Settings;
 using Dfc.FindACourse.Services.Interfaces;
+using Dfc.FindACourse.Web.Interfaces;
+using Dfc.FindACourse.Web.Middleware;
 using Dfc.FindACourse.Web.RequestModels;
 using Dfc.FindACourse.Web.ViewModels.CourseDirectory;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using System;
 using System.Linq;
-using Microsoft.Extensions.Options;
-using Dfc.FindACourse.Common.Settings;
-using Dfc.FindACourse.Web.Interfaces;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.Extensions.Logging;
-using System.Globalization;
 
 namespace Dfc.FindACourse.Web.Controllers
 {
@@ -28,11 +28,20 @@ namespace Dfc.FindACourse.Web.Controllers
         public IFileHelper Files { get; }
         public ICourseDirectoryHelper CourseDirectoryHelper { get; }
         public IPostcodeService PostcodeService { get; }
+        public ICorrelationContextAccessor CorrelationContextAccessor { get; }
 
 
-        public CourseDirectoryController(IConfiguration configuration, ICourseDirectoryService courseDirectoryService
-            , IMemoryCache memoryCache, ITelemetryClient telemetryClient, IOptions<App> appSettings,
-            ICourseDirectory courseDirectory, IFileHelper fileHelper, ICourseDirectoryHelper requestModelHelper, IPostcodeService postcodeService)
+        public CourseDirectoryController(
+            IConfiguration configuration, 
+            ICourseDirectoryService courseDirectoryService, 
+            IMemoryCache memoryCache, 
+            ITelemetryClient telemetryClient, 
+            IOptions<App> appSettings,
+            ICourseDirectory courseDirectory, 
+            IFileHelper fileHelper, 
+            ICourseDirectoryHelper requestModelHelper, 
+            IPostcodeService postcodeService, 
+            ICorrelationContextAccessor correlationContextAccessor)
         {
             Configuration = configuration;
             Service = courseDirectoryService;
@@ -43,13 +52,13 @@ namespace Dfc.FindACourse.Web.Controllers
             Files = fileHelper;
             CourseDirectoryHelper = requestModelHelper;
             PostcodeService = postcodeService;
+            CorrelationContextAccessor = correlationContextAccessor;
         }
 
         // GET: CourseDirectory
         public ActionResult Index()
         {
-            Telemetry.TrackEvent("Find A Course Start page");
-            Telemetry.TrackEvent($"[{DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss.ffffff", CultureInfo.InvariantCulture)}] Starting call Controller = {nameof(CourseDirectoryController)}, Action = {nameof(Index)}");
+            Telemetry.TrackEvent($"Logging: Started: Controller = {nameof(CourseDirectoryController)}: Action = {nameof(Index)}: {nameof(Environment.MachineName)} = {Environment.MachineName}: {nameof(CorrelationContextAccessor.CorrelationContext.CorrelationId)} = {CorrelationContextAccessor.CorrelationContext.CorrelationId}");
 
             var isPostcodeInvalid = false;
             var location = default(string);
@@ -80,7 +89,7 @@ namespace Dfc.FindACourse.Web.Controllers
                 }
             }
 
-            Telemetry.TrackEvent($"[{DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss.ffffff", CultureInfo.InvariantCulture)}] Ending call Controller = {nameof(CourseDirectoryController)}, Action = {nameof(Index)}");
+            Telemetry.TrackEvent($"Logging: Ended: Controller = {nameof(CourseDirectoryController)}: Action = {nameof(Index)}: {nameof(Environment.MachineName)} = {Environment.MachineName}: {nameof(CorrelationContextAccessor.CorrelationContext.CorrelationId)} = {CorrelationContextAccessor.CorrelationContext.CorrelationId}");
 
             return View(indViewModel);
         }
@@ -89,7 +98,7 @@ namespace Dfc.FindACourse.Web.Controllers
         // ASB TODO - Should we not be returning OK objects? rather than empty Views if something goes wrong?
         public ActionResult CourseSearchResult([FromQuery]  CourseSearchRequestModel requestModel)
         {
-            Telemetry.TrackEvent($"[{DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss.ffffff", CultureInfo.InvariantCulture)}] Starting call Controller = {nameof(CourseDirectoryController)}, Action = {nameof(CourseSearchResult)}");
+            Telemetry.TrackEvent($"Logging: Started: Controller = {nameof(CourseDirectoryController)}: Action = {nameof(CourseSearchResult)}: {nameof(Environment.MachineName)} = {Environment.MachineName}: {nameof(CorrelationContextAccessor.CorrelationContext.CorrelationId)} = {CorrelationContextAccessor.CorrelationContext.CorrelationId}");
 
             var dtStart = DateTime.Now;
             var isPostcodeInvalid = false;
@@ -138,7 +147,7 @@ namespace Dfc.FindACourse.Web.Controllers
 
             int perPage = int.TryParse(Configuration["Tribal:PerPage"], out perPage) ? perPage : 0;
 
-            Telemetry.TrackEvent($"[{DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss.ffffff", CultureInfo.InvariantCulture)}] Ending call Controller = {nameof(CourseDirectoryController)}, Action = {nameof(CourseSearchResult)}");
+            Telemetry.TrackEvent($"Logging: Ended: Controller = {nameof(CourseDirectoryController)}: Action = {nameof(CourseSearchResult)}: {nameof(Environment.MachineName)} = {Environment.MachineName}: {nameof(CorrelationContextAccessor.CorrelationContext.CorrelationId)} = {CorrelationContextAccessor.CorrelationContext.CorrelationId}");
 
             return View(new CourseSearchResultViewModel(result)
             {
@@ -160,14 +169,14 @@ namespace Dfc.FindACourse.Web.Controllers
 
         public IActionResult CourseDetails(int? id, string distance, string postcode)
         {
-            Telemetry.TrackEvent($"[{DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss.ffffff", CultureInfo.InvariantCulture)}] Starting call Controller = {nameof(CourseDirectoryController)}, Action = {nameof(CourseDetails)}");
+            Telemetry.TrackEvent($"Logging: Started: Controller = {nameof(CourseDirectoryController)}: Action = {nameof(CourseDetails)}: {nameof(Environment.MachineName)} = {Environment.MachineName}: {nameof(CorrelationContextAccessor.CorrelationContext.CorrelationId)} = {CorrelationContextAccessor.CorrelationContext.CorrelationId}");
 
             //Parmeters
             var dtStart = DateTime.Now;
 
             if (!ModelState.IsValid)
             {
-                Telemetry.TrackEvent($"CourseSearch: ModelState Invalid.");
+                Telemetry.TrackEvent($"CourseSearch: ModelState Invalid: Controller = {nameof(CourseDirectoryController)}: Action = {nameof(CourseDetails)}: {nameof(Environment.MachineName)} = {Environment.MachineName}: {nameof(CorrelationContextAccessor.CorrelationContext.CorrelationId)} = {CorrelationContextAccessor.CorrelationContext.CorrelationId}");
                 return View();
             }
 
@@ -183,17 +192,21 @@ namespace Dfc.FindACourse.Web.Controllers
             //DEBUG_FIX - Add the flush to see if working straightaway ASB TODO AGain is this correct as wont get called if ModelState is Invalid
             Telemetry.Flush();
 
-            return View(new CourseDetailViewModel(result.Value, !string.IsNullOrEmpty(distance) ? distance: string.Empty, !string.IsNullOrEmpty(postcode) ? postcode : string.Empty) { });
+            Telemetry.TrackEvent($"Logging: Ended: Controller = {nameof(CourseDirectoryController)}: Action = {nameof(CourseDetails)}: {nameof(Environment.MachineName)} = {Environment.MachineName}: {nameof(CorrelationContextAccessor.CorrelationContext.CorrelationId)} = {CorrelationContextAccessor.CorrelationContext.CorrelationId}");
+
+            return View(nameof(CourseDetails), new CourseDetailViewModel(result.Value, !string.IsNullOrEmpty(distance) ? distance: string.Empty, postcode, null) { });
         }
       
         public IActionResult OpportunityDetails(int? id, string distance, int? oppid, string postcode)
         {
+            Telemetry.TrackEvent($"Logging: Started: Controller = {nameof(CourseDirectoryController)}: Action = {nameof(OpportunityDetails)}: {nameof(Environment.MachineName)} = {Environment.MachineName}: {nameof(CorrelationContextAccessor.CorrelationContext.CorrelationId)} = {CorrelationContextAccessor.CorrelationContext.CorrelationId}");
+
             //Parmeters
             var dtStart = DateTime.Now;
 
             if (!ModelState.IsValid)
             {
-                Telemetry.TrackEvent($"CourseSearch: ModelState Invalid.");
+                Telemetry.TrackEvent($"CourseSearch: ModelState Invalid: Controller = {nameof(CourseDirectoryController)}: Action = {nameof(OpportunityDetails)}: {nameof(Environment.MachineName)} = {Environment.MachineName}: {nameof(CorrelationContextAccessor.CorrelationContext.CorrelationId)} = {CorrelationContextAccessor.CorrelationContext.CorrelationId}");
                 return View();
             }
 
@@ -205,7 +218,9 @@ namespace Dfc.FindACourse.Web.Controllers
             //DEBUG_FIX - Add the flush to see if working straightaway ASB TODO AGain is this correct as wont get called if ModelState is Invalid
             Telemetry.Flush();
 
-            return View(nameof(CourseDetails), new CourseDetailViewModel(result.Value, !string.IsNullOrEmpty(distance) ? distance : string.Empty, !string.IsNullOrEmpty(postcode) ? postcode : string.Empty) { });
+            Telemetry.TrackEvent($"Logging: Ended: Controller = {nameof(CourseDirectoryController)}: Action = {nameof(OpportunityDetails)}: {nameof(Environment.MachineName)} = {Environment.MachineName}: {nameof(CorrelationContextAccessor.CorrelationContext.CorrelationId)} = {CorrelationContextAccessor.CorrelationContext.CorrelationId}");
+
+            return View(nameof(CourseDetails), new CourseDetailViewModel(result.Value, !string.IsNullOrEmpty(distance) ? distance : string.Empty, postcode, oppid) { });
         }
 
 

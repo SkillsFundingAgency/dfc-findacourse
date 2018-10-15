@@ -7,6 +7,9 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
+using System;
+using System.ServiceModel;
+
 namespace Tribal
 {
     
@@ -274,7 +277,7 @@ namespace Tribal
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("dotnet-svcutil", "1.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(Namespace="http://schemas.imservices.gov.uk/alse/coursesearch/type/1.0", ConfigurationName="Tribal.ServiceInterface")]
-    public interface ServiceInterface
+    public interface ServiceInterface : IDisposable
     {
         
         [System.ServiceModel.OperationContractAttribute(Action="urn:CourseBrowse", ReplyAction="http://schemas.imservices.gov.uk/alse/coursesearch/type/1.0/ServiceInterface/GetC" +
@@ -3716,12 +3719,12 @@ namespace Tribal
     public partial class ServiceInterfaceClient : System.ServiceModel.ClientBase<Tribal.ServiceInterface>, Tribal.ServiceInterface
     {
         
-    /// <summary>
+        /// <summary>
     /// Implement this partial method to configure the service endpoint.
     /// </summary>
     /// <param name="serviceEndpoint">The endpoint to configure</param>
     /// <param name="clientCredentials">The client credentials</param>
-    static partial void ConfigureEndpoint(System.ServiceModel.Description.ServiceEndpoint serviceEndpoint, System.ServiceModel.Description.ClientCredentials clientCredentials);
+        static partial void ConfigureEndpoint(System.ServiceModel.Description.ServiceEndpoint serviceEndpoint, System.ServiceModel.Description.ClientCredentials clientCredentials);
         
         public ServiceInterfaceClient() : 
                 base(ServiceInterfaceClient.GetDefaultBinding(), ServiceInterfaceClient.GetDefaultEndpointAddress())
@@ -3848,7 +3851,12 @@ namespace Tribal
         {
             return ServiceInterfaceClient.GetEndpointAddress(EndpointConfiguration.BasicHttpBinding_ServiceInterface);
         }
-        
+
+        public void Dispose()
+        {
+            Abort();
+        }
+
         public enum EndpointConfiguration
         {
             

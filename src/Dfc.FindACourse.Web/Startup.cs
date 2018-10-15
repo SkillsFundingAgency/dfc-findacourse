@@ -1,23 +1,25 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
+﻿using Dfc.FindACourse.Common;
+using Dfc.FindACourse.Common.Interfaces;
 using Dfc.FindACourse.Common.Settings;
 using Dfc.FindACourse.Services.CourseDirectory;
 using Dfc.FindACourse.Services.Interfaces;
 using Dfc.FindACourse.Services.Postcode;
 using Dfc.FindACourse.Web.Interfaces;
+using Dfc.FindACourse.Web.Middleware;
 using Dfc.FindACourse.Web.Services;
-using Microsoft.ApplicationInsights;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Net.Http;
+using System.Net.NetworkInformation;
+using System.Threading.Tasks;
 using Tribal;
 
 namespace Dfc.FindACourse.Web
@@ -57,7 +59,10 @@ namespace Dfc.FindACourse.Web
                     tribalPerPage,
                     Configuration["Tribal:APIAddress"]));
 
-            services.AddSingleton<ServiceInterface>(new ServiceInterfaceClient(new ServiceInterfaceClient.EndpointConfiguration(), Configuration["Tribal:APIAddress"]));
+            services.AddScoped<ServiceInterface>((provider) =>
+                new ServiceInterfaceClient(
+                    new ServiceInterfaceClient.EndpointConfiguration(),
+                    Configuration["Tribal:APIAddress"]));
 
             services.AddSingleton<IConfiguration>(Configuration);
             services.Configure<App>(Configuration.GetSection("App"));
@@ -67,7 +72,7 @@ namespace Dfc.FindACourse.Web
             services.AddSingleton(typeof(IPostcodeServiceConfiguration),
                 new PostcodeServiceConfiguration(Configuration["Postcodes.Io:ApiBaseUrl"]));
 
-            services.AddScoped<ITelemetryClient, MyTelemetryClient>();
+            services.AddScoped<ITelemetryClient, TelemetryClientAdapter>();
             services.AddScoped<ICourseDirectory, CourseDirectory>();
             services.AddScoped<ICourseSearch, CourseSearch>();
             services.AddScoped<IServiceHelper, ServiceHelper>();
@@ -80,7 +85,7 @@ namespace Dfc.FindACourse.Web
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddMemoryCache();
             services.AddApplicationInsightsTelemetry();
-            
+            services.AddCorrelationId();
 
         }
 
@@ -103,6 +108,8 @@ namespace Dfc.FindACourse.Web
                 await next();
             });
 
+            app.UseCorrelationId(new CorrelationIdOptions());
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseStatusCodePages();
@@ -119,8 +126,78 @@ namespace Dfc.FindACourse.Web
 
             //Now download the configuration from storage and cache
             DownloadConfig(cache, telemetryClient).Wait();
+
+            // MA - This is here for performance logging andtroubleshooting this is NOT needed for functionality
+            ApiHttpRequestAndLog(env, telemetryClient);
         }
 
+        private void ApiHttpRequestAndLog(IHostingEnvironment env, ITelemetryClient telemetryClient)
+        {
+            try
+            {
+                telemetryClient.TrackEvent($"Start Up Api HttpRequest: {nameof(Environment.MachineName)} = {Environment.MachineName}");
+                telemetryClient.TrackEvent($"Start Up Api HttpRequest: {nameof(env.EnvironmentName)} = {env.EnvironmentName}");
+                telemetryClient.TrackEvent($"Start Up Api HttpRequest: {nameof(env.ApplicationName)} = {env.ApplicationName}");
+
+                var sw = new Stopwatch();
+                var uri = new Uri(Configuration["Tribal:APIAddress"]);
+                telemetryClient.TrackEvent($"Start Up Api HttpRequest: {nameof(uri.Host)} = {uri.Host}");
+                telemetryClient.TrackEvent($"Start Up Api HttpRequest: Address = {uri.OriginalString}");
+
+                using (var httpClient = new HttpClient())
+                {
+                    telemetryClient.TrackEvent($"Start Up Api HttpRequest: Started at = {DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffffff")}");
+                    sw.Start();
+                    var statusCode = httpClient.GetAsync(uri).Result.StatusCode;
+                    sw.Stop();
+                    telemetryClient.TrackEvent($"Start Up Api HttpRequest: Ended at = {DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss.ffffff")}");
+                    telemetryClient.TrackEvent($"Start Up Api HttpRequest: Http Status Code = {statusCode}");
+                    telemetryClient.TrackEvent($"Start Up Api HttpRequest: Time taken = {sw.ElapsedMilliseconds} ms");
+                }
+            }
+            catch (Exception e)
+            {
+                telemetryClient.TrackEvent($"Start Up Api HttpRequest: exception");
+                telemetryClient.TrackException(e);
+            }
+        }
+
+        private void ApiPingAndLog(IHostingEnvironment env, ITelemetryClient telemetryClient)
+        {
+
+            Ping pinger = null;
+
+            try
+            {
+                telemetryClient.TrackEvent($"Start Up Api HttpRequest: {nameof(Environment.MachineName)} = {Environment.MachineName}");
+                telemetryClient.TrackEvent($"Start Up Api Ping: {nameof(env.EnvironmentName)} = {env.EnvironmentName}");
+                telemetryClient.TrackEvent($"Start Up Api Ping: {nameof(env.ApplicationName)} = {env.ApplicationName}");
+
+                var uri = new Uri(Configuration["Tribal:APIAddress"]);
+                telemetryClient.TrackEvent($"Start Up Api Ping: {nameof(uri.Host)} = {uri.Host}");
+
+                pinger = new Ping();
+                var reply = pinger.Send(uri.Host);
+                telemetryClient.TrackEvent($"Start Up Api Ping: {nameof(reply.Address)} = {reply?.Address}");
+                telemetryClient.TrackEvent($"Start Up Api Ping: {nameof(reply.Options.DontFragment)} = {reply?.Options?.DontFragment}");
+                telemetryClient.TrackEvent($"Start Up Api Ping: {nameof(reply.Options.Ttl)} = {reply?.Options?.Ttl}");
+                telemetryClient.TrackEvent($"Start Up Api Ping: {nameof(reply.RoundtripTime)} = {reply?.RoundtripTime}");
+                telemetryClient.TrackEvent($"Start Up Api Ping: {nameof(reply.Buffer.Length)} = {reply?.Buffer?.Length}");
+                telemetryClient.TrackEvent($"Start Up Api Ping: {nameof(reply.Status)} = {reply?.Status}");
+            }
+            catch (Exception e)
+            {
+                telemetryClient.TrackEvent($"Start Up Api Ping: exception");
+                telemetryClient.TrackException(e);
+            }
+            finally
+            {
+                if (pinger != null)
+                {
+                    pinger.Dispose();
+                }
+            }
+        }
 
         //ASB What is this doing?
         private async Task DownloadConfig(IMemoryCache cache, ITelemetryClient telemetryClient)

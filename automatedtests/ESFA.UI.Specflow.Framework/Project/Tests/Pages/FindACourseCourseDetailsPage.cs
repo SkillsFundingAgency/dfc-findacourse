@@ -169,6 +169,7 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.Pages
             return new FindACourseCourseDetailsPage(webDriver);
         }
 
+  
         internal FindACourseCourseDetailsPage ClickEnrolNow()
         {
             FormCompletionHelper.ClickElement(button);

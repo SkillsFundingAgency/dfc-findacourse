@@ -1,5 +1,6 @@
-﻿using Dfc.FindACourse.Common.Models;
-using Microsoft.ApplicationInsights;
+﻿using Dfc.FindACourse.Common.Interfaces;
+using Dfc.FindACourse.Common.Models;
+using Dfc.FindACourse.Web.Interfaces;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.WindowsAzure.Storage;
@@ -9,10 +10,8 @@ using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Xml;
-using Dfc.FindACourse.Web.Interfaces;
 
 namespace Dfc.FindACourse.Web
 {

@@ -40,6 +40,19 @@
                     allCheckbox.prop('checked', '');
                 }
 
+
+                ///QUAL LEVEL PERSIST
+                //If Quallevel and only one checked, and current is checked then set to storage
+                if ($(this).attr("id").match("^QualificationLevel")){
+                    if (currentlyChecked.length === 1 && $(this).prop('checked')) {
+                        sessionStorage.setItem('quallevel', $(this).val());
+                    }
+                    else if (currentlyChecked.length === 1) {
+                        sessionStorage.setItem('quallevel', currentlyChecked.val());
+                    }
+                }
+                
+
                 if ($.isFunction(settings.itemChange)) {
                     settings.itemChange.call(this, {
                         multipleChoiceElement: multipleChoice[0],

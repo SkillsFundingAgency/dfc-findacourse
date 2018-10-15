@@ -1,17 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using Dfc.FindACourse.Web.Services;
+﻿using Dfc.FindACourse.Common;
 using Microsoft.ApplicationInsights;
+using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace Dfc.FindACourse.Web.xUnit.UnitTests
 {
-    public class MyTelemetryClientTests
+    public class TelemetryClientAdapterTests
     {
-        private MyTelemetryClient Service { get; set; }
-        public MyTelemetryClientTests()
+        private TelemetryClientAdapter Service { get; set; }
+        public TelemetryClientAdapterTests()
         {
-            Service = new MyTelemetryClient(new TelemetryClient());
+            Service = new TelemetryClientAdapter(new TelemetryClient());
 
             Assert.NotNull(Service.TelemetryClient);
         }

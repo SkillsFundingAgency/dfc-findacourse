@@ -38,5 +38,7 @@ namespace Dfc.FindACourse.Common.Settings
         public string APIAddress { get; set; }
 
         public string SurveyBannerLink { get; set; }
+
+        public string GoogleApiKey { get; set; }
     }
 }

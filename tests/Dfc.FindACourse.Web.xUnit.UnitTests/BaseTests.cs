@@ -1,12 +1,15 @@
-﻿using Dfc.FindACourse.Common.Settings;
+﻿using Dfc.FindACourse.Common.Interfaces;
+using Dfc.FindACourse.Common.Settings;
 using Dfc.FindACourse.Services.Interfaces;
 using Dfc.FindACourse.Web.Controllers;
 using Dfc.FindACourse.Web.Interfaces;
+using Dfc.FindACourse.Web.Middleware;
 using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Moq;
+using System;
 
 namespace Dfc.FindACourse.Web.xUnit.UnitTests
 {
@@ -64,7 +67,6 @@ namespace Dfc.FindACourse.Web.xUnit.UnitTests
                 if (_telemetryClientMock != null) return _telemetryClientMock;
 
                 var mock = new Mock<ITelemetryClient>();
-                // mock.Setup(x => x.GetAll()).Returns(StoriesAll);
                 _telemetryClientMock = mock;
                 return _telemetryClientMock;
             }
@@ -137,6 +139,24 @@ namespace Dfc.FindACourse.Web.xUnit.UnitTests
                 // mock.Setup(x => x.GetAll()).Returns(StoriesAll);
                 _postcodeService = mock;
                 return _postcodeService;
+            }
+        }
+
+        private Mock<ICorrelationContextAccessor> _correlationContextAccessor;
+        public Mock<ICorrelationContextAccessor> MockCorrelationContextAccessor
+        {
+            get
+            {
+                if (_correlationContextAccessor != null) return _correlationContextAccessor;
+
+                var mockContext = new Mock<ICorrelationContext>();
+                mockContext.SetupGet(x => x.CorrelationId).Returns(Guid.NewGuid().ToString);
+                mockContext.SetupGet(x => x.Header).Returns(new CorrelationIdOptions().Header);
+
+                var mock = new Mock<ICorrelationContextAccessor>();
+                mock.SetupGet(x => x.CorrelationContext).Returns(mockContext.Object);
+                _correlationContextAccessor = mock;
+                return _correlationContextAccessor;
             }
         }
     }
