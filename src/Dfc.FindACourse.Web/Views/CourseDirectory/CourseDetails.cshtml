@@ -152,9 +152,9 @@
                     </a>
                     <p class="enrol-text">on the provider’s website</p>
                 }
-                else if (null != Model.Venue && !string.IsNullOrWhiteSpace(Model.Venue.Website))
+                else if( null != Model.Opportunities && null != Model.Opportunities[0]  && null != Model.Opportunities[0].Venue && !string.IsNullOrWhiteSpace(Model.Opportunities[0].Venue.Website))
                 {
-                    <a target="_blank" href=@Model.Venue.Website role="button" class="govuk-button govuk-button--start">
+                    <a target="_blank" href=@Model.Opportunities[0].Venue.Website role="button" class="govuk-button govuk-button--start">
                         More Information
                     </a>
                     <p class="enrol-text">on the provider’s website</p>
