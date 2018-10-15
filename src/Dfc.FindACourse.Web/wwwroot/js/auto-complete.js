@@ -159,9 +159,20 @@
         $('#Search').on('click', function () {
             //Save Vars
             sessionStorage.setItem('subjectkeyword', $('#SubjectKeyword').val());
-            sessionStorage.setItem('quallevel', $('#QualificationLevels').val());
-            sessionStorage.setItem('locationradius', $('#LocationRadius').val());
+            if (null != $('#QualificationLevels').val()) {
+                sessionStorage.setItem('quallevel', $('#QualificationLevels').val());
+            }
+            if (null != $('#LocationRadius').val()) {
+                sessionStorage.setItem('locationradius', $('#LocationRadius').val());
+            }
             sessionStorage.setItem('locationpostcode', $('#Location').val());
+
+            
+
+        });
+        //Added specifc click element for the second search button on page 2
+        $("input[name='Search2']").on('click', function () {
+           $('#Search').click();
         });
 
         $('#SubjectKeyword').on('click', function () {

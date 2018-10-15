@@ -97,7 +97,7 @@
             "value": "[variables('storageAccountName')]"
           },
           "accountType": {
-            "value": "Standard_GRS"
+            "value": "Standard_LRS"
           },
           "storageKind": {
             "value": "StorageV2"
