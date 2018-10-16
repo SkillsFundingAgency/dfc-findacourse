@@ -250,7 +250,7 @@ Scenario Outline: DFC-4090 Search for Courses By Location & Distance Null Result
 @DFC-4094
 Scenario: DFC-4094 Contact Adviser
 	Given I navigate to Find a Course home page
-	When I click Contact a Careers Adviser link
+	When I click Contact a careers adviser link
 	Then I will be on Contact us page
 
 

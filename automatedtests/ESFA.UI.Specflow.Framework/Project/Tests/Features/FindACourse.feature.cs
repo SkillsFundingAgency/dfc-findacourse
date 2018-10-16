@@ -551,7 +551,7 @@ this.ScenarioInitialize(scenarioInfo);
 #line 252
  testRunner.Given("I navigate to Find a Course home page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line 253
- testRunner.When("I click Contact a Careers Adviser link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("I click Contact a careers adviser link", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line 254
  testRunner.Then("I will be on Contact us page", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
