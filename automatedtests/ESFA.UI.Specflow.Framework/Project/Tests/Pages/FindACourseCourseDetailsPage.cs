@@ -48,6 +48,10 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.Pages
         private readonly By equipment = By.XPath(".//*[@id='2']/p[2]");
         private readonly By assessment = By.XPath(".//*[@id='2']/p[4]");
         private readonly By providerAddress = By.XPath(".//*[@id='6']/aside/table[1]/tbody/tr/td[2]");
+        private readonly By journeyTime = By.XPath(".//*[@id='JourneyTimesTrigger']");
+        private readonly By drivingTime = By.XPath(".//*[@id='JourneyTimes']/table/tr[1]/td[1]");
+        private readonly By otherCourses = By.XPath(".//*[@id='6']/aside/details/summary");
+        private readonly By firstCourse = By.XPath(".//*[@id='6']/aside/details/div/table/tbody[1]/tr/td[3]/a");
 
         internal FindACourseCourseDetailsPage CheckNullResults()
         {
@@ -168,8 +172,7 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.Pages
             PageInteractionHelper.VerifyElementPresent(venuePhone);
             return new FindACourseCourseDetailsPage(webDriver);
         }
-
-  
+          
         internal FindACourseCourseDetailsPage ClickEnrolNow()
         {
             FormCompletionHelper.ClickElement(button);
@@ -193,6 +196,32 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.Pages
             PageInteractionHelper.IsElementDisplayed(assessment);
             return new FindACourseCourseDetailsPage(webDriver);
         }
+
+        internal FindACourseCourseDetailsPage GetJourneyTime()
+        {
+            PageInteractionHelper.IsElementDisplayed(journeyTime);
+            FormCompletionHelper.ClickElement(journeyTime);
+            System.Threading.Thread.Sleep(2000);
+            PageInteractionHelper.IsElementDisplayed(drivingTime);
+
+            if (webDriver.FindElement(drivingTime).GetAttribute("innerText") != "Driving")
+                {
+                throw new Exception("Google Journey Times not displayed");
+                }
+
+            return new FindACourseCourseDetailsPage(webDriver);
+        }
+
+        internal FindACourseCourseDetailsPage ViewOtherCourses()
+        {
+            PageInteractionHelper.IsElementDisplayed(otherCourses);
+            FormCompletionHelper.ClickElement(otherCourses);
+            System.Threading.Thread.Sleep(1000);
+            PageInteractionHelper.IsElementDisplayed(firstCourse);
+            FormCompletionHelper.ClickElement(firstCourse);
+            return new FindACourseCourseDetailsPage(webDriver);
+        }
+
     }
 
  }
