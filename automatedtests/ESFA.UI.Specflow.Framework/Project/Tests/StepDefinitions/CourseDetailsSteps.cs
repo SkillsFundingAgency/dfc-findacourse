@@ -181,5 +181,20 @@ namespace ESFA.UI.Specflow.Framework.Project.Tests.StepDefinitions
             findACourseCourseDetailsPage.GetProviderAddress();
         }
 
+        [Then(@"the Journey Time is displayed")]
+        public void JourneyTimeIsDisplayed()
+        {
+            FindACourseCourseDetailsPage findACourseCourseDetailsPage = new FindACourseCourseDetailsPage(webDriver);
+            findACourseCourseDetailsPage.GetJourneyTime();
+        }
+
+
+        [When(@"I view other courses")]
+        public void ViewOtherCourses()
+        {
+            FindACourseCourseDetailsPage findACourseCourseDetailsPage = new FindACourseCourseDetailsPage(webDriver);
+            findACourseCourseDetailsPage.ViewOtherCourses();
+        }
+
     }
 }
