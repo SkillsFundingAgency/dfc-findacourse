@@ -224,7 +224,7 @@ Scenario Outline: DFC-4914 Venue on Google Maps
     | CourseName       | Location |
     | cisco            | M1 1AE   |
     | geology          | b14 7rn  |
-    | History         | gu21 6yl |
+    | History          | gu21 6yl |
     | Gardening        | b14 7en  |
     | COMPUTER SCIENCE | BD1 1AJ  |
     | SOFTWARE         | E8 1DY   |
@@ -350,7 +350,7 @@ Scenario Outline: DFC-3975 View Course equipment
     | cake baking     |
 
 
-	@DFC-3975
+@DFC-3975
 Scenario Outline: DFC-3975 View Course assessment method
 	Given I navigate to Find a Course home page
 	When I enter course <CourseName>
@@ -363,3 +363,47 @@ Scenario Outline: DFC-3975 View Course assessment method
   Examples:
     | CourseName |
     | Network Engineering (Cyber Security) BSc Hons Degree Top up  |
+
+
+@DFC-3977
+Scenario Outline: DFC-3977 View Journey Times
+	Given I navigate to Find a Course home page
+	When I enter course <CourseName>
+	And I enter location <Location>
+	And I click Search
+	Then I should be on Search Results for page
+	When I select course title
+	Then the View Course details page is displayed
+	And the Journey Time is displayed
+
+  Examples:
+    | CourseName       | Location |
+    | Biology          | B13 9DA  |
+    | cisco            | M1 1AE   |
+    | geology          | b14 7rn  |
+    | History          | gu21 6yl |
+    | Gardening        | b14 7en  |
+    | COMPUTER SCIENCE | BD1 1AJ  |
+    | SOFTWARE         | E8 1DY   |
+    | INFORMATION      | YO1 6GA  |
+    | COMPUTING        | SW2 1RW  |
+
+
+@DFC-3978
+Scenario Outline: DFC-3978 View Other Dates and Venues
+	Given I navigate to Find a Course home page
+	When I enter course <CourseName>
+	And I enter location <Location>
+	And I click Search
+	Then I should be on Search Results for page
+	When I select course title
+	Then the View Course details page is displayed
+	When I view other courses
+	Then the View Course details page is displayed
+	When I view other courses
+	Then the View Course details page is displayed
+
+  Examples:
+    | CourseName                            | Location |
+    | Award in Education and Training Level | EN3 5HA  |
+
