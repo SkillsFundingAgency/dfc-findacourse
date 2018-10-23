@@ -1,0 +1,716 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:wsap="http://schemas.xmlsoap.org/ws/2004/08/addressing/policy" xmlns:wsa10="http://www.w3.org/2005/08/addressing" xmlns:tns="http://schemas.imservices.gov.uk/alse/coursesearch/type/1.0" xmlns:msc="http://schemas.microsoft.com/ws/2005/12/wsdl/contract" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:wsx="http://schemas.xmlsoap.org/ws/2004/09/mex" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsam="http://www.w3.org/2007/05/addressing/metadata" xmlns:wsa="http://schemas.xmlsoap.org/ws/2004/08/addressing" xmlns:wsaw="http://www.w3.org/2006/05/addressing/wsdl" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="CourseSearchService" targetNamespace="http://schemas.imservices.gov.uk/alse/coursesearch/type/1.0" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsp:Policy wsu:Id="BasicHttpBinding_ServiceInterface_policy">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:TransportBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:TransportToken>
+              <wsp:Policy>
+                <sp:HttpsToken RequireClientCertificate="false" />
+              </wsp:Policy>
+            </sp:TransportToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:Basic256 />
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Strict />
+              </wsp:Policy>
+            </sp:Layout>
+          </wsp:Policy>
+        </sp:TransportBinding>
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+  <wsdl:types>
+    <xs:schema xmlns:tns="http://schemas.imservices.gov.uk/alse/coursesearch/subjectbrowse/1.0" elementFormDefault="qualified" targetNamespace="http://schemas.imservices.gov.uk/alse/coursesearch/subjectbrowse/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" />
+      <xs:element name="SubjectBrowseRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="APIKey" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="SubjectBrowseReponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="Level1" type="tns:Level1" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="Level1">
+        <xs:sequence>
+          <xs:element xmlns:q1="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" minOccurs="0" maxOccurs="1" name="LDCS" type="q1:LDCSInfoType" />
+          <xs:element minOccurs="0" maxOccurs="1" name="CourseCounts" type="xs:nonNegativeInteger" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Level2" type="tns:Level2" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="Level2">
+        <xs:sequence>
+          <xs:element xmlns:q2="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" minOccurs="0" maxOccurs="1" name="LDCS" type="q2:LDCSInfoType" />
+          <xs:element minOccurs="0" maxOccurs="1" name="CourseCounts" type="xs:nonNegativeInteger" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="Level3" type="tns:CategoryInfo" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="CategoryInfo">
+        <xs:sequence>
+          <xs:element xmlns:q3="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" minOccurs="0" maxOccurs="1" name="LDCS" type="q3:LDCSInfoType" />
+          <xs:element minOccurs="0" maxOccurs="1" name="CourseCounts" type="xs:nonNegativeInteger" />
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" elementFormDefault="qualified" targetNamespace="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:complexType name="LDCSInfoType">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="LDCSCode" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="LDCSDesc" type="xs:string" />
+          <xs:element minOccurs="1" maxOccurs="1" name="Searchable" type="tns:YesNoType" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:simpleType name="YesNoType">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="Yes" />
+          <xs:enumeration value="No" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:complexType name="FaultDetails">
+        <xs:sequence>
+          <xs:element name="major" nillable="true" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+          <xs:element minOccurs="0" name="minor" nillable="true" type="xs:string">
+            <xs:annotation>
+              <xs:appinfo>
+                <DefaultValue EmitDefaultValue="false" xmlns="http://schemas.microsoft.com/2003/10/Serialization/" />
+              </xs:appinfo>
+            </xs:annotation>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="FaultDetails" nillable="true" type="tns:FaultDetails" />
+      <xs:complexType name="ProviderDetail">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:ProviderInfo">
+            <xs:sequence>
+              <xs:element minOccurs="0" maxOccurs="1" name="ProviderAddress" type="tns:AddressType" />
+              <xs:element minOccurs="0" maxOccurs="1" name="Website" type="xs:string" />
+              <xs:element minOccurs="0" maxOccurs="1" name="Email" type="xs:string" />
+              <xs:element minOccurs="0" maxOccurs="1" name="Phone" type="xs:string" />
+              <xs:element minOccurs="0" maxOccurs="1" name="Fax" type="xs:string" />
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="ProviderInfo">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="ProviderID" type="xs:integer" />
+          <xs:element minOccurs="0" maxOccurs="1" name="ProviderName" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="UKPRN" type="xs:integer" />
+          <xs:element minOccurs="0" maxOccurs="1" name="UPIN" type="xs:integer" />
+          <xs:element minOccurs="0" maxOccurs="1" name="TFPlusLoans" type="xs:boolean" />
+          <xs:element minOccurs="0" maxOccurs="1" name="DFE1619Funded" type="xs:boolean" />
+          <xs:element minOccurs="0" maxOccurs="1" name="FEChoices_LearnerDestination" type="xs:double" />
+          <xs:element minOccurs="0" maxOccurs="1" name="FEChoices_LearnerSatisfaction" type="xs:double" />
+          <xs:element minOccurs="0" maxOccurs="1" name="FEChoices_EmployerSatisfaction" type="xs:double" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="AddressType">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="Address_line_1" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Address_line_2" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Town" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="County" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="PostCode" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Latitude" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Longitude" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="LDCSInputType">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="CategoryCode" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="QualificationTypes">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="QualificationType" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="QualificationLevels">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="QualificationLevel" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="StudyModeType">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="StudyMode" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="AttendaceModeType">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="AttendanceMode" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="AttendancePatternType">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="AttendancePattern" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="A10InputType">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="A10Code" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:simpleType name="SortType">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="A" />
+          <xs:enumeration value="D" />
+          <xs:enumeration value="S" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:complexType name="ResultInfoType">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="NoOfPages" type="xs:integer" />
+          <xs:element minOccurs="0" maxOccurs="1" name="NoOfRecords" type="xs:integer" />
+          <xs:element minOccurs="0" maxOccurs="1" name="PageNo" type="xs:integer" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="CourseInfo">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="CourseID" type="xs:integer" />
+          <xs:element minOccurs="0" maxOccurs="1" name="CourseTitle" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="QualificationType" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="QualificationLevel" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="LDCS" type="tns:LDCSOutputType" />
+          <xs:element minOccurs="0" maxOccurs="1" name="NoOfOpps" type="xs:integer" />
+          <xs:element minOccurs="0" maxOccurs="1" name="CourseSummary" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="LDCSOutputType">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="CatCode1" type="tns:LDCSInfoType" />
+          <xs:element minOccurs="0" maxOccurs="1" name="CatCode2" type="tns:LDCSInfoType" />
+          <xs:element minOccurs="0" maxOccurs="1" name="CatCode3" type="tns:LDCSInfoType" />
+          <xs:element minOccurs="0" maxOccurs="1" name="CatCode4" type="tns:LDCSInfoType" />
+          <xs:element minOccurs="0" maxOccurs="1" name="CatCode5" type="tns:LDCSInfoType" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="CourseDetail">
+        <xs:complexContent mixed="false">
+          <xs:extension base="tns:CourseInfo">
+            <xs:sequence>
+              <xs:element minOccurs="0" maxOccurs="1" name="AwardingBody" type="xs:string" />
+              <xs:element minOccurs="0" maxOccurs="1" name="EntryRequirements" type="xs:string" />
+              <xs:element minOccurs="0" maxOccurs="1" name="AssessmentMethod" type="xs:string" />
+              <xs:element minOccurs="0" maxOccurs="1" name="EquipmentRequired" type="xs:string" />
+              <xs:element minOccurs="0" maxOccurs="1" name="URL" type="xs:string" />
+              <xs:element minOccurs="0" maxOccurs="1" name="BookingURL" type="xs:string" />
+              <xs:element minOccurs="0" maxOccurs="1" name="TariffRequired" type="xs:string" />
+              <xs:element minOccurs="0" maxOccurs="1" name="LADID" type="xs:string" />
+              <xs:element minOccurs="1" maxOccurs="1" name="DataType">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:enumeration value="UCAS" />
+                    <xs:enumeration value="LAD - Type1" />
+                    <xs:enumeration value="LAD - Type2" />
+                    <xs:enumeration value="No LAD - Type3" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="1" name="QualificationReferenceAuthority" type="xs:string" />
+              <xs:element minOccurs="0" maxOccurs="1" name="QualificationReference" type="xs:string" />
+              <xs:element minOccurs="0" maxOccurs="1" name="QualificationTitle" type="xs:string" />
+              <xs:element minOccurs="0" maxOccurs="1" name="Level2EntitlementCategoryDesc" type="xs:string" />
+              <xs:element minOccurs="0" maxOccurs="1" name="Level3EntitlementCategoryDesc" type="xs:string" />
+              <xs:element minOccurs="0" maxOccurs="1" name="SectorLeadBodyDesc" type="xs:string" />
+              <xs:element minOccurs="0" maxOccurs="1" name="AccreditationStartDate" type="xs:string" />
+              <xs:element minOccurs="0" maxOccurs="1" name="AccreditationEndDate" type="xs:string" />
+              <xs:element minOccurs="0" maxOccurs="1" name="CertificationEndDate" type="xs:string" />
+              <xs:element minOccurs="0" maxOccurs="1" name="CreditValue" type="xs:string" />
+              <xs:element minOccurs="0" maxOccurs="1" name="QCAGuidedLearningHours" type="xs:string" />
+              <xs:element minOccurs="1" maxOccurs="1" name="IndependentLivingSkills">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:enumeration value="Y" />
+                    <xs:enumeration value="N" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element minOccurs="1" maxOccurs="1" name="SkillsForLifeFlag">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:enumeration value="Y" />
+                    <xs:enumeration value="N" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element minOccurs="0" maxOccurs="1" name="SkillsForLifeTypeDesc" type="xs:string" />
+              <xs:element minOccurs="1" maxOccurs="1" name="ERAppStatus">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:enumeration value="Invalid" />
+                    <xs:enumeration value="Valid" />
+                    <xs:enumeration value="NotNewStarts" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element minOccurs="1" maxOccurs="1" name="ERTTGStatus">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:enumeration value="Invalid" />
+                    <xs:enumeration value="Valid" />
+                    <xs:enumeration value="NotNewStarts" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element minOccurs="1" maxOccurs="1" name="AdultLRStatus">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:enumeration value="Invalid" />
+                    <xs:enumeration value="Valid" />
+                    <xs:enumeration value="NotNewStarts" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+              <xs:element minOccurs="1" maxOccurs="1" name="OtherFundingNonFundedStatus">
+                <xs:simpleType>
+                  <xs:restriction base="xs:string">
+                    <xs:enumeration value="Valid" />
+                    <xs:enumeration value="NotNewStarts" />
+                  </xs:restriction>
+                </xs:simpleType>
+              </xs:element>
+            </xs:sequence>
+          </xs:extension>
+        </xs:complexContent>
+      </xs:complexType>
+      <xs:complexType name="OpportunityInfo">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="OpportunityId" type="xs:integer" />
+          <xs:element minOccurs="0" maxOccurs="1" name="StudyMode" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="AttendanceMode" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="AttendancePattern" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="DFE1619Funded" type="xs:boolean" />
+          <xs:element minOccurs="0" maxOccurs="1" name="StartDate" type="tns:StartDateType" />
+          <xs:element minOccurs="0" maxOccurs="1" name="EndDate" type="xs:string" />
+          <xs:choice minOccurs="1" maxOccurs="1">
+            <xs:element minOccurs="0" maxOccurs="1" name="RegionName" type="xs:string" />
+            <xs:element minOccurs="0" maxOccurs="1" name="Venue" type="tns:VenueInfo" />
+          </xs:choice>
+          <xs:element minOccurs="0" maxOccurs="1" name="Duration" type="tns:DurationType" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="StartDateType">
+        <xs:sequence>
+          <xs:choice minOccurs="1" maxOccurs="1">
+            <xs:element minOccurs="0" maxOccurs="1" name="Date" type="xs:string" />
+            <xs:element minOccurs="0" maxOccurs="1" name="DateDesc" type="xs:string" />
+          </xs:choice>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="VenueInfo">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="VenueName" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Distance" type="xs:float" />
+          <xs:element minOccurs="0" maxOccurs="1" name="VenueAddress" type="tns:AddressType" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="DurationType">
+        <xs:sequence>
+          <xs:element minOccurs="1" maxOccurs="1" name="DurationValue" nillable="true" type="xs:integer" />
+          <xs:element minOccurs="0" maxOccurs="1" name="DurationUnit" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="DurationDescription" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="OpportunityDetail">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="ProviderOpportunityId" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Price" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="PriceDesc" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="StartDate" type="tns:StartDateType" />
+          <xs:element minOccurs="0" maxOccurs="1" name="EndDate" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Duration" type="tns:DurationType" />
+          <xs:element minOccurs="0" maxOccurs="1" name="StudyMode" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="AttendanceMode" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="AttendancePattern" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Timetable" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="LanguageOfAssessment" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="LanguageOfInstruction" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="PlacesAvailable" type="xs:integer" />
+          <xs:element minOccurs="0" maxOccurs="1" name="EnquireTo" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="ApplyTo" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="ApplyFromDate" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="ApplyUntilDate" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="ApplyUntilDesc" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="URL" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="A10" type="xs:string" />
+          <xs:choice minOccurs="0" maxOccurs="unbounded">
+            <xs:element minOccurs="0" maxOccurs="1" name="RegionName" type="xs:string" />
+            <xs:element minOccurs="0" maxOccurs="1" name="VenueID" type="xs:integer" />
+          </xs:choice>
+          <xs:element minOccurs="0" maxOccurs="1" name="ApplicationAcceptedThroughoutYear">
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:enumeration value="Y" />
+                <xs:enumeration value="N" />
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:element>
+          <xs:element minOccurs="0" maxOccurs="1" name="OpportunityId" type="xs:integer" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="VenueDetail">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="VenueID" type="xs:integer" />
+          <xs:element minOccurs="0" maxOccurs="1" name="VenueName" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="VenueAddress" type="tns:AddressType" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Website" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Email" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Phone" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Fax" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Facilities" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.microsoft.com/2003/10/Serialization/" attributeFormDefault="qualified" elementFormDefault="qualified" targetNamespace="http://schemas.microsoft.com/2003/10/Serialization/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="anyType" nillable="true" type="xs:anyType" />
+      <xs:element name="anyURI" nillable="true" type="xs:anyURI" />
+      <xs:element name="base64Binary" nillable="true" type="xs:base64Binary" />
+      <xs:element name="boolean" nillable="true" type="xs:boolean" />
+      <xs:element name="byte" nillable="true" type="xs:byte" />
+      <xs:element name="dateTime" nillable="true" type="xs:dateTime" />
+      <xs:element name="decimal" nillable="true" type="xs:decimal" />
+      <xs:element name="double" nillable="true" type="xs:double" />
+      <xs:element name="float" nillable="true" type="xs:float" />
+      <xs:element name="int" nillable="true" type="xs:int" />
+      <xs:element name="long" nillable="true" type="xs:long" />
+      <xs:element name="QName" nillable="true" type="xs:QName" />
+      <xs:element name="short" nillable="true" type="xs:short" />
+      <xs:element name="string" nillable="true" type="xs:string" />
+      <xs:element name="unsignedByte" nillable="true" type="xs:unsignedByte" />
+      <xs:element name="unsignedInt" nillable="true" type="xs:unsignedInt" />
+      <xs:element name="unsignedLong" nillable="true" type="xs:unsignedLong" />
+      <xs:element name="unsignedShort" nillable="true" type="xs:unsignedShort" />
+      <xs:element name="char" nillable="true" type="tns:char" />
+      <xs:simpleType name="char">
+        <xs:restriction base="xs:int" />
+      </xs:simpleType>
+      <xs:element name="duration" nillable="true" type="tns:duration" />
+      <xs:simpleType name="duration">
+        <xs:restriction base="xs:duration">
+          <xs:pattern value="\-?P(\d*D)?(T(\d*H)?(\d*M)?(\d*(\.\d*)?S)?)?" />
+          <xs:minInclusive value="-P10675199DT2H48M5.4775808S" />
+          <xs:maxInclusive value="P10675199DT2H48M5.4775807S" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:element name="guid" nillable="true" type="tns:guid" />
+      <xs:simpleType name="guid">
+        <xs:restriction base="xs:string">
+          <xs:pattern value="[\da-fA-F]{8}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{4}-[\da-fA-F]{12}" />
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:attribute name="FactoryType" type="xs:QName" />
+      <xs:attribute name="Id" type="xs:ID" />
+      <xs:attribute name="Ref" type="xs:IDREF" />
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.imservices.gov.uk/alse/coursesearch/providersearch/1.0" elementFormDefault="qualified" targetNamespace="http://schemas.imservices.gov.uk/alse/coursesearch/providersearch/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" />
+      <xs:element name="ProviderSearchRequest" type="tns:ProviderSearchRequestStructure" />
+      <xs:complexType name="ProviderSearchRequestStructure">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="ProviderKeyword" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="APIKey" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="ProviderSearchResponse" type="tns:ProviderSearchResponseStructure" />
+      <xs:complexType name="ProviderSearchResponseStructure">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="ProviderDetails" type="tns:ProviderStructure" />
+          <xs:element minOccurs="0" maxOccurs="1" name="RequestDetails">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element minOccurs="0" maxOccurs="1" name="ProviderSearch" type="tns:ProviderSearchRequestStructure" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="ProviderStructure">
+        <xs:sequence>
+          <xs:element xmlns:q1="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" minOccurs="0" maxOccurs="1" name="Provider" type="q1:ProviderDetail" />
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.imservices.gov.uk/alse/coursesearch/courselist/1.2" elementFormDefault="qualified" targetNamespace="http://schemas.imservices.gov.uk/alse/coursesearch/courselist/1.2" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" />
+      <xs:element name="CourseListRequest" type="tns:CourseListRequestStructure" />
+      <xs:complexType name="CourseListRequestStructure">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="CourseSearchCriteria" type="tns:SearchCriteriaStructure" />
+          <xs:element xmlns:q1="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" minOccurs="0" maxOccurs="1" name="SortBy" type="q1:SortType" />
+          <xs:element minOccurs="0" maxOccurs="1" name="PageNo" type="xs:integer" />
+          <xs:element minOccurs="0" maxOccurs="1" name="RecordsPerPage" type="xs:integer" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="SearchCriteriaStructure">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="APIKey" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="SubjectKeyword" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="DFE1619Funded" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Location" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="Distance" type="xs:float" />
+          <xs:element minOccurs="0" maxOccurs="1" name="ProviderID" type="xs:integer" />
+          <xs:element minOccurs="0" maxOccurs="1" name="ProviderKeyword" type="xs:string" />
+          <xs:element xmlns:q2="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" minOccurs="0" maxOccurs="1" name="LDCS" type="q2:LDCSInputType" />
+          <xs:element xmlns:q3="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" minOccurs="0" maxOccurs="1" name="QualificationTypes" type="q3:QualificationTypes" />
+          <xs:element xmlns:q4="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" minOccurs="0" maxOccurs="1" name="QualificationLevels" type="q4:QualificationLevels" />
+          <xs:element xmlns:q5="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" minOccurs="0" maxOccurs="1" name="StudyModes" type="q5:StudyModeType" />
+          <xs:element xmlns:q6="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" minOccurs="0" maxOccurs="1" name="AttendanceModes" type="q6:AttendaceModeType" />
+          <xs:element xmlns:q7="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" minOccurs="0" maxOccurs="1" name="AttendancePatterns" type="q7:AttendancePatternType" />
+          <xs:element xmlns:q8="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" minOccurs="0" maxOccurs="1" name="A10Codes" type="q8:A10InputType" />
+          <xs:element minOccurs="0" maxOccurs="1" name="EarliestStartDate" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="TTGFlag" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="TQSFlag" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="IESFlag" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="FlexStartFlag" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="OppsAppClosedFlag" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="ERAppStatus" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="ERTtgStatus" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="AdultLRStatus" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="OtherFundingStatus" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="SFLFlag" type="xs:string" />
+          <xs:element minOccurs="0" maxOccurs="1" name="ILSFlag" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:element name="CourseListResponse" type="tns:CourseListResponseStructure" />
+      <xs:complexType name="CourseListResponseStructure">
+        <xs:sequence>
+          <xs:element xmlns:q9="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" minOccurs="0" maxOccurs="1" name="ResultInfo" type="q9:ResultInfoType" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="CourseDetails" type="tns:CourseStructure" />
+          <xs:element minOccurs="0" maxOccurs="1" name="RequestDetails" type="tns:CourseListRequestStructure" />
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="MatchingLDCS">
+            <xs:complexType>
+              <xs:sequence>
+                <xs:element xmlns:q10="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" minOccurs="0" maxOccurs="1" name="LDCS" type="q10:LDCSInfoType" />
+                <xs:element minOccurs="0" maxOccurs="1" name="Counts" type="xs:integer" />
+              </xs:sequence>
+            </xs:complexType>
+          </xs:element>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="CourseStructure">
+        <xs:sequence>
+          <xs:element xmlns:q11="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" minOccurs="0" maxOccurs="1" name="Provider" type="q11:ProviderInfo" />
+          <xs:element xmlns:q12="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" minOccurs="0" maxOccurs="1" name="Course" type="q12:CourseInfo" />
+          <xs:element xmlns:q13="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" minOccurs="0" maxOccurs="1" name="Opportunity" type="q13:OpportunityInfo" />
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.imservices.gov.uk/alse/coursesearch/coursedetail/1" elementFormDefault="qualified" targetNamespace="http://schemas.imservices.gov.uk/alse/coursesearch/coursedetail/1" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" />
+      <xs:element name="CourseDetailRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="CourseID" type="xs:integer" />
+            <xs:element minOccurs="0" maxOccurs="1" name="APIKey" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="CourseDetailResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="RequestDetails" type="tns:CourseDetailRequestStructure" />
+            <xs:element minOccurs="0" maxOccurs="unbounded" name="CourseDetails" type="tns:CourseDetailStructure" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="CourseDetailRequestStructure">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="CourseID" type="xs:integer" />
+          <xs:element minOccurs="0" maxOccurs="1" name="APIKey" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="CourseDetailStructure">
+        <xs:sequence>
+          <xs:element xmlns:q1="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" minOccurs="0" maxOccurs="1" name="Provider" type="q1:ProviderDetail" />
+          <xs:element xmlns:q2="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" minOccurs="0" maxOccurs="1" name="Course" type="q2:CourseDetail" />
+          <xs:element xmlns:q3="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" minOccurs="0" maxOccurs="unbounded" name="Opportunity" type="q3:OpportunityDetail" />
+          <xs:element xmlns:q4="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" minOccurs="0" maxOccurs="unbounded" name="Venue" type="q4:VenueDetail" />
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+    <xs:schema xmlns:tns="http://schemas.imservices.gov.uk/alse/coursesearch/providerdetails/1.0" elementFormDefault="qualified" targetNamespace="http://schemas.imservices.gov.uk/alse/coursesearch/providerdetails/1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:import namespace="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" />
+      <xs:element name="ProviderDetailsRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="ProviderID" type="xs:integer" />
+            <xs:element minOccurs="0" maxOccurs="1" name="APIKey" type="xs:string" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="ProviderDetailsResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element minOccurs="0" maxOccurs="1" name="RequestDetails" type="tns:ProviderDetailsRequestStructure" />
+            <xs:element xmlns:q1="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" minOccurs="0" maxOccurs="1" name="ProviderDetails" type="q1:ProviderDetail" />
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="ProviderDetailsRequestStructure">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="1" name="ProviderID" type="xs:integer" />
+          <xs:element minOccurs="0" maxOccurs="1" name="APIKey" type="xs:string" />
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="SubjectBrowseInput">
+    <wsdl:part xmlns:q1="http://schemas.imservices.gov.uk/alse/coursesearch/subjectbrowse/1.0" name="parameters" element="q1:SubjectBrowseRequest" />
+  </wsdl:message>
+  <wsdl:message name="SubjectBrowseOutput">
+    <wsdl:part xmlns:q2="http://schemas.imservices.gov.uk/alse/coursesearch/subjectbrowse/1.0" name="parameters" element="q2:SubjectBrowseReponse" />
+  </wsdl:message>
+  <wsdl:message name="ServiceInterface_GetCategories_FaultDetails_FaultMessage">
+    <wsdl:part xmlns:q3="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" name="detail" element="q3:FaultDetails" />
+  </wsdl:message>
+  <wsdl:message name="ProviderSearchInput">
+    <wsdl:part xmlns:q4="http://schemas.imservices.gov.uk/alse/coursesearch/providersearch/1.0" name="ProviderSearchRequest" element="q4:ProviderSearchRequest" />
+  </wsdl:message>
+  <wsdl:message name="ProviderSearchOutput">
+    <wsdl:part xmlns:q5="http://schemas.imservices.gov.uk/alse/coursesearch/providersearch/1.0" name="ProviderSearchResponse" element="q5:ProviderSearchResponse" />
+  </wsdl:message>
+  <wsdl:message name="ServiceInterface_ProviderSearch_FaultDetails_FaultMessage">
+    <wsdl:part xmlns:q6="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" name="detail" element="q6:FaultDetails" />
+  </wsdl:message>
+  <wsdl:message name="CourseListInput">
+    <wsdl:part xmlns:q7="http://schemas.imservices.gov.uk/alse/coursesearch/courselist/1.2" name="CourseListRequest" element="q7:CourseListRequest" />
+  </wsdl:message>
+  <wsdl:message name="CourseListOutput">
+    <wsdl:part xmlns:q8="http://schemas.imservices.gov.uk/alse/coursesearch/courselist/1.2" name="CourseListResponse" element="q8:CourseListResponse" />
+  </wsdl:message>
+  <wsdl:message name="ServiceInterface_CourseList_FaultDetails_FaultMessage">
+    <wsdl:part xmlns:q9="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" name="detail" element="q9:FaultDetails" />
+  </wsdl:message>
+  <wsdl:message name="CourseDetailInput">
+    <wsdl:part xmlns:q10="http://schemas.imservices.gov.uk/alse/coursesearch/coursedetail/1" name="parameters" element="q10:CourseDetailRequest" />
+  </wsdl:message>
+  <wsdl:message name="CourseDetailOutput">
+    <wsdl:part xmlns:q11="http://schemas.imservices.gov.uk/alse/coursesearch/coursedetail/1" name="parameters" element="q11:CourseDetailResponse" />
+  </wsdl:message>
+  <wsdl:message name="ServiceInterface_CourseDetail_FaultDetails_FaultMessage">
+    <wsdl:part xmlns:q12="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" name="detail" element="q12:FaultDetails" />
+  </wsdl:message>
+  <wsdl:message name="ProviderDetailsInput">
+    <wsdl:part xmlns:q13="http://schemas.imservices.gov.uk/alse/coursesearch/providerdetails/1.0" name="parameters" element="q13:ProviderDetailsRequest" />
+  </wsdl:message>
+  <wsdl:message name="ProviderDetailsOutput">
+    <wsdl:part xmlns:q14="http://schemas.imservices.gov.uk/alse/coursesearch/providerdetails/1.0" name="parameters" element="q14:ProviderDetailsResponse" />
+  </wsdl:message>
+  <wsdl:message name="ServiceInterface_ProviderDetails_FaultDetails_FaultMessage">
+    <wsdl:part xmlns:q15="http://schemas.imservices.gov.uk/alse/coursesearch/commonlibrary/1.2" name="detail" element="q15:FaultDetails" />
+  </wsdl:message>
+  <wsdl:portType name="ServiceInterface">
+    <wsdl:operation name="GetCategories">
+      <wsdl:input wsaw:Action="urn:CourseBrowse" name="SubjectBrowseInput" message="tns:SubjectBrowseInput" />
+      <wsdl:output wsaw:Action="http://schemas.imservices.gov.uk/alse/coursesearch/type/1.0/ServiceInterface/GetCategoriesResponse" name="SubjectBrowseOutput" message="tns:SubjectBrowseOutput" />
+      <wsdl:fault wsaw:Action="urn:CourseBrowse" name="FaultDetails" message="tns:ServiceInterface_GetCategories_FaultDetails_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ProviderSearch">
+      <wsdl:input wsaw:Action="urn:ProviderSearchOperation" name="ProviderSearchInput" message="tns:ProviderSearchInput" />
+      <wsdl:output wsaw:Action="http://schemas.imservices.gov.uk/alse/coursesearch/type/1.0/ServiceInterface/ProviderSearchResponse" name="ProviderSearchOutput" message="tns:ProviderSearchOutput" />
+      <wsdl:fault wsaw:Action="urn:ProviderSearchOperation" name="FaultDetails" message="tns:ServiceInterface_ProviderSearch_FaultDetails_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CourseList">
+      <wsdl:input wsaw:Action="urn:CourseListOperation" name="CourseListInput" message="tns:CourseListInput" />
+      <wsdl:output wsaw:Action="http://schemas.imservices.gov.uk/alse/coursesearch/type/1.0/ServiceInterface/CourseListResponse" name="CourseListOutput" message="tns:CourseListOutput" />
+      <wsdl:fault wsaw:Action="urn:CourseListOperation" name="FaultDetails" message="tns:ServiceInterface_CourseList_FaultDetails_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="CourseDetail">
+      <wsdl:input wsaw:Action="urn:CourseDetailOperation" name="CourseDetailInput" message="tns:CourseDetailInput" />
+      <wsdl:output wsaw:Action="http://schemas.imservices.gov.uk/alse/coursesearch/type/1.0/ServiceInterface/CourseDetailResponse" name="CourseDetailOutput" message="tns:CourseDetailOutput" />
+      <wsdl:fault wsaw:Action="urn:CourseDetailOperation" name="FaultDetails" message="tns:ServiceInterface_CourseDetail_FaultDetails_FaultMessage" />
+    </wsdl:operation>
+    <wsdl:operation name="ProviderDetails">
+      <wsdl:input wsaw:Action="urn:ProviderDetailsOperation" name="ProviderDetailsInput" message="tns:ProviderDetailsInput" />
+      <wsdl:output wsaw:Action="http://schemas.imservices.gov.uk/alse/coursesearch/type/1.0/ServiceInterface/ProviderDetailsResponse" name="ProviderDetailsOutput" message="tns:ProviderDetailsOutput" />
+      <wsdl:fault wsaw:Action="urn:ProviderDetailsOperation" name="FaultDetails" message="tns:ServiceInterface_ProviderDetails_FaultDetails_FaultMessage" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BasicHttpBinding_ServiceInterface" type="tns:ServiceInterface">
+    <wsp:PolicyReference URI="#BasicHttpBinding_ServiceInterface_policy" />
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetCategories">
+      <soap:operation soapAction="urn:CourseBrowse" style="document" />
+      <wsdl:input name="SubjectBrowseInput">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="SubjectBrowseOutput">
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="FaultDetails">
+        <soap:fault use="literal" name="FaultDetails" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ProviderSearch">
+      <soap:operation soapAction="urn:ProviderSearchOperation" style="document" />
+      <wsdl:input name="ProviderSearchInput">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="ProviderSearchOutput">
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="FaultDetails">
+        <soap:fault use="literal" name="FaultDetails" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="CourseList">
+      <soap:operation soapAction="urn:CourseListOperation" style="document" />
+      <wsdl:input name="CourseListInput">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="CourseListOutput">
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="FaultDetails">
+        <soap:fault use="literal" name="FaultDetails" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="CourseDetail">
+      <soap:operation soapAction="urn:CourseDetailOperation" style="document" />
+      <wsdl:input name="CourseDetailInput">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="CourseDetailOutput">
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="FaultDetails">
+        <soap:fault use="literal" name="FaultDetails" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="ProviderDetails">
+      <soap:operation soapAction="urn:ProviderDetailsOperation" style="document" />
+      <wsdl:input name="ProviderDetailsInput">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="ProviderDetailsOutput">
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="FaultDetails">
+        <soap:fault use="literal" name="FaultDetails" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CourseSearchService">
+    <wsdl:port name="BasicHttpBinding_ServiceInterface" binding="tns:BasicHttpBinding_ServiceInterface">
+      <soap:address location="https://apitest.coursedirectoryproviderportal.org.uk/CourseSearchService.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
