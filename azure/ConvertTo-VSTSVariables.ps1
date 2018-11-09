@@ -4,6 +4,7 @@ param (
 
 # Output from ARM template is a JSON document
 $jsonvars = $ARMOutput | convertfrom-json
+Write-Host $jsonvars
 
 # VSTS variables to be extracted from JSON
 $storageAccountName = $jsonvars.storageAccountName.value
