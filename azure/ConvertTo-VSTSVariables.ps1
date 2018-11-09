@@ -1,5 +1,6 @@
 param (
-    [Parameter(Mandatory=$true)][string]$ARMOutput
+    [Parameter(Mandatory=$true)][string]$ARMOutput,
+    [hashtable] $rename
 )
 
 # Output from ARM template is a JSON document
@@ -12,8 +13,17 @@ foreach ($outputname in ($jsonvars | Get-Member -MemberType NoteProperty).name) 
     $outtype = $outtypevalue.type
     $outvalue = $outtypevalue.value
 
+    # Check if variable name needs renaming
+    if ($outputname -in $rename.keys) {
+        $oldname = $outputname
+        $outputname = $rename[$outputname]
+        Write-Host "Creating VSTS variable $outputname from $oldname"
+    }
+    else {
+        Write-Host "Creating VSTS variable $outputname"
+    }
+
     # Set VSTS variable
-    Write-Host "Creating VSTS variable $outputname - $outvalue [$outtype]"
     if ($outtype.toLower() -eq 'securestring') {
         Write-Host "##vso[task.setvariable variable=$outputname;issecret=true]$outvalue"
     }
