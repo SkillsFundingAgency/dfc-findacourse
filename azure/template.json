@@ -328,7 +328,7 @@
       "value": "[variables('appServiceName')]"
     },
     "appInsightInstrumentationKey": {
-      "type": "string",
+      "type": "securestring",
       "value": "[reference('primaryUIAppInsights').outputs.InstrumentationKey.value]"
     },
     "appInsightAppId": {
