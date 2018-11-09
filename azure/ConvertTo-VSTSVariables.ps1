@@ -13,6 +13,7 @@ foreach ($outputname in ($jsonvars | Get-Member -MemberType NoteProperty).name) 
     $outvalue = $outtypevalue.value
 
     # Set VSTS variable
+    Write-Host "Creating VSTS variable $outputname - $outvalue [$outtype]"
     if ($outtype.toLower() -eq 'securestring') {
         Write-Host "##vso[task.setvariable variable=$outputname;issecret=true]$outvalue"
     }
