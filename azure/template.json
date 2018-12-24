@@ -31,7 +31,14 @@
       "type": "string",
       "defaultValue": "",
       "metadata": {
-        "description": "Key vault where the certificate had been uploaded to (must exist in app service plan resource group) - only used if appHostName is specified"
+        "description": "Key vault where the certificate had been uploaded to - only used if appHostName is specified"
+      }
+    },
+    "keyVaultResourceGroup": {
+      "type": "string",
+      "defaultValue": "",
+      "metadata": {
+        "description": "Resource group the kay vault is in - only used if appHostName is specified"
       }
     },
     "certificateName": {
@@ -144,7 +151,7 @@
             "value": "[parameters('keyVaultName')]"
           },
           "keyVaultResourceGroup": {
-            "value": "[parameters('appServicePlanResourceGroup')]"
+            "value": "[parameters('keyVaultResourceGroup')]"
           },
           "serverFarmId": {
             "value": "[resourceId(parameters('appServicePlanResourceGroup'), 'Microsoft.Web/serverfarms', parameters('appServicePlanName'))]"
