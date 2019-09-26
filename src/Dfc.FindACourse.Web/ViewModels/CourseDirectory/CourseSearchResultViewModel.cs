@@ -27,9 +27,9 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
         }
         public CourseSearchResultViewModel(IResult<FindACourseSearchResult> result)
         {
-            NoOfRecords = result.Value.ODataCount.Value;
-            NoOfPages = result.Value.NoOfPages.Value;
-            PageNo = result.Value.PageNo.Value;
+            NoOfRecords = (result.HasValue && result.Value.ODataCount.HasValue) ? result.Value.ODataCount.Value : 0;
+            NoOfPages = result.Value.NoOfPages.HasValue ? result.Value.NoOfPages.Value : 0;
+            PageNo = result.Value.PageNo.HasValue ? result.Value.PageNo.Value : 0;
             Items = result.Value.Value.Select(x => new CourseSearchResultItemViewModel(x)).ToList();
             LocationRadius = RadiusDistance.Miles10;
             StudyModes = new int[] { };
