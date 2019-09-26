@@ -80,6 +80,24 @@
       "metadata": {
         "description": "Link for a survey to be included in the banner"
       }
+    },
+    "apimKey": {
+      "type": "securestring",
+      "metadata": {
+        "description": "API Management key for accessing API instances"
+      }
+    },
+    "FACPassword": {
+      "type": "securestring",
+      "metadata": {
+        "description": "Additional password for accessing the FindACourse API"
+      }
+    },
+    "apimCoursesUrl": {
+      "type": "string",
+      "metadata": {
+        "description": "URL to the FindACourse API"
+      }
     }
   },
   "variables": {
@@ -314,6 +332,26 @@
               {
                 "name": "Postcodes.Io__ApiBaseUrl",
                 "value": "http://api.postcodes.io"
+              },
+              {
+                "name": "FindACourse__ApiKey",
+                "value": "[parameters('apimKey')]"
+              },
+              {
+                "name": "FindACourse__Ocp-Apim-Subscription-Key",
+                "value": "[parameters('apimKey')]"
+              },
+              {
+                "name": "FindACourse__UserName",
+                "value": "APIUser"
+              },
+              {
+                "name": "FindACourse__Password",
+                "value": "[parameters('FACPassword')]"
+              },
+              {
+                "name": "FindACourse__APIAddress",
+                "value": "[parameters('apimCoursesUrl')]"
               }
             ]
           }
