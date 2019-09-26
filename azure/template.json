@@ -98,6 +98,12 @@
       "metadata": {
         "description": "URL to the FindACourse API"
       }
+    },
+    "courseApiUrl": {
+      "type": "string",
+      "metadata": {
+        "description": "URL to the Courses API"
+      }
     }
   },
   "variables": {
@@ -352,6 +358,14 @@
               {
                 "name": "FindACourse__APIAddress",
                 "value": "[parameters('apimCoursesUrl')]"
+              },
+              {
+                "name": "CourseAPI__ApiKey",
+                "value": "[parameters('apimKey')]"
+              },
+              {
+                "name": "CourseAPI__APIAddress",
+                "value": "[parameters('courseApiUrl')]"
               }
             ]
           }
