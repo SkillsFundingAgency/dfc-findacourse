@@ -274,43 +274,43 @@ namespace Dfc.FindACourse.Web.xUnit.UnitTests
         //    AssertDefaultView(result);
         //}
 
-        [Fact]
-        public void TestCourseSearchResultWithValidModelState()
-        {
-            var fromQuery = new CourseSearchRequestModel() { SubjectKeyword = "TestSubjectKeyword", LocationRadius = 10 };
-            var criteria = new CourseSearchCriteria("test");
-            var courseSearchResult = Result.Ok(new CourseSearchResult(1, 1, 1, new CourseItem[] { }));
-            var expected = new CourseSearchResultViewModel(courseSearchResult)
-            {
-                SubjectKeyword = fromQuery.SubjectKeyword,
-                Location = fromQuery.Location,
-                AttendanceModes = fromQuery.AttendanceModes,
-                AttendancePatterns = fromQuery.AttendancePatterns,
-                QualificationLevels = fromQuery.QualificationLevels
-            };
+        //[Fact]
+        //public void TestCourseSearchResultWithValidModelState()
+        //{
+        //    var fromQuery = new CourseSearchRequestModel() { SubjectKeyword = "TestSubjectKeyword", LocationRadius = 10 };
+        //    var criteria = new CourseSearchCriteria("test");
+        //    var courseSearchResult = Result.Ok(new CourseSearchResult(1, 1, 1, new CourseItem[] { }));
+        //    var expected = new CourseSearchResultViewModel(courseSearchResult)
+        //    {
+        //        SubjectKeyword = fromQuery.SubjectKeyword,
+        //        Location = fromQuery.Location,
+        //        AttendanceModes = fromQuery.AttendanceModes,
+        //        AttendancePatterns = fromQuery.AttendancePatterns,
+        //        QualificationLevels = fromQuery.QualificationLevels
+        //    };
 
-            MockTelemetryClient.Setup(x => x.TrackEvent(It.IsAny<string>(), null, null)).Verifiable();
-            MockTelemetryClient.Setup(x => x.Flush()).Verifiable();
-            MockCourseDirectory.Setup(x => x.CreateCourseSearchCriteria(fromQuery)).Returns(criteria);
-            MockCourseDirectory.Setup(x => x.IsSuccessfulResult(
-                It.IsAny<IResult<CourseSearchResult>>(), It.IsAny<ITelemetryClient>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<DateTime>()
-                )).Returns(true);
-            //MockCourseDirectoryService.Setup(x => x.CourseDirectorySearch(criteria, It.IsAny<PagingOptions>())).Returns(courseSearchResult);
+        //    MockTelemetryClient.Setup(x => x.TrackEvent(It.IsAny<string>(), null, null)).Verifiable();
+        //    MockTelemetryClient.Setup(x => x.Flush()).Verifiable();
+        //    MockCourseDirectory.Setup(x => x.CreateCourseSearchCriteria(fromQuery)).Returns(criteria);
+        //    MockCourseDirectory.Setup(x => x.IsSuccessfulResult(
+        //        It.IsAny<IResult<CourseSearchResult>>(), It.IsAny<ITelemetryClient>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<DateTime>()
+        //        )).Returns(true);
+        //    //MockCourseDirectoryService.Setup(x => x.CourseDirectorySearch(criteria, It.IsAny<PagingOptions>())).Returns(courseSearchResult);
 
-            var result = Controller.CourseSearchResult(fromQuery) as ViewResult;
-            MockTelemetryClient.Verify(x=>x.TrackEvent(It.IsAny<string>(), null, null),(Times.AtLeastOnce()));
-            MockTelemetryClient.Verify(x => x.Flush(), (Times.Exactly(1)));
-            Assert.NotNull(result);
-            Assert.NotNull(result);
-            Assert.NotNull(result.Model);
-            expected.IsSame(result.Model);
-            Assert.Null(result.ContentType);
-            Assert.Null(result.StatusCode);
-            Assert.Null(result.TempData);
-            Assert.Null(result.ViewEngine);
-            Assert.Null(result.ViewName);
-            Assert.True(result.ViewData.Count == 0);
-        }
+        //    var result = Controller.CourseSearchResult(fromQuery) as ViewResult;
+        //    MockTelemetryClient.Verify(x=>x.TrackEvent(It.IsAny<string>(), null, null),(Times.AtLeastOnce()));
+        //    MockTelemetryClient.Verify(x => x.Flush(), (Times.Exactly(1)));
+        //    Assert.NotNull(result);
+        //    Assert.NotNull(result);
+        //    Assert.NotNull(result.Model);
+        //    expected.IsSame(result.Model);
+        //    Assert.Null(result.ContentType);
+        //    Assert.Null(result.StatusCode);
+        //    Assert.Null(result.TempData);
+        //    Assert.Null(result.ViewEngine);
+        //    Assert.Null(result.ViewName);
+        //    Assert.True(result.ViewData.Count == 0);
+        //}
 
         private void AssertDefaultView(ViewResult result)
         {
