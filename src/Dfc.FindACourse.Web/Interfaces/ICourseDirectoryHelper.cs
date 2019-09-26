@@ -8,8 +8,8 @@ namespace Dfc.FindACourse.Web.Interfaces
 {
     public interface ICourseDirectoryHelper
     {
-        List<QualLevel> QualificationLevels(ICourseSearchRequestModel requestModel);
-        List<StudyModeExt> StudyModes(ICourseSearchRequestModel requestModel);
+        List<string> QualificationLevels(ICourseSearchRequestModel requestModel);
+        List<string> StudyModes(ICourseSearchRequestModel requestModel);
         IEnumerable<string> GetMatches(string search, XmlNodeList expnData);
         IEnumerable<string> GetMissSpellings(string search, XmlDocument searchTerms, XmlNodeList expnData);
         bool HasQualificationLevels(ICourseSearchRequestModel requestModel);

@@ -11,7 +11,7 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
     {
         private static readonly string _distanceDisplayText = "Contact provider";
 
-        
+
         public CourseSearchResultItemViewModel(ICourseItem item)
         {
             Id = item.Course.Id;
@@ -27,8 +27,24 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
             StartDate = item.Opportunity.StartDate.ToString();
             Duration = item.Opportunity.Duration.ToString();
         }
-
+        public CourseSearchResultItemViewModel(IFindACourseSearchItem item)
+        {
+            //Id = item.CourseId.;
+            CourseId = item.CourseId;
+            CourseTitle = item.QualificationCourseTitle;
+            QualificationLevel = StringtoQual(item.NotionalNVQLevelv2);
+            StudyMode = StudyMode.FullTime;
+            AttendanceMode = AttendanceMode.DistanceWithAttendance;
+            AttendencePattern = StringtoAP(item.VenueAttendancePattern);
+            ProviderName = item.ProviderName;
+            Location = !string.IsNullOrEmpty(item.VenueAddress) ? item.VenueAddress : item.Region.ToString();
+            Distance = DistanceDisplayText(item.GeoSearchDistance);
+            //Distance = (item.Opportunity.HasVenue && item.Opportunity.Venue.Distance.HasValue) ? item.Opportunity.Venue.Distance.Value.ToString("0.0") : "0.0";
+            StartDate = string.Empty;// item..Opportunity.StartDate.ToString();
+            //Duration = "9 months";
+        }
         public int Id { get; set; }
+        public string CourseId { get; set; }
         public string CourseTitle { get; set; }
         public QualificationLevel QualificationLevel { get; set; }
         public StudyMode StudyMode { get; set; }
@@ -87,6 +103,44 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
             }
 
             return _distanceDisplayText;
+        }
+        internal string DistanceDisplayText(float? distance)
+        {
+            if (distance.HasValue)
+            {
+                return $"{distance.Value.ToString("0.0")} miles";
+            }
+
+            return _distanceDisplayText;
+        }
+        internal QualificationLevel StringtoQual(string notional)
+        {
+            switch (notional)
+            {
+                case "1": return QualificationLevel.Level1;
+                case "2": return QualificationLevel.Level2;
+                case "3": return QualificationLevel.Level3;
+                case "4": return QualificationLevel.Level4;
+                case "5": return QualificationLevel.Level5;
+                case "6": return QualificationLevel.Level6;
+                case "7": return QualificationLevel.Level7;
+                case "8": return QualificationLevel.Level8;
+                default: return QualificationLevel.LevelNa;
+            }
+
+        }
+        internal AttendancePattern StringtoAP(string vap)
+        {
+            switch (vap)
+            {
+                case "1": return AttendancePattern.DaytimeWorkHours;
+                case "2": return AttendancePattern.Evening;
+                case "3": return AttendancePattern.DayBlockRelease;
+                default: return AttendancePattern.Customised;
+
+
+
+            }
         }
     }
 }

@@ -61,7 +61,7 @@ namespace Dfc.FindACourse.Web.Services
 
         public ICourseSearchCriteria CreateCourseSearchCriteria(ICourseSearchRequestModel requestModel)
         {
-            return new CourseSearchCriteria (
+            var crit =  new CourseSearchCriteria (
                 requestModel.SubjectKeyword,
                 CourseDirectoryHelper.QualificationLevels(requestModel),
                 requestModel.Location,
@@ -71,6 +71,7 @@ namespace Dfc.FindACourse.Web.Services
                 CourseDirectoryHelper.AttendanceModes(requestModel),
                 CourseDirectoryHelper.AttendancePatterns(requestModel)
             );
+            return crit;
         }
 
         public bool IsSuccessfulResult<T>(IResult<T> result, ITelemetryClient telemetryClient,

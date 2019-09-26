@@ -11,11 +11,13 @@ namespace Dfc.FindACourse.Common.Models
         public string SubjectKeyword { get; set; }
         public string TownOrPostcode { get; set; }
         public int? Distance { get; set; }
-        public List<QualLevel> QualificationLevels { get; set; }
-        public List<StudyModeExt> StudyModes { get; set; }
+        public List<string> QualificationLevels { get; set; }
+        public List<string> StudyModes { get; set; }
         public List<string> AttendanceModes { get; set; }
         public List<string> AttendancePatterns { get; set; }
         public bool? IsDfe1619Funded { get; set; }
+        public int? TopResults { get; set; }
+        public int? PageNo { get; set; }
 
         public CourseSearchCriteria(string subjectKeyword)
         {
@@ -24,12 +26,12 @@ namespace Dfc.FindACourse.Common.Models
 
             SubjectKeyword = subjectKeyword;
 
-            QualificationLevels = new List<QualLevel>();
-            StudyModes = new List<StudyModeExt>();
+            QualificationLevels = new List<string>();
+            StudyModes = new List<string>();
             AttendanceModes = new List<string>();
             AttendancePatterns = new List<string>();
         }
-        public CourseSearchCriteria(string subjectKeyword, List<QualLevel> qualLevels, string postcode, int radius)
+        public CourseSearchCriteria(string subjectKeyword, List<string> qualLevels, string postcode, int radius)
         {
             if (string.IsNullOrWhiteSpace(subjectKeyword))
                 throw new ArgumentException($"{nameof(subjectKeyword)} cannot be null, empty or only whitespace.");
@@ -38,11 +40,11 @@ namespace Dfc.FindACourse.Common.Models
             TownOrPostcode = postcode;
             Distance = radius;
             QualificationLevels = qualLevels;
-            StudyModes = new List<StudyModeExt>();
+            StudyModes = new List<string>();
             AttendanceModes = new List<string>();
             AttendancePatterns = new List<string>();
         }
-        public CourseSearchCriteria(string subjectKeyword, List<QualLevel> qualLevels, string postcode, int radius, bool? dfeFunded)
+        public CourseSearchCriteria(string subjectKeyword, List<string> qualLevels, string postcode, int radius, bool? dfeFunded)
         {
             if (string.IsNullOrWhiteSpace(subjectKeyword))
                 throw new ArgumentException($"{nameof(subjectKeyword)} cannot be null, empty or only whitespace.");
@@ -52,11 +54,11 @@ namespace Dfc.FindACourse.Common.Models
             Distance = radius;
             QualificationLevels = qualLevels;
             IsDfe1619Funded = dfeFunded;
-            StudyModes = new List<StudyModeExt>();
+            StudyModes = new List<string>();
             AttendanceModes = new List<string>();
             AttendancePatterns = new List<string>();
         }
-        public CourseSearchCriteria(string subjectKeyword, List<QualLevel> qualLevels, string postcode, int radius, bool? dfeFunded, List<StudyModeExt> studyModes, List<string> attendanceModes, List<string> attendancePatterns)
+        public CourseSearchCriteria(string subjectKeyword, List<string> qualLevels, string postcode, int radius, bool? dfeFunded, List<string> studyModes, List<string> attendanceModes, List<string> attendancePatterns)
         {
             if (string.IsNullOrWhiteSpace(subjectKeyword))
                 throw new ArgumentException($"{nameof(subjectKeyword)} cannot be null, empty or only whitespace.");

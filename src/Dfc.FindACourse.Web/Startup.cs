@@ -2,6 +2,7 @@
 using Dfc.FindACourse.Common.Interfaces;
 using Dfc.FindACourse.Common.Settings;
 using Dfc.FindACourse.Services.CourseDirectory;
+using Dfc.FindACourse.Services.FindACourse;
 using Dfc.FindACourse.Services.Interfaces;
 using Dfc.FindACourse.Services.Postcode;
 using Dfc.FindACourse.Web.Interfaces;
@@ -58,6 +59,18 @@ namespace Dfc.FindACourse.Web
                     Configuration["Tribal:ApiKey"],
                     tribalPerPage,
                     Configuration["Tribal:APIAddress"]));
+            services.AddSingleton(typeof(ICourseAPIConfiguration),
+                new CourseAPIConfiguration(
+                    Configuration["CourseAPI:ApiKey"],
+                    Configuration["CourseAPI:APIAddress"]));
+
+            services.AddSingleton(typeof(IFindACourseConfiguration),
+                new FindACourseConfiguration(
+                    Configuration["FindACourse:ApiKey"],
+                    tribalPerPage,
+                    Configuration["FindACourse:APIAddress"],
+                    Configuration["FindACourse:UserName"],
+                    Configuration["FindACourse:Password"]));
 
             services.AddScoped<ServiceInterface>((provider) =>
                 new ServiceInterfaceClient(
@@ -68,6 +81,8 @@ namespace Dfc.FindACourse.Web
             services.Configure<App>(Configuration.GetSection("App"));
             services.Configure<App>(Configuration.GetSection("Storage"));
             services.Configure<App>(Configuration.GetSection("Tribal"));
+            //NCS Find A Course
+            services.Configure<App>(Configuration.GetSection("FindACourse"));
 
             services.AddSingleton(typeof(IPostcodeServiceConfiguration),
                 new PostcodeServiceConfiguration(Configuration["Postcodes.Io:ApiBaseUrl"]));

@@ -24,7 +24,7 @@ namespace Dfc.FindACourse.Services.CourseDirectory
             {
                 APIKey = apiKey,
                 SubjectKeyword = criteria.SubjectKeyword.Contains(" ") ? $"'{criteria.SubjectKeyword}'" : criteria.SubjectKeyword,
-                QualificationLevels = Helper.GetQualificationLevels(criteria.QualificationLevels),
+                QualificationLevels = criteria.QualificationLevels.ToArray(),
                 Location = Helper.GetTownOrPostcode(criteria.TownOrPostcode),
                 Distance = Helper.GetDistance(criteria),
                 DFE1619Funded = Helper.GetDfe1619Funded(criteria),

@@ -56,7 +56,7 @@ namespace Dfc.FindACourse.Services.CourseDirectory
 
             if (searchCriteria.StudyModes != null && searchCriteria.StudyModes.Count > 0)
             {
-                results = searchCriteria.StudyModes.Select(x => x.Value).ToArray();
+                results = searchCriteria.StudyModes.ToArray();
             }
 
             return results;

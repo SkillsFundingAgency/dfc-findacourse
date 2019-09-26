@@ -8,10 +8,13 @@ namespace Dfc.FindACourse.Common.Interfaces
         string SubjectKeyword { get; set; }
         string TownOrPostcode { get; set; }
         int? Distance { get; set; }
-        List<QualLevel> QualificationLevels { get; set; }
-        List<StudyModeExt> StudyModes { get; set; }
+        List<string> QualificationLevels { get; set; }
+        List<string> StudyModes { get; set; }
         List<string> AttendanceModes { get; set; }
         List<string> AttendancePatterns { get; set; }
         bool? IsDfe1619Funded { get; set; }
+
+        int? TopResults { get; set; }
+        int? PageNo { get; set; }
     }
 }

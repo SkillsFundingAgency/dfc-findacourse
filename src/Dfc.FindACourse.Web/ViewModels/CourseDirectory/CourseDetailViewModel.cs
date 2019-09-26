@@ -61,7 +61,50 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
 
             Postcode = postcode;
         }
+        public CourseDetailViewModel(IFindACourseDetail value, string distance, string postcode, int? oppid)
+        {
+            if (value != null)
+            {
+                CourseId = value.CourseId.HasValue ? value.CourseId.Value : 0;
+                CourseTitle = value.QualificationCourseTitle;
+                CourseSummary = value.CourseDescription;
+                //QualificationLevel = value.FindACourseRuns.FirstOrDefault().n.Coursedetails.QualificationLevel;
+                //StudyMode = value.Opportunities[0].StudyMode;
+                //AttendanceMode = value.Opportunities[0].AttendanceMode;
+                //AttendencePattern = value.Opportunities[0].AttendancePattern;
+                //ProviderName = value.Provider.Name;
+                //Location = (value.Opportunities[0].HasVenue) ? value.Opportunities[0].Venue.Address.ToString() : value.Opportunities[0].Region;
+                //Distance = (value.Opportunities[0].HasVenue && value.Opportunities[0].Venue.Distance.HasValue) ? value.Opportunities[0].Venue.Distance.Value.ToString("0.0") : distance;
+                //StartDate = value.Opportunities[0].StartDate.ToString();
+                //Duration = value.Opportunities[0].Duration.ToString();
+                //AwardingBody = value.Coursedetails.AwardingBody;
+                EntryRequirements = value.EntryRequirements;
+                AssessmentMethod = value.HowYoullBeAssessed;
+                EquipmentRequired = value.WhatYoullNeed;
+                //URL = Uri.IsWellFormedUriString(value.Coursedetails.URL, UriKind.Absolute) ? value.Coursedetails.URL : string.Empty;
+                //BookingURL = Uri.IsWellFormedUriString(value.Coursedetails.BookingURL, UriKind.Absolute) ? value.Coursedetails.BookingURL : string.Empty;
+                //TariffRequired = value.Coursedetails.TariffRequired;
+                LADID = value.LearnAimRef;
+                //QualificationReferenceAuthority = value.Coursedetails.QualificationReferenceAuthority;
+                //QualificationReference = value.Coursedetails.QualificationReference;
+                //QualificationTitle = value.Coursedetails.QualificationTitle;
+                //Level2EntitlementCategoryDesc = value.Coursedetails.Level2EntitlementCategoryDesc;
+                //Level3EntitlementCategoryDesc = value.Coursedetails.Level3EntitlementCategoryDesc;
+                //SectorLeadBodyDesc = value.Coursedetails.SectorLeadBodyDesc;
+                //AccreditationStartDate = value.Coursedetails.AccreditationStartDate;
+                //AccreditationEndDate = value.Coursedetails.AccreditationEndDate;
+                //CertificationEndDate = value.Coursedetails.CertificationEndDate;
+                //CreditValue = value.Coursedetails.CreditValue;
+                //QCAGuidedLearningHours = value.Coursedetails.QCAGuidedLearningHours;
+                //SkillsForLifeTypeDesc = value.Coursedetails.SkillsForLifeTypeDesc;
+                //Venues = value.Venues != null ? value.Venues.AsEnumerable().Cast<Venue>().ToList() : null;
+                //Provider = (Provider)value.Provider;
+                ////Load Opportunities, passing in the venue list for linking, and the opportunityID to set order
+                //Opportunities = LoadOpportunities(value, Venues, oppid);
+            }
 
+            Postcode = postcode;
+        }
         private List<Opportunity> LoadOpportunities(ICourseItemDetail value, List<Venue> venues, int? oppid = null)
         {
             List<Opportunity> data = value.Opportunities.AsEnumerable().Cast<Opportunity>().OrderBy(o => o.StartDate.Date).ToList();
