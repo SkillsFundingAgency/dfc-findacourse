@@ -1,11 +1,12 @@
 ﻿using Dfc.FindACourse.Common.Interfaces;
 using Dfc.FindACourse.Common.Models;
+using Dfc.FindACourse.Common.Models.FindACourse;
 
 namespace Dfc.FindACourse.Services.Interfaces
 {
     public interface ICourseDirectoryService
     {
-        IResult<CourseSearchResult> CourseDirectorySearch(ICourseSearchCriteria criteria, IPagingOptions options);
+        IResult<FindACourseSearchResult> CourseDirectorySearch(ICourseSearchCriteria criteria, IPagingOptions options);
 
         //According to the stub this result set contains
         // CourseDetailRequestStructure and CourseDetailStructure
@@ -20,6 +21,6 @@ namespace Dfc.FindACourse.Services.Interfaces
         //  
         //  
 
-        IResult<CourseItemDetail> CourseItemDetail(int? courseDetailsId, int? opportunityId);
+        IResult<FindACourseDetail> CourseItemDetail(string courseid, int? opportunityId);
     }
 }

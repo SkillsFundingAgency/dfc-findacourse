@@ -17,9 +17,9 @@ namespace Dfc.FindACourse.Web.Services
             FileHelper = fileHelper;
         }
 
-        public List<QualLevel> QualificationLevels(ICourseSearchRequestModel requestModel)
+        public List<string> QualificationLevels(ICourseSearchRequestModel requestModel)
         {
-            var qualificationLevels = new List<QualLevel>();
+            var qualificationLevels = new List<string>();
 
             if (!HasQualificationLevels(requestModel)) return qualificationLevels;
 
@@ -32,12 +32,12 @@ namespace Dfc.FindACourse.Web.Services
                         var m = levelsFromFile.FirstOrDefault(y => y.Key.ToString() == x.ToString());
                         if (m != null)
                         {
-                            qualificationLevels.Add(m);
+                            qualificationLevels.Add(m.Key);
                         }
                     }
                 );
 
-            return qualificationLevels.Count() == 9 ? new List<QualLevel>() : qualificationLevels;
+            return qualificationLevels.Count() == 9 ? new List<string>() : qualificationLevels;
         }
 
         public bool HasQualificationLevels(ICourseSearchRequestModel requestModel)
@@ -45,9 +45,9 @@ namespace Dfc.FindACourse.Web.Services
             return requestModel.QualificationLevels != null && requestModel.QualificationLevels.Length > 0;
         }
 
-        public List<StudyModeExt> StudyModes (ICourseSearchRequestModel requestModel)
+        public List<string> StudyModes (ICourseSearchRequestModel requestModel)
         {
-            var paramStudyModes = new List<StudyModeExt>();
+            var paramStudyModes = new List<string>();
             
             //If we have study modes int array in the model then create the List<StudyModes> 
             if (requestModel.StudyModes == null || requestModel.StudyModes.Length <= 0) return paramStudyModes;
@@ -61,12 +61,12 @@ namespace Dfc.FindACourse.Web.Services
                         var m = allStudyModes.FirstOrDefault(y => y.Key.ToString() == x.ToString());
                         if (m != null)
                         {
-                            paramStudyModes.Add(m);
+                            paramStudyModes.Add(m.Key.ToString());
                         }
                     }
                 );
 
-            return paramStudyModes.Count() == 3 ? new List<StudyModeExt>() : paramStudyModes;
+            return paramStudyModes.Count() == 3 ? new List<string>() : paramStudyModes;
         }
 
         public IEnumerable<string> GetMissSpellings(string search, XmlDocument searchTerms, XmlNodeList expansionNodes)

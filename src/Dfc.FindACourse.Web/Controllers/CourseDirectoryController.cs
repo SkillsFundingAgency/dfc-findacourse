@@ -13,6 +13,7 @@ using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Options;
 using System;
+using System.Globalization;
 using System.Linq;
 
 namespace Dfc.FindACourse.Web.Controllers
@@ -129,8 +130,13 @@ namespace Dfc.FindACourse.Web.Controllers
                 }
             }
 
+            Telemetry.TrackEvent($"[{DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss.ffffff", CultureInfo.InvariantCulture)}] Starting to create course search criteria.");
             var criteria = CourseDirectory.CreateCourseSearchCriteria(requestModel);
+            Telemetry.TrackEvent($"[{DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss.ffffff", CultureInfo.InvariantCulture)}] Finished creating course search criteria.");
+
+            Telemetry.TrackEvent($"[{DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss.ffffff", CultureInfo.InvariantCulture)}] Starting call to course directory search from the course directory service.");
             var result = Service.CourseDirectorySearch(criteria, new PagingOptions(CourseDirectoryHelper.GetSortBy(requestModel.SortBy), requestModel.PageNo));
+            Telemetry.TrackEvent($"[{DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss.ffffff", CultureInfo.InvariantCulture)}] Finished calling course directory search from the course directory service.");
 
             if (!CourseDirectory.IsSuccessfulResult(result, Telemetry, "Course Search", requestModel.SubjectKeyword, dtStart))
                 return View(nameof(Error), new Models.ErrorViewModel() { RequestId = "Course Search: " + requestModel.SubjectKeyword.ToString() + ". " + (null != result ? result.Error : string.Empty) });
@@ -162,7 +168,7 @@ namespace Dfc.FindACourse.Web.Controllers
         }
 
 
-        public IActionResult CourseDetails(int? id, string distance, string postcode)
+        public IActionResult CourseDetails(string CourseId, string distance, string postcode)
         {
             Telemetry.TrackEvent($"Logging: Started: Controller = {nameof(CourseDirectoryController)}: Action = {nameof(CourseDetails)}: {nameof(Environment.MachineName)} = {Environment.MachineName}: {nameof(CorrelationContextAccessor.CorrelationContext.CorrelationId)} = {CorrelationContextAccessor.CorrelationContext.CorrelationId}");
 
@@ -175,10 +181,14 @@ namespace Dfc.FindACourse.Web.Controllers
                 return View();
             }
 
-            var result = Service.CourseItemDetail(id, null);
+            Telemetry.TrackEvent($"[{DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss.ffffff", CultureInfo.InvariantCulture)}] Starting call to course item detail from the course directory service.");
+            var result = Service.CourseItemDetail(CourseId, null);
+            Telemetry.TrackEvent($"[{DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss.ffffff", CultureInfo.InvariantCulture)}] Finished calling course item detail from the course directory service.");
 
-            if (!CourseDirectory.IsSuccessfulResult(result, Telemetry, "Course Detail", id.Value.ToString(), dtStart))
-                return View(nameof(Error), new Models.ErrorViewModel() { RequestId = "Course Detail: " + id.Value.ToString() + ". " + (null != result ? result.Error:string.Empty) });
+            if (!CourseDirectory.IsSuccessfulResult(result, Telemetry, "Course Detail", CourseId, dtStart))
+                return View(nameof(Error), new Models.ErrorViewModel() { RequestId = "Course Detail: " + CourseId + ". " + (null != result ? result.Error:string.Empty) });
+
+            Telemetry.TrackEvent($"[{DateTime.UtcNow.ToString("yyyy-MM-dd HH:mm:ss.ffffff", CultureInfo.InvariantCulture)}] Ending call Controller = {nameof(CourseDirectoryController)}, Action = {nameof(CourseDetails)}");
 
             //DEBUG_FIX - Add the flush to see if working straightaway ASB TODO AGain is this correct as wont get called if ModelState is Invalid
             Telemetry.Flush();
@@ -188,7 +198,7 @@ namespace Dfc.FindACourse.Web.Controllers
             return View(nameof(CourseDetails), new CourseDetailViewModel(result.Value, !string.IsNullOrEmpty(distance) ? distance: string.Empty, postcode, null) { });
         }
       
-        public IActionResult OpportunityDetails(int? id, string distance, int? oppid, string postcode)
+        public IActionResult OpportunityDetails(string courseid, string distance, int? oppid, string postcode)
         {
             Telemetry.TrackEvent($"Logging: Started: Controller = {nameof(CourseDirectoryController)}: Action = {nameof(OpportunityDetails)}: {nameof(Environment.MachineName)} = {Environment.MachineName}: {nameof(CorrelationContextAccessor.CorrelationContext.CorrelationId)} = {CorrelationContextAccessor.CorrelationContext.CorrelationId}");
 
@@ -201,10 +211,10 @@ namespace Dfc.FindACourse.Web.Controllers
                 return View();
             }
 
-            var result = Service.CourseItemDetail(id, oppid);
+            var result = Service.CourseItemDetail(courseid, oppid);
 
-            if (!CourseDirectory.IsSuccessfulResult(result, Telemetry, "Course Detail", id.Value.ToString(), dtStart))
-                return View(nameof(Error), new Models.ErrorViewModel() { RequestId = "OpportunityDetails: " + id.Value.ToString() + ". " + (null != result ? result.Error : string.Empty) });
+            if (!CourseDirectory.IsSuccessfulResult(result, Telemetry, "Course Detail", courseid, dtStart))
+                return View(nameof(Error), new Models.ErrorViewModel() { RequestId = "OpportunityDetails: " + courseid + ". " + (null != result ? result.Error : string.Empty) });
 
             //DEBUG_FIX - Add the flush to see if working straightaway ASB TODO AGain is this correct as wont get called if ModelState is Invalid
             Telemetry.Flush();

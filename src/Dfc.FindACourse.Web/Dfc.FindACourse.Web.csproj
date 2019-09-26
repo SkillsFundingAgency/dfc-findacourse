@@ -33,7 +33,9 @@
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Extensions" Version="2.1.1" />
     <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging" Version="2.1.1" />
     <PackageReference Include="Microsoft.Extensions.Options" Version="2.1.1" />
+    <PackageReference Include="Microsoft.Spatial" Version="7.6.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.1.1" />
   </ItemGroup>
 

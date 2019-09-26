@@ -1,6 +1,7 @@
 ﻿using Dfc.FindACourse.Common;
 using Dfc.FindACourse.Common.Interfaces;
 using Dfc.FindACourse.Common.Models;
+using Dfc.FindACourse.Common.Models.FindACourse;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
@@ -24,13 +25,23 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
             StudyModes = new int[] { };
             AttendanceModes = new int[] { };
         }
-
+        public CourseSearchResultViewModel(IResult<FindACourseSearchResult> result)
+        {
+            NoOfRecords = result.Value.ODataCount.Value;
+            NoOfPages = result.Value.NoOfPages.Value;
+            PageNo = result.Value.PageNo.Value;
+            Items = result.Value.Value.Select(x => new CourseSearchResultItemViewModel(x)).ToList();
+            LocationRadius = RadiusDistance.Miles10;
+            StudyModes = new int[] { };
+            AttendanceModes = new int[] { };
+        }
+       
         public string ShowingFrom()
         {
             if ((PageNo == 1 || PageNo == 0) && NoOfRecords == 0)
                 return string.Empty;
 
-            if (PageNo == 1)
+            if (PageNo == 1 || PageNo == 0 || NoOfRecords <= PerPage)
                 return 1.ToString() + " to ";
                 
             var from = (PageNo - 1) * PerPage + 1;
