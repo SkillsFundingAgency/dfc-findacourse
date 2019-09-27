@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
     <Configurations>Debug;Release;Development</Configurations>
     <AssemblyVersion>1.0.18281.1040</AssemblyVersion>
     <FileVersion>1.0.18281.1040</FileVersion>
@@ -23,6 +23,10 @@
 
   <ItemGroup>
     <WCFMetadata Include="Connected Services" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Update="Microsoft.NETCore.App" Version="2.2.7" />
   </ItemGroup>
 
 </Project>
