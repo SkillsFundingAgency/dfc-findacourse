@@ -324,10 +324,10 @@ namespace Dfc.FindACourse.Services.xUnit.UnitTests
         //   */
         //}
 
-        private async Task<bool> ValidateResults(IResult<CourseSearchResult> res)
-        {
-            Parallel.ForEach(res.Value.Items, (x) => { });
-            return true;
-        }
+        //private async Task<bool> ValidateResults(IResult<CourseSearchResult> res)
+        //{
+        //    Parallel.ForEach(res.Value.Items, (x) => { });
+        //    return true;
+        //}
     }
 }

@@ -39,14 +39,15 @@ namespace Dfc.FindACourse.Services.CourseDirectory
         public IResult<FindACourseSearchResult> CourseDirectorySearch(ICourseSearchCriteria criteria, IPagingOptions options)
         {
             FindACourseService fac = new FindACourseService(FaCConfiguration, CourseAPIConfiguration);
+
             return fac.FindACourseSearch(criteria, options).Result;
 
         }
 
-        public IResult<Common.Models.FindACourse.FindACourseDetail> CourseItemDetail(string CourseId, int? opportunityId)
+        public IResult<Common.Models.FindACourse.FindACourseDetail> CourseItemDetail(string CourseId, string RunId)
         {
             FindACourseService fac = new FindACourseService(FaCConfiguration, CourseAPIConfiguration);
-            return fac.CourseGet(CourseId).Result;
+            return fac.CourseGet(CourseId, RunId).Result;
 
         }
     }

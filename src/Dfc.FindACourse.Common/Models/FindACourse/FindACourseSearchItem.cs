@@ -13,6 +13,7 @@ namespace Dfc.FindACourse.Common.Models.FindACourse
         public float? ScoreBoost { get; }
         public string Id { get; }
         public string CourseId { get; }
+        public string CourseRunId { get; }
         public string QualificationCourseTitle { get; }
         public string LearnAimRef { get; }
         public string NotionalNVQLevelv2 { get; }
@@ -22,10 +23,28 @@ namespace Dfc.FindACourse.Common.Models.FindACourse
         public string VenueAttendancePattern { get; }
         public string ProviderName { get; }
         public object Region { get; }
-        public int Status { get; }
+       
+        //new vars
+        public string Weighting { get; }
+        public string VenueStudyMode { get; }
+        public string DeliveryMode { get; }
+        public DateTime StartDate { get; }
+        public string VenueTown { get; }
+        public float? Cost { get; }
+        public string CostDescription { get; }
+        public string CourseText { get; }
+        public string VenueAttendancePatternDescription { get; }
+        public string VenueStudyModeDescription { get; }
+        public string DeliveryModeDescription { get; }
+        public string UKPRN { get; }
 
-        public FindACourseSearchItem(float searchscore, Venuelocation venueLocation, float? geoSearchDistance, float? scoreBoost, string id, string courseID, string qualificationCourseTitle
-            , string learnAimRef, string notionalNVQLevelv2, string updatedOn, string venueName, string venueAddress, string venueAttendancePattern, string providerName, object region, int status)
+        public int Status { get; }
+        public FindACourseSearchItem(float searchscore, Venuelocation venueLocation, float? geoSearchDistance, float? scoreBoost, string id, string courseID, string courserunID, string qualificationCourseTitle
+            , string learnAimRef, string notionalNVQLevelv2, string updatedOn, string venueName, string venueAddress, string venueAttendancePattern, string providerName, object region, 
+            string weighting, string venueStudyMode, string deliveryMode, DateTime startDate, string venuetown, float? cost, string costdescription, string coursetext, string venueattendancepatterndesc,
+            string venuestudymodedesc, string deliverymodedesc, string ukprn,
+                
+            int status)
         {
             SearchScore = searchscore;
             VenueLocation = venueLocation;
@@ -33,6 +52,7 @@ namespace Dfc.FindACourse.Common.Models.FindACourse
             ScoreBoost = scoreBoost;
             Id = id;
             CourseId = courseID;
+            CourseRunId = courserunID;
             QualificationCourseTitle = qualificationCourseTitle;
             LearnAimRef = learnAimRef;
             NotionalNVQLevelv2 = notionalNVQLevelv2;
@@ -42,6 +62,21 @@ namespace Dfc.FindACourse.Common.Models.FindACourse
             VenueAttendancePattern = venueAttendancePattern;
             ProviderName = providerName;
             Region = region;
+            Weighting = weighting;
+            VenueStudyMode = venueStudyMode;
+            DeliveryMode = deliveryMode;
+            StartDate = startDate;
+            VenueTown = venuetown;
+            Cost = cost.HasValue ? cost.Value : 0.0f;
+            CostDescription = costdescription;
+            CourseText = coursetext;
+            VenueAttendancePatternDescription = venueattendancepatterndesc;
+            VenueStudyModeDescription = venuestudymodedesc;
+            DeliveryModeDescription = deliverymodedesc;
+            UKPRN = ukprn;
+
+
+
             Status = status;
 
 

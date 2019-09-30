@@ -31,6 +31,7 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
         {
             //Id = item.CourseId.;
             CourseId = item.CourseId;
+            CourseRunId = item.CourseRunId;
             CourseTitle = item.QualificationCourseTitle;
             QualificationLevel = StringtoQual(item.NotionalNVQLevelv2);
             StudyMode = StudyMode.FullTime;
@@ -45,6 +46,7 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
         }
         public int Id { get; set; }
         public string CourseId { get; set; }
+        public string CourseRunId { get; set; }
         public string CourseTitle { get; set; }
         public QualificationLevel QualificationLevel { get; set; }
         public StudyMode StudyMode { get; set; }

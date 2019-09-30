@@ -16,6 +16,7 @@ namespace Dfc.FindACourse.Common.Interfaces
         float? ScoreBoost { get; }
         string Id { get; }
         string CourseId { get; }
+        string CourseRunId { get; }
         string QualificationCourseTitle { get; }
         string LearnAimRef { get; }
         string NotionalNVQLevelv2 { get; }
@@ -25,6 +26,18 @@ namespace Dfc.FindACourse.Common.Interfaces
         string VenueAttendancePattern { get; }
         string ProviderName { get; }
         object Region { get; }
+        string Weighting { get; }
+        string VenueStudyMode { get; }
+        string DeliveryMode { get; }
+        DateTime StartDate { get; }
+        string VenueTown { get; }
+        float? Cost { get; }
+        string CostDescription { get; }
+        string CourseText { get; }
+        string VenueAttendancePatternDescription { get; }
+        string VenueStudyModeDescription { get; }
+        string DeliveryModeDescription { get; }
+        string UKPRN { get; }
         int Status { get; }
 
     }

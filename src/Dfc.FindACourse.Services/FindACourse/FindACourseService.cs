@@ -31,11 +31,8 @@ namespace Dfc.FindACourse.Services.FindACourse
             clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
 
             // Pass the handler to httpclient(from you are calling api)
-            //var client = new HttpClient(clientHandler)
-            // Call service to get data
-            HttpClient client = new HttpClient(clientHandler);
-            //var criteria = new { PRN };
-            //criteria.SubjectKeyword = "biology";
+            var client = new HttpClient(clientHandler);
+            
             criteria.TopResults = Configuration.PerPage;
             criteria.PageNo = options.PageNo;
             //criteria.QualificationLevels = GetQualLevels(criteria.QualificationLevels):
@@ -84,6 +81,37 @@ namespace Dfc.FindACourse.Services.FindACourse
 
         //    return QualificationLevels.Select(x => x.Key).ToArray<string>();
         //}
+        public async Task<IResult<FindACourseDetail>> CourseGet(string courseId, string runId)
+        {
+            //Bypass current SSL Expiry
+            HttpClientHandler clientHandler = new HttpClientHandler();
+            clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
+            // Call service to get data
+            var client = new HttpClient();
+            //denbug
+            courseId = "657fb015-3ef6-47b7-af86-6ee761e688ce";
+            runId = "f79fdd88-2a7a-4856-959f-61b4ab036c1f";
+            var criteria = new FindACourseGetCriteria(courseId, runId);
+
+
+            //string urliii = $"{CourseAPIConfig.ApiAddress}/GetCourseById?id=" + courseId;
+            StringContent content = new StringContent(JsonConvert.SerializeObject(criteria), Encoding.UTF8, "application/json");
+            client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", Configuration.ApiKey);
+            //client.DefaultRequestHeaders.Add("Content-Type", "application/json");
+            client.DefaultRequestHeaders.Add("UserName", Configuration.UserName);
+            client.DefaultRequestHeaders.Add("Password", Configuration.Password);
+
+            //var response = await client.GetAsync(urliii);
+            var response = await client.PostAsync($"{Configuration.ApiAddress}/courseget", content);
+
+            var jsonResult = await response.Content.ReadAsStringAsync();
+
+            //// Return data as model object
+            ////return Result.Ok(JsonConvert.DeserializeObject<Common.Models.FindACourse.FindACourseSearchResult>(jsonResult));
+            //return CreateFindACourseCourseResult(jsonResult, options, Configuration.PerPage);
+
+            return CreateFindACourseDetailResult(jsonResult);
+        }
         public async Task<IResult<FindACourseDetail>> CourseGet(string courseId)
         {
             //Bypass current SSL Expiry
@@ -91,10 +119,10 @@ namespace Dfc.FindACourse.Services.FindACourse
             clientHandler.ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => { return true; };
             // Call service to get data
             HttpClient client = new HttpClient();
-                       
-           // StringContent content = new StringContent(JsonConvert.SerializeObject(criteria), Encoding.UTF8, "application/json");
+
+            // StringContent content = new StringContent(JsonConvert.SerializeObject(criteria), Encoding.UTF8, "application/json");
             client.DefaultRequestHeaders.Add("Ocp-Apim-Subscription-Key", CourseAPIConfig.ApiKey);
-            
+
             string urliii = $"{CourseAPIConfig.ApiAddress}/GetCourseById?id=" + courseId;
 
             var response = await client.GetAsync(urliii);
@@ -107,6 +135,7 @@ namespace Dfc.FindACourse.Services.FindACourse
 
             return CreateFindACourseDetailResult(jsonResult);
         }
+
         public IResult<FindACourseDetail> CreateFindACourseDetailResult(string response)
         {
             if (response == null)

@@ -17,7 +17,7 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
         /// Main view model constructor
         /// </summary>
         /// <param name="value"></param>
-        public CourseDetailViewModel(ICourseItemDetail value, string distance, string postcode, int? oppid)
+        public CourseDetailViewModel(ICourseItemDetail value, string distance, string postcode, string runId)
         {
             if (value != null)
             {
@@ -56,7 +56,7 @@ namespace Dfc.FindACourse.Web.ViewModels.CourseDirectory
                 Venues = value.Venues != null ? value.Venues.AsEnumerable().Cast<Venue>().ToList(): null;
                 Provider = (Provider)value.Provider;
                 //Load Opportunities, passing in the venue list for linking, and the opportunityID to set order
-                Opportunities = LoadOpportunities(value, Venues, oppid);
+                //Opportunities = LoadOpportunities(value, Venues, runId);
             }
 
             Postcode = postcode;

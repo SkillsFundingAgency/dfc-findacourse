@@ -198,31 +198,31 @@ namespace Dfc.FindACourse.Web.Controllers
             return View(nameof(CourseDetails), new CourseDetailViewModel(result.Value, !string.IsNullOrEmpty(distance) ? distance: string.Empty, postcode, null) { });
         }
       
-        public IActionResult OpportunityDetails(string courseid, string distance, int? oppid, string postcode)
-        {
-            Telemetry.TrackEvent($"Logging: Started: Controller = {nameof(CourseDirectoryController)}: Action = {nameof(OpportunityDetails)}: {nameof(Environment.MachineName)} = {Environment.MachineName}: {nameof(CorrelationContextAccessor.CorrelationContext.CorrelationId)} = {CorrelationContextAccessor.CorrelationContext.CorrelationId}");
+        //public IActionResult OpportunityDetails(string courseid, string distance, string runId, string postcode)
+        //{
+        //    Telemetry.TrackEvent($"Logging: Started: Controller = {nameof(CourseDirectoryController)}: Action = {nameof(OpportunityDetails)}: {nameof(Environment.MachineName)} = {Environment.MachineName}: {nameof(CorrelationContextAccessor.CorrelationContext.CorrelationId)} = {CorrelationContextAccessor.CorrelationContext.CorrelationId}");
 
-            //Parmeters
-            var dtStart = DateTime.Now;
+        //    //Parmeters
+        //    var dtStart = DateTime.Now;
 
-            if (!ModelState.IsValid)
-            {
-                Telemetry.TrackEvent($"CourseSearch: ModelState Invalid: Controller = {nameof(CourseDirectoryController)}: Action = {nameof(OpportunityDetails)}: {nameof(Environment.MachineName)} = {Environment.MachineName}: {nameof(CorrelationContextAccessor.CorrelationContext.CorrelationId)} = {CorrelationContextAccessor.CorrelationContext.CorrelationId}");
-                return View();
-            }
+        //    if (!ModelState.IsValid)
+        //    {
+        //        Telemetry.TrackEvent($"CourseSearch: ModelState Invalid: Controller = {nameof(CourseDirectoryController)}: Action = {nameof(OpportunityDetails)}: {nameof(Environment.MachineName)} = {Environment.MachineName}: {nameof(CorrelationContextAccessor.CorrelationContext.CorrelationId)} = {CorrelationContextAccessor.CorrelationContext.CorrelationId}");
+        //        return View();
+        //    }
 
-            var result = Service.CourseItemDetail(courseid, oppid);
+        //    var result = Service.CourseItemDetail(courseid, runId);
 
-            if (!CourseDirectory.IsSuccessfulResult(result, Telemetry, "Course Detail", courseid, dtStart))
-                return View(nameof(Error), new Models.ErrorViewModel() { RequestId = "OpportunityDetails: " + courseid + ". " + (null != result ? result.Error : string.Empty) });
+        //    if (!CourseDirectory.IsSuccessfulResult(result, Telemetry, "Course Detail", courseid, dtStart))
+        //        return View(nameof(Error), new Models.ErrorViewModel() { RequestId = "OpportunityDetails: " + courseid + ". " + (null != result ? result.Error : string.Empty) });
 
-            //DEBUG_FIX - Add the flush to see if working straightaway ASB TODO AGain is this correct as wont get called if ModelState is Invalid
-            Telemetry.Flush();
+        //    //DEBUG_FIX - Add the flush to see if working straightaway ASB TODO AGain is this correct as wont get called if ModelState is Invalid
+        //    Telemetry.Flush();
 
-            Telemetry.TrackEvent($"Logging: Ended: Controller = {nameof(CourseDirectoryController)}: Action = {nameof(OpportunityDetails)}: {nameof(Environment.MachineName)} = {Environment.MachineName}: {nameof(CorrelationContextAccessor.CorrelationContext.CorrelationId)} = {CorrelationContextAccessor.CorrelationContext.CorrelationId}");
+        //    Telemetry.TrackEvent($"Logging: Ended: Controller = {nameof(CourseDirectoryController)}: Action = {nameof(OpportunityDetails)}: {nameof(Environment.MachineName)} = {Environment.MachineName}: {nameof(CorrelationContextAccessor.CorrelationContext.CorrelationId)} = {CorrelationContextAccessor.CorrelationContext.CorrelationId}");
 
-            return View(nameof(CourseDetails), new CourseDetailViewModel(result.Value, !string.IsNullOrEmpty(distance) ? distance : string.Empty, postcode, oppid) { });
-        }
+        //    return View(nameof(CourseDetails), new CourseDetailViewModel(result.Value, !string.IsNullOrEmpty(distance) ? distance : string.Empty, postcode, runId) { });
+        //}
 
 
         /// <summary>

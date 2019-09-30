@@ -21,6 +21,6 @@ namespace Dfc.FindACourse.Services.Interfaces
         //  
         //  
 
-        IResult<FindACourseDetail> CourseItemDetail(string courseid, int? opportunityId);
+        IResult<FindACourseDetail> CourseItemDetail(string courseid, string runid);
     }
 }
